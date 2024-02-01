@@ -2,10 +2,10 @@
   "sign-in": {
     "title": "Sign-in",
     "description": "Sign-in to your account",
-    "submit": "Войти"
+    "submit": "Sign-in"
   },
   "toite": {
-    "copyright": "Developed by"
+    "copyright": "Developed with"
   },
   "fields": {
     "email": "Email",
