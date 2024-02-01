@@ -1,0 +1,14 @@
+{
+  "sign-in": {
+    "title": "Sign-in",
+    "description": "Sign-in to your account",
+    "submit": "Войти"
+  },
+  "toite": {
+    "copyright": "Developed by"
+  },
+  "fields": {
+    "email": "Email",
+    "password": "Password"
+  }
+}
