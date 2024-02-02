@@ -1,13 +1,23 @@
 "use client";
 
+import { AbstractIntlMessages, NextIntlClientProvider } from "next-intl";
 import { ThemeProvider } from "next-themes";
 import { FC, PropsWithChildren } from "react";
 
-const Providers: FC<PropsWithChildren> = ({ children }) => {
+type Props = PropsWithChildren & {
+  messages: AbstractIntlMessages;
+  locale: string;
+};
+
+const Providers: FC<Props> = (props) => {
+  const { children, messages, locale } = props;
+
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-      {children}
-    </ThemeProvider>
+    <NextIntlClientProvider {...{ messages, locale }}>
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        {children}
+      </ThemeProvider>
+    </NextIntlClientProvider>
   );
 };
 

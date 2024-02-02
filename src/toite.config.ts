@@ -27,7 +27,7 @@ export type ToiteConfig = {
 };
 
 export const TOITE_CONFIG: ToiteConfig = {
-  appName: "Toite",
+  appName: "ToitFood",
   logo: {
     svg: "/toite.svg",
   },

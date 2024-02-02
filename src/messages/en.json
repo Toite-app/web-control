@@ -8,6 +8,7 @@
     "copyright": "Developed with"
   },
   "fields": {
+    "login": "Login",
     "email": "Email",
     "password": "Password"
   }

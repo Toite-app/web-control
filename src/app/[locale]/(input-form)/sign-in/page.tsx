@@ -1,4 +1,5 @@
 import DevelopedWithToite from "@/components/toite/developed-with";
+import LanguageSelector from "@/components/toite/language-selector";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { MessageCategories } from "@/messages/index.types";
@@ -35,11 +36,19 @@ const SignInPage = () => {
         <Image src="/sign-in.svg" width={300} height={300} alt="" />
       </div>
       <div className="flex min-w-[300px] flex-col gap-2 py-5">
-        <div className="flex flex-col">
-          <h1 className="text-zinc-400">{t("description")}</h1>
-          <h1 className="text-3xl font-bold">{TOITE_CONFIG.appName}</h1>
+        <div className="flex flex-row justify-between">
+          <div className="flex flex-col">
+            <h1 className="text-zinc-400">{t("description")}</h1>
+            <h1 className="text-3xl font-bold">{TOITE_CONFIG.appName}</h1>
+          </div>
+          <LanguageSelector />
         </div>
-        <Input type="email" placeholder={tFields("email")} required />
+        <Input
+          className="mt-3"
+          type="text"
+          placeholder={tFields("login")}
+          required
+        />
         <Input type="password" placeholder={tFields("password")} required />
         <Button className="w-full">{t("submit")}</Button>
         <DevelopedWithToite className="mt-auto pt-2" />
