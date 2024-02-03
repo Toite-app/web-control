@@ -16,12 +16,12 @@ const DevelopedWithToite: FC<Props> = (props) => {
   return (
     <div className={twMerge("flex w-full justify-center ", className)}>
       <Link
-        className="flex select-none flex-row items-center gap-1 text-center text-black opacity-50 transition-all hover:opacity-80"
+        className="flex select-none flex-row items-center gap-1 text-center text-black opacity-50 transition-all hover:opacity-80 dark:text-white"
         href="https://github.com/toite-app"
         target="_blank"
       >
         <p className="h-4 text-sm">{t("copyright")}</p>
-        <ToiteLogo className="h-4 w-10 fill-black" />
+        <ToiteLogo className="h-4 w-10 fill-black dark:invert" />
       </Link>
     </div>
   );

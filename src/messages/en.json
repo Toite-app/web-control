@@ -7,6 +7,25 @@
   "toite": {
     "copyright": "Developed with"
   },
+  "navbar": {
+    "dashboard": "Dashboard",
+    "orders": "Orders",
+    "orders-all": "All",
+    "orders-hall": "Hall",
+    "orders-banquet": "Banquet",
+    "orders-takeaway": "Takeaway",
+    "orders-delivery": "Delivery",
+    "orders-archive": "Archive",
+    "restaurants": "Restaurants",
+    "dishes": "Dishes",
+    "administrate": "Administrate",
+    "discounts": "Discounts",
+    "workers": "Workers",
+    "guests": "Guests",
+    "finances": "Finances",
+    "workshifts": "Workshifts",
+    "finances-report": "Report"
+  },
   "fields": {
     "login": "Login",
     "email": "Email",

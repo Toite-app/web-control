@@ -7,6 +7,25 @@
   "toite": {
     "copyright": "Разработано при помощи"
   },
+  "navbar": {
+    "dashboard": "Главная",
+    "orders": "Заказы",
+    "orders-all": "Все заказы",
+    "orders-hall": "Зал",
+    "orders-banquet": "Банкет",
+    "orders-takeaway": "С собой",
+    "orders-delivery": "Доставка",
+    "orders-archive": "Архив",
+    "restaurants": "Рестораны",
+    "dishes": "Блюда",
+    "administrate": "Администрирование",
+    "discounts": "Скидки",
+    "workers": "Сотрудники",
+    "guests": "Гости",
+    "finances": "Финансы",
+    "workshifts": "Смены",
+    "finances-report": "Отчет"
+  },
   "fields": {
     "login": "Логин",
     "email": "Электронная почта",

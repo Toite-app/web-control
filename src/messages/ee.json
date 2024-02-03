@@ -1,0 +1,34 @@
+{
+  "sign-in": {
+    "title": "Sisse logimine",
+    "description": "Logi sisse oma kontole",
+    "submit": "Sisse logimine"
+  },
+  "toite": {
+    "copyright": "Arendatud koostöös"
+  },
+  "navbar": {
+    "dashboard": "Armatuurlaud",
+    "orders": "Tellimused",
+    "orders-all": "Kõik",
+    "orders-hall": "Saal",
+    "orders-banquet": "Pidu",
+    "orders-takeaway": "Kaasa võtmine",
+    "orders-delivery": "Kohaletoimetamine",
+    "orders-archive": "Arhiiv",
+    "restaurants": "Restoranid",
+    "dishes": "Road",
+    "administrate": "Administreeri",
+    "discounts": "Allahindlused",
+    "workers": "Töötajad",
+    "guests": "Külalised",
+    "finances": "Finantsid",
+    "workshifts": "Töövahetused",
+    "finances-report": "Raport"
+  },
+  "fields": {
+    "login": "Kasutajanimi",
+    "email": "E-post",
+    "password": "Parool"
+  }
+}
