@@ -17,7 +17,10 @@ export const NavigationBar: FC = () => {
   const { isOpen, toggle } = useNavigationStore();
 
   return (
-    <div className="block border-r bg-stone-100/40 transition-all dark:bg-stone-800/40">
+    <div
+      data-open={isOpen}
+      className="block border-r bg-stone-100/40 transition-all data-[open=false]:w-[82px] data-[open=true]:w-[300px] dark:bg-stone-800/40"
+    >
       <div className="flex h-full max-h-[100vh] flex-col gap-2 overflow-clip">
         <div
           className={cn(
