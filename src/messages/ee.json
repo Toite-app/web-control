@@ -5,7 +5,9 @@
     "submit": "Sisse logimine"
   },
   "toite": {
-    "copyright": "Arendatud koostöös"
+    "copyright": "Arendatud koostöös",
+    "light-mode": "Hele režiim",
+    "dark-mode": "Tume režiim"
   },
   "navbar": {
     "dashboard": "Armatuurlaud",

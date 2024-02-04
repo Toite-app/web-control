@@ -5,7 +5,9 @@
     "submit": "Sign-in"
   },
   "toite": {
-    "copyright": "Developed with"
+    "copyright": "Developed with",
+    "light-mode": "Light mode",
+    "dark-mode": "Dark mode"
   },
   "navbar": {
     "dashboard": "Dashboard",

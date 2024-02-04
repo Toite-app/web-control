@@ -4,17 +4,16 @@ import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { FC } from "react";
-import { LogOutIcon, MenuIcon, MoonIcon, SunIcon } from "lucide-react";
+import { LogOutIcon, MenuIcon } from "lucide-react";
 import Image from "next/image";
 import TOITE_CONFIG from "@config";
 import { menuItems } from "./menu-items";
 import NavMenuItem from "./components/MenuItem";
-import { useTheme } from "next-themes";
 import { useNavigationStore } from "./store";
 import { cn } from "@/lib/utils";
+import ThemeButton from "./components/ThemeButton";
 
 export const NavigationBar: FC = () => {
-  const { theme, setTheme } = useTheme();
   const { isOpen, toggle } = useNavigationStore();
 
   return (
@@ -65,32 +64,7 @@ export const NavigationBar: FC = () => {
           </ScrollArea>
         </div>
         <div className="mt-auto flex flex-col gap-2">
-          <div className="flex items-center justify-center px-4 py-2">
-            <Button
-              className={cn(
-                "flex w-full flex-row items-center justify-start gap-2",
-                !isOpen && "justify-center"
-              )}
-              variant="outline"
-              size="sm"
-              onClick={() => {
-                setTheme(theme === "dark" ? "light" : "dark");
-              }}
-              suppressHydrationWarning
-            >
-              {theme === "dark" ? (
-                <>
-                  <SunIcon className="h-6 w-6" />
-                  {isOpen && <span>Swith to light</span>}
-                </>
-              ) : (
-                <>
-                  <MoonIcon className="h-6 w-6" />
-                  {isOpen && <span>Swith to dark</span>}
-                </>
-              )}
-            </Button>
-          </div>
+          <ThemeButton showText={isOpen} />
           <div
             className={cn(
               "flex min-w-[250px] flex-row items-center border-t border-stone-200 p-4 dark:border-stone-800",

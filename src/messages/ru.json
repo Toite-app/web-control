@@ -5,7 +5,9 @@
     "submit": "Войти"
   },
   "toite": {
-    "copyright": "Разработано при помощи"
+    "copyright": "Разработано при помощи",
+    "light-mode": "Светлая тема",
+    "dark-mode": "Темная тема"
   },
   "navbar": {
     "dashboard": "Главная",
