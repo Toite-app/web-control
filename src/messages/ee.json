@@ -1,8 +1,7 @@
 {
   "sign-in": {
     "title": "Sisse logimine",
-    "description": "Logi sisse oma kontole",
-    "submit": "Sisse logimine"
+    "description": "Logi sisse oma kontole"
   },
   "toite": {
     "copyright": "Arendatud koostöös",
@@ -31,6 +30,7 @@
   "fields": {
     "login": "Kasutajanimi",
     "email": "E-post",
-    "password": "Parool"
+    "password": "Parool",
+    "submit": "Sisse logimine"
   }
 }

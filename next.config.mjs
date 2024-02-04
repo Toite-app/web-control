@@ -15,6 +15,16 @@ const nextConfig = {
 
     return config;
   },
+  rewrites: async () => {
+    return {
+      beforeFiles: [
+        {
+          source: "/api/:path*",
+          destination: `${process.env.NEXT_PUBLIC_API_URL}/:path*`,
+        },
+      ],
+    };
+  },
 };
 
 export default withNextIntl(nextConfig);

@@ -16,7 +16,10 @@ const Providers: FC<Props> = (props) => {
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
       <SWRConfig value={{ provider: () => new Map() }}>
-        <NextIntlClientProvider {...{ messages, locale }}>
+        <NextIntlClientProvider
+          timeZone={"America/New_York"}
+          {...{ messages, locale }}
+        >
           {children}
         </NextIntlClientProvider>
       </SWRConfig>

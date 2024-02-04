@@ -9,4 +9,5 @@ export enum MessageCategories {
   SIGN_IN = "sign-in",
   FIELDS = "fields",
   NAVBAR = "navbar",
+  ERRORS = "errors",
 }

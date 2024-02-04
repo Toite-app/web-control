@@ -1,8 +1,7 @@
 {
   "sign-in": {
     "title": "Вход",
-    "description": "Вход в систему",
-    "submit": "Войти"
+    "description": "Вход в систему"
   },
   "toite": {
     "copyright": "Разработано при помощи",
@@ -31,6 +30,11 @@
   "fields": {
     "login": "Логин",
     "email": "Электронная почта",
-    "password": "Пароль"
+    "password": "Пароль",
+    "submit": "Войти"
+  },
+  "errors": {
+    "unknown": "Неизвестная ошибка",
+    "user-not-found": "Пользователь не найден"
   }
 }

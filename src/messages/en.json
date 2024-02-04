@@ -1,8 +1,7 @@
 {
   "sign-in": {
     "title": "Sign-in",
-    "description": "Sign-in to your account",
-    "submit": "Sign-in"
+    "description": "Sign-in to your account"
   },
   "toite": {
     "copyright": "Developed with",
@@ -31,6 +30,7 @@
   "fields": {
     "login": "Login",
     "email": "Email",
-    "password": "Password"
+    "password": "Password",
+    "submit": "Sign-in"
   }
 }

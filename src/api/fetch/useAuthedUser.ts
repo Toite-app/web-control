@@ -1,0 +1,20 @@
+import { buildApiHook, buildApiMutation } from "../hook-builder";
+
+export type AuthedUser = {
+  id: number;
+  name: string;
+  login: string;
+};
+
+const url = "/auth/user" as const;
+const method = "GET" as const;
+
+export const useAuthedUser = buildApiHook<AuthedUser, any, string>({
+  url,
+  method,
+});
+
+export const getAuthedUser = buildApiMutation<AuthedUser, any, string>({
+  url,
+  method,
+});
