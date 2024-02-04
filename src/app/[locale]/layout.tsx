@@ -3,7 +3,7 @@ import { Roboto } from "next/font/google";
 import { FC, PropsWithChildren } from "react";
 import Providers from "./providers";
 import "./globals.css";
-import { getMessages } from "next-intl/server";
+import { getMessages, unstable_setRequestLocale } from "next-intl/server";
 import { IntlPageParams } from "@/types/i18n.types";
 import { locales } from "@/config";
 
@@ -31,6 +31,8 @@ const LocaleLayout: FC<PropsWithChildren & IntlPageParams> = async (props) => {
     children,
     params: { locale },
   } = props;
+
+  unstable_setRequestLocale(locale);
 
   const messages = await getMessages();
 

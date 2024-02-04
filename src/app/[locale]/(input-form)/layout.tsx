@@ -1,7 +1,14 @@
+import { IntlPageParams } from "@/types/i18n.types";
+import { unstable_setRequestLocale } from "next-intl/server";
 import { FC, PropsWithChildren } from "react";
 
-const FormLayout: FC<PropsWithChildren> = (props) => {
-  const { children } = props;
+const FormLayout: FC<PropsWithChildren & IntlPageParams> = (props) => {
+  const {
+    children,
+    params: { locale },
+  } = props;
+
+  unstable_setRequestLocale(locale);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center gap-2 bg-gradient-to-br from-primary/60 to-primary/20 ">

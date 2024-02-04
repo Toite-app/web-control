@@ -7,9 +7,9 @@ import { IntlPageParams } from "@/types/i18n.types";
 import TOITE_CONFIG from "@config";
 import { Metadata } from "next";
 import { useTranslations } from "next-intl";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import Image from "next/image";
-import { PropsWithChildren } from "react";
+import { FC, PropsWithChildren } from "react";
 
 type Props = PropsWithChildren<IntlPageParams>;
 
@@ -26,7 +26,12 @@ export async function generateMetadata({
   };
 }
 
-const SignInPage = () => {
+const SignInPage: FC<IntlPageParams> = (props) => {
+  const {
+    params: { locale },
+  } = props;
+
+  unstable_setRequestLocale(locale);
   const t = useTranslations(MessageCategories.SIGN_IN);
   const tFields = useTranslations(MessageCategories.FIELDS);
 
