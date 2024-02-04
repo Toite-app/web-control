@@ -6,7 +6,10 @@
   "toite": {
     "copyright": "Developed with",
     "light-mode": "Light mode",
-    "dark-mode": "Dark mode"
+    "dark-mode": "Dark mode",
+    "logout": "Log out",
+    "logout-text": "Are you sure you want to log out? You will be redirected to the login page.",
+    "submit": "Confirm"
   },
   "navbar": {
     "dashboard": "Dashboard",

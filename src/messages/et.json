@@ -6,7 +6,10 @@
   "toite": {
     "copyright": "Arendatud koostöös",
     "light-mode": "Hele režiim",
-    "dark-mode": "Tume režiim"
+    "dark-mode": "Tume režiim",
+    "logout": "Logi välja",
+    "logout-text": "Kas olete kindel, et soovite välja logida? Teid suunatakse sisselogimise lehele.",
+    "submit": "Kinnita"
   },
   "navbar": {
     "dashboard": "Armatuurlaud",

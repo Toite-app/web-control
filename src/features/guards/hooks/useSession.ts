@@ -33,6 +33,7 @@ export const useSession = () => {
     data: userData,
     status,
     error,
+    isValidating: data.isValidating,
     mutate: data.mutate,
   };
 };

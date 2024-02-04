@@ -4,7 +4,7 @@ import { AvatarFallback, Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { FC } from "react";
-import { LogOutIcon, MenuIcon } from "lucide-react";
+import { MenuIcon } from "lucide-react";
 import Image from "next/image";
 import TOITE_CONFIG from "@config";
 import { menuItems } from "./menu-items";
@@ -15,6 +15,7 @@ import ThemeButton from "./components/ThemeButton";
 import { useSession } from "../guards/hooks/useSession";
 import { useTranslations } from "next-intl";
 import { MessageCategories } from "@/messages/index.types";
+import { LogoutButton } from "./components/LogoutButton";
 
 export const NavigationBar: FC = () => {
   const { isOpen, toggle } = useNavigationStore();
@@ -98,13 +99,7 @@ export const NavigationBar: FC = () => {
                 </div>
               </>
             )}
-            <Button
-              className={cn(isOpen && "ml-auto", !isOpen && "w-full")}
-              variant="outline"
-              size="sm"
-            >
-              <LogOutIcon className="h-4 w-4" />
-            </Button>
+            <LogoutButton fullWidth={!isOpen} />
           </div>
         </div>
       </div>
