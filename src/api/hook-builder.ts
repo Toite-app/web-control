@@ -63,6 +63,7 @@ export const useApiEndpoint = <DataType, PayloadType, UrlValues extends string>(
   const { config, skip } = options;
 
   const url = buildUrl(options.url);
+  console.log("🚀 ~ url:", url);
 
   const fetcher = async () => {
     if (skip) return undefined;

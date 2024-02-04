@@ -1,6 +1,6 @@
 "use client";
 
-import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
+import { AvatarFallback, Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { FC } from "react";
@@ -12,9 +12,17 @@ import NavMenuItem from "./components/MenuItem";
 import { useNavigationStore } from "./store";
 import { cn } from "@/lib/utils";
 import ThemeButton from "./components/ThemeButton";
+import { useSession } from "../guards/hooks/useSession";
+import { useTranslations } from "next-intl";
+import { MessageCategories } from "@/messages/index.types";
 
 export const NavigationBar: FC = () => {
   const { isOpen, toggle } = useNavigationStore();
+  const { data } = useSession();
+
+  const t = useTranslations(MessageCategories.ROLES);
+
+  const name = data?.name || data?.login;
 
   return (
     <div
@@ -77,13 +85,15 @@ export const NavigationBar: FC = () => {
             {isOpen && (
               <>
                 <Avatar className="mr-4 h-9 w-9">
-                  <AvatarImage alt="John Doe" src="/placeholder-avatar.jpg" />
-                  <AvatarFallback>JD</AvatarFallback>
+                  {/* <AvatarImage alt="John Doe" src="/placeholder-avatar.jpg" /> */}
+                  <AvatarFallback>
+                    <span>{name?.charAt(0).toUpperCase()}</span>
+                  </AvatarFallback>
                 </Avatar>
                 <div className="flex flex-col">
-                  <h3 className="whitespace-nowrap font-semibold">John Doe</h3>
+                  <h3 className="whitespace-nowrap font-semibold">{name}</h3>
                   <p className="text-sm text-stone-500 dark:text-stone-400">
-                    Admin
+                    {t(data?.role || "User")}
                   </p>
                 </div>
               </>

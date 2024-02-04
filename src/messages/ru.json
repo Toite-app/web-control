@@ -36,5 +36,15 @@
   "errors": {
     "unknown": "Неизвестная ошибка",
     "user-not-found": "Пользователь не найден"
+  },
+  "roles": {
+    "SYSTEM_ADMIN": "Сис. администратор",
+    "CHIEF_ADMIN": "Главный администратор",
+    "ADMIN": "Администратор",
+    "KITCHENER": "Повар",
+    "WAITER": "Официант",
+    "CASHIER": "Кассир",
+    "DISPATCHER": "Диспетчер",
+    "COURIER": "Курьер"
   }
 }

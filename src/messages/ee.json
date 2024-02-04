@@ -32,5 +32,15 @@
     "email": "E-post",
     "password": "Parool",
     "submit": "Sisse logimine"
+  },
+  "roles": {
+    "SYSTEM_ADMIN": "Süsteemi administraator",
+    "CHIEF_ADMIN": "Peakasutaja",
+    "ADMIN": "Administraator",
+    "KITCHENER": "Kokk",
+    "WAITER": "Ootejärgne",
+    "CASHIER": "Kassapidaja",
+    "DISPATCHER": "Dispetšer",
+    "COURIER": "Kuller"
   }
 }

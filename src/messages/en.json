@@ -32,5 +32,15 @@
     "email": "Email",
     "password": "Password",
     "submit": "Sign-in"
+  },
+  "roles": {
+    "SYSTEM_ADMIN": "System administrator",
+    "CHIEF_ADMIN": "Chief administrator",
+    "ADMIN": "Administrator",
+    "KITCHENER": "Kitchener",
+    "WAITER": "Waiter",
+    "CASHIER": "Cashier",
+    "DISPATCHER": "Dispatcher",
+    "COURIER": "Courier"
   }
 }
