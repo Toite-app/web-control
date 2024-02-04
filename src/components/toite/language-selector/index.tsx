@@ -43,7 +43,7 @@ const LanguageSelector: FC = () => {
             <p>Русский</p>
           </div>
         </SelectItem>
-        <SelectItem value="ee">
+        <SelectItem value="et">
           <div className="flex flex-row items-center gap-2">
             <EE className="w-5" />
             <p>Eesti</p>

@@ -1,7 +1,7 @@
 export enum Locale {
   RU = "ru",
   EN = "en",
-  EE = "ee",
+  ET = "et",
 }
 
 export enum MessageCategories {
