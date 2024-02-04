@@ -70,3 +70,7 @@
     @apply outline-none;
   }
 }
+
+.navbar-tabs-height {
+  max-height: calc(100vh - 168px - 124px);
+}
