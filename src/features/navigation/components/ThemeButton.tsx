@@ -42,12 +42,16 @@ export const ThemeButton: FC<Props> = (props) => {
         {theme === "dark" ? (
           <>
             <SunIcon className="h-6 w-6" />
-            {showText && <span>{t("light-mode")}</span>}
+            {showText && (
+              <span className="whitespace-nowrap">{t("light-mode")}</span>
+            )}
           </>
         ) : (
           <>
             <MoonIcon className="h-6 w-6" />
-            {showText && <span>{t("dark-mode")}</span>}
+            {showText && (
+              <span className="whitespace-nowrap">{t("dark-mode")}</span>
+            )}
           </>
         )}
       </Button>

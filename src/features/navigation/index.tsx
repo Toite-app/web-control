@@ -92,7 +92,7 @@ export const NavigationBar: FC = () => {
                 </Avatar>
                 <div className="flex flex-col">
                   <h3 className="whitespace-nowrap font-semibold">{name}</h3>
-                  <p className="text-sm text-stone-500 dark:text-stone-400">
+                  <p className="whitespace-nowrap text-sm text-stone-500 dark:text-stone-400">
                     {t(data?.role || "User")}
                   </p>
                 </div>
