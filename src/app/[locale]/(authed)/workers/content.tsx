@@ -9,13 +9,27 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { MessageCategories } from "@/messages/index.types";
 import { useGetWorkers } from "@/features/workers/api/useGetWorkers";
-import { WorkersDataTable } from "@/features/workers/data-table";
+import { useGetColumns } from "@/features/workers/components/data-table/hooks/useGetColumns";
+import { DataTable } from "@/components/data-table";
+import { usePagination } from "@/components/data-table/hooks/usePagination";
+import { WorkerDialog } from "@/features/workers/components/dialog";
 
 export const WorkersPageContent: FC = () => {
   const tNav = useTranslations(MessageCategories.NAVBAR);
   const t = useTranslations(MessageCategories.WORKERS_PAGE);
 
-  const { data, isLoading } = useGetWorkers();
+  const columns = useGetColumns();
+  const pagination = usePagination();
+  const workers = useGetWorkers({
+    params: {
+      page: pagination.state.pageIndex + 1,
+      size: pagination.state.pageSize,
+    },
+    config: {
+      refreshInterval: 60_000,
+      keepPreviousData: true,
+    },
+  });
 
   return (
     <div className="mx-auto flex h-full w-full max-w-screen-xl flex-col gap-4 p-4 py-12">
@@ -24,22 +38,35 @@ export const WorkersPageContent: FC = () => {
           <div className="flex flex-row items-center gap-4">
             <h1 className=" text-4xl font-bold">{tNav("workers")}</h1>
             <Badge className="rounded-lg" variant="default">
-              {data?.meta.total || "-"}
+              {workers.data?.meta.total || "-"}
             </Badge>
           </div>
           <p className="text-stone-500">{t("description")}</p>
         </div>
         <div className="flex flex-row items-center gap-4">
           <Input className="w-64 " placeholder={t("searchbar")} type="search" />
-          <Button variant="default" size="icon">
-            <PlusIcon />
-          </Button>
+          <WorkerDialog
+            trigger={
+              <Button variant="default" size="icon">
+                <PlusIcon />
+              </Button>
+            }
+          />
         </div>
       </header>
       <Separator />
-      <WorkersDataTable
+      <DataTable
         className="h-[75vh] overflow-clip bg-stone-200/30 dark:bg-stone-800/20"
-        data={data?.data}
+        {...{
+          data: workers.data?.data,
+          columns,
+          isLoading: workers.isLoading,
+          pagination: {
+            state: pagination.state,
+            meta: workers.data?.meta,
+            onChange: pagination.onChange,
+          },
+        }}
       />
     </div>
   );

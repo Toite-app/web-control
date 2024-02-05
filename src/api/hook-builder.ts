@@ -11,7 +11,7 @@ export type BuildApiHookOptions<
   url: BuildUrlInput<UrlValues>;
   payload?: PayloadType;
   defaultPayload?: PayloadType;
-  params?: Record<string, string>;
+  params?: Record<string, string | number>;
   config?: SWRConfiguration<DataType, AxiosError<DataType, PayloadType>>;
   axiosConfig?: AxiosRequestConfig;
   skip?: boolean;
@@ -71,7 +71,7 @@ export const useApiEndpoint = <DataType, PayloadType, UrlValues extends string>(
   };
 
   const swrInstance = useSWR<DataType, AxiosError<DataType, PayloadType>>(
-    url,
+    url + JSON.stringify(options.params),
     fetcher as () => Promise<DataType>,
     {
       revalidateOnFocus: false,

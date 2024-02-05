@@ -1,6 +1,9 @@
 "use client";
 
 import {
+  ColumnDef,
+  OnChangeFn,
+  PaginationState,
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
@@ -15,28 +18,57 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { FC } from "react";
-import { useGetColumns } from "./hooks/useGetColumns";
-import { Worker } from "../api/useGetWorkers";
 import { cn } from "@/lib/utils";
 import DataTablePagination from "@/components/data-table-pagination";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useTranslations } from "next-intl";
+import { ArchiveXIcon } from "lucide-react";
+import { PaginationMeta } from "@/api/types";
 
-export type WorkersDataTableProps = {
+export type DataTableProps<T> = {
   className?: string;
-  data?: Worker[] | null;
+  data?: T[] | null;
+  columns: ColumnDef<T>[];
+  pagination?: {
+    state: PaginationState;
+    meta?: PaginationMeta;
+    onChange: OnChangeFn<PaginationState>;
+  };
+  isLoading?: boolean;
 };
 
-export const WorkersDataTable: FC<WorkersDataTableProps> = (props) => {
-  const { className, data } = props;
+export const DataTable = <DataType extends { id: string }>(
+  props: DataTableProps<DataType>
+) => {
+  const { className, data, columns, pagination, isLoading } = props;
 
-  const columns = useGetColumns();
+  const t = useTranslations();
+
   const table = useReactTable({
     columns,
     data: data || [],
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    state: {
+      ...(pagination
+        ? {
+            pagination: {
+              pageIndex: pagination.state.pageIndex,
+              pageSize: pagination.state.pageSize,
+            },
+          }
+        : {}),
+    },
+    ...(pagination
+      ? {
+          manualPagination: true,
+          pageCount: Math.ceil(
+            (pagination.meta?.total || 0) / (pagination.meta?.size || 0)
+          ),
+          onPaginationChange: pagination.onChange,
+        }
+      : {}),
   });
 
   return (
@@ -79,18 +111,27 @@ export const WorkersDataTable: FC<WorkersDataTableProps> = (props) => {
                 </TableRow>
               ))
             ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
-                  No results.
-                </TableCell>
-              </TableRow>
+              <></>
             )}
+            {isLoading &&
+              new Array(10).fill(0).map((_, index) => (
+                <TableRow key={index}>
+                  {columns.map((column, index) => (
+                    <TableCell key={index}>
+                      <div className="h-4 animate-pulse rounded-md bg-stone-300 dark:bg-stone-800" />
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </ScrollArea>
+      {!table.getRowModel().rows?.length && !isLoading && (
+        <div className="mt-auto flex flex-col items-center gap-2 opacity-50">
+          <ArchiveXIcon className="h-12 w-12 opacity-50" />
+          <span className="text-center">{t("table.no-rows")}</span>
+        </div>
+      )}
       <Separator className="mt-auto" />
       <DataTablePagination className="p-4" table={table} />
     </div>

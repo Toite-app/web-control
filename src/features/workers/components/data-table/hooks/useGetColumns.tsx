@@ -1,6 +1,6 @@
 "use client";
 import { ColumnDef } from "@tanstack/react-table";
-import { Worker } from "../../api/useGetWorkers";
+import { Worker } from "../../../api/useGetWorkers";
 import { useMemo } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { formatDistance } from "date-fns";
@@ -22,6 +22,7 @@ import {
   MoreHorizontalIcon,
 } from "lucide-react";
 import { ru, enUS, et } from "date-fns/locale";
+import { toast } from "sonner";
 
 export const useGetColumns = () => {
   const locale = useLocale();
@@ -108,7 +109,12 @@ export const useGetColumns = () => {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                   className="cursor-pointer"
-                  onClick={() => navigator.clipboard.writeText(row.original.id)}
+                  onClick={() => {
+                    navigator.clipboard.writeText(row.original.id);
+                    toast.success(t("table.copied"), {
+                      dismissible: false,
+                    });
+                  }}
                 >
                   <FingerprintIcon className="mr-2 h-4 w-4" />
                   <span>{t("Workers.table.actions.copyId")}</span>

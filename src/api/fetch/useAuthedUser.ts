@@ -1,14 +1,15 @@
 import { buildApiHook, buildApiMutation } from "../hook-builder";
 
-export type UserRole =
-  | "SYSTEM_ADMIN"
-  | "CHIEF_ADMIN"
-  | "ADMIN"
-  | "KITCHENER"
-  | "WAITER"
-  | "CASHIER"
-  | "DISPATCHER"
-  | "COURIER";
+export enum UserRole {
+  SYSTEM_ADMIN = "SYSTEM_ADMIN",
+  CHIEF_ADMIN = "CHIEF_ADMIN",
+  ADMIN = "ADMIN",
+  KITCHENER = "KITCHENER",
+  WAITER = "WAITER",
+  CASHIER = "CASHIER",
+  DISPATCHER = "DISPATCHER",
+  COURIER = "COURIER",
+}
 
 export type AuthedUser = {
   id: number;

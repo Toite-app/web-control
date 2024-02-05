@@ -6,6 +6,7 @@ import "./globals.css";
 import { getMessages, unstable_setRequestLocale } from "next-intl/server";
 import { IntlPageParams } from "@/types/i18n.types";
 import { locales } from "@/config";
+import { Toaster } from "@/components/ui/sonner";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -40,6 +41,7 @@ const LocaleLayout: FC<PropsWithChildren & IntlPageParams> = async (props) => {
     <html lang={locale} suppressHydrationWarning>
       <body className={roboto.className}>
         <Providers {...{ locale, messages }}>{children}</Providers>
+        <Toaster />
       </body>
     </html>
   );
