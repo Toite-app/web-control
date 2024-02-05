@@ -21,6 +21,7 @@ import { isAxiosError } from "axios";
 import { getErrorCode } from "@/utils/getErrorCode";
 import { useRouter } from "@/navigation";
 import { useSession } from "@/features/guards/hooks/useSession";
+import { PasswordInput } from "@/components/password-input";
 
 export const signInSchema = z.object({
   login: z.string().min(3),
@@ -102,8 +103,7 @@ export const SignInForm: FC = () => {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input
-                  type="password"
+                <PasswordInput
                   placeholder={t("password")}
                   required
                   {...field}

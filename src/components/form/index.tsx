@@ -28,6 +28,12 @@ import {
 import { useTranslations } from "next-intl";
 import { Button, ButtonProps } from "../ui/button";
 import { CheckCircle2Icon, Loader2Icon } from "lucide-react";
+import { PasswordInput } from "../password-input";
+
+export type PasswordInputFormField = {
+  type: "password";
+  placeholder?: string;
+};
 
 export type InputFormField = {
   type: "input";
@@ -42,10 +48,12 @@ export type SelectFormField = {
 
 export type FormField<TFieldValues> = {
   name: Path<TFieldValues>;
-  data: InputFormField | SelectFormField;
+  data: InputFormField | SelectFormField | PasswordInputFormField;
   label?: string;
   description?: string;
   intl?: boolean;
+  disabled?: boolean;
+  hidden?: boolean;
 };
 
 export type FormProps<TFieldValues extends FieldValues = FieldValues> = {
@@ -56,12 +64,20 @@ export type FormProps<TFieldValues extends FieldValues = FieldValues> = {
   submitButton: Omit<ButtonProps, "children" | "type"> & {
     text: string;
   };
+  intlFields?: boolean;
 };
 
 export const Form = <TFieldValues extends FieldValues = FieldValues>(
   props: FormProps<TFieldValues>
 ) => {
-  const { className, config, fields, onSubmit, submitButton } = props;
+  const {
+    className,
+    config,
+    fields,
+    onSubmit,
+    submitButton,
+    intlFields = false,
+  } = props;
 
   const t = useTranslations();
   const form = useForm(config);
@@ -91,59 +107,83 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
         className={cn("flex w-full flex-col gap-2", className)}
         onSubmit={handleSubmit(proxySubmit)}
       >
-        {fields.map(({ name, label, description, data, intl = true }) => (
-          <FormField
-            control={control}
-            name={name}
-            render={({ field }) => (
-              <FormItem>
-                {label && <FormLabel>{text(label, intl)}</FormLabel>}
+        {fields
+          .filter(({ hidden }) => !hidden)
+          .map(
+            ({
+              name,
+              label,
+              description,
+              data,
+              disabled,
+              intl = intlFields,
+            }) => (
+              <FormField
+                control={control}
+                name={name}
+                disabled={disabled}
+                render={({ field }) => (
+                  <FormItem>
+                    {label && <FormLabel>{text(label, intl)}</FormLabel>}
 
-                {/* Rendering default input */}
-                {data.type === "input" && (
-                  <FormControl>
-                    <Input
-                      placeholder={text(data.placeholder, intl)}
-                      {...field}
-                    />
-                  </FormControl>
-                )}
-
-                {/* Rendering select */}
-                {data.type === "select" && (
-                  <Select
-                    defaultValue={field.value}
-                    onValueChange={field.onChange}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue
+                    {/* Rendering default input */}
+                    {data.type === "input" && (
+                      <FormControl>
+                        <Input
                           placeholder={text(data.placeholder, intl)}
+                          {...field}
                         />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {data.options.map((option) => (
-                        <SelectItem
-                          value={option.value}
-                          key={JSON.stringify(option)}
-                        >
-                          {text(option.label, intl)}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                )}
+                      </FormControl>
+                    )}
 
-                {description && (
-                  <FormDescription>{text(description, intl)}</FormDescription>
+                    {/* Rendering password input */}
+                    {data.type === "password" && (
+                      <FormControl>
+                        <PasswordInput
+                          placeholder={text(data.placeholder, intl)}
+                          {...field}
+                        />
+                      </FormControl>
+                    )}
+
+                    {/* Rendering select */}
+                    {data.type === "select" && (
+                      <Select
+                        defaultValue={field.value}
+                        onValueChange={field.onChange}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue
+                              placeholder={text(data.placeholder, intl)}
+                            />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {data.options.map((option) => (
+                            <SelectItem
+                              value={option.value}
+                              key={JSON.stringify(option)}
+                            >
+                              {text(option.label, intl)}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    )}
+
+                    {description && (
+                      <FormDescription>
+                        {text(description, intl)}
+                      </FormDescription>
+                    )}
+                    <FormMessage />
+                  </FormItem>
                 )}
-                <FormMessage />
-              </FormItem>
-            )}
-            key={String(name)}
-          />
-        ))}
+                key={String(name)}
+              />
+            )
+          )}
 
         {/* Show root error message if present */}
         {errors.root && <FormMessage>{errors.root.message}</FormMessage>}
@@ -159,7 +199,7 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
             <Loader2Icon className="mr-2 h-4 w-4 animate-spin" />
           )}
           {isSubmitSuccessful && <CheckCircle2Icon className="mr-2 h-4 w-4" />}
-          <span>MISSING</span>
+          <span>{submitButton.text ? t(submitButton.text) : "MISSING"}</span>
         </Button>
       </form>
     </UiForm>

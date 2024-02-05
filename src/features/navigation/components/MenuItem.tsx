@@ -62,7 +62,10 @@ const NavMenuItem: FC<Props> = (props) => {
               // @ts-ignore
               href={href || "---"}
               onClick={(event) => {
-                if (!isExpandable) return;
+                if (!isExpandable) {
+                  toggle();
+                  return;
+                }
 
                 event.preventDefault();
                 event.stopPropagation();
