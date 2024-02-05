@@ -3,6 +3,7 @@
 import {
   flexRender,
   getCoreRowModel,
+  getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 
@@ -17,23 +18,28 @@ import {
 import { FC } from "react";
 import { useGetColumns } from "./hooks/useGetColumns";
 import { Worker } from "../api/useGetWorkers";
+import { cn } from "@/lib/utils";
+import DataTablePagination from "@/components/data-table-pagination";
+import { Separator } from "@/components/ui/separator";
 
 export type WorkersDataTableProps = {
+  className?: string;
   data?: Worker[] | null;
 };
 
 export const WorkersDataTable: FC<WorkersDataTableProps> = (props) => {
-  const { data } = props;
+  const { className, data } = props;
 
   const columns = useGetColumns();
   const table = useReactTable({
     columns,
     data: data || [],
     getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
   });
 
   return (
-    <div className="rounded-md border">
+    <div className={cn("flex flex-col rounded-md border", className)}>
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -76,6 +82,8 @@ export const WorkersDataTable: FC<WorkersDataTableProps> = (props) => {
           )}
         </TableBody>
       </Table>
+      <Separator className="mt-auto" />
+      <DataTablePagination className="p-4" table={table} />
     </div>
   );
 };

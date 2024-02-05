@@ -18,30 +18,29 @@ export const WorkersPageContent: FC = () => {
   const { data, isLoading } = useGetWorkers();
 
   return (
-    <div className="mx-auto flex w-full max-w-screen-xl flex-col gap-4 p-4 py-12">
+    <div className="mx-auto flex h-full w-full max-w-screen-xl flex-col gap-4 p-4 py-12">
       <header className="flex flex-row items-center justify-between">
         <div className="flex flex-col gap-1">
           <div className="flex flex-row items-center gap-4">
             <h1 className=" text-4xl font-bold">{tNav("workers")}</h1>
             <Badge className="rounded-lg" variant="default">
-              {data?.meta.total}
+              {data?.meta.total || "-"}
             </Badge>
           </div>
           <p className="text-stone-500">{t("description")}</p>
         </div>
         <div className="flex flex-row items-center gap-4">
-          <Input
-            className="w-64 bg-transparent"
-            placeholder={t("searchbar")}
-            type="search"
-          />
+          <Input className="w-64 " placeholder={t("searchbar")} type="search" />
           <Button variant="default" size="icon">
             <PlusIcon />
           </Button>
         </div>
       </header>
       <Separator />
-      <WorkersDataTable data={data?.data} />
+      <WorkersDataTable
+        className="min-h-[80%] bg-stone-200/30 dark:bg-stone-800/20"
+        data={data?.data}
+      />
     </div>
   );
 };

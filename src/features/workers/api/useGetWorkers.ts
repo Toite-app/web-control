@@ -3,9 +3,9 @@ import { buildApiHook } from "@/api/hook-builder";
 import { PaginatedResponse } from "@/api/types";
 
 export type Worker = {
-  id: number;
+  id: string;
   name: string | null;
-  restaurantId: number | null;
+  restaurantId: string | null;
   login: string;
   role: UserRole;
   isBlocked: boolean;
