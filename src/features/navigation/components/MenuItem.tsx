@@ -33,7 +33,12 @@ const NavMenuItem: FC<Props> = (props) => {
 
   const pathname = usePathname();
 
-  const isSelected = pathname.indexOf(href || "super") !== -1;
+  const isSelected =
+    pathname.indexOf(href || "super") !== -1 ||
+    (childrens?.some(
+      (child) => pathname.indexOf(child.href || "super") !== -1
+    ) &&
+      (!isExpanded || !isOpen));
 
   return (
     <>
@@ -57,10 +62,11 @@ const NavMenuItem: FC<Props> = (props) => {
               // @ts-ignore
               href={href || "---"}
               onClick={(event) => {
+                if (!isExpandable) return;
+
                 event.preventDefault();
                 event.stopPropagation();
 
-                if (!isExpandable) return;
                 if (!isOpen) {
                   toggle();
                   if (isExpanded) return;

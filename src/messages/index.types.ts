@@ -11,4 +11,5 @@ export enum MessageCategories {
   NAVBAR = "navbar",
   ERRORS = "errors",
   ROLES = "roles",
+  WORKERS_PAGE = "workers-page",
 }

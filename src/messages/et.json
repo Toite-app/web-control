@@ -30,11 +30,18 @@
     "workshifts": "Töövahetused",
     "finances-report": "Raport"
   },
+  "workers-page": {
+    "description": "Halda töötajate andmeid süsteemis",
+    "searchbar": "Otsi töötajat..."
+  },
   "fields": {
     "login": "Kasutajanimi",
     "email": "E-post",
     "password": "Parool",
-    "submit": "Sisse logimine"
+    "submit": "Sisse logimine",
+    "name": "Nimi",
+    "role": "Roll",
+    "createdAt": "Loomise kuupäev"
   },
   "roles": {
     "SYSTEM_ADMIN": "Süsteemi administraator",

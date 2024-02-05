@@ -12,6 +12,8 @@ const AuthGuard: FC<Props> = (props) => {
   const router = useRouter();
   const session = useSession();
 
+  // TODO: FIX UNHANDLED LOGOUT CASE WHEN REDIRECT DOESN'T WORK
+
   useEffect(() => {
     if (session.status === "loading") return;
     if (session.status === "error" || session.status === "unauthenticated") {

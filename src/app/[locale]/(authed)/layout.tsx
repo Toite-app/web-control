@@ -9,7 +9,7 @@ const AuthedLayout: FC<PropsWithChildren> = async (props) => {
     <AuthGuard>
       <div className="flex flex-row">
         <NavigationBar />
-        <div className="relative flex min-h-screen w-full flex-col bg-primary/5">
+        <div className="relative flex min-h-screen w-full flex-col bg-stone-100 dark:bg-stone-900">
           {children}
         </div>
       </div>
