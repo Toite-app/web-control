@@ -38,7 +38,7 @@ export const WorkersPageContent: FC = () => {
       </header>
       <Separator />
       <WorkersDataTable
-        className="min-h-[80%] bg-stone-200/30 dark:bg-stone-800/20"
+        className="h-[75vh] overflow-clip bg-stone-200/30 dark:bg-stone-800/20"
         data={data?.data}
       />
     </div>
