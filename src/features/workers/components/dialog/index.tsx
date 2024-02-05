@@ -18,7 +18,7 @@ import {
 import { isAxiosError } from "axios";
 import { FieldError } from "@/api/types";
 import { getErrorCode } from "@/utils/getErrorCode";
-import Form from "@/components/form";
+import Form, { FormInstance } from "@/components/form";
 
 export type WorkerDialogProps = {
   open?: boolean;
@@ -32,17 +32,10 @@ export const WorkerDialog: FC<WorkerDialogProps> = (props) => {
   const isEdit = false;
   const t = useTranslations();
 
-  const form = useForm<CreateWorkerPayload>({
-    defaultValues: {
-      login: "",
-      name: "",
-      password: "",
-      restaurantId: null,
-      role: UserRole.COURIER,
-    },
-  });
-
-  const onSubmit = async (payload: CreateWorkerPayload) => {
+  const onSubmit = async (
+    payload: CreateWorkerPayload,
+    form: FormInstance<CreateWorkerPayload>
+  ) => {
     try {
       const result = await createWorkerMutation({
         payload,
@@ -92,17 +85,20 @@ export const WorkerDialog: FC<WorkerDialogProps> = (props) => {
           fields={[
             {
               name: "name",
-              data: { type: "input", placeholder: "Alexander F." },
               label: "fields.name",
+              data: { type: "input", placeholder: "Alexander F." },
             },
             {
               name: "login",
-              data: { type: "input", placeholder: "robinson" },
               label: "fields.login",
+              required: true,
+              data: { type: "input", placeholder: "robinson" },
               description: "Workers.dialog.form.login-description",
             },
             {
               name: "role",
+              label: "fields.role",
+              required: true,
               data: {
                 type: "select",
                 placeholder: "Workers.dialog.form.role-placeholder",
@@ -111,12 +107,12 @@ export const WorkerDialog: FC<WorkerDialogProps> = (props) => {
                   value: role,
                 })),
               },
-              label: "fields.role",
             },
             {
               name: "password",
-              data: { type: "password" },
               label: "fields.password",
+              required: true,
+              data: { type: "password" },
               description: "Workers.dialog.form.password-description",
             },
           ]}

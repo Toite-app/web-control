@@ -54,13 +54,17 @@ export type FormField<TFieldValues> = {
   intl?: boolean;
   disabled?: boolean;
   hidden?: boolean;
+  required?: boolean;
 };
+
+export type FormInstance<TFieldValues extends FieldValues> =
+  UseFormReturn<TFieldValues>;
 
 export type FormProps<TFieldValues extends FieldValues = FieldValues> = {
   className?: string;
   config?: UseFormProps<TFieldValues>;
   fields: FormField<TFieldValues>[];
-  onSubmit: (values: TFieldValues, form: UseFormReturn<TFieldValues>) => void;
+  onSubmit: (values: TFieldValues, form: FormInstance<TFieldValues>) => void;
   submitButton: Omit<ButtonProps, "children" | "type"> & {
     text: string;
   };
@@ -97,7 +101,7 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
 
   // Proxy submit function to pass form object
   const proxySubmit = (values: TFieldValues) => {
-    onSubmit(values, form);
+    return onSubmit(values, form);
   };
 
   return (
@@ -116,6 +120,7 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
               description,
               data,
               disabled,
+              required,
               intl = intlFields,
             }) => (
               <FormField
@@ -131,6 +136,7 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
                       <FormControl>
                         <Input
                           placeholder={text(data.placeholder, intl)}
+                          required={required}
                           {...field}
                         />
                       </FormControl>
@@ -141,6 +147,7 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
                       <FormControl>
                         <PasswordInput
                           placeholder={text(data.placeholder, intl)}
+                          required={required}
                           {...field}
                         />
                       </FormControl>
@@ -151,6 +158,7 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
                       <Select
                         defaultValue={field.value}
                         onValueChange={field.onChange}
+                        required={required}
                       >
                         <FormControl>
                           <SelectTrigger>
