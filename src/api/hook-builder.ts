@@ -1,17 +1,18 @@
 import axios, { AxiosError, AxiosRequestConfig, Method } from "axios";
-import { buildUrl, BuildUrlInput } from "./url-builder";
+import { _buildUrl, BuildUrlInput } from "./builder/_url";
 import useSWR, { SWRConfiguration } from "swr";
 
 export type BuildApiHookOptions<
   DataType,
   PayloadType,
+  ParamsType extends Record<string, string | number>,
   UrlValues extends string,
 > = {
   method?: Method;
   url: BuildUrlInput<UrlValues>;
   payload?: PayloadType;
   defaultPayload?: PayloadType;
-  params?: Record<string, string | number>;
+  params?: ParamsType;
   config?: SWRConfiguration<DataType, AxiosError<DataType, PayloadType>>;
   axiosConfig?: AxiosRequestConfig;
   skip?: boolean;
@@ -20,10 +21,11 @@ export type BuildApiHookOptions<
 export const mutateApiEndpoint = async <
   DataType,
   PayloadType,
+  ParamsType extends Record<string, string | number>,
   UrlValues extends string,
 >(
   options: Pick<
-    BuildApiHookOptions<DataType, PayloadType, UrlValues>,
+    BuildApiHookOptions<DataType, PayloadType, ParamsType, UrlValues>,
     "method" | "payload" | "defaultPayload" | "params" | "url" | "axiosConfig"
   >
 ) => {
@@ -35,7 +37,7 @@ export const mutateApiEndpoint = async <
     axiosConfig,
   } = options;
 
-  const url = buildUrl(options.url);
+  const url = _buildUrl(options.url);
 
   const mergedPayload = {
     ...defaultPayload,
@@ -57,17 +59,27 @@ export const mutateApiEndpoint = async <
   return result.data as DataType;
 };
 
-export const useApiEndpoint = <DataType, PayloadType, UrlValues extends string>(
-  options: BuildApiHookOptions<DataType, PayloadType, UrlValues>
+export const useApiEndpoint = <
+  DataType,
+  PayloadType,
+  ParamsType extends Record<string, string | number>,
+  UrlValues extends string,
+>(
+  options: BuildApiHookOptions<DataType, PayloadType, ParamsType, UrlValues>
 ) => {
   const { config, skip } = options;
 
-  const url = buildUrl(options.url);
+  const url = _buildUrl(options.url);
 
   const fetcher = async () => {
     if (skip) return undefined;
 
-    return await mutateApiEndpoint<DataType, PayloadType, UrlValues>(options);
+    return await mutateApiEndpoint<
+      DataType,
+      PayloadType,
+      ParamsType,
+      UrlValues
+    >(options);
   };
 
   const swrInstance = useSWR<DataType, AxiosError<DataType, PayloadType>>(
@@ -82,18 +94,28 @@ export const useApiEndpoint = <DataType, PayloadType, UrlValues extends string>(
   return swrInstance;
 };
 
-export const buildApiHook = <DataType, PayloadType, UrlValues extends string>(
-  options: BuildApiHookOptions<DataType, PayloadType, UrlValues>
+/**
+ * @deprecated
+ * @param options
+ * @returns
+ */
+export const buildApiHook = <
+  DataType,
+  PayloadType,
+  ParamsType extends Record<string, string | number>,
+  UrlValues extends string,
+>(
+  options: BuildApiHookOptions<DataType, PayloadType, ParamsType, UrlValues>
 ) => {
   return (
     params?: Pick<
-      BuildApiHookOptions<DataType, PayloadType, UrlValues>,
+      BuildApiHookOptions<DataType, PayloadType, ParamsType, UrlValues>,
       "config" | "skip" | "payload" | "params"
     >
   ) => {
     const { config, ...rest } = params || {};
 
-    return useApiEndpoint<DataType, PayloadType, UrlValues>({
+    return useApiEndpoint<DataType, PayloadType, ParamsType, UrlValues>({
       ...options,
       ...rest,
       config: {
@@ -107,17 +129,23 @@ export const buildApiHook = <DataType, PayloadType, UrlValues extends string>(
 export const buildApiMutation = <
   DataType,
   PayloadType,
+  ParamsType extends Record<string, string | number>,
   UrlValues extends string,
 >(
-  options: BuildApiHookOptions<DataType, PayloadType, UrlValues>
+  options: BuildApiHookOptions<DataType, PayloadType, ParamsType, UrlValues>
 ) => {
   return async (
     params?: Pick<
-      BuildApiHookOptions<DataType, PayloadType, UrlValues>,
+      BuildApiHookOptions<DataType, PayloadType, ParamsType, UrlValues>,
       "payload" | "params" | "axiosConfig"
     >
   ) => {
-    return await mutateApiEndpoint<DataType, PayloadType, UrlValues>({
+    return await mutateApiEndpoint<
+      DataType,
+      PayloadType,
+      ParamsType,
+      UrlValues
+    >({
       ...options,
       ...params,
     });

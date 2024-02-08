@@ -1,5 +1,5 @@
-import { useAuthedUser } from "@/api/fetch/useAuthedUser";
 import { useMemo } from "react";
+import { useAuth } from "../api/useAuth";
 
 export type SessionStatus =
   | "loading"
@@ -8,11 +8,7 @@ export type SessionStatus =
   | "error";
 
 export const useSession = () => {
-  const data = useAuthedUser({
-    config: {
-      refreshInterval: 60_000,
-    },
-  });
+  const data = useAuth();
 
   const userData = useMemo(() => data.data, [data.data]);
   const error = useMemo(() => data.error, [data.error]);
