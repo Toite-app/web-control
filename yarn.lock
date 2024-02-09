@@ -4177,6 +4177,13 @@ nth-check@^2.0.1:
   dependencies:
     boolbase "^1.0.0"
 
+nuqs@^1.16.1:
+  version "1.16.1"
+  resolved "https://registry.yarnpkg.com/nuqs/-/nuqs-1.16.1.tgz#8ad7887615105fb574a00f1676b8380682899681"
+  integrity sha512-R3muf8sXJTj/Lu56Cd+qBmzfZUxSiIvpoytf58/0+8xEtCBCENJn3a6aHokHCWop3q3c/DyVx7blDTX5Pu1hyA==
+  dependencies:
+    mitt "^3.0.1"
+
 object-assign@^4.0.1, object-assign@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
