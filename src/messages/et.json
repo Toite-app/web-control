@@ -3,13 +3,43 @@
     "title": "Sisse logimine",
     "description": "Logi sisse oma kontole"
   },
+  "Workers": {
+    "dialog": {
+      "create-title": "Loo töötaja",
+      "edit-title": "Muuda töötajat",
+      "submit": "Salvesta",
+      "form": {
+        "login-description": "Selle kasutajanimega saab töötaja süsteemi sisse logida",
+        "password-description": "Loo uuele töötajale sisselogimiseks parool",
+        "role-placeholder": "Vali töötaja roll"
+      },
+      "errors": {
+        "minLength": "Minimaalne pikkus on 4 tähemärki",
+        "isStrongPassword": "Parool peab sisaldama vähemalt 8 tähemärki, sealhulgas numbreid, suurtähti ja väiketähti",
+        "youcantcreatesystemadmin": "Sa ei saa luua töötajat süsteemi administraatori rolliga"
+      }
+    },
+    "table": {
+      "actions": {
+        "open": "Ava tegevused",
+        "title": "Tegevused",
+        "copyId": "Kopeeri ID",
+        "edit": "Muuda",
+        "edit-history": "Muutmiste ajalugu",
+        "delete": "Kustuta"
+      }
+    }
+  },
   "toite": {
     "copyright": "Arendatud koostöös",
     "light-mode": "Hele režiim",
     "dark-mode": "Tume režiim",
     "logout": "Logi välja",
     "logout-text": "Kas olete kindel, et soovite välja logida? Teid suunatakse sisselogimise lehele.",
-    "submit": "Kinnita"
+    "submit": "Kinnita",
+    "online": "Veebis",
+    "offline": "Väljas",
+    "blocked": "Blokeeritud"
   },
   "navbar": {
     "dashboard": "Armatuurlaud",
@@ -38,10 +68,16 @@
     "login": "Kasutajanimi",
     "email": "E-post",
     "password": "Parool",
-    "submit": "Sisse logimine",
     "name": "Nimi",
     "role": "Roll",
-    "createdAt": "Loomise kuupäev"
+    "submit": "Esita",
+    "createdAt": "Loomise kuupäev",
+    "updatedAt": "Uuendamise kuupäev",
+    "onlineAt": "Staatus"
+  },
+  "errors": {
+    "unknown": "Tundmatu viga",
+    "user-not-found": "Kasutajat ei leitud"
   },
   "roles": {
     "SYSTEM_ADMIN": "Süsteemi administraator",
@@ -52,5 +88,11 @@
     "CASHIER": "Kassapidaja",
     "DISPATCHER": "Dispetšer",
     "COURIER": "Kuller"
+  },
+  "table": {
+    "rows-per-page": "Ridu leheküljel",
+    "page-number": "Lehekülg {current} / {total}",
+    "no-rows": "Andmed puuduvad",
+    "copied": "Kopeeritud lõikepuhvrisse"
   }
 }

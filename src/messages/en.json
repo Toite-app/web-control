@@ -1,15 +1,45 @@
 {
   "sign-in": {
-    "title": "Sign-in",
-    "description": "Sign-in to your account"
+    "title": "Sign In",
+    "description": "Sign in to the system"
+  },
+  "Workers": {
+    "dialog": {
+      "create-title": "Create Worker",
+      "edit-title": "Edit Worker",
+      "submit": "Save",
+      "form": {
+        "login-description": "This login will be used to sign in to the system",
+        "password-description": "Create a password for the new worker",
+        "role-placeholder": "Select worker role"
+      },
+      "errors": {
+        "minLength": "Minimum length is 4 characters",
+        "isStrongPassword": "Password must contain at least 8 characters, including numbers, uppercase and lowercase letters",
+        "youcantcreatesystemadmin": "You cannot create a worker with the role of system administrator"
+      }
+    },
+    "table": {
+      "actions": {
+        "open": "Open actions",
+        "title": "Actions",
+        "copyId": "Copy ID",
+        "edit": "Edit",
+        "edit-history": "Edit History",
+        "delete": "Delete"
+      }
+    }
   },
   "toite": {
     "copyright": "Developed with",
-    "light-mode": "Light mode",
-    "dark-mode": "Dark mode",
-    "logout": "Log out",
+    "light-mode": "Light Mode",
+    "dark-mode": "Dark Mode",
+    "logout": "Logout",
     "logout-text": "Are you sure you want to log out? You will be redirected to the login page.",
-    "submit": "Confirm"
+    "submit": "Submit",
+    "online": "Online",
+    "offline": "Offline",
+    "blocked": "Blocked"
   },
   "navbar": {
     "dashboard": "Dashboard",
@@ -30,20 +60,39 @@
     "workshifts": "Workshifts",
     "finances-report": "Report"
   },
+  "workers-page": {
+    "description": "Manage worker data in the system",
+    "searchbar": "Search worker..."
+  },
   "fields": {
     "login": "Login",
     "email": "Email",
     "password": "Password",
-    "submit": "Sign-in"
+    "name": "Name",
+    "role": "Role",
+    "submit": "Sign In",
+    "createdAt": "Created At",
+    "updatedAt": "Updated At",
+    "onlineAt": "Status"
+  },
+  "errors": {
+    "unknown": "Unknown error",
+    "user-not-found": "User not found"
   },
   "roles": {
-    "SYSTEM_ADMIN": "System administrator",
-    "CHIEF_ADMIN": "Chief administrator",
+    "SYSTEM_ADMIN": "System Administrator",
+    "CHIEF_ADMIN": "Chief Administrator",
     "ADMIN": "Administrator",
-    "KITCHENER": "Kitchener",
+    "KITCHENER": "Chef",
     "WAITER": "Waiter",
     "CASHIER": "Cashier",
     "DISPATCHER": "Dispatcher",
     "COURIER": "Courier"
+  },
+  "table": {
+    "rows-per-page": "Rows per page",
+    "page-number": "Page {current} of {total}",
+    "no-rows": "No data",
+    "copied": "Copied to clipboard"
   }
 }
