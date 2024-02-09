@@ -1,4 +1,5 @@
 import { buildApiMutation } from "@/api/builder/mutation";
+import { ApiCacheTag } from "@/api/types";
 import { IWorker } from "@/types/worker.types";
 
 export type ICreateWorker = Pick<
@@ -16,4 +17,5 @@ export const createWorkerMutation = buildApiMutation<
 >({
   url: "/workers",
   method: "POST",
+  tags: [ApiCacheTag.WORKERS],
 });

@@ -9,10 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { useTranslations } from "next-intl";
 import { FC, ReactNode } from "react";
-import {
-  CreateWorkerPayload,
-  createWorkerMutation,
-} from "../../api/createWorker";
+import { ICreateWorker, createWorkerMutation } from "../../api/createWorker";
 import { isAxiosError } from "axios";
 import { FieldError } from "@/api/types";
 import { getErrorCode } from "@/utils/getErrorCode";
@@ -32,12 +29,12 @@ export const WorkerDialog: FC<WorkerDialogProps> = (props) => {
   const t = useTranslations();
 
   const onSubmit = async (
-    payload: CreateWorkerPayload,
-    form: FormInstance<CreateWorkerPayload>
+    data: ICreateWorker,
+    form: FormInstance<ICreateWorker>
   ) => {
     try {
       const result = await createWorkerMutation({
-        payload,
+        data,
       });
     } catch (err) {
       if (isAxiosError(err)) {
@@ -52,7 +49,7 @@ export const WorkerDialog: FC<WorkerDialogProps> = (props) => {
         }
 
         const errors = err.response?.data.message as FieldError<
-          keyof CreateWorkerPayload
+          keyof ICreateWorker
         >[];
 
         for (const { property, constraints } of errors) {
@@ -69,7 +66,6 @@ export const WorkerDialog: FC<WorkerDialogProps> = (props) => {
   return (
     <Dialog>
       {trigger && <DialogTrigger>{trigger}</DialogTrigger>}
-
       <DialogContent className="sm:max-w-[400px]">
         <DialogHeader>
           <DialogTitle>

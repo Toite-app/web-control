@@ -129,7 +129,12 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
                 disabled={disabled}
                 render={({ field }) => (
                   <FormItem>
-                    {label && <FormLabel>{text(label, intl)}</FormLabel>}
+                    {label && (
+                      <FormLabel className="flex flex-row gap-1">
+                        {text(label, intl)}
+                        {required && <span className="text-red-500">*</span>}
+                      </FormLabel>
+                    )}
 
                     {/* Rendering default input */}
                     {data.type === "input" && (
