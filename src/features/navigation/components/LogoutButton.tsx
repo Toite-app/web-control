@@ -17,7 +17,7 @@ import { useTranslations } from "next-intl";
 import { MessageCategories } from "@/messages/index.types";
 import Balancer from "react-wrap-balancer";
 import { useSession } from "@/features/guards/hooks/useSession";
-import { logoutMutation } from "@/api/mutate/logout";
+import { logoutMutation } from "@/features/guards/api/mutate/logout";
 
 type Props = {
   fullWidth?: boolean;

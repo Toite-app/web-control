@@ -1,3 +1,7 @@
+export enum ApiCacheTag {
+  WORKERS = "WORKERS",
+}
+
 export type PaginationMeta = {
   page: number;
   size: number;

@@ -1,6 +1,5 @@
 "use client";
 
-import { UserRole } from "@/api/fetch/useAuthedUser";
 import {
   Dialog,
   DialogContent,
@@ -18,6 +17,7 @@ import { isAxiosError } from "axios";
 import { FieldError } from "@/api/types";
 import { getErrorCode } from "@/utils/getErrorCode";
 import Form, { FormInstance } from "@/components/form";
+import { WorkerRole } from "@/types/worker.types";
 
 export type WorkerDialogProps = {
   open?: boolean;
@@ -101,7 +101,7 @@ export const WorkerDialog: FC<WorkerDialogProps> = (props) => {
               data: {
                 type: "select",
                 placeholder: "Workers.dialog.form.role-placeholder",
-                options: Object.values(UserRole).map((role) => ({
+                options: Object.values(WorkerRole).map((role) => ({
                   label: `roles.${role}`,
                   value: role,
                 })),

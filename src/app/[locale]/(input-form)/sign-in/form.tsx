@@ -16,12 +16,12 @@ import { MessageCategories } from "@/messages/index.types";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
-import { signInMutation } from "@/api/mutate/signIn";
 import { isAxiosError } from "axios";
 import { getErrorCode } from "@/utils/getErrorCode";
 import { useRouter } from "@/navigation";
 import { useSession } from "@/features/guards/hooks/useSession";
 import { PasswordInput } from "@/components/password-input";
+import { signInMutation } from "@/features/guards/api/mutate/signIn";
 
 export const signInSchema = z.object({
   login: z.string().min(3),
@@ -47,7 +47,7 @@ export const SignInForm: FC = () => {
 
     try {
       await signInMutation({
-        payload: {
+        data: {
           login,
           password,
         },

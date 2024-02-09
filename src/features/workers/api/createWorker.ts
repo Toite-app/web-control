@@ -1,21 +1,18 @@
-import { UserRole } from "@/api/fetch/useAuthedUser";
-import { buildApiMutation } from "@/api/hook-builder";
-import { z } from "zod";
+import { buildApiMutation } from "@/api/builder/mutation";
+import { IWorker } from "@/types/worker.types";
 
-export const createWorkerPayload = z.object({
-  name: z.string(),
-  login: z.string(),
-  restaurantId: z.string().nullable(),
-  password: z.string(),
-  role: z.nativeEnum(UserRole),
-});
-
-export type CreateWorkerPayload = z.infer<typeof createWorkerPayload>;
+export type ICreateWorker = Pick<
+  IWorker,
+  "name" | "login" | "restaurantId" | "role"
+> & {
+  password: string;
+};
 
 export const createWorkerMutation = buildApiMutation<
-  void,
-  CreateWorkerPayload,
-  string
+  string,
+  unknown,
+  unknown,
+  ICreateWorker
 >({
   url: "/workers",
   method: "POST",

@@ -1,5 +1,5 @@
-import { AuthedUser } from "../fetch/useAuthedUser";
-import { buildApiMutation } from "../hook-builder";
+import { buildApiMutation } from "@/api/builder/mutation";
+import { IWorker } from "@/types/worker.types";
 
 export type SignInPayload = {
   login: string;
@@ -7,9 +7,10 @@ export type SignInPayload = {
 };
 
 export const signInMutation = buildApiMutation<
-  AuthedUser,
-  SignInPayload,
-  string
+  string,
+  IWorker,
+  unknown,
+  SignInPayload
 >({
   url: "/auth/sign-in",
   method: "POST",
