@@ -5,10 +5,9 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { useTranslations } from "next-intl";
-import { FC, ReactNode } from "react";
+import { FC, memo } from "react";
 import { ICreateWorker, createWorkerMutation } from "../../api/createWorker";
 import { isAxiosError } from "axios";
 import { FieldError } from "@/api/types";
@@ -19,11 +18,10 @@ import { WorkerRole } from "@/types/worker.types";
 export type WorkerDialogProps = {
   open?: boolean;
   onClose?: () => void;
-  trigger?: ReactNode;
 };
 
-export const WorkerDialog: FC<WorkerDialogProps> = (props) => {
-  const { open, onClose, trigger } = props;
+const WorkerDialog: FC<WorkerDialogProps> = (props) => {
+  const { open, onClose } = props;
 
   const isEdit = false;
   const t = useTranslations();
@@ -33,9 +31,11 @@ export const WorkerDialog: FC<WorkerDialogProps> = (props) => {
     form: FormInstance<ICreateWorker>
   ) => {
     try {
-      const result = await createWorkerMutation({
+      await createWorkerMutation({
         data,
       });
+
+      onClose?.();
     } catch (err) {
       if (isAxiosError(err)) {
         if (typeof err.response?.data.message === "string") {
@@ -64,8 +64,12 @@ export const WorkerDialog: FC<WorkerDialogProps> = (props) => {
   };
 
   return (
-    <Dialog>
-      {trigger && <DialogTrigger>{trigger}</DialogTrigger>}
+    <Dialog
+      open={open}
+      onOpenChange={(value) => {
+        if (!value && onClose) onClose();
+      }}
+    >
       <DialogContent className="sm:max-w-[400px]">
         <DialogHeader>
           <DialogTitle>
@@ -77,17 +81,24 @@ export const WorkerDialog: FC<WorkerDialogProps> = (props) => {
           </DialogTitle>
         </DialogHeader>
         <Form
+          intlFields
           fields={[
             {
               name: "name",
               label: "fields.name",
-              data: { type: "input", placeholder: "Alexander F." },
+              data: {
+                type: "input",
+                placeholder: "Workers.dialog.form.name-placeholder",
+              },
             },
             {
               name: "login",
               label: "fields.login",
               required: true,
-              data: { type: "input", placeholder: "robinson" },
+              data: {
+                type: "input",
+                placeholder: "Workers.dialog.form.login-placeholder",
+              },
               description: "Workers.dialog.form.login-description",
             },
             {
@@ -111,7 +122,12 @@ export const WorkerDialog: FC<WorkerDialogProps> = (props) => {
               description: "Workers.dialog.form.password-description",
             },
           ]}
-          intlFields
+          defaultValues={{
+            name: "",
+            login: "",
+            role: undefined,
+            password: "",
+          }}
           onSubmit={onSubmit}
           submitButton={{
             text: "Workers.dialog.submit",
@@ -121,3 +137,5 @@ export const WorkerDialog: FC<WorkerDialogProps> = (props) => {
     </Dialog>
   );
 };
+
+export default memo(WorkerDialog);

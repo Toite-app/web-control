@@ -11,7 +11,9 @@
       "form": {
         "login-description": "По данному логину можно будет войти в систему",
         "password-description": "Создайте пароль для входа нового сотрудника",
-        "role-placeholder": "Выберите роль сотрудника"
+        "role-placeholder": "Выберите роль сотрудника",
+        "name-placeholder": "Введите имя сотрудника",
+        "login-placeholder": "Введите логин сотрудника"
       },
       "errors": {
         "minLength": "Минимальная длина 4 символа",

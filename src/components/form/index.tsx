@@ -10,6 +10,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import {
+  DefaultValues,
   FieldValues,
   Path,
   UseFormProps,
@@ -64,6 +65,7 @@ export type FormProps<TFieldValues extends FieldValues = FieldValues> = {
   className?: string;
   config?: UseFormProps<TFieldValues>;
   fields: FormField<TFieldValues>[];
+  defaultValues: DefaultValues<TFieldValues>;
   onSubmit: (values: TFieldValues, form: FormInstance<TFieldValues>) => void;
   submitButton: Omit<ButtonProps, "children" | "type"> & {
     text: string;
@@ -81,10 +83,14 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
     onSubmit,
     submitButton,
     intlFields = false,
+    defaultValues,
   } = props;
 
   const t = useTranslations();
-  const form = useForm(config);
+  const form = useForm({
+    ...config,
+    defaultValues,
+  });
 
   // Desctructuring form object
   const {

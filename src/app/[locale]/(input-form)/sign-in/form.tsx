@@ -73,6 +73,10 @@ export const SignInForm: FC = () => {
           },
         },
       ]}
+      defaultValues={{
+        login: "",
+        password: "",
+      }}
       onSubmit={onSubmit}
       submitButton={{
         text: "fields.submit",

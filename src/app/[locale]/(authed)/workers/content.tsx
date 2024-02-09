@@ -1,6 +1,6 @@
 "use client";
 
-import { FC } from "react";
+import { FC, useCallback, useState } from "react";
 import { PlusIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
@@ -12,12 +12,13 @@ import { useGetWorkers } from "@/features/workers/api/useGetWorkers";
 import { useGetColumns } from "@/features/workers/components/data-table/hooks/useGetColumns";
 import { DataTable } from "@/components/data-table";
 import { usePagination } from "@/components/data-table/hooks/usePagination";
-import { WorkerDialog } from "@/features/workers/components/dialog";
+import WorkerDialog from "@/features/workers/components/dialog";
 
 export const WorkersPageContent: FC = () => {
   const tNav = useTranslations(MessageCategories.NAVBAR);
   const t = useTranslations(MessageCategories.WORKERS_PAGE);
 
+  const [createOpen, setCreateOpen] = useState(false);
   const columns = useGetColumns();
   const pagination = usePagination();
   const workers = useGetWorkers({
@@ -30,6 +31,10 @@ export const WorkersPageContent: FC = () => {
       keepPreviousData: true,
     },
   });
+
+  const handleClose = useCallback(() => {
+    setCreateOpen(false);
+  }, []);
 
   return (
     <div className="mx-auto flex h-full w-full max-w-screen-xl flex-col gap-4 p-4 py-12">
@@ -45,13 +50,16 @@ export const WorkersPageContent: FC = () => {
         </div>
         <div className="flex flex-row items-center gap-4">
           <Input className="w-64 " placeholder={t("searchbar")} type="search" />
-          <WorkerDialog
-            trigger={
-              <Button variant="default" size="icon">
-                <PlusIcon />
-              </Button>
-            }
-          />
+          <Button
+            variant="default"
+            size="icon"
+            onClick={() => {
+              setCreateOpen(true);
+            }}
+          >
+            <PlusIcon />
+          </Button>
+          <WorkerDialog open={createOpen} onClose={handleClose} />
         </div>
       </header>
       <Separator />
