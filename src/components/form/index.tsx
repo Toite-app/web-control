@@ -108,7 +108,21 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
 
   // Proxy submit function to pass form object
   const proxySubmit = (values: TFieldValues) => {
-    return onSubmit(values, form);
+    const hiddenSet = new Set(
+      fields.filter(({ hidden }) => hidden).map(({ name }) => name)
+    );
+
+    return onSubmit(
+      Object.entries(values).reduce((acc, [key, value]) => {
+        if (hiddenSet.has(key as Path<TFieldValues>)) return acc;
+
+        return {
+          ...acc,
+          [key]: value,
+        };
+      }, {} as TFieldValues),
+      form
+    );
   };
 
   return (

@@ -13,17 +13,20 @@ import { isAxiosError } from "axios";
 import { FieldError } from "@/api/types";
 import { getErrorCode } from "@/utils/getErrorCode";
 import Form, { FormInstance } from "@/components/form";
-import { WorkerRole } from "@/types/worker.types";
+import { IWorker, WorkerRole } from "@/types/worker.types";
+import { handleApiError } from "@/features/errors/utils/handle";
+import { putWorkerMutation } from "../../api/putWorker";
 
 export type WorkerDialogProps = {
+  data?: IWorker;
   open?: boolean;
   onClose?: () => void;
 };
 
 const WorkerDialog: FC<WorkerDialogProps> = (props) => {
-  const { open, onClose } = props;
+  const { data: worker, open, onClose } = props;
 
-  const isEdit = false;
+  const isEdit = !!worker;
   const t = useTranslations();
 
   const onSubmit = async (
@@ -31,12 +34,20 @@ const WorkerDialog: FC<WorkerDialogProps> = (props) => {
     form: FormInstance<ICreateWorker>
   ) => {
     try {
-      await createWorkerMutation({
-        data,
-      });
+      if (!isEdit) {
+        await createWorkerMutation({ data });
+      } else {
+        await putWorkerMutation({
+          urlValues: {
+            id: worker.id,
+          },
+          data,
+        });
+      }
 
       onClose?.();
     } catch (err) {
+      handleApiError(err);
       if (isAxiosError(err)) {
         if (typeof err.response?.data.message === "string") {
           const code = getErrorCode(err);
@@ -120,14 +131,15 @@ const WorkerDialog: FC<WorkerDialogProps> = (props) => {
               name: "password",
               label: "fields.password",
               required: true,
+              hidden: isEdit,
               data: { type: "password" },
               description: "Workers.dialog.form.password-description",
             },
           ]}
           defaultValues={{
-            name: "",
-            login: "",
-            role: undefined,
+            name: worker?.name || "",
+            login: worker?.login || "",
+            role: worker?.role || undefined,
             password: "",
           }}
           onSubmit={onSubmit}

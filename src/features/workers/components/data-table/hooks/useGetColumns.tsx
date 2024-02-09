@@ -1,6 +1,5 @@
 "use client";
 import { ColumnDef } from "@tanstack/react-table";
-import { Worker } from "../../../api/useGetWorkers";
 import { useMemo } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { formatDistance } from "date-fns";
@@ -23,12 +22,19 @@ import {
 } from "lucide-react";
 import { ru, enUS, et } from "date-fns/locale";
 import { toast } from "sonner";
+import { IWorker } from "@/types/worker.types";
 
-export const useGetColumns = () => {
+type Options = {
+  onEdit: (worker: IWorker) => void;
+};
+
+export const useGetColumns = (options: Options) => {
+  const { onEdit } = options;
+
   const locale = useLocale();
   const t = useTranslations();
 
-  return useMemo<ColumnDef<Worker>[]>(
+  return useMemo<ColumnDef<IWorker>[]>(
     () => [
       {
         accessorKey: "name",
@@ -119,7 +125,10 @@ export const useGetColumns = () => {
                   <FingerprintIcon className="mr-2 h-4 w-4" />
                   <span>{t("Workers.table.actions.copyId")}</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer">
+                <DropdownMenuItem
+                  className="cursor-pointer"
+                  onClick={() => onEdit(row.original)}
+                >
                   <EditIcon className="mr-2 h-4 w-4" />
                   <span>{t("Workers.table.actions.edit")}</span>
                 </DropdownMenuItem>
