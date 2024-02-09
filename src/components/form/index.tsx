@@ -56,6 +56,7 @@ export type FormField<TFieldValues> = {
   disabled?: boolean;
   hidden?: boolean;
   required?: boolean;
+  autocomplete?: string;
 };
 
 export type FormInstance<TFieldValues extends FieldValues> =
@@ -128,6 +129,7 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
               disabled,
               required,
               intl = intlFields,
+              autocomplete,
             }) => (
               <FormField
                 control={control}
@@ -148,6 +150,7 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
                         <Input
                           placeholder={text(data.placeholder, intl)}
                           required={required}
+                          {...{ autocomplete }}
                           {...field}
                         />
                       </FormControl>
@@ -159,6 +162,7 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
                         <PasswordInput
                           placeholder={text(data.placeholder, intl)}
                           required={required}
+                          {...{ autocomplete }}
                           {...field}
                         />
                       </FormControl>
