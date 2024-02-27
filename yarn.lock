@@ -4177,10 +4177,10 @@ nth-check@^2.0.1:
   dependencies:
     boolbase "^1.0.0"
 
-nuqs@^1.16.1:
-  version "1.16.1"
-  resolved "https://registry.yarnpkg.com/nuqs/-/nuqs-1.16.1.tgz#8ad7887615105fb574a00f1676b8380682899681"
-  integrity sha512-R3muf8sXJTj/Lu56Cd+qBmzfZUxSiIvpoytf58/0+8xEtCBCENJn3a6aHokHCWop3q3c/DyVx7blDTX5Pu1hyA==
+nuqs@^1.17.0:
+  version "1.17.0"
+  resolved "https://registry.yarnpkg.com/nuqs/-/nuqs-1.17.0.tgz#b011a4b9ce445344db1cb9cd0d509a6c14659f9a"
+  integrity sha512-Lp2qLETMb7AAYhDtRtx20oAZNkYYTPApZcaX7Q5nQz7bfy893TCIe92IYVIfl9ZUqQLTsl9855KGEsA57dylPQ==
   dependencies:
     mitt "^3.0.1"
 

@@ -4,9 +4,11 @@ import {
   ColumnDef,
   OnChangeFn,
   PaginationState,
+  SortingState,
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
+  getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 
@@ -22,35 +24,42 @@ import { cn } from "@/lib/utils";
 import DataTablePagination from "@/components/data-table-pagination";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useTranslations } from "next-intl";
 import { ArchiveXIcon } from "lucide-react";
 import { PaginationMeta } from "@/api/types";
+import { useTranslations } from "next-intl";
+
+type TablePagination = {
+  state: PaginationState;
+  meta?: PaginationMeta;
+  onChange: OnChangeFn<PaginationState>;
+};
+
+type TableSorting = {
+  state: SortingState;
+  onChange: OnChangeFn<SortingState>;
+};
 
 export type DataTableProps<T> = {
   className?: string;
   data?: T[] | null;
   columns: ColumnDef<T>[];
-  pagination?: {
-    state: PaginationState;
-    meta?: PaginationMeta;
-    onChange: OnChangeFn<PaginationState>;
-  };
   isLoading?: boolean;
+  pagination?: TablePagination;
+  sorting?: TableSorting;
 };
 
 export const DataTable = <DataType extends { id: string }>(
   props: DataTableProps<DataType>
 ) => {
-  const { className, data, columns, pagination, isLoading } = props;
+  const { className, data, columns, pagination, sorting, isLoading } = props;
 
   const t = useTranslations();
-
   const table = useReactTable({
     columns,
     data: data || [],
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
     state: {
+      // Connect pagination
       ...(pagination
         ? {
             pagination: {
@@ -59,14 +68,30 @@ export const DataTable = <DataType extends { id: string }>(
             },
           }
         : {}),
+      // Connect sorting
+      ...(sorting
+        ? {
+            sorting: sorting.state,
+          }
+        : {}),
     },
+    // Connect pagination
     ...(pagination
       ? {
+          getPaginationRowModel: getPaginationRowModel(),
           manualPagination: true,
           pageCount: Math.ceil(
             (pagination.meta?.total || 0) / (pagination.meta?.size || 0)
           ),
           onPaginationChange: pagination.onChange,
+        }
+      : {}),
+    // Connect sorting
+    ...(sorting
+      ? {
+          getSortedRowModel: getSortedRowModel(),
+          manualSorting: true,
+          onSortingChange: sorting.onChange,
         }
       : {}),
   });
@@ -75,7 +100,7 @@ export const DataTable = <DataType extends { id: string }>(
     <div className={cn("relative flex flex-col rounded-md border", className)}>
       <ScrollArea className="relative max-h-full overflow-clip">
         <Table className="relative max-h-full overflow-clip">
-          <TableHeader>
+          <TableHeader className="sticky top-0 z-10 bg-secondary">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {

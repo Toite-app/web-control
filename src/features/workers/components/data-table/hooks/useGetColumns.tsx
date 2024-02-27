@@ -23,6 +23,7 @@ import {
 import { ru, enUS, et } from "date-fns/locale";
 import { toast } from "sonner";
 import { IWorker } from "@/types/worker.types";
+import { SortButton } from "@/components/data-table/components/SortButton";
 
 type Options = {
   onEdit: (worker: IWorker) => void;
@@ -38,7 +39,9 @@ export const useGetColumns = (options: Options) => {
     () => [
       {
         accessorKey: "name",
-        header: t("fields.name"),
+        header: ({ column }) => {
+          return <SortButton column={column}>{t("fields.name")}</SortButton>;
+        },
         cell: ({ row }) => {
           const name = row.original?.name || row.original?.login;
 
@@ -56,16 +59,24 @@ export const useGetColumns = (options: Options) => {
       },
       {
         accessorKey: "login",
-        header: t("fields.login"),
+        header: ({ column }) => {
+          return <SortButton column={column}>{t("fields.login")}</SortButton>;
+        },
       },
       {
         accessorKey: "role",
-        header: t("fields.role"),
+        header: ({ column }) => {
+          return <SortButton column={column}>{t("fields.role")}</SortButton>;
+        },
         cell: ({ row }) => <span>{t(`roles.${row.original.role}`)}</span>,
       },
       {
         accessorKey: "onlineAt",
-        header: t("fields.onlineAt"),
+        header: ({ column }) => {
+          return (
+            <SortButton column={column}>{t("fields.onlineAt")}</SortButton>
+          );
+        },
         cell: ({ row }) => {
           if (row.original.isBlocked) {
             return <Badge variant="destructive">{t("toite.blocked")}</Badge>;
@@ -85,7 +96,11 @@ export const useGetColumns = (options: Options) => {
       },
       {
         accessorKey: "updatedAt",
-        header: t("fields.updatedAt"),
+        header: ({ column }) => {
+          return (
+            <SortButton column={column}>{t("fields.updatedAt")}</SortButton>
+          );
+        },
         cell: ({ row }) => (
           <span>
             {formatDistance(new Date(row.original.updatedAt), new Date(), {

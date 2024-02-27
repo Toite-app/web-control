@@ -14,6 +14,7 @@ import { DataTable } from "@/components/data-table";
 import { usePagination } from "@/components/data-table/hooks/usePagination";
 import WorkerDialog from "@/features/workers/components/dialog";
 import { IWorker } from "@/types/worker.types";
+import { useSorting } from "@/components/data-table/hooks/useSorting";
 
 export const WorkersPageContent: FC = () => {
   const tNav = useTranslations(MessageCategories.NAVBAR);
@@ -31,6 +32,7 @@ export const WorkersPageContent: FC = () => {
   });
 
   const pagination = usePagination();
+  const sorting = useSorting();
   const workers = useGetWorkers({
     params: {
       page: pagination.state.pageIndex + 1,
@@ -91,10 +93,10 @@ export const WorkersPageContent: FC = () => {
             columns,
             isLoading: workers.isLoading,
             pagination: {
-              state: pagination.state,
+              ...pagination,
               meta: workers.data?.meta,
-              onChange: pagination.onChange,
             },
+            sorting,
           }}
         />
       </div>
