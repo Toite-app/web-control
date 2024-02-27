@@ -5,9 +5,6 @@ import { PlusIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
-import { MessageCategories } from "@/messages/index.types";
 import { useGetWorkers } from "@/features/workers/api/useGetWorkers";
 import { useGetColumns } from "@/features/workers/components/data-table/hooks/useGetColumns";
 import { DataTable } from "@/components/data-table";
@@ -17,8 +14,7 @@ import { IWorker } from "@/types/worker.types";
 import { useSorting } from "@/components/data-table/hooks/useSorting";
 
 export const WorkersPageContent: FC = () => {
-  const tNav = useTranslations(MessageCategories.NAVBAR);
-  const t = useTranslations(MessageCategories.WORKERS_PAGE);
+  const t = useTranslations();
 
   const [worker, setWorker] = useState<IWorker>();
   const [createOpen, setCreateOpen] = useState(false);
@@ -37,6 +33,12 @@ export const WorkersPageContent: FC = () => {
     params: {
       page: pagination.state.pageIndex + 1,
       size: pagination.state.pageSize,
+      ...(sorting.sortBy
+        ? {
+            sortBy: sorting.sortBy,
+            sortOrder: sorting.sortOrder,
+          }
+        : {}),
     },
     config: {
       refreshInterval: 60_000,
@@ -60,32 +62,34 @@ export const WorkersPageContent: FC = () => {
         <header className="flex flex-row items-center justify-between">
           <div className="flex flex-col gap-1">
             <div className="flex flex-row items-center gap-4">
-              <h1 className=" text-4xl font-bold">{tNav("workers")}</h1>
+              <h1 className=" text-4xl font-bold">{t("navbar.workers")}</h1>
               <Badge className="rounded-lg" variant="default">
                 {workers.data?.meta.total || "-"}
               </Badge>
             </div>
-            <p className="text-stone-500">{t("description")}</p>
+            <p className="text-stone-500">{t("Workers.page.description")}</p>
           </div>
           <div className="flex flex-row items-center gap-4">
-            <Input
+            {/* <Input
               className="w-64 "
               placeholder={t("searchbar")}
               type="search"
-            />
+            /> */}
             <Button
+              className="flex flex-row items-center gap-2"
               variant="default"
-              size="icon"
               onClick={() => {
                 setCreateOpen(true);
               }}
             >
-              <PlusIcon />
+              <PlusIcon className="h-5 w-5" />
+              <span className="text-[16px]">{t("Workers.page.create")}</span>
             </Button>
             <WorkerDialog open={createOpen} onClose={handleClose} />
           </div>
         </header>
-        <Separator />
+        {/* <Separator /> */}
+        {/* <DataTableFilters /> */}
         <DataTable
           className="h-[75vh] overflow-clip bg-stone-200/30 dark:bg-stone-800/20"
           {...{

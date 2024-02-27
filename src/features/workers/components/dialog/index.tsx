@@ -101,7 +101,7 @@ const WorkerDialog: FC<WorkerDialogProps> = (props) => {
                 type: "input",
                 placeholder: "Workers.dialog.form.name-placeholder",
               },
-              autocomplete: "off",
+              autoComplete: "off",
             },
             {
               name: "login",
@@ -112,7 +112,7 @@ const WorkerDialog: FC<WorkerDialogProps> = (props) => {
                 placeholder: "Workers.dialog.form.login-placeholder",
               },
               description: "Workers.dialog.form.login-description",
-              autocomplete: "off",
+              autoComplete: "off",
             },
             {
               name: "role",

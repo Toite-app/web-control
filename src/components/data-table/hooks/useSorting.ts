@@ -61,6 +61,8 @@ export const useSorting = (options?: UseSortingOptions) => {
   );
 
   return {
+    sortBy,
+    sortOrder,
     state,
     onChange,
   };

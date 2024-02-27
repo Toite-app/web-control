@@ -157,6 +157,6 @@ export const useGetColumns = (options: Options) => {
         },
       },
     ],
-    [t]
+    [t, locale, onEdit]
   );
 };
