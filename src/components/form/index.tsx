@@ -214,7 +214,7 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
                         {text(description, intl)}
                       </FormDescription>
                     )}
-                    <FormMessage />
+                    <FormMessage className="mt-0 pt-0" />
                   </FormItem>
                 )}
                 key={String(name)}

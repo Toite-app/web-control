@@ -16,6 +16,7 @@ import Form, { FormInstance } from "@/components/form";
 import { IWorker, WorkerRole } from "@/types/worker.types";
 import { handleApiError } from "@/features/errors/utils/handle";
 import { putWorkerMutation } from "../../api/putWorker";
+import { useErrorHandler } from "@/hooks/useErrorHandler";
 
 export type WorkerDialogProps = {
   data?: IWorker;
@@ -28,6 +29,7 @@ const WorkerDialog: FC<WorkerDialogProps> = (props) => {
 
   const isEdit = !!worker;
   const t = useTranslations();
+  const handleError = useErrorHandler({});
 
   const onSubmit = async (
     data: ICreateWorker,
@@ -46,31 +48,32 @@ const WorkerDialog: FC<WorkerDialogProps> = (props) => {
       }
 
       onClose?.();
-    } catch (err) {
-      handleApiError(err);
-      if (isAxiosError(err)) {
-        if (typeof err.response?.data.message === "string") {
-          const code = getErrorCode(err);
+    } catch (error) {
+      handleError({ error, form });
 
-          form.setError("root", {
-            message: t(`Workers.dialog.errors.${code}`),
-          });
+      // if (isAxiosError(err)) {
+      //   if (typeof err.response?.data.message === "string") {
+      //     const code = getErrorCode(err);
 
-          return;
-        }
+      //     form.setError("root", {
+      //       message: t(`Workers.dialog.errors.${code}`),
+      //     });
 
-        const errors = err.response?.data.message as FieldError<
-          keyof ICreateWorker
-        >[];
+      //     return;
+      //   }
 
-        for (const { property, constraints } of errors) {
-          const errCode = Object.keys(constraints)?.[0] ?? "";
-          const message = t(`Workers.dialog.errors.${errCode}`);
+      //   const errors = err.response?.data.message as FieldError<
+      //     keyof ICreateWorker
+      //   >[];
 
-          form.setError(property, { message });
-        }
-      }
-      console.error(err);
+      //   for (const { property, constraints } of errors) {
+      //     const errCode = Object.keys(constraints)?.[0] ?? "";
+      //     const message = t(`Workers.dialog.errors.${errCode}`);
+
+      //     form.setError(property, { message });
+      //   }
+      // }
+      // console.error(err);
     }
   };
 
