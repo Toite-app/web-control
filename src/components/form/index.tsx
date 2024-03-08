@@ -30,6 +30,7 @@ import { useTranslations } from "next-intl";
 import { Button, ButtonProps } from "../ui/button";
 import { CheckCircle2Icon, Loader2Icon } from "lucide-react";
 import { PasswordInput } from "../password-input";
+import { useEffect } from "react";
 
 export type PasswordInputFormField = {
   type: "password";
@@ -72,6 +73,7 @@ export type FormProps<TFieldValues extends FieldValues = FieldValues> = {
     text: string;
   };
   intlFields?: boolean;
+  onFormInit?: (form: FormInstance<TFieldValues>) => void;
 };
 
 export const Form = <TFieldValues extends FieldValues = FieldValues>(
@@ -85,6 +87,7 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
     submitButton,
     intlFields = false,
     defaultValues,
+    onFormInit,
   } = props;
 
   const t = useTranslations();
@@ -124,6 +127,11 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
       form
     );
   };
+
+  // Form initialization callback
+  useEffect(() => {
+    onFormInit?.(form);
+  }, [form, onFormInit]);
 
   return (
     // Shadcn/ui wrapper
@@ -166,6 +174,7 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
                           required={required}
                           {...{ autoComplete }}
                           {...field}
+                          disabled={disabled || field.disabled}
                         />
                       </FormControl>
                     )}
@@ -178,6 +187,7 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
                           required={required}
                           {...{ autoComplete }}
                           {...field}
+                          disabled={disabled || field.disabled}
                         />
                       </FormControl>
                     )}
@@ -188,6 +198,7 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
                         defaultValue={field.value}
                         onValueChange={field.onChange}
                         required={required}
+                        disabled={disabled || field.disabled}
                       >
                         <FormControl>
                           <SelectTrigger>

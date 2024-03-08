@@ -92,7 +92,21 @@
     "no-rows": "Нет данных",
     "copied": "Скопировано в буфер обмена",
     "filter": {
-      "add": "Добавить фильтр"
+      "conditions": {
+        "equals": "Равно",
+        "notEquals": "Не равно",
+        "contains": "Содержит",
+        "notContains": "Не содержит",
+        "startsWith": "Начинается с",
+        "endsWith": "Заканчивается на"
+      },
+      "field": "Поле",
+      "value": "Значение",
+      "value-placeholder": "Введите значение",
+      "value-placeholder-select": "Выберите значение",
+      "condition": "Условие",
+      "add": "Добавить фильтр",
+      "submit": "Применить"
     }
   },
   "apiErrors": {

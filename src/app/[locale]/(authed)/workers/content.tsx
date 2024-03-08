@@ -12,6 +12,7 @@ import { usePagination } from "@/components/data-table/hooks/usePagination";
 import WorkerDialog from "@/features/workers/components/dialog";
 import { IWorker } from "@/types/worker.types";
 import { useSorting } from "@/components/data-table/hooks/useSorting";
+import { WorkersTableFilters } from "@/features/workers/components/data-table/components/TableFilters";
 
 export const WorkersPageContent: FC = () => {
   const t = useTranslations();
@@ -89,7 +90,7 @@ export const WorkersPageContent: FC = () => {
           </div>
         </header>
         {/* <Separator /> */}
-        {/* <DataTableFilters /> */}
+        <WorkersTableFilters />
         <DataTable
           className="h-[75vh] overflow-clip bg-stone-200/30 dark:bg-stone-800/20"
           {...{

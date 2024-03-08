@@ -9,12 +9,8 @@ import {
 import { useTranslations } from "next-intl";
 import { FC, memo } from "react";
 import { ICreateWorker, createWorkerMutation } from "../../api/createWorker";
-import { isAxiosError } from "axios";
-import { FieldError } from "@/api/types";
-import { getErrorCode } from "@/utils/getErrorCode";
 import Form, { FormInstance } from "@/components/form";
 import { IWorker, WorkerRole } from "@/types/worker.types";
-import { handleApiError } from "@/features/errors/utils/handle";
 import { putWorkerMutation } from "../../api/putWorker";
 import { useErrorHandler } from "@/hooks/useErrorHandler";
 
@@ -29,7 +25,7 @@ const WorkerDialog: FC<WorkerDialogProps> = (props) => {
 
   const isEdit = !!worker;
   const t = useTranslations();
-  const handleError = useErrorHandler({});
+  const handleError = useErrorHandler();
 
   const onSubmit = async (
     data: ICreateWorker,
@@ -50,30 +46,6 @@ const WorkerDialog: FC<WorkerDialogProps> = (props) => {
       onClose?.();
     } catch (error) {
       handleError({ error, form });
-
-      // if (isAxiosError(err)) {
-      //   if (typeof err.response?.data.message === "string") {
-      //     const code = getErrorCode(err);
-
-      //     form.setError("root", {
-      //       message: t(`Workers.dialog.errors.${code}`),
-      //     });
-
-      //     return;
-      //   }
-
-      //   const errors = err.response?.data.message as FieldError<
-      //     keyof ICreateWorker
-      //   >[];
-
-      //   for (const { property, constraints } of errors) {
-      //     const errCode = Object.keys(constraints)?.[0] ?? "";
-      //     const message = t(`Workers.dialog.errors.${errCode}`);
-
-      //     form.setError(property, { message });
-      //   }
-      // }
-      // console.error(err);
     }
   };
 
