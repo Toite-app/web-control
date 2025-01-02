@@ -7,7 +7,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useTranslations } from "next-intl";
-import { FC, memo } from "react";
+import { FC, memo, useEffect } from "react";
 import { Form } from "@/components/form";
 import { IRestaurant } from "@/types/restaurant.types";
 import { useErrorHandler } from "@/hooks/useErrorHandler";
@@ -19,7 +19,7 @@ import {
 import { putRestaurantMutation } from "../../api/putRestaurant";
 
 export type RestaurantDialogProps = {
-  data?: IRestaurant;
+  data?: IRestaurant | null;
   open?: boolean;
   onClose?: () => void;
 };
@@ -60,6 +60,19 @@ const RestaurantDialog: FC<RestaurantDialogProps> = (props) => {
       handleError({ error, form });
     }
   };
+
+  useEffect(() => {
+    if (open && restaurant) {
+      form.reset({
+        name: restaurant.name,
+        legalEntity: restaurant.legalEntity,
+        address: restaurant.address,
+        latitude: restaurant.latitude,
+        longitude: restaurant.longitude,
+        isEnabled: restaurant.isEnabled,
+      });
+    }
+  }, [open, restaurant, form]);
 
   return (
     <Dialog
