@@ -9,10 +9,11 @@ import {
 import { useTranslations } from "next-intl";
 import { FC, memo } from "react";
 import { ICreateWorker, createWorkerMutation } from "../../api/createWorker";
-import Form, { FormInstance } from "@/components/form";
+import { Form } from "@/components/form";
 import { IWorker, WorkerRole } from "@/types/worker.types";
 import { putWorkerMutation } from "../../api/putWorker";
 import { useErrorHandler } from "@/hooks/useErrorHandler";
+import { useForm } from "react-hook-form";
 
 export type WorkerDialogProps = {
   data?: IWorker;
@@ -27,10 +28,16 @@ const WorkerDialog: FC<WorkerDialogProps> = (props) => {
   const t = useTranslations();
   const handleError = useErrorHandler();
 
-  const onSubmit = async (
-    data: ICreateWorker,
-    form: FormInstance<ICreateWorker>
-  ) => {
+  const form = useForm<ICreateWorker>({
+    defaultValues: {
+      name: worker?.name || "",
+      login: worker?.login || "",
+      role: worker?.role || undefined,
+      password: "",
+    },
+  });
+
+  const onSubmit = async (data: ICreateWorker) => {
     try {
       if (!isEdit) {
         await createWorkerMutation({ data });
@@ -66,7 +73,8 @@ const WorkerDialog: FC<WorkerDialogProps> = (props) => {
             )}
           </DialogTitle>
         </DialogHeader>
-        <Form
+        <Form<ICreateWorker>
+          form={form}
           intlFields
           fields={[
             {
@@ -111,12 +119,6 @@ const WorkerDialog: FC<WorkerDialogProps> = (props) => {
               description: "Workers.dialog.form.password-description",
             },
           ]}
-          defaultValues={{
-            name: worker?.name || "",
-            login: worker?.login || "",
-            role: worker?.role || undefined,
-            password: "",
-          }}
           onSubmit={onSubmit}
           submitButton={{
             text: "Workers.dialog.submit",

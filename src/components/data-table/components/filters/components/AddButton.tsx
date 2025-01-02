@@ -8,32 +8,38 @@ import {
 import { Button } from "@/components/ui/button";
 import { FilterIcon, ChevronDownIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
-import Form, { FormInstance } from "@/components/form";
-import { FilterCondition } from "../index.types";
-import { DataTableFiltersProps } from "..";
+import Form from "@/components/form";
+import { Filter, FilterCondition } from "../index.types";
 import { FilterValues, useGetFilterFormFields } from "../hooks/useFormFields";
+import { useForm } from "react-hook-form";
 
-type Props<F extends string> = Pick<DataTableFiltersProps<F>, "config">;
+type Props<F extends string> = {
+  config: Filter<F>[];
+  onAdd: (field: F, value: string, condition: FilterCondition) => void;
+};
 
 export const AddFilterButton = memo(<F extends string>(props: Props<F>) => {
-  const { config } = props;
+  const { config, onAdd } = props;
 
   const t = useTranslations();
 
   const [isAddOpen, setIsAddOpen] = useState(false);
-  const [form, setForm] = useState<FormInstance<FilterValues> | null>(null);
-  const [selectedField, setSelectedField] = useState<string | undefined>(
-    config?.[0].field
-  );
+  const [selectedField, setSelectedField] = useState<string | undefined>();
+
+  const form = useForm<FilterValues>({
+    defaultValues: {
+      field: "",
+      value: "",
+    },
+  });
 
   const fields = useGetFilterFormFields({
     config,
     selectedField,
   });
 
+  // Watch for field changes
   useEffect(() => {
-    if (!form) return;
-
     const subscription = form.watch((value) => {
       setSelectedField(value.field);
     });
@@ -41,16 +47,36 @@ export const AddFilterButton = memo(<F extends string>(props: Props<F>) => {
     return () => subscription.unsubscribe();
   }, [form]);
 
+  // Set initial field value when popover opens
+  useEffect(() => {
+    const field = config?.[0]?.field;
+    const condition = config?.[0]?.conditions[0];
+
+    if (isAddOpen && field) {
+      form.reset({
+        field,
+        condition: condition as FilterCondition,
+      });
+      setSelectedField(field);
+    }
+  }, [isAddOpen, config, form]);
+
   return (
-    <Popover onOpenChange={setIsAddOpen}>
-      <PopoverTrigger>
+    <Popover
+      open={isAddOpen}
+      onOpenChange={(open) => {
+        setIsAddOpen(open);
+        if (!open) {
+          form.reset();
+        }
+      }}
+    >
+      <PopoverTrigger asChild>
         <Button
           className="flex flex-row gap-2"
           variant="outline"
           size="sm"
-          onClick={() => {
-            setIsAddOpen(true);
-          }}
+          disabled={config.length === 0}
         >
           <FilterIcon className="h-4 w-4" />
           {t("table.filter.add")}
@@ -67,18 +93,21 @@ export const AddFilterButton = memo(<F extends string>(props: Props<F>) => {
       >
         <h2 className="text-lg font-bold">{t("table.filter.add")}</h2>
         <Form
-          intlFields
+          form={form}
           fields={fields}
-          defaultValues={{
-            field: config?.[0].field,
-            condition: FilterCondition.Equals,
-            value: "",
+          onSubmit={(values) => {
+            onAdd(
+              values.field as F,
+              values.value,
+              values.condition as FilterCondition
+            );
+            setIsAddOpen(false);
+            form.reset();
           }}
-          onSubmit={console.log}
           submitButton={{
             text: "table.filter.submit",
           }}
-          onFormInit={setForm}
+          intlFields
         />
       </PopoverContent>
     </Popover>

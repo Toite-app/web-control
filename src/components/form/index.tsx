@@ -9,14 +9,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {
-  DefaultValues,
-  FieldValues,
-  Path,
-  UseFormProps,
-  UseFormReturn,
-  useForm,
-} from "react-hook-form";
+import { FieldValues, Path, UseFormReturn } from "react-hook-form";
 import { cn } from "@/lib/utils";
 import { Input } from "../ui/input";
 import {
@@ -30,7 +23,6 @@ import { useTranslations } from "next-intl";
 import { Button, ButtonProps } from "../ui/button";
 import { CheckCircle2Icon, Loader2Icon } from "lucide-react";
 import { PasswordInput } from "../password-input";
-import { useEffect } from "react";
 
 export type PasswordInputFormField = {
   type: "password";
@@ -65,15 +57,13 @@ export type FormInstance<TFieldValues extends FieldValues> =
 
 export type FormProps<TFieldValues extends FieldValues = FieldValues> = {
   className?: string;
-  config?: UseFormProps<TFieldValues>;
+  form: FormInstance<TFieldValues>;
   fields: FormField<TFieldValues>[];
-  defaultValues: DefaultValues<TFieldValues>;
   onSubmit: (values: TFieldValues, form: FormInstance<TFieldValues>) => void;
   submitButton: Omit<ButtonProps, "children" | "type"> & {
     text: string;
   };
   intlFields?: boolean;
-  onFormInit?: (form: FormInstance<TFieldValues>) => void;
 };
 
 export const Form = <TFieldValues extends FieldValues = FieldValues>(
@@ -81,22 +71,15 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
 ) => {
   const {
     className,
-    config,
+    form,
     fields,
     onSubmit,
     submitButton,
     intlFields = false,
-    defaultValues,
-    onFormInit,
   } = props;
 
   const t = useTranslations();
-  const form = useForm({
-    ...config,
-    defaultValues,
-  });
 
-  // Desctructuring form object
   const {
     handleSubmit,
     control,
@@ -127,11 +110,6 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
       form
     );
   };
-
-  // Form initialization callback
-  useEffect(() => {
-    onFormInit?.(form);
-  }, [form, onFormInit]);
 
   return (
     // Shadcn/ui wrapper
@@ -174,6 +152,7 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
                           required={required}
                           {...{ autoComplete }}
                           {...field}
+                          value={field.value ?? ""}
                           disabled={disabled || field.disabled}
                         />
                       </FormControl>
@@ -187,6 +166,7 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
                           required={required}
                           {...{ autoComplete }}
                           {...field}
+                          value={field.value ?? ""}
                           disabled={disabled || field.disabled}
                         />
                       </FormControl>
@@ -195,7 +175,7 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
                     {/* Rendering select */}
                     {data.type === "select" && (
                       <Select
-                        defaultValue={field.value}
+                        defaultValue={field.value ?? ""}
                         onValueChange={field.onChange}
                         required={required}
                         disabled={disabled || field.disabled}

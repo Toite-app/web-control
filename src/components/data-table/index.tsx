@@ -2,11 +2,13 @@
 
 import {
   ColumnDef,
+  ColumnFiltersState,
   OnChangeFn,
   PaginationState,
   SortingState,
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
@@ -39,6 +41,11 @@ type TableSorting = {
   onChange: OnChangeFn<SortingState>;
 };
 
+type TableFilters = {
+  state: ColumnFiltersState;
+  onChange: OnChangeFn<ColumnFiltersState>;
+};
+
 export type DataTableProps<T> = {
   className?: string;
   data?: T[] | null;
@@ -46,12 +53,14 @@ export type DataTableProps<T> = {
   isLoading?: boolean;
   pagination?: TablePagination;
   sorting?: TableSorting;
+  filters?: TableFilters;
 };
 
 export const DataTable = <DataType extends { id: string }>(
   props: DataTableProps<DataType>
 ) => {
-  const { className, data, columns, pagination, sorting, isLoading } = props;
+  const { className, data, columns, pagination, sorting, filters, isLoading } =
+    props;
 
   const t = useTranslations();
   const table = useReactTable({
@@ -74,6 +83,12 @@ export const DataTable = <DataType extends { id: string }>(
             sorting: sorting.state,
           }
         : {}),
+      // Connect filters
+      ...(filters
+        ? {
+            columnFilters: filters.state,
+          }
+        : {}),
     },
     // Connect pagination
     ...(pagination
@@ -92,6 +107,14 @@ export const DataTable = <DataType extends { id: string }>(
           getSortedRowModel: getSortedRowModel(),
           manualSorting: true,
           onSortingChange: sorting.onChange,
+        }
+      : {}),
+    // Connect filters
+    ...(filters
+      ? {
+          getFilteredRowModel: getFilteredRowModel(),
+          manualFiltering: true,
+          onFilterChange: filters.onChange,
         }
       : {}),
   });
