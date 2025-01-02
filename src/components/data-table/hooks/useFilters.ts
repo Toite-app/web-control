@@ -40,7 +40,13 @@ const validateFilters = <F extends string>(value: unknown): FiltersState<F> => {
   return filters;
 };
 
-export const useFilters = <F extends string>(options: UseFiltersOptions<F>) => {
+export type FilterParams = {
+  filters?: string;
+};
+
+export const useFilters = <F extends string>(
+  options?: UseFiltersOptions<F>
+) => {
   const { id, initialFilters = {}, fields = [] } = options || {};
 
   // Create URL parameter key based on table ID
@@ -113,6 +119,23 @@ export const useFilters = <F extends string>(options: UseFiltersOptions<F>) => {
     [setFilter]
   );
 
+  // Add new getter for API params
+  const filterParams = useMemo((): FilterParams => {
+    if (Object.keys(state).length === 0) {
+      return {};
+    }
+
+    return {
+      filters: JSON.stringify(
+        Object.entries(state).map(([field, filter]) => ({
+          field,
+          value: filter?.value,
+          condition: filter?.condition,
+        }))
+      ),
+    };
+  }, [state]);
+
   return {
     state,
     fields,
@@ -122,5 +145,6 @@ export const useFilters = <F extends string>(options: UseFiltersOptions<F>) => {
     clearFilters,
     addFilter,
     removeFilter,
+    filterParams,
   };
 };

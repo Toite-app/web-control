@@ -13,6 +13,7 @@ import WorkerDialog from "@/features/workers/components/dialog";
 import { IWorker } from "@/types/worker.types";
 import { useSorting } from "@/components/data-table/hooks/useSorting";
 import { WorkersTableFilters } from "@/features/workers/components/data-table/components/TableFilters";
+import { useFilters } from "@/components/data-table/hooks/useFilters";
 
 export const WorkersPageContent: FC = () => {
   const t = useTranslations();
@@ -30,6 +31,7 @@ export const WorkersPageContent: FC = () => {
 
   const pagination = usePagination();
   const sorting = useSorting();
+  const filters = useFilters();
   const workers = useGetWorkers({
     params: {
       page: pagination.state.pageIndex + 1,
@@ -40,6 +42,7 @@ export const WorkersPageContent: FC = () => {
             sortOrder: sorting.sortOrder,
           }
         : {}),
+      ...filters.filterParams,
     },
     config: {
       refreshInterval: 60_000,
