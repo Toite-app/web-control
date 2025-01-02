@@ -12,12 +12,20 @@ import {
   signInMutation,
 } from "@/features/guards/api/mutate/signIn";
 import Form, { FormInstance } from "@/components/form";
+import { useForm } from "react-hook-form";
 
 export const SignInForm: FC = () => {
   const errT = useTranslations(MessageCategories.ERRORS);
 
   const { status, mutate } = useSession();
   const router = useRouter();
+
+  const form = useForm<SignInPayload>({
+    defaultValues: {
+      login: "",
+      password: "",
+    },
+  });
 
   const onSubmit = async (
     data: SignInPayload,
@@ -56,6 +64,7 @@ export const SignInForm: FC = () => {
 
   return (
     <Form
+      form={form}
       intlFields
       fields={[
         {
@@ -73,10 +82,6 @@ export const SignInForm: FC = () => {
           },
         },
       ]}
-      defaultValues={{
-        login: "",
-        password: "",
-      }}
       onSubmit={onSubmit}
       submitButton={{
         text: "fields.submit",
