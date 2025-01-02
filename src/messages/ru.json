@@ -31,6 +31,24 @@
       }
     }
   },
+  "Restaurants": {
+    "page": {
+      "description": "Управляйте данными о ресторанах в системе",
+      "create": "Создать"
+    },
+    "dialog": {
+      "create-title": "Создать ресторан",
+      "edit-title": "Редактировать ресторан",
+      "submit": "Сохранить",
+      "form": {
+        "name-placeholder": "Введите название ресторана",
+        "legalEntity-placeholder": "Введите юридическое лицо",
+        "address-placeholder": "Введите адрес",
+        "latitude-placeholder": "Введите широту",
+        "longitude-placeholder": "Введите долготу"
+      }
+    }
+  },
   "toite": {
     "copyright": "Разработано при помощи",
     "light-mode": "Светлая тема",
@@ -70,7 +88,12 @@
     "submit": "Войти",
     "createdAt": "Дата создания",
     "updatedAt": "Дата обновления",
-    "onlineAt": "Статус"
+    "onlineAt": "Статус",
+    "legalEntity": "Юридическое лицо",
+    "address": "Адрес",
+    "latitude": "Широта",
+    "longitude": "Долгота",
+    "isEnabled": "Активен"
   },
   "errors": {
     "unknown": "Неизвестная ошибка",

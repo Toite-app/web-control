@@ -23,6 +23,7 @@ import { useTranslations } from "next-intl";
 import { Button, ButtonProps } from "../ui/button";
 import { CheckCircle2Icon, Loader2Icon } from "lucide-react";
 import { PasswordInput } from "../password-input";
+import { Switch } from "@/components/ui/switch";
 
 export type PasswordInputFormField = {
   type: "password";
@@ -40,9 +41,26 @@ export type SelectFormField = {
   options: { label: string; value: string }[];
 };
 
+export type NumberInputFormField = {
+  type: "number";
+  placeholder?: string;
+  min?: number;
+  max?: number;
+  step?: number;
+};
+
+export type SwitchFormField = {
+  type: "switch";
+};
+
 export type FormField<TFieldValues> = {
   name: Path<TFieldValues>;
-  data: InputFormField | SelectFormField | PasswordInputFormField;
+  data:
+    | InputFormField
+    | SelectFormField
+    | PasswordInputFormField
+    | NumberInputFormField
+    | SwitchFormField;
   label?: string;
   description?: string;
   intl?: boolean;
@@ -198,6 +216,34 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
                           ))}
                         </SelectContent>
                       </Select>
+                    )}
+
+                    {/* Rendering number input */}
+                    {data.type === "number" && (
+                      <FormControl>
+                        <Input
+                          type="number"
+                          placeholder={text(data.placeholder, intl)}
+                          required={required}
+                          min={data.min}
+                          max={data.max}
+                          step={data.step}
+                          {...field}
+                          value={field.value ?? ""}
+                          disabled={disabled || field.disabled}
+                        />
+                      </FormControl>
+                    )}
+
+                    {/* Rendering switch */}
+                    {data.type === "switch" && (
+                      <FormControl>
+                        <Switch
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                          disabled={disabled || field.disabled}
+                        />
+                      </FormControl>
                     )}
 
                     {description && (

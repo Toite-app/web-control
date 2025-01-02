@@ -1,8 +1,14 @@
 import { buildApiHook } from "@/api/builder/hook";
-import { ApiCacheTag, PaginatedResponse } from "@/api/types";
+import {
+  ApiCacheTag,
+  FilterParams,
+  PaginatedResponse,
+  PaginationParams,
+  SortingParams,
+} from "@/api/types";
 import { IWorker } from "@/types/worker.types";
 
-export type GetWorkersParams = any;
+export type GetWorkersParams = PaginationParams & SortingParams & FilterParams;
 
 export const useGetWorkers = buildApiHook<
   string,
