@@ -11,6 +11,10 @@
     "dialog": {
       "create-title": "Создать сотрудника",
       "edit-title": "Редактировать сотрудника",
+      "create-success": "Сотрудник успешно создан",
+      "create-success-description": "Сотрудник успешно создан",
+      "edit-success": "Сотрудник успешно обновлен",
+      "edit-success-description": "Сотрудник успешно обновлен",
       "submit": "Сохранить",
       "form": {
         "login-description": "По данному логину можно будет войти в систему",
@@ -38,7 +42,11 @@
     },
     "dialog": {
       "create-title": "Создать ресторан",
+      "create-success": "Ресторан успешно создан",
+      "create-success-description": "Ресторан успешно создан",
       "edit-title": "Редактировать ресторан",
+      "edit-success": "Ресторан успешно обновлен",
+      "edit-success-description": "Ресторан успешно обновлен",
       "submit": "Сохранить",
       "form": {
         "name-placeholder": "Введите название ресторана",

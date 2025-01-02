@@ -14,6 +14,7 @@ import { IWorker, WorkerRole } from "@/types/worker.types";
 import { putWorkerMutation } from "../../api/putWorker";
 import { useErrorHandler } from "@/hooks/useErrorHandler";
 import { useForm } from "react-hook-form";
+import { useToast } from "@/hooks/use-toast";
 
 export type WorkerDialogProps = {
   data?: IWorker;
@@ -27,6 +28,7 @@ const WorkerDialog: FC<WorkerDialogProps> = (props) => {
   const isEdit = !!worker;
   const t = useTranslations();
   const handleError = useErrorHandler();
+  const { toast } = useToast();
 
   const form = useForm<ICreateWorker>({
     defaultValues: {
@@ -41,12 +43,22 @@ const WorkerDialog: FC<WorkerDialogProps> = (props) => {
     try {
       if (!isEdit) {
         await createWorkerMutation({ data });
+        toast({
+          title: t("Workers.dialog.create-success"),
+          description: t("Workers.dialog.create-success-description"),
+          variant: "success",
+        });
       } else {
         await putWorkerMutation({
           urlValues: {
             id: worker.id,
           },
           data,
+        });
+        toast({
+          title: t("Workers.dialog.edit-success"),
+          description: t("Workers.dialog.edit-success-description"),
+          variant: "success",
         });
       }
 

@@ -8,6 +8,8 @@ import {
 } from "@/components/ui/dialog";
 import { useTranslations } from "next-intl";
 import { FC, memo, useEffect } from "react";
+import { useToast } from "@/hooks/use-toast";
+
 import { Form } from "@/components/form";
 import { IRestaurant } from "@/types/restaurant.types";
 import { useErrorHandler } from "@/hooks/useErrorHandler";
@@ -30,6 +32,7 @@ const RestaurantDialog: FC<RestaurantDialogProps> = (props) => {
   const isEdit = !!restaurant;
   const t = useTranslations();
   const handleError = useErrorHandler();
+  const { toast } = useToast();
 
   const form = useForm<ICreateRestaurant>({
     defaultValues: {
@@ -46,12 +49,22 @@ const RestaurantDialog: FC<RestaurantDialogProps> = (props) => {
     try {
       if (!isEdit) {
         await createRestaurantMutation({ data });
+        toast({
+          title: t("Restaurants.dialog.create-success"),
+          description: t("Restaurants.dialog.create-success-description"),
+          variant: "success",
+        });
       } else {
         await putRestaurantMutation({
           urlValues: {
             id: restaurant.id,
           },
           data,
+        });
+        toast({
+          title: t("Restaurants.dialog.edit-success"),
+          description: t("Restaurants.dialog.edit-success-description"),
+          variant: "success",
         });
       }
 

@@ -6,7 +6,8 @@ import "./globals.css";
 import { getMessages, unstable_setRequestLocale } from "next-intl/server";
 import { IntlPageParams } from "@/types/i18n.types";
 import { locales } from "@/config";
-import { Toaster } from "@/components/ui/sonner";
+import TOITE_CONFIG from "@config";
+import { Toaster } from "@/components/ui/toaster";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -14,7 +15,7 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "Next 14 Template",
+  title: TOITE_CONFIG.appName,
   description: "Created by Yefrosynii",
   robots: {
     notranslate: true,
