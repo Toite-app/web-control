@@ -98,7 +98,7 @@ export const DataTable = <DataType extends { id: string }>(
 
   return (
     <div className={cn("relative flex flex-col rounded-md border", className)}>
-      <ScrollArea className="relative max-h-full overflow-clip">
+      <ScrollArea className="relative max-h-full">
         <Table className="relative max-h-full overflow-clip">
           <TableHeader className="sticky top-0 z-10 bg-secondary outline outline-1 outline-stone-200 dark:outline-stone-800">
             {table.getHeaderGroups().map((headerGroup) => (

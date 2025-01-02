@@ -3,6 +3,7 @@
 import { AbstractIntlMessages, NextIntlClientProvider } from "next-intl";
 import { ThemeProvider } from "next-themes";
 import { FC, PropsWithChildren } from "react";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 import { Provider as WrapBalancerProvider } from "react-wrap-balancer";
 
@@ -16,12 +17,14 @@ const Providers: FC<Props> = (props) => {
 
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-      <NextIntlClientProvider
-        timeZone={"America/New_York"}
-        {...{ messages, locale }}
-      >
-        <WrapBalancerProvider>{children}</WrapBalancerProvider>
-      </NextIntlClientProvider>
+      <NuqsAdapter>
+        <NextIntlClientProvider
+          timeZone={"America/New_York"}
+          {...{ messages, locale }}
+        >
+          <WrapBalancerProvider>{children}</WrapBalancerProvider>
+        </NextIntlClientProvider>
+      </NuqsAdapter>
     </ThemeProvider>
   );
 };
