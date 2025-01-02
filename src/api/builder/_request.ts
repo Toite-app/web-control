@@ -39,7 +39,7 @@ export const _requestEndpoint = async <
   if (skip) return undefined;
 
   return await axios<R, AxiosResponse<R>, D>({
-    baseURL: `${process.env.NEXT_PUBLIC_APP_URL}/api`,
+    baseURL: `/api`,
     withCredentials: true,
     ...config,
     url,
