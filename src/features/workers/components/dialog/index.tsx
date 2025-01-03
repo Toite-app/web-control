@@ -7,7 +7,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useTranslations } from "next-intl";
-import { FC, memo } from "react";
+import { FC, memo, useEffect } from "react";
 import { ICreateWorker, createWorkerMutation } from "../../api/createWorker";
 import { Form } from "@/components/form";
 import { IWorker, WorkerRole } from "@/types/worker.types";
@@ -67,6 +67,17 @@ const WorkerDialog: FC<WorkerDialogProps> = (props) => {
       handleError({ error, form });
     }
   };
+
+  useEffect(() => {
+    if (open && worker) {
+      form.reset({
+        name: worker.name,
+        login: worker.login,
+        role: worker.role,
+        password: "",
+      });
+    }
+  }, [open, worker, form]);
 
   return (
     <Dialog
