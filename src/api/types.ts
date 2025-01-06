@@ -3,6 +3,7 @@ import { SortOrder } from "@/components/data-table/hooks/useSorting";
 export enum ApiCacheTag {
   WORKERS = "WORKERS",
   RESTAURANTS = "RESTAURANTS",
+  ADDRESS_SUGGESTIONS = "ADDRESS_SUGGESTIONS",
 }
 
 export type PaginationMeta = {

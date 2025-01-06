@@ -92,6 +92,8 @@
   "fields": {
     "login": "Логин",
     "email": "Электронная почта",
+    "address-placeholder": "Введите адрес",
+    "address-not-found": "Адрес не найден",
     "password": "Пароль",
     "name": "Имя",
     "role": "Роль",

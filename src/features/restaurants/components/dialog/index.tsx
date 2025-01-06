@@ -126,12 +126,21 @@ const RestaurantDialog: FC<RestaurantDialogProps> = (props) => {
                 placeholder: "Restaurants.dialog.form.legalEntity-placeholder",
               },
             },
+            // {
+            //   name: "address",
+            //   label: "fields.address",
+            //   required: true,
+            //   data: {
+            //     type: "input",
+            //     placeholder: "Restaurants.dialog.form.address-placeholder",
+            //   },
+            // },
             {
               name: "address",
               label: "fields.address",
               required: true,
               data: {
-                type: "input",
+                type: "address-suggestion",
                 placeholder: "Restaurants.dialog.form.address-placeholder",
               },
             },

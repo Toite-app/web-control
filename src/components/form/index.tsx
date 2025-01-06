@@ -24,6 +24,7 @@ import { Button, ButtonProps } from "../ui/button";
 import { CheckCircle2Icon, Loader2Icon } from "lucide-react";
 import { PasswordInput } from "../password-input";
 import { Switch } from "@/components/ui/switch";
+import { AddressSuggestionCombobox } from "./components/AddressSuggestionCombobox";
 
 export type PasswordInputFormField = {
   type: "password";
@@ -53,6 +54,13 @@ export type SwitchFormField = {
   type: "switch";
 };
 
+export type AddressSuggestionFormField = {
+  type: "address-suggestion";
+  placeholder?: string;
+  language?: string;
+  provider?: "dadata" | "google";
+};
+
 export type FormField<TFieldValues> = {
   name: Path<TFieldValues>;
   data:
@@ -60,7 +68,8 @@ export type FormField<TFieldValues> = {
     | SelectFormField
     | PasswordInputFormField
     | NumberInputFormField
-    | SwitchFormField;
+    | SwitchFormField
+    | AddressSuggestionFormField;
   label?: string;
   description?: string;
   intl?: boolean;
@@ -241,6 +250,20 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
                         <Switch
                           checked={field.value}
                           onCheckedChange={field.onChange}
+                          disabled={disabled || field.disabled}
+                        />
+                      </FormControl>
+                    )}
+
+                    {/* Rendering address suggestion combobox */}
+                    {data.type === "address-suggestion" && (
+                      <FormControl>
+                        <AddressSuggestionCombobox
+                          value={field.value ?? ""}
+                          onChange={field.onChange}
+                          placeholder={text(data.placeholder, intl)}
+                          language={data.language}
+                          provider={data.provider}
                           disabled={disabled || field.disabled}
                         />
                       </FormControl>
