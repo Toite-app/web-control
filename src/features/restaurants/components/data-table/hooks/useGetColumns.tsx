@@ -23,6 +23,7 @@ import { ru, enUS, et } from "date-fns/locale";
 import { toast } from "sonner";
 import { IRestaurant } from "@/types/restaurant.types";
 import { SortButton } from "@/components/data-table/components/SortButton";
+import { Link } from "@/navigation";
 
 type Options = {
   onEdit: (restaurant: IRestaurant) => void;
@@ -42,9 +43,16 @@ export const useGetColumns = (options: Options) => {
         },
         cell: ({ row }) => {
           return (
-            <div className="flex flex-row items-center gap-1">
-              <span>{row.original?.name || "-"}</span>
-            </div>
+            <Link
+              href={{
+                pathname: "/restaurants/[restaurantId]",
+                params: { restaurantId: row.original.id },
+              }}
+            >
+              <div className="flex flex-row items-center gap-1 underline">
+                <span>{row.original?.name || "-"}</span>
+              </div>
+            </Link>
           );
         },
       },
@@ -71,6 +79,7 @@ export const useGetColumns = (options: Options) => {
         },
         cell: ({ row }) => (
           <Badge
+            className="whitespace-nowrap"
             variant={
               row.original.isEnabled && !row.original.isClosedForever
                 ? "default"

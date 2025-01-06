@@ -2,6 +2,6 @@ export type IntlParams = {
   locale: string;
 };
 
-export type IntlPageParams = {
-  params: IntlParams;
+export type IntlPageParams<T = void> = {
+  params: IntlParams & T;
 };

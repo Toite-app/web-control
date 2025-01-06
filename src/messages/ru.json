@@ -6,7 +6,8 @@
   "Workers": {
     "page": {
       "description": "Управляйте данными о сотрудниках в системе",
-      "create": "Создать"
+      "create": "Создать",
+      "edit": "Редактировать"
     },
     "dialog": {
       "create-title": "Создать сотрудника",
@@ -55,6 +56,12 @@
         "latitude-placeholder": "Введите широту",
         "longitude-placeholder": "Введите долготу"
       }
+    },
+    "tabs": {
+      "working-hours": "Часы работы",
+      "departments": "Цеха",
+      "staff": "Персонал",
+      "statistics": "Статистика"
     }
   },
   "toite": {
