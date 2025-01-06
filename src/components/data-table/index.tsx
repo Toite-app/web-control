@@ -181,7 +181,7 @@ export const DataTable = <DataType extends { id: string }>(
         </div>
       )}
       <Separator className="mt-auto" />
-      <DataTablePagination className="p-4" table={table} />
+      {pagination! && <DataTablePagination className="p-4" table={table} />}
     </div>
   );
 };

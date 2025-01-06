@@ -1,3 +1,5 @@
+import { DayOfWeek } from "@/types/general.types";
+
 export interface IRestaurant {
   id: string;
   name: string;
@@ -9,4 +11,15 @@ export interface IRestaurant {
   isClosedForever: boolean;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface IRestaurantHours {
+  id: string; // Unique identifier of the restaurant hours
+  restaurantId: string; // Unique identifier of the restaurant
+  dayOfWeek: DayOfWeek; // Day of the week for hours
+  openingTime: string; // Opening time for hours
+  closingTime: string; // Closing time for hours
+  isEnabled: boolean; // Is the restaurant enabled?
+  createdAt: Date; // Timestamp of creation
+  updatedAt: Date; // Timestamp of last update
 }

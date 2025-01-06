@@ -9,6 +9,7 @@ import RestaurantDialog from "@/features/restaurants/components/dialog";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useQueryState } from "nuqs";
+import RestaurantHoursTab from "@/features/restaurant/hours-tab";
 
 type Props = {
   restaurantId: string;
@@ -84,7 +85,7 @@ export const RestaurantPageContent = (props: Props) => {
             onValueChange={(value) => setActiveTab(value as TabValue)}
             className="w-full"
           >
-            <TabsList className="w-full justify-start">
+            <TabsList className="spacing-2 w-full justify-start">
               <TabsTrigger value="hours">
                 {t("Restaurants.tabs.working-hours")}
               </TabsTrigger>
@@ -100,7 +101,7 @@ export const RestaurantPageContent = (props: Props) => {
             </TabsList>
 
             <TabsContent value="hours">
-              {/* Working hours content will go here */}
+              <RestaurantHoursTab restaurant={data} />
             </TabsContent>
             <TabsContent value="workshops">
               {/* Departments content will go here */}

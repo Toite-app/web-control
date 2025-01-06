@@ -62,6 +62,11 @@
       "departments": "Цеха",
       "staff": "Персонал",
       "statistics": "Статистика"
+    },
+    "columns": {
+      "dayOfWeek": "День недели",
+      "openingTime": "Время открытия",
+      "closingTime": "Время закрытия"
     }
   },
   "toite": {
@@ -111,6 +116,7 @@
     "onlineAt": "Статус",
     "legalEntity": "Юридическое лицо",
     "address": "Адрес",
+    "dayOfWeek": "День недели",
     "latitude": "Широта",
     "longitude": "Долгота",
     "isEnabled": "Активен"
@@ -128,6 +134,15 @@
     "CASHIER": "Кассир",
     "DISPATCHER": "Диспетчер",
     "COURIER": "Курьер"
+  },
+  "dayOfWeek": {
+    "monday": "Понедельник",
+    "tuesday": "Вторник",
+    "wednesday": "Среда",
+    "thursday": "Четверг",
+    "friday": "Пятница",
+    "saturday": "Суббота",
+    "sunday": "Воскресенье"
   },
   "table": {
     "rows-per-page": "Строк на странице",
