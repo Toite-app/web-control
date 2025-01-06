@@ -94,6 +94,7 @@
     "email": "Электронная почта",
     "address-placeholder": "Введите адрес",
     "address-not-found": "Адрес не найден",
+    "isClosedForever": "Закрыто навсегда",
     "password": "Пароль",
     "name": "Имя",
     "role": "Роль",

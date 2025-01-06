@@ -83,6 +83,7 @@ const RestaurantDialog: FC<RestaurantDialogProps> = (props) => {
         latitude: restaurant.latitude,
         longitude: restaurant.longitude,
         isEnabled: restaurant.isEnabled,
+        isClosedForever: restaurant.isClosedForever,
       });
     }
   }, [open, restaurant, form]);
@@ -126,15 +127,6 @@ const RestaurantDialog: FC<RestaurantDialogProps> = (props) => {
                 placeholder: "Restaurants.dialog.form.legalEntity-placeholder",
               },
             },
-            // {
-            //   name: "address",
-            //   label: "fields.address",
-            //   required: true,
-            //   data: {
-            //     type: "input",
-            //     placeholder: "Restaurants.dialog.form.address-placeholder",
-            //   },
-            // },
             {
               name: "address",
               label: "fields.address",
@@ -165,6 +157,13 @@ const RestaurantDialog: FC<RestaurantDialogProps> = (props) => {
             {
               name: "isEnabled",
               label: "fields.isEnabled",
+              data: {
+                type: "switch",
+              },
+            },
+            {
+              name: "isClosedForever",
+              label: "fields.isClosedForever",
               data: {
                 type: "switch",
               },

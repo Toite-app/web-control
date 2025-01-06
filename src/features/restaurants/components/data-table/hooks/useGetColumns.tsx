@@ -70,8 +70,16 @@ export const useGetColumns = (options: Options) => {
           );
         },
         cell: ({ row }) => (
-          <Badge variant={row.original.isEnabled ? "default" : "secondary"}>
-            {row.original.isEnabled ? t("toite.enabled") : t("toite.disabled")}
+          <Badge
+            variant={
+              row.original.isEnabled && !row.original.isClosedForever
+                ? "default"
+                : "secondary"
+            }
+          >
+            {row.original.isEnabled && !row.original.isClosedForever
+              ? t("toite.enabled")
+              : t("toite.disabled")}
           </Badge>
         ),
       },

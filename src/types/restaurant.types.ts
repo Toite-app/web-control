@@ -6,6 +6,7 @@ export interface IRestaurant {
   latitude: number;
   longitude: number;
   isEnabled: boolean;
+  isClosedForever: boolean;
   createdAt: string;
   updatedAt: string;
 }

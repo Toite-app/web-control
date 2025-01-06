@@ -5,7 +5,13 @@ import { IRestaurant } from "@/types/restaurant.types";
 export type IPutRestaurant = Partial<
   Pick<
     IRestaurant,
-    "name" | "legalEntity" | "address" | "latitude" | "longitude" | "isEnabled"
+    | "name"
+    | "legalEntity"
+    | "address"
+    | "latitude"
+    | "longitude"
+    | "isEnabled"
+    | "isClosedForever"
   >
 >;
 

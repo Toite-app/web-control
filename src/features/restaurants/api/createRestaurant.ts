@@ -4,7 +4,13 @@ import { IRestaurant } from "@/types/restaurant.types";
 
 export type ICreateRestaurant = Pick<
   IRestaurant,
-  "name" | "legalEntity" | "address" | "latitude" | "longitude" | "isEnabled"
+  | "name"
+  | "legalEntity"
+  | "address"
+  | "latitude"
+  | "longitude"
+  | "isEnabled"
+  | "isClosedForever"
 >;
 
 export const createRestaurantMutation = buildApiMutation<
