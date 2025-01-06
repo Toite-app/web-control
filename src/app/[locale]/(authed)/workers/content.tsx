@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useCallback, useState } from "react";
+import { FC } from "react";
 import { PlusIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
@@ -9,23 +9,18 @@ import { useGetWorkers } from "@/features/workers/api/useGetWorkers";
 import { useGetColumns } from "@/features/workers/components/data-table/hooks/useGetColumns";
 import { DataTable } from "@/components/data-table";
 import { usePagination } from "@/components/data-table/hooks/usePagination";
-import WorkerDialog from "@/features/workers/components/dialog";
-import { IWorker } from "@/types/worker.types";
 import { useSorting } from "@/components/data-table/hooks/useSorting";
 import { WorkersTableFilters } from "@/features/workers/components/data-table/components/TableFilters";
 import { useFilters } from "@/components/data-table/hooks/useFilters";
+import useDialogsStore from "@/store/dialogs-store";
 
 export const WorkersPageContent: FC = () => {
   const t = useTranslations();
-
-  const [worker, setWorker] = useState<IWorker>();
-  const [createOpen, setCreateOpen] = useState(false);
-  const [editOpen, setEditOpen] = useState(false);
+  const toggleDialog = useDialogsStore((state) => state.toggle);
 
   const columns = useGetColumns({
     onEdit: (worker) => {
-      setWorker(worker);
-      setEditOpen(true);
+      toggleDialog("worker", true, worker);
     },
   });
 
@@ -50,18 +45,8 @@ export const WorkersPageContent: FC = () => {
     },
   });
 
-  const handleClose = useCallback(() => {
-    setCreateOpen(false);
-    setEditOpen(false);
-  }, []);
-
   return (
     <>
-      <WorkerDialog
-        open={worker && editOpen}
-        data={worker}
-        onClose={handleClose}
-      />
       <div className="mx-auto flex h-full w-full max-w-screen-xl flex-col gap-4 p-4 py-12">
         <header className="flex flex-row items-center justify-between">
           <div className="flex flex-col gap-1">
@@ -83,13 +68,12 @@ export const WorkersPageContent: FC = () => {
               className="flex flex-row items-center gap-2"
               variant="default"
               onClick={() => {
-                setCreateOpen(true);
+                toggleDialog("worker", true);
               }}
             >
               <PlusIcon className="h-5 w-5" />
               <span className="text-[16px]">{t("Workers.page.create")}</span>
             </Button>
-            <WorkerDialog open={createOpen} onClose={handleClose} />
           </div>
         </header>
         {/* <Separator /> */}

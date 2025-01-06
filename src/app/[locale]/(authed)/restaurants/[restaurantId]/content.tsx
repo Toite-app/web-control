@@ -4,12 +4,11 @@ import { Button } from "@/components/ui/button";
 import { useGetRestaurant } from "@/features/restaurant/api/useGetRestaurant";
 import { MapPinIcon, PencilIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
-import RestaurantDialog from "@/features/restaurants/components/dialog";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useQueryState } from "nuqs";
 import RestaurantHoursTab from "@/features/restaurant/hours-tab";
+import useDialogsStore from "@/store/dialogs-store";
 
 type Props = {
   restaurantId: string;
@@ -19,8 +18,8 @@ type TabValue = "hours" | "workshops" | "workers" | "statistics";
 
 export const RestaurantPageContent = (props: Props) => {
   const { restaurantId } = props;
+
   const t = useTranslations();
-  const [editOpen, setEditOpen] = useState(false);
 
   const [activeTab, setActiveTab] = useQueryState<TabValue>("tab", {
     defaultValue: "hours",
@@ -37,7 +36,9 @@ export const RestaurantPageContent = (props: Props) => {
     },
   });
 
-  const { data, isLoading } = useGetRestaurant({
+  const toggleDialog = useDialogsStore((state) => state.toggle);
+
+  const { data } = useGetRestaurant({
     urlValues: {
       restaurantId,
     },
@@ -46,13 +47,6 @@ export const RestaurantPageContent = (props: Props) => {
 
   return (
     <>
-      {!isLoading && (
-        <RestaurantDialog
-          open={data !== null && editOpen}
-          data={data}
-          onClose={() => setEditOpen(false)}
-        />
-      )}
       <div>
         <div className="mx-auto flex h-full w-full max-w-screen-xl flex-col gap-4 p-4 py-12">
           <header className="flex flex-row items-center justify-between">
@@ -70,7 +64,7 @@ export const RestaurantPageContent = (props: Props) => {
                 className="flex flex-row items-center gap-2"
                 variant="default"
                 onClick={() => {
-                  setEditOpen(true);
+                  toggleDialog("restaurant", true, data);
                 }}
               >
                 <PencilIcon className="h-5 w-5" />

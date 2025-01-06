@@ -1,6 +1,6 @@
 "use client";
 import { ColumnDef } from "@tanstack/react-table";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { format, formatDistance } from "date-fns";
 import { Badge } from "@/components/ui/badge";
@@ -33,6 +33,7 @@ export const useGetColumns = (options: Options) => {
   const { onEdit } = options;
   const locale = useLocale();
   const t = useTranslations();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return useMemo<ColumnDef<IRestaurant>[]>(
     () => [
@@ -127,7 +128,7 @@ export const useGetColumns = (options: Options) => {
         id: "actions",
         cell: ({ row }) => {
           return (
-            <DropdownMenu>
+            <DropdownMenu open={isMenuOpen} onOpenChange={setIsMenuOpen}>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="h-8 w-8 p-0">
                   <span className="sr-only">
@@ -155,7 +156,10 @@ export const useGetColumns = (options: Options) => {
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   className="cursor-pointer"
-                  onClick={() => onEdit(row.original)}
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    onEdit(row.original);
+                  }}
                 >
                   <EditIcon className="mr-2 h-4 w-4" />
                   <span>{t("Workers.table.actions.edit")}</span>

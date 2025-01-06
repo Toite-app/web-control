@@ -69,11 +69,11 @@ const WorkerDialog: FC<WorkerDialogProps> = (props) => {
   };
 
   useEffect(() => {
-    if (open && worker) {
+    if (open) {
       form.reset({
-        name: worker.name,
-        login: worker.login,
-        role: worker.role,
+        name: worker?.name || "",
+        login: worker?.login || "",
+        role: worker?.role || undefined,
         password: "",
       });
     }
@@ -85,6 +85,7 @@ const WorkerDialog: FC<WorkerDialogProps> = (props) => {
       onOpenChange={(value) => {
         if (!value && onClose) onClose();
       }}
+      modal
     >
       <DialogContent className="sm:max-w-[400px]">
         <DialogHeader>

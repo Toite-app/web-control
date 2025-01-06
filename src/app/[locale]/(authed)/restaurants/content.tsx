@@ -1,28 +1,24 @@
 "use client";
 
 import { DataTable } from "@/components/data-table";
-import { useCallback, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useGetRestaurants } from "@/features/restaurants/api/useGetRestaurants";
-import RestaurantDialog from "@/features/restaurants/components/dialog";
-import { IRestaurant } from "@/types/restaurant.types";
 import { useSorting } from "@/components/data-table/hooks/useSorting";
 import { usePagination } from "@/components/data-table/hooks/usePagination";
 import { useGetColumns } from "@/features/restaurants/components/data-table/hooks/useGetColumns";
+import useDialogsStore from "@/store/dialogs-store";
+
 export const RestaurantsPageContent = () => {
   const t = useTranslations();
 
-  const [restaurant, setRestaurant] = useState<IRestaurant | null>(null);
-  const [createOpen, setCreateOpen] = useState(false);
-  const [editOpen, setEditOpen] = useState(false);
+  const toggleDialog = useDialogsStore((state) => state.toggle);
 
   const columns = useGetColumns({
     onEdit: (restaurant) => {
-      setRestaurant(restaurant);
-      setEditOpen(true);
+      toggleDialog("restaurant", true, restaurant);
     },
   });
 
@@ -41,18 +37,8 @@ export const RestaurantsPageContent = () => {
     },
   });
 
-  const handleClose = useCallback(() => {
-    setCreateOpen(false);
-    setEditOpen(false);
-  }, []);
-
   return (
     <>
-      <RestaurantDialog
-        open={restaurant !== null && editOpen}
-        data={restaurant}
-        onClose={handleClose}
-      />
       <div className="mx-auto flex h-full w-full max-w-screen-xl flex-col gap-4 p-4 py-12">
         <header className="flex flex-row items-center justify-between">
           <div className="flex flex-col gap-1">
@@ -76,13 +62,12 @@ export const RestaurantsPageContent = () => {
               className="flex flex-row items-center gap-2"
               variant="default"
               onClick={() => {
-                setCreateOpen(true);
+                toggleDialog("restaurant", true);
               }}
             >
               <PlusIcon className="h-5 w-5" />
               <span className="text-[16px]">{t("Workers.page.create")}</span>
             </Button>
-            <RestaurantDialog open={createOpen} onClose={handleClose} />
           </div>
         </header>
         {/* <Separator /> */}

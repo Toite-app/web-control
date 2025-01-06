@@ -6,6 +6,7 @@ import { FC, PropsWithChildren } from "react";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 import { Provider as WrapBalancerProvider } from "react-wrap-balancer";
+import DialogsPortal from "@/components/dialogs-portal";
 
 type Props = PropsWithChildren & {
   messages: AbstractIntlMessages;
@@ -23,6 +24,7 @@ const Providers: FC<Props> = (props) => {
           {...{ messages, locale }}
         >
           <WrapBalancerProvider>{children}</WrapBalancerProvider>
+          <DialogsPortal />
         </NextIntlClientProvider>
       </NuqsAdapter>
     </ThemeProvider>

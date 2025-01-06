@@ -75,15 +75,15 @@ const RestaurantDialog: FC<RestaurantDialogProps> = (props) => {
   };
 
   useEffect(() => {
-    if (open && restaurant) {
+    if (open) {
       form.reset({
-        name: restaurant.name,
-        legalEntity: restaurant.legalEntity,
-        address: restaurant.address,
-        latitude: restaurant.latitude,
-        longitude: restaurant.longitude,
-        isEnabled: restaurant.isEnabled,
-        isClosedForever: restaurant.isClosedForever,
+        name: restaurant?.name || "",
+        legalEntity: restaurant?.legalEntity || "",
+        address: restaurant?.address || "",
+        latitude: restaurant?.latitude || 0,
+        longitude: restaurant?.longitude || 0,
+        isEnabled: restaurant?.isEnabled || true,
+        isClosedForever: restaurant?.isClosedForever || false,
       });
     }
   }, [open, restaurant, form]);
