@@ -7,8 +7,9 @@ import { useLocale, useTranslations } from "next-intl";
 import { useMemo } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { PencilIcon } from "lucide-react";
+import { PencilIcon, UserPlus2 } from "lucide-react";
 import { IRestaurantWorkshop } from "@/types/restaurant.types";
+import useDialogsStore, { DialogType } from "@/store/dialogs-store";
 
 type Options = {
   onEdit: (workshop: IRestaurantWorkshop) => void;
@@ -19,6 +20,7 @@ const useRestaurantWorkshopsColumns = (options: Options) => {
 
   const locale = useLocale();
   const t = useTranslations();
+  const toggleDialog = useDialogsStore((state) => state.toggle);
 
   return useMemo<ColumnDef<IRestaurantWorkshop>[]>(
     () => [
@@ -92,6 +94,18 @@ const useRestaurantWorkshopsColumns = (options: Options) => {
         cell: ({ row }) => {
           return (
             <div className="flex flex-row items-center gap-2">
+              <Button
+                size="icon"
+                variant="outline"
+                onClick={() =>
+                  toggleDialog(DialogType.RestaurantWorkshopWorkers, true, {
+                    restaurantId: row.original.restaurantId,
+                    workshopId: row.original.id,
+                  })
+                }
+              >
+                <UserPlus2 className="h-4 w-4" />
+              </Button>
               <Button
                 size="icon"
                 variant="outline"

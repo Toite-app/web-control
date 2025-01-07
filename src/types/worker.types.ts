@@ -23,3 +23,7 @@ export interface IWorker {
   createdAt: string;
   updatedAt: string;
 }
+
+export type IWorkshopWorker = Pick<IWorker, "name" | "login" | "role"> & {
+  workerId: IWorker["id"];
+};

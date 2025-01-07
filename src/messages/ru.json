@@ -68,6 +68,13 @@
       "create-success-description": "Цех успешно создан",
       "edit-success": "Цех успешно обновлен",
       "edit-success-description": "Цех успешно обновлен"
+    },
+    "workers-dialog": {
+      "title": "Выбрать сотрудников",
+      "description": "Выберите сотрудников, которые будут назначены в этот цех",
+      "submit": "Сохранить",
+      "success": "Сотрудники успешно назначены",
+      "success-description": "Список сотрудников цеха успешно обновлен"
     }
   },
   "Restaurants": {
@@ -185,6 +192,7 @@
     "sunday": "Воскресенье"
   },
   "table": {
+    "loading": "Загрузка...",
     "rows-per-page": "Строк на странице",
     "page-number": "Страница {current} из {total}",
     "no-rows": "Нет данных",

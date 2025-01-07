@@ -97,7 +97,7 @@ export const useErrorHandler = () => {
   );
 
   return useCallback(
-    (opts: { error: any; form: FormInstance<any> }) => {
+    (opts: { error: any; form?: FormInstance<any> }) => {
       const { error, form } = opts;
 
       let message = errors.default.unknown;

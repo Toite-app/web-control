@@ -21,6 +21,10 @@ const dialogComponents = {
     () => import("@/features/restaurant/workshop-dialog/index"),
     { ssr: false }
   ),
+  [DialogType.RestaurantWorkshopWorkers]: dynamic(
+    () => import("@/features/restaurant/workshop-workers-dialog/index"),
+    { ssr: false }
+  ),
 };
 
 const DialogsPortal = () => {
@@ -37,7 +41,6 @@ const DialogsPortal = () => {
         const DialogComponent = dialogComponents?.[type];
 
         if (!DialogComponent) return null;
-        console.log("isOpen", isOpen, data);
 
         return (
           <DialogComponent
