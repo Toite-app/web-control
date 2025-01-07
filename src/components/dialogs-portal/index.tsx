@@ -17,6 +17,10 @@ const dialogComponents = {
     () => import("@/features/restaurant/hour-dialog/index"),
     { ssr: false }
   ),
+  [DialogType.RestaurantWorkshop]: dynamic(
+    () => import("@/features/restaurant/workshop-dialog/index"),
+    { ssr: false }
+  ),
 };
 
 const DialogsPortal = () => {

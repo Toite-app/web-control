@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useQueryState } from "nuqs";
 import RestaurantHoursTab from "@/features/restaurant/hours-tab";
 import useDialogsStore from "@/store/dialogs-store";
+import RestaurantWorkshopsTab from "@/features/restaurant/workshops-tab";
 
 type Props = {
   restaurantId: string;
@@ -108,13 +109,28 @@ export const RestaurantPageContent = (props: Props) => {
                   </span>
                 </Button>
               )}
+              {activeTab === "workshops" && (
+                <Button
+                  variant="default"
+                  onClick={() =>
+                    toggleDialog("restaurantWorkshop", true, {
+                      restaurantId,
+                    })
+                  }
+                >
+                  <PlusIcon className="h-5 w-5" />
+                  <span className="ml-2 text-[14px]">
+                    {t("RestaurantWorkshops.dialog.create-title")}
+                  </span>
+                </Button>
+              )}
             </div>
 
             <TabsContent value="hours">
               <RestaurantHoursTab restaurant={data} />
             </TabsContent>
             <TabsContent value="workshops">
-              {/* Departments content will go here */}
+              <RestaurantWorkshopsTab restaurant={data} />
             </TabsContent>
             <TabsContent value="workers">
               {/* Staff content will go here */}

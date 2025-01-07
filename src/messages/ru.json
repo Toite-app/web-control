@@ -53,6 +53,22 @@
       "closingTime-label": "Время закрытия"
     }
   },
+  "RestaurantWorkshops": {
+    "dialog": {
+      "create-title": "Создать цех",
+      "edit-title": "Редактировать цех",
+      "form": {
+        "name-label": "Название цеха",
+        "name-placeholder": "Введите название цеха",
+        "isLabelPrintingEnabled-label": "Печать этикеток",
+        "isEnabled-label": "Активен"
+      },
+      "create-success": "Цех успешно создан",
+      "create-success-description": "Цех успешно создан",
+      "edit-success": "Цех успешно обновлен",
+      "edit-success-description": "Цех успешно обновлен"
+    }
+  },
   "Restaurants": {
     "page": {
       "description": "Управляйте данными о ресторанах в системе",
@@ -83,7 +99,9 @@
     "columns": {
       "dayOfWeek": "День недели",
       "openingTime": "Время открытия",
-      "closingTime": "Время закрытия"
+      "closingTime": "Время закрытия",
+      "workshopName": "Название цеха",
+      "isLabelPrintingEnabled": "Печать этикеток"
     }
   },
   "toite": {
@@ -95,6 +113,8 @@
     "submit": "Подтвердить",
     "online": "Онлайн",
     "offline": "Оффлайн",
+    "yes": "Да",
+    "no": "Нет",
     "enabled": "Активен",
     "disabled": "Не активен",
     "blocked": "Заблокирован"

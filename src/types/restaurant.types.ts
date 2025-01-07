@@ -23,3 +23,13 @@ export interface IRestaurantHour {
   createdAt: Date; // Timestamp of creation
   updatedAt: Date; // Timestamp of last update
 }
+
+export interface IRestaurantWorkshop {
+  id: string; // Unique identifier of the workshop
+  restaurantId: string; // Unique identifier of the restaurant
+  name: string; // Name of the workshop
+  isLabelPrintingEnabled: boolean; // Is label printing enabled for this workshop
+  isEnabled: boolean; // Is workshop enabled
+  createdAt: Date; // Timestamp when workshop was created
+  updatedAt: Date; // Timestamp when workshop was updated
+}

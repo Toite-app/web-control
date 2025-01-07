@@ -1,4 +1,5 @@
 import { RestaurantHourDialogProps } from "@/features/restaurant/hour-dialog";
+import { RestaurantWorkshopDialogProps } from "@/features/restaurant/workshop-dialog";
 import { IRestaurant } from "@/types/restaurant.types";
 import { IWorker } from "@/types/worker.types";
 import { create } from "zustand";
@@ -6,6 +7,7 @@ import { create } from "zustand";
 export enum DialogType {
   Restaurant = "restaurant",
   RestaurantHour = "restaurantHour",
+  RestaurantWorkshop = "restaurantWorkshop",
   Worker = "worker",
 }
 
@@ -14,6 +16,7 @@ export type DialogData = {
   [DialogType.Restaurant]?: IRestaurant;
   [DialogType.Worker]?: IWorker;
   [DialogType.RestaurantHour]?: RestaurantHourDialogProps["data"];
+  [DialogType.RestaurantWorkshop]?: RestaurantWorkshopDialogProps["data"];
 };
 
 interface DialogsStore {
