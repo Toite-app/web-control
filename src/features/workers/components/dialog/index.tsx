@@ -15,6 +15,7 @@ import { putWorkerMutation } from "../../api/putWorker";
 import { useErrorHandler } from "@/hooks/useErrorHandler";
 import { useForm } from "react-hook-form";
 import { useToast } from "@/hooks/use-toast";
+import { useGetRestaurants } from "@/features/restaurants/api/useGetRestaurants";
 
 export type WorkerDialogProps = {
   data?: IWorker;
@@ -26,12 +27,20 @@ const WorkerDialog: FC<WorkerDialogProps> = (props) => {
   const { data: worker, open, onClose } = props;
 
   const isEdit = !!worker;
+
+  const { toast } = useToast();
   const t = useTranslations();
   const handleError = useErrorHandler();
-  const { toast } = useToast();
+
+  const restaurants = useGetRestaurants({
+    params: {
+      size: 100,
+    },
+  });
 
   const form = useForm<ICreateWorker>({
     defaultValues: {
+      restaurantId: worker?.restaurantId || undefined,
       name: worker?.name || "",
       login: worker?.login || "",
       role: worker?.role || undefined,
@@ -74,6 +83,7 @@ const WorkerDialog: FC<WorkerDialogProps> = (props) => {
         name: worker?.name || "",
         login: worker?.login || "",
         role: worker?.role || undefined,
+        restaurantId: worker?.restaurantId || undefined,
         password: "",
       });
     }
@@ -131,6 +141,21 @@ const WorkerDialog: FC<WorkerDialogProps> = (props) => {
                 options: Object.values(WorkerRole).map((role) => ({
                   label: `roles.${role}`,
                   value: role,
+                })),
+              },
+            },
+            {
+              name: "restaurantId",
+              label: "fields.restaurant",
+              required: false,
+              data: {
+                type: "select",
+                placeholder: "Workers.dialog.form.restaurant-placeholder",
+                withEmptyOption: true,
+                options: (restaurants.data?.data ?? []).map((restaurant) => ({
+                  label: restaurant.name,
+                  value: restaurant.id,
+                  intl: false,
                 })),
               },
             },
