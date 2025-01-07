@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import useDialogsStore, { DialogType } from "@/store/dialogs-store";
 
 const dialogComponents = {
@@ -11,6 +11,10 @@ const dialogComponents = {
   ),
   [DialogType.Worker]: dynamic(
     () => import("@/features/workers/components/dialog/index"),
+    { ssr: false }
+  ),
+  [DialogType.RestaurantHour]: dynamic(
+    () => import("@/features/restaurant/hour-dialog/index"),
     { ssr: false }
   ),
 };
@@ -29,6 +33,7 @@ const DialogsPortal = () => {
         const DialogComponent = dialogComponents?.[type];
 
         if (!DialogComponent) return null;
+        console.log("isOpen", isOpen, data);
 
         return (
           <DialogComponent

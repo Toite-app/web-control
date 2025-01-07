@@ -13,7 +13,7 @@ export interface IRestaurant {
   updatedAt: string;
 }
 
-export interface IRestaurantHours {
+export interface IRestaurantHour {
   id: string; // Unique identifier of the restaurant hours
   restaurantId: string; // Unique identifier of the restaurant
   dayOfWeek: DayOfWeek; // Day of the week for hours

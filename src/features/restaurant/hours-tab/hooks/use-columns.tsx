@@ -1,4 +1,3 @@
-import { IRestaurantHours } from "@/types/restaurant.types";
 import { ColumnDef } from "@tanstack/react-table";
 import { et } from "date-fns/locale";
 import { enUS } from "date-fns/locale";
@@ -6,12 +5,22 @@ import { format, formatDistance } from "date-fns";
 import { ru } from "date-fns/locale";
 import { useLocale, useTranslations } from "next-intl";
 import { useMemo } from "react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { PencilIcon } from "lucide-react";
+import { IRestaurantHour } from "@/types/restaurant.types";
 
-const useRestaurantHoursColumns = () => {
+type Options = {
+  onEdit: (hour: IRestaurantHour) => void;
+};
+
+const useRestaurantHoursColumns = (options: Options) => {
+  const { onEdit } = options;
+
   const locale = useLocale();
   const t = useTranslations();
 
-  return useMemo<ColumnDef<IRestaurantHours>[]>(
+  return useMemo<ColumnDef<IRestaurantHour>[]>(
     () => [
       {
         accessorKey: "dayOfWeek",
@@ -33,6 +42,20 @@ const useRestaurantHoursColumns = () => {
         header: () => {
           return <>{t("Restaurants.columns.closingTime")}</>;
         },
+      },
+      {
+        accessorKey: "isEnabled",
+        header: () => {
+          return <>{t("fields.isEnabled")}</>;
+        },
+        cell: ({ row }) => (
+          <Badge
+            className="whitespace-nowrap"
+            variant={row.original.isEnabled ? "default" : "secondary"}
+          >
+            {row.original.isEnabled ? t("toite.enabled") : t("toite.disabled")}
+          </Badge>
+        ),
       },
       {
         accessorKey: "createdAt",
@@ -61,8 +84,24 @@ const useRestaurantHoursColumns = () => {
           </span>
         ),
       },
+      {
+        id: "actions",
+        cell: ({ row }) => {
+          return (
+            <div className="flex flex-row items-center gap-2">
+              <Button
+                size="icon"
+                variant="outline"
+                onClick={() => onEdit(row.original)}
+              >
+                <PencilIcon className="h-4 w-4" />
+              </Button>
+            </div>
+          );
+        },
+      },
     ],
-    [locale, t]
+    [locale, t, onEdit]
   );
 };
 

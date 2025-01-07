@@ -36,6 +36,23 @@
       }
     }
   },
+  "RestaurantHours": {
+    "dialog": {
+      "create-title": "Создать часы работы",
+      "edit-title": "Редактировать часы работы",
+      "form": {
+        "dayOfWeek-placeholder": "Выберите день недели"
+      },
+      "create-success": "Часы работы успешно созданы",
+      "create-success-description": "Часы работы успешно созданы",
+      "edit-success": "Часы работы успешно обновлены",
+      "edit-success-description": "Часы работы успешно обновлены"
+    },
+    "form": {
+      "openingTime-label": "Время открытия",
+      "closingTime-label": "Время закрытия"
+    }
+  },
   "Restaurants": {
     "page": {
       "description": "Управляйте данными о ресторанах в системе",
@@ -192,5 +209,9 @@
         }
       }
     }
+  },
+  "time-select": {
+    "hour": "Час",
+    "minute": "Минута"
   }
 }

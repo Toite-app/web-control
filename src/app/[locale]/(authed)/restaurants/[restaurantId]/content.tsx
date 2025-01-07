@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { useGetRestaurant } from "@/features/restaurant/api/useGetRestaurant";
-import { MapPinIcon, PencilIcon } from "lucide-react";
+import { MapPinIcon, PencilIcon, PlusIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -20,6 +20,7 @@ export const RestaurantPageContent = (props: Props) => {
   const { restaurantId } = props;
 
   const t = useTranslations();
+  const toggleDialog = useDialogsStore((state) => state.toggle);
 
   const [activeTab, setActiveTab] = useQueryState<TabValue>("tab", {
     defaultValue: "hours",
@@ -35,8 +36,6 @@ export const RestaurantPageContent = (props: Props) => {
         : "hours";
     },
   });
-
-  const toggleDialog = useDialogsStore((state) => state.toggle);
 
   const { data } = useGetRestaurant({
     urlValues: {
@@ -79,20 +78,37 @@ export const RestaurantPageContent = (props: Props) => {
             onValueChange={(value) => setActiveTab(value as TabValue)}
             className="w-full"
           >
-            <TabsList className="spacing-2 w-full justify-start">
-              <TabsTrigger value="hours">
-                {t("Restaurants.tabs.working-hours")}
-              </TabsTrigger>
-              <TabsTrigger value="workshops">
-                {t("Restaurants.tabs.departments")}
-              </TabsTrigger>
-              <TabsTrigger value="workers">
-                {t("Restaurants.tabs.staff")}
-              </TabsTrigger>
-              <TabsTrigger value="statistics">
-                {t("Restaurants.tabs.statistics")}
-              </TabsTrigger>
-            </TabsList>
+            <div className="flex flex-row items-center justify-between">
+              <TabsList className="spacing-2 w-full justify-start">
+                <TabsTrigger value="hours">
+                  {t("Restaurants.tabs.working-hours")}
+                </TabsTrigger>
+                <TabsTrigger value="workshops">
+                  {t("Restaurants.tabs.departments")}
+                </TabsTrigger>
+                <TabsTrigger value="workers">
+                  {t("Restaurants.tabs.staff")}
+                </TabsTrigger>
+                <TabsTrigger value="statistics">
+                  {t("Restaurants.tabs.statistics")}
+                </TabsTrigger>
+              </TabsList>
+              {activeTab === "hours" && (
+                <Button
+                  variant="default"
+                  onClick={() =>
+                    toggleDialog("restaurantHour", true, {
+                      restaurantId,
+                    })
+                  }
+                >
+                  <PlusIcon className="h-5 w-5" />
+                  <span className="ml-2 text-[14px]">
+                    {t("RestaurantHours.dialog.create-title")}
+                  </span>
+                </Button>
+              )}
+            </div>
 
             <TabsContent value="hours">
               <RestaurantHoursTab restaurant={data} />

@@ -3,20 +3,32 @@ import { IRestaurant } from "@/types/restaurant.types";
 
 import useRestaurantHoursColumns from "./hooks/use-columns";
 import { useGetRestaurantHours } from "@/features/restaurant/api/useGetRestaurantHours";
+import useDialogsStore from "@/store/dialogs-store";
 
 type Props = {
   restaurant?: IRestaurant;
 };
 
 const RestaurantHoursTab = ({ restaurant }: Props) => {
+  const toggleDialog = useDialogsStore((state) => state.toggle);
+
+  const restaurantId = restaurant?.id ?? "";
+
   const { data, isLoading } = useGetRestaurantHours({
     urlValues: {
-      restaurantId: restaurant?.id ?? "",
+      restaurantId,
     },
-    skip: !restaurant,
+    skip: !restaurantId,
   });
 
-  const columns = useRestaurantHoursColumns();
+  const columns = useRestaurantHoursColumns({
+    onEdit: (hour) => {
+      toggleDialog("restaurantHour", true, {
+        restaurantId,
+        hour,
+      });
+    },
+  });
 
   return (
     <div>

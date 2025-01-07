@@ -25,6 +25,7 @@ import { CheckCircle2Icon, Loader2Icon } from "lucide-react";
 import { PasswordInput } from "../password-input";
 import { Switch } from "@/components/ui/switch";
 import { AddressSuggestionCombobox } from "./components/AddressSuggestionCombobox";
+import { TimeSelect } from "./components/TimeSelect";
 
 export type PasswordInputFormField = {
   type: "password";
@@ -61,6 +62,10 @@ export type AddressSuggestionFormField = {
   provider?: "dadata" | "google";
 };
 
+export type TimeSelectFormField = {
+  type: "time-select";
+};
+
 export type FormField<TFieldValues> = {
   name: Path<TFieldValues>;
   data:
@@ -69,7 +74,8 @@ export type FormField<TFieldValues> = {
     | PasswordInputFormField
     | NumberInputFormField
     | SwitchFormField
-    | AddressSuggestionFormField;
+    | AddressSuggestionFormField
+    | TimeSelectFormField;
   label?: string;
   description?: string;
   intl?: boolean;
@@ -202,7 +208,8 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
                     {/* Rendering select */}
                     {data.type === "select" && (
                       <Select
-                        defaultValue={field.value ?? ""}
+                        // defaultValue={field.value ?? ""}
+                        value={field.value ?? ""}
                         onValueChange={field.onChange}
                         required={required}
                         disabled={disabled || field.disabled}
@@ -264,6 +271,17 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
                           placeholder={text(data.placeholder, intl)}
                           language={data.language}
                           provider={data.provider}
+                          disabled={disabled || field.disabled}
+                        />
+                      </FormControl>
+                    )}
+
+                    {/* Rendering time select */}
+                    {data.type === "time-select" && (
+                      <FormControl>
+                        <TimeSelect
+                          value={field.value ?? "00:00"}
+                          onChange={field.onChange}
                           disabled={disabled || field.disabled}
                         />
                       </FormControl>
