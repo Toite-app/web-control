@@ -22,7 +22,8 @@
         "password-description": "Создайте пароль для входа нового сотрудника",
         "role-placeholder": "Выберите роль сотрудника",
         "name-placeholder": "Введите имя сотрудника",
-        "login-placeholder": "Введите логин сотрудника"
+        "login-placeholder": "Введите логин сотрудника",
+        "restaurant-placeholder": "Выберите ресторан"
       }
     },
     "table": {
@@ -156,7 +157,9 @@
     "dayOfWeek": "День недели",
     "latitude": "Широта",
     "longitude": "Долгота",
-    "isEnabled": "Активен"
+    "isEnabled": "Активен",
+    "restaurant": "Ресторан",
+    "empty": "Не выбрано"
   },
   "errors": {
     "unknown": "Неизвестная ошибка",

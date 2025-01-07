@@ -40,7 +40,13 @@ export type InputFormField = {
 export type SelectFormField = {
   type: "select";
   placeholder?: string;
-  options: { label: string; value: string }[];
+  intl?: boolean;
+  withEmptyOption?: boolean;
+  options: {
+    label: string;
+    value: string;
+    intl?: boolean;
+  }[];
 };
 
 export type NumberInputFormField = {
@@ -217,17 +223,28 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
                         <FormControl>
                           <SelectTrigger>
                             <SelectValue
-                              placeholder={text(data.placeholder, intl)}
+                              placeholder={text(
+                                data.placeholder,
+                                data.intl === true ? true : intl
+                              )}
                             />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
+                          {data.withEmptyOption && (
+                            <SelectItem value={null!}>
+                              {text("fields.empty", true)}
+                            </SelectItem>
+                          )}
                           {data.options.map((option) => (
                             <SelectItem
                               value={option.value}
                               key={JSON.stringify(option)}
                             >
-                              {text(option.label, intl)}
+                              {text(
+                                option.label,
+                                option.intl === true ? true : intl
+                              )}
                             </SelectItem>
                           ))}
                         </SelectContent>
