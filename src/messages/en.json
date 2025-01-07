@@ -4,19 +4,26 @@
     "description": "Sign in to the system"
   },
   "Workers": {
+    "page": {
+      "description": "Manage employee data in the system",
+      "create": "Create",
+      "edit": "Edit"
+    },
     "dialog": {
-      "create-title": "Create Worker",
-      "edit-title": "Edit Worker",
+      "create-title": "Create Employee",
+      "edit-title": "Edit Employee",
+      "create-success": "Employee successfully created",
+      "create-success-description": "Employee successfully created",
+      "edit-success": "Employee successfully updated",
+      "edit-success-description": "Employee successfully updated",
       "submit": "Save",
       "form": {
-        "login-description": "This login will be used to sign in to the system",
-        "password-description": "Create a password for the new worker",
-        "role-placeholder": "Select worker role"
-      },
-      "errors": {
-        "minLength": "Minimum length is 4 characters",
-        "isStrongPassword": "Password must contain at least 8 characters, including numbers, uppercase and lowercase letters",
-        "youcantcreatesystemadmin": "You cannot create a worker with the role of system administrator"
+        "login-description": "This login will be used to enter the system",
+        "password-description": "Create a password for the new employee",
+        "role-placeholder": "Select employee role",
+        "name-placeholder": "Enter employee name",
+        "login-placeholder": "Enter employee login",
+        "restaurant-placeholder": "Select restaurant"
       }
     },
     "table": {
@@ -25,9 +32,77 @@
         "title": "Actions",
         "copyId": "Copy ID",
         "edit": "Edit",
-        "edit-history": "Edit History",
+        "edit-history": "Edit history",
         "delete": "Delete"
       }
+    }
+  },
+  "RestaurantHours": {
+    "dialog": {
+      "create-title": "Create Working Hours",
+      "edit-title": "Edit Working Hours",
+      "form": {
+        "dayOfWeek-placeholder": "Select day of week"
+      },
+      "create-success": "Working hours successfully created",
+      "create-success-description": "Working hours successfully created",
+      "edit-success": "Working hours successfully updated",
+      "edit-success-description": "Working hours successfully updated"
+    },
+    "form": {
+      "openingTime-label": "Opening Time",
+      "closingTime-label": "Closing Time"
+    }
+  },
+  "RestaurantWorkshops": {
+    "dialog": {
+      "create-title": "Create Department",
+      "edit-title": "Edit Department",
+      "form": {
+        "name-label": "Department Name",
+        "name-placeholder": "Enter department name",
+        "isLabelPrintingEnabled-label": "Label Printing",
+        "isEnabled-label": "Active"
+      },
+      "create-success": "Department successfully created",
+      "create-success-description": "Department successfully created",
+      "edit-success": "Department successfully updated",
+      "edit-success-description": "Department successfully updated"
+    }
+  },
+  "Restaurants": {
+    "page": {
+      "description": "Manage restaurant data in the system",
+      "create": "Create"
+    },
+    "dialog": {
+      "create-title": "Create Restaurant",
+      "create-success": "Restaurant successfully created",
+      "create-success-description": "Restaurant successfully created",
+      "edit-title": "Edit Restaurant",
+      "edit-success": "Restaurant successfully updated",
+      "edit-success-description": "Restaurant successfully updated",
+      "submit": "Save",
+      "form": {
+        "name-placeholder": "Enter restaurant name",
+        "legalEntity-placeholder": "Enter legal entity",
+        "address-placeholder": "Enter address",
+        "latitude-placeholder": "Enter latitude",
+        "longitude-placeholder": "Enter longitude"
+      }
+    },
+    "tabs": {
+      "working-hours": "Working Hours",
+      "departments": "Departments",
+      "staff": "Staff",
+      "statistics": "Statistics"
+    },
+    "columns": {
+      "dayOfWeek": "Day of Week",
+      "openingTime": "Opening Time",
+      "closingTime": "Closing Time",
+      "workshopName": "Department Name",
+      "isLabelPrintingEnabled": "Label Printing"
     }
   },
   "toite": {
@@ -36,15 +111,19 @@
     "dark-mode": "Dark Mode",
     "logout": "Logout",
     "logout-text": "Are you sure you want to log out? You will be redirected to the login page.",
-    "submit": "Submit",
+    "submit": "Confirm",
     "online": "Online",
     "offline": "Offline",
+    "yes": "Yes",
+    "no": "No",
+    "enabled": "Enabled",
+    "disabled": "Disabled",
     "blocked": "Blocked"
   },
   "navbar": {
     "dashboard": "Dashboard",
     "orders": "Orders",
-    "orders-all": "All",
+    "orders-all": "All Orders",
     "orders-hall": "Hall",
     "orders-banquet": "Banquet",
     "orders-takeaway": "Takeaway",
@@ -52,28 +131,35 @@
     "orders-archive": "Archive",
     "restaurants": "Restaurants",
     "dishes": "Dishes",
-    "administrate": "Administrate",
+    "administrate": "Administration",
     "discounts": "Discounts",
-    "workers": "Workers",
+    "workers": "Employees",
     "guests": "Guests",
     "finances": "Finances",
-    "workshifts": "Workshifts",
+    "workshifts": "Shifts",
     "finances-report": "Report"
-  },
-  "workers-page": {
-    "description": "Manage worker data in the system",
-    "searchbar": "Search worker..."
   },
   "fields": {
     "login": "Login",
     "email": "Email",
+    "address-placeholder": "Enter address",
+    "address-not-found": "Address not found",
+    "isClosedForever": "Permanently closed",
     "password": "Password",
     "name": "Name",
     "role": "Role",
     "submit": "Sign In",
     "createdAt": "Created At",
     "updatedAt": "Updated At",
-    "onlineAt": "Status"
+    "onlineAt": "Status",
+    "legalEntity": "Legal Entity",
+    "address": "Address",
+    "dayOfWeek": "Day of Week",
+    "latitude": "Latitude",
+    "longitude": "Longitude",
+    "isEnabled": "Active",
+    "restaurant": "Restaurant",
+    "empty": "Not selected"
   },
   "errors": {
     "unknown": "Unknown error",
@@ -89,10 +175,66 @@
     "DISPATCHER": "Dispatcher",
     "COURIER": "Courier"
   },
+  "dayOfWeek": {
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday"
+  },
   "table": {
     "rows-per-page": "Rows per page",
     "page-number": "Page {current} of {total}",
     "no-rows": "No data",
-    "copied": "Copied to clipboard"
+    "copied": "Copied to clipboard",
+    "filter": {
+      "conditions": {
+        "equals": "Equals",
+        "notEquals": "Not equals",
+        "contains": "Contains",
+        "notContains": "Does not contain",
+        "startsWith": "Starts with",
+        "endsWith": "Ends with"
+      },
+      "field": "Field",
+      "value": "Value",
+      "value-placeholder": "Enter value",
+      "value-placeholder-select": "Select value",
+      "condition": "Condition",
+      "add": "Add filter",
+      "submit": "Apply",
+      "clear": "Clear filters"
+    }
+  },
+  "apiErrors": {
+    "default": {
+      "forbidden": "You don't have permission for this action",
+      "bad_request": "Bad request",
+      "unknown": "Unknown error",
+      "not_found": "Not found",
+      "conflict": "This record already exists"
+    },
+    "workers": {
+      "forbidden": {
+        "system-admin-role": "You cannot create an employee with system administrator role"
+      },
+      "conflict": {
+        "login-conflict": "User with this login already exists"
+      },
+      "form": {
+        "password": {
+          "isStrongPassword": "Password must contain at least 8 characters, including numbers, uppercase and lowercase letters"
+        },
+        "login": {
+          "minLength": "Minimum length is 4 characters"
+        }
+      }
+    }
+  },
+  "time-select": {
+    "hour": "Hour",
+    "minute": "Minute"
   }
 }

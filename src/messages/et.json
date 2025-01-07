@@ -1,22 +1,29 @@
 {
   "sign-in": {
-    "title": "Sisse logimine",
-    "description": "Logi sisse oma kontole"
+    "title": "Sisselogimine",
+    "description": "Süsteemi sisselogimine"
   },
   "Workers": {
+    "page": {
+      "description": "Halda süsteemi töötajate andmeid",
+      "create": "Loo",
+      "edit": "Muuda"
+    },
     "dialog": {
       "create-title": "Loo töötaja",
       "edit-title": "Muuda töötajat",
+      "create-success": "Töötaja edukalt loodud",
+      "create-success-description": "Töötaja edukalt loodud",
+      "edit-success": "Töötaja edukalt uuendatud",
+      "edit-success-description": "Töötaja edukalt uuendatud",
       "submit": "Salvesta",
       "form": {
-        "login-description": "Selle kasutajanimega saab töötaja süsteemi sisse logida",
-        "password-description": "Loo uuele töötajale sisselogimiseks parool",
-        "role-placeholder": "Vali töötaja roll"
-      },
-      "errors": {
-        "minLength": "Minimaalne pikkus on 4 tähemärki",
-        "isStrongPassword": "Parool peab sisaldama vähemalt 8 tähemärki, sealhulgas numbreid, suurtähti ja väiketähti",
-        "youcantcreatesystemadmin": "Sa ei saa luua töötajat süsteemi administraatori rolliga"
+        "login-description": "Selle kasutajanimega saab süsteemi siseneda",
+        "password-description": "Looge uue töötaja sisselogimise parool",
+        "role-placeholder": "Valige töötaja roll",
+        "name-placeholder": "Sisestage töötaja nimi",
+        "login-placeholder": "Sisestage töötaja kasutajanimi",
+        "restaurant-placeholder": "Valige restoran"
       }
     },
     "table": {
@@ -25,55 +32,134 @@
         "title": "Tegevused",
         "copyId": "Kopeeri ID",
         "edit": "Muuda",
-        "edit-history": "Muutmiste ajalugu",
+        "edit-history": "Muudatuste ajalugu",
         "delete": "Kustuta"
       }
     }
   },
+  "RestaurantHours": {
+    "dialog": {
+      "create-title": "Loo lahtiolekuajad",
+      "edit-title": "Muuda lahtiolekuaegu",
+      "form": {
+        "dayOfWeek-placeholder": "Valige nädalapäev"
+      },
+      "create-success": "Lahtiolekuajad edukalt loodud",
+      "create-success-description": "Lahtiolekuajad edukalt loodud",
+      "edit-success": "Lahtiolekuajad edukalt uuendatud",
+      "edit-success-description": "Lahtiolekuajad edukalt uuendatud"
+    },
+    "form": {
+      "openingTime-label": "Avamise aeg",
+      "closingTime-label": "Sulgemise aeg"
+    }
+  },
+  "RestaurantWorkshops": {
+    "dialog": {
+      "create-title": "Loo osakond",
+      "edit-title": "Muuda osakonda",
+      "form": {
+        "name-label": "Osakonna nimi",
+        "name-placeholder": "Sisestage osakonna nimi",
+        "isLabelPrintingEnabled-label": "Siltide printimine",
+        "isEnabled-label": "Aktiivne"
+      },
+      "create-success": "Osakond edukalt loodud",
+      "create-success-description": "Osakond edukalt loodud",
+      "edit-success": "Osakond edukalt uuendatud",
+      "edit-success-description": "Osakond edukalt uuendatud"
+    }
+  },
+  "Restaurants": {
+    "page": {
+      "description": "Halda süsteemi restoranide andmeid",
+      "create": "Loo"
+    },
+    "dialog": {
+      "create-title": "Loo restoran",
+      "create-success": "Restoran edukalt loodud",
+      "create-success-description": "Restoran edukalt loodud",
+      "edit-title": "Muuda restorani",
+      "edit-success": "Restoran edukalt uuendatud",
+      "edit-success-description": "Restoran edukalt uuendatud",
+      "submit": "Salvesta",
+      "form": {
+        "name-placeholder": "Sisestage restorani nimi",
+        "legalEntity-placeholder": "Sisestage juriidiline isik",
+        "address-placeholder": "Sisestage aadress",
+        "latitude-placeholder": "Sisestage laiuskraad",
+        "longitude-placeholder": "Sisestage pikkuskraad"
+      }
+    },
+    "tabs": {
+      "working-hours": "Lahtiolekuajad",
+      "departments": "Osakonnad",
+      "staff": "Personal",
+      "statistics": "Statistika"
+    },
+    "columns": {
+      "dayOfWeek": "Nädalapäev",
+      "openingTime": "Avamise aeg",
+      "closingTime": "Sulgemise aeg",
+      "workshopName": "Osakonna nimi",
+      "isLabelPrintingEnabled": "Siltide printimine"
+    }
+  },
   "toite": {
-    "copyright": "Arendatud koostöös",
-    "light-mode": "Hele režiim",
-    "dark-mode": "Tume režiim",
+    "copyright": "Arendatud",
+    "light-mode": "Hele teema",
+    "dark-mode": "Tume teema",
     "logout": "Logi välja",
     "logout-text": "Kas olete kindel, et soovite välja logida? Teid suunatakse sisselogimise lehele.",
     "submit": "Kinnita",
-    "online": "Veebis",
-    "offline": "Väljas",
+    "online": "Võrgus",
+    "offline": "Võrgust väljas",
+    "yes": "Jah",
+    "no": "Ei",
+    "enabled": "Aktiivne",
+    "disabled": "Mitteaktiivne",
     "blocked": "Blokeeritud"
   },
   "navbar": {
-    "dashboard": "Armatuurlaud",
+    "dashboard": "Pealeht",
     "orders": "Tellimused",
-    "orders-all": "Kõik",
+    "orders-all": "Kõik tellimused",
     "orders-hall": "Saal",
-    "orders-banquet": "Pidu",
-    "orders-takeaway": "Kaasa võtmine",
-    "orders-delivery": "Kohaletoimetamine",
+    "orders-banquet": "Bankett",
+    "orders-takeaway": "Kaasa",
+    "orders-delivery": "Kojuvedu",
     "orders-archive": "Arhiiv",
     "restaurants": "Restoranid",
-    "dishes": "Road",
-    "administrate": "Administreeri",
-    "discounts": "Allahindlused",
+    "dishes": "Toidud",
+    "administrate": "Administreerimine",
+    "discounts": "Soodustused",
     "workers": "Töötajad",
     "guests": "Külalised",
-    "finances": "Finantsid",
-    "workshifts": "Töövahetused",
-    "finances-report": "Raport"
-  },
-  "workers-page": {
-    "description": "Halda töötajate andmeid süsteemis",
-    "searchbar": "Otsi töötajat..."
+    "finances": "Finants",
+    "workshifts": "Vahetused",
+    "finances-report": "Aruanne"
   },
   "fields": {
     "login": "Kasutajanimi",
     "email": "E-post",
+    "address-placeholder": "Sisestage aadress",
+    "address-not-found": "Aadressi ei leitud",
+    "isClosedForever": "Jäädavalt suletud",
     "password": "Parool",
     "name": "Nimi",
     "role": "Roll",
-    "submit": "Esita",
+    "submit": "Logi sisse",
     "createdAt": "Loomise kuupäev",
     "updatedAt": "Uuendamise kuupäev",
-    "onlineAt": "Staatus"
+    "onlineAt": "Olek",
+    "legalEntity": "Juriidiline isik",
+    "address": "Aadress",
+    "dayOfWeek": "Nädalapäev",
+    "latitude": "Laiuskraad",
+    "longitude": "Pikkuskraad",
+    "isEnabled": "Aktiivne",
+    "restaurant": "Restoran",
+    "empty": "Pole valitud"
   },
   "errors": {
     "unknown": "Tundmatu viga",
@@ -81,18 +167,74 @@
   },
   "roles": {
     "SYSTEM_ADMIN": "Süsteemi administraator",
-    "CHIEF_ADMIN": "Peakasutaja",
+    "CHIEF_ADMIN": "Peaadministraator",
     "ADMIN": "Administraator",
     "KITCHENER": "Kokk",
-    "WAITER": "Ootejärgne",
+    "WAITER": "Teenindaja",
     "CASHIER": "Kassapidaja",
     "DISPATCHER": "Dispetšer",
     "COURIER": "Kuller"
   },
+  "dayOfWeek": {
+    "monday": "Esmaspäev",
+    "tuesday": "Teisipäev",
+    "wednesday": "Kolmapäev",
+    "thursday": "Neljapäev",
+    "friday": "Reede",
+    "saturday": "Laupäev",
+    "sunday": "Pühapäev"
+  },
   "table": {
-    "rows-per-page": "Ridu leheküljel",
+    "rows-per-page": "Ridu lehel",
     "page-number": "Lehekülg {current} / {total}",
     "no-rows": "Andmed puuduvad",
-    "copied": "Kopeeritud lõikepuhvrisse"
+    "copied": "Kopeeritud lõikelauale",
+    "filter": {
+      "conditions": {
+        "equals": "Võrdub",
+        "notEquals": "Ei võrdu",
+        "contains": "Sisaldab",
+        "notContains": "Ei sisalda",
+        "startsWith": "Algab",
+        "endsWith": "Lõpeb"
+      },
+      "field": "Väli",
+      "value": "Väärtus",
+      "value-placeholder": "Sisestage väärtus",
+      "value-placeholder-select": "Valige väärtus",
+      "condition": "Tingimus",
+      "add": "Lisa filter",
+      "submit": "Rakenda",
+      "clear": "Tühjenda filtrid"
+    }
+  },
+  "apiErrors": {
+    "default": {
+      "forbidden": "Teil puuduvad õigused selle toimingu jaoks",
+      "bad_request": "Päringu viga",
+      "unknown": "Tundmatu viga",
+      "not_found": "Ei leitud",
+      "conflict": "Selline kirje on juba olemas"
+    },
+    "workers": {
+      "forbidden": {
+        "system-admin-role": "Te ei saa luua süsteemi administraatori rolliga töötajat"
+      },
+      "conflict": {
+        "login-conflict": "Sellise kasutajanimega kasutaja on juba olemas"
+      },
+      "form": {
+        "password": {
+          "isStrongPassword": "Parool peab sisaldama vähemalt 8 tähemärki, sealhulgas numbreid, suur- ja väiketähti"
+        },
+        "login": {
+          "minLength": "Minimaalne pikkus on 4 tähemärki"
+        }
+      }
+    }
+  },
+  "time-select": {
+    "hour": "Tund",
+    "minute": "Minut"
   }
 }
