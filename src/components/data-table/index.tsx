@@ -50,6 +50,7 @@ export type DataTableProps<T> = {
   className?: string;
   data?: T[] | null;
   columns: ColumnDef<T>[];
+  hideAccessoryKeys?: string[];
   isLoading?: boolean;
   pagination?: TablePagination;
   sorting?: TableSorting;
@@ -59,14 +60,33 @@ export type DataTableProps<T> = {
 export const DataTable = <DataType extends { id: string }>(
   props: DataTableProps<DataType>
 ) => {
-  const { className, data, columns, pagination, sorting, filters, isLoading } =
-    props;
+  const {
+    className,
+    data,
+    columns,
+    pagination,
+    sorting,
+    filters,
+    isLoading,
+    hideAccessoryKeys,
+  } = props;
 
   const t = useTranslations();
   const table = useReactTable({
     columns,
     data: data || [],
     getCoreRowModel: getCoreRowModel(),
+    initialState: {
+      columnVisibility: hideAccessoryKeys
+        ? hideAccessoryKeys.reduce(
+            (acc, key) => ({
+              ...acc,
+              [key]: false,
+            }),
+            {}
+          )
+        : {},
+    },
     state: {
       // Connect pagination
       ...(pagination

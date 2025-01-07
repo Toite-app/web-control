@@ -10,6 +10,7 @@ import { useQueryState } from "nuqs";
 import RestaurantHoursTab from "@/features/restaurant/hours-tab";
 import useDialogsStore from "@/store/dialogs-store";
 import RestaurantWorkshopsTab from "@/features/restaurant/workshops-tab";
+import RestaurantWorkersTab from "@/features/restaurant/workers-tab";
 
 type Props = {
   restaurantId: string;
@@ -90,7 +91,7 @@ export const RestaurantPageContent = (props: Props) => {
                 <TabsTrigger value="workers">
                   {t("Restaurants.tabs.staff")}
                 </TabsTrigger>
-                <TabsTrigger value="statistics">
+                <TabsTrigger value="statistics" disabled>
                   {t("Restaurants.tabs.statistics")}
                 </TabsTrigger>
               </TabsList>
@@ -133,7 +134,7 @@ export const RestaurantPageContent = (props: Props) => {
               <RestaurantWorkshopsTab restaurant={data} />
             </TabsContent>
             <TabsContent value="workers">
-              {/* Staff content will go here */}
+              <RestaurantWorkersTab restaurant={data} />
             </TabsContent>
             <TabsContent value="statistics">
               {/* Statistics content will go here */}
