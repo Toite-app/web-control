@@ -10,12 +10,18 @@ export type BuildApiMutationConfig = {
   tags?: ApiCacheTag[];
 };
 
-export type ApiMutationConfig<U extends string, P extends PDefault, D> = Pick<
-  RequestEndpointConfig<U, P, D>,
-  "params" | "data" | "urlValues"
->;
+export type ApiMutationConfig<
+  U extends Record<string, any> | unknown,
+  P extends PDefault,
+  D,
+> = Pick<RequestEndpointConfig<U, P, D>, "params" | "data" | "urlValues">;
 
-export const buildApiMutation = <U extends string, R, P extends PDefault, D>(
+export const buildApiMutation = <
+  U extends Record<string, any> | unknown,
+  R,
+  P extends PDefault,
+  D,
+>(
   buildConfig: BuildApiMutationConfig
 ) => {
   const { method, url: _url, tags: _b_tags = [] } = buildConfig;
@@ -23,7 +29,7 @@ export const buildApiMutation = <U extends string, R, P extends PDefault, D>(
   return async (config?: ApiMutationConfig<U, P, D>) => {
     const { params, data, urlValues } = config || {};
 
-    const url = _buildUrl(_url, urlValues);
+    const url = _buildUrl(_url, urlValues ?? {});
     const tags = [`${url}-${JSON.stringify(params)}`, ..._b_tags];
 
     const result = await _requestEndpoint<U, R, P, D>({

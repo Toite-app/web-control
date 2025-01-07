@@ -5,7 +5,7 @@ import { IRestaurant } from "@/types/restaurant.types";
 export type GetRestaurantParams = unknown;
 
 export const useGetRestaurant = buildApiHook<
-  string,
+  { restaurantId: string },
   IRestaurant,
   GetRestaurantParams,
   unknown

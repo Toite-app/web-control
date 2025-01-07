@@ -8,7 +8,7 @@ export type ICreateRestaurantWorkshop = Pick<
 >;
 
 export const createRestaurantWorkshopMutation = buildApiMutation<
-  string,
+  { restaurantId: string },
   unknown,
   unknown,
   ICreateRestaurantWorkshop

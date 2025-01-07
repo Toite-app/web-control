@@ -7,7 +7,7 @@ export type IPutRestaurantWorkshop = Partial<
 >;
 
 export const putRestaurantWorkshopMutation = buildApiMutation<
-  string,
+  { restaurantId: string; workshopId: string },
   unknown,
   unknown,
   IPutRestaurantWorkshop

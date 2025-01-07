@@ -10,7 +10,7 @@ export type ICreateWorker = Pick<
 };
 
 export const createWorkerMutation = buildApiMutation<
-  string,
+  unknown,
   unknown,
   unknown,
   ICreateWorker

@@ -10,7 +10,7 @@ export type IPutRestaurantHour = Partial<
 >;
 
 export const putRestaurantHourMutation = buildApiMutation<
-  string,
+  { restaurantId: string; hourId: string },
   unknown,
   unknown,
   IPutRestaurantHour

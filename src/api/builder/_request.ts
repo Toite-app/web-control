@@ -5,12 +5,12 @@ export type PDefault = Record<string, string | number> | unknown;
 export type DDefault = Record<string, unknown> | any | unknown;
 
 export type RequestEndpointConfig<
-  U extends string = string,
+  U extends Record<string, any> | unknown = Record<string, any>,
   P extends PDefault = PDefault,
   D extends DDefault = DDefault,
 > = Omit<AxiosRequestConfig<D>, "params" | "url"> & {
   url: string;
-  urlValues?: Record<U, string | number>;
+  urlValues?: U;
   params?: P;
   skip?: boolean;
 };
@@ -25,7 +25,7 @@ export type RequestEndpointConfig<
  * @returns
  */
 export const _requestEndpoint = async <
-  U extends string,
+  U extends Record<string, any> | unknown,
   R,
   P extends PDefault,
   D,
@@ -34,7 +34,7 @@ export const _requestEndpoint = async <
 ): Promise<AxiosResponse<R> | undefined> => {
   const { params, urlValues, skip } = config;
 
-  const url = _buildUrl(config.url, urlValues);
+  const url = _buildUrl(config.url, urlValues ?? {});
 
   if (skip) return undefined;
 

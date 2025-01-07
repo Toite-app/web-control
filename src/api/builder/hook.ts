@@ -5,14 +5,24 @@ import { _buildUrl } from "./_url";
 import { ApiCacheTag } from "../types";
 
 // When hook building
-export type BuildApiHookConfig<U extends string, R, P extends PDefault, D> = {
+export type BuildApiHookConfig<
+  U extends Record<string, any> | unknown,
+  R,
+  P extends PDefault,
+  D,
+> = {
   url: string;
   method: Method;
   tags?: ApiCacheTag[];
 } & Pick<UseApiHookConfig<U, R, P, D>, "config" | "requestConfig">;
 
 // When hook used in client components
-export type UseApiHookConfig<U extends string, R, P extends PDefault, D> = Pick<
+export type UseApiHookConfig<
+  U extends Record<string, any> | unknown,
+  R,
+  P extends PDefault,
+  D,
+> = Pick<
   RequestEndpointConfig<U, P, D>,
   "params" | "data" | "skip" | "urlValues"
 > & {
@@ -23,7 +33,12 @@ export type UseApiHookConfig<U extends string, R, P extends PDefault, D> = Pick<
   >;
 };
 
-export const buildApiHook = <U extends string, R, P extends PDefault, D>(
+export const buildApiHook = <
+  U extends Record<string, any> | unknown,
+  R,
+  P extends PDefault,
+  D,
+>(
   buildConfig: BuildApiHookConfig<U, R, P, D>
 ) => {
   const {
@@ -44,7 +59,7 @@ export const buildApiHook = <U extends string, R, P extends PDefault, D>(
       config: swrConfig,
     } = config || {};
 
-    const url = _buildUrl(_url, urlValues);
+    const url = _buildUrl(_url, urlValues ?? {});
     const tags = [`${url}-${JSON.stringify(params)}`, ..._b_tags];
 
     return useSWR(

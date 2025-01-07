@@ -16,7 +16,7 @@ export type IPutWorker = Partial<
 >;
 
 export const putWorkerMutation = buildApiMutation<
-  "id",
+  { id: string },
   unknown,
   unknown,
   IPutWorker

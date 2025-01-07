@@ -10,7 +10,7 @@ import { IRestaurant } from "@/types/restaurant.types";
 export type GetRestaurantsParams = PaginationParams & SortingParams;
 
 export const useGetRestaurants = buildApiHook<
-  string,
+  unknown,
   PaginatedResponse<IRestaurant>,
   GetRestaurantsParams,
   unknown
