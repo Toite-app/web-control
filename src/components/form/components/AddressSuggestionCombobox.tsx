@@ -59,7 +59,7 @@ export function AddressSuggestionCombobox({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-full justify-between"
+          className="h-auto w-full justify-between whitespace-normal text-left"
           disabled={disabled}
         >
           {value || placeholder}
