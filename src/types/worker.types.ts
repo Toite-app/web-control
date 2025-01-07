@@ -14,6 +14,7 @@ export interface IWorker {
   name: string;
   login: string;
   restaurantId: string | null;
+  restaurantName: string | null;
   role: WorkerRole;
   isBlocked: boolean;
   hiredAt: string | null;

@@ -73,6 +73,13 @@ export const useGetColumns = (options: Options) => {
         cell: ({ row }) => <span>{t(`roles.${row.original.role}`)}</span>,
       },
       {
+        accessorKey: "restaurantName",
+        header: () => {
+          return t("fields.restaurant");
+        },
+        cell: ({ row }) => <span>{row.original.restaurantName || "—"}</span>,
+      },
+      {
         accessorKey: "onlineAt",
         header: ({ column }) => {
           return (
