@@ -69,7 +69,7 @@ export function AddressSuggestionCombobox({
       <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-0">
         <Command shouldFilter={false}>
           <CommandInput
-            placeholder={t(placeholder ?? "fields.address-placeholder")}
+            placeholder={placeholder ?? "fields.address-placeholder"}
             value={search}
             onValueChange={setSearch}
           />

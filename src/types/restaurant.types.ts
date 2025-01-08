@@ -7,6 +7,7 @@ export interface IRestaurant {
   address: string;
   latitude: number;
   longitude: number;
+  timezone: string;
   isEnabled: boolean;
   isClosedForever: boolean;
   createdAt: string;

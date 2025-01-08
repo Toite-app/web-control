@@ -1,12 +1,5 @@
 import { buildApiHook } from "@/api/builder/hook";
-import {
-  ApiCacheTag,
-  FilterParams,
-  PaginationParams,
-  SortingParams,
-} from "@/api/types";
-
-export type GetWorkersParams = PaginationParams & SortingParams & FilterParams;
+import { ApiCacheTag } from "@/api/types";
 
 export type AddressSuggestionsParams = {
   query: string;
@@ -24,7 +17,7 @@ export interface AddressSuggestion {
 }
 
 export const useAddressSuggestions = buildApiHook<
-  string,
+  unknown,
   AddressSuggestion[],
   AddressSuggestionsParams,
   unknown

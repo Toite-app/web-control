@@ -166,7 +166,8 @@
     "longitude": "Долгота",
     "isEnabled": "Активен",
     "restaurant": "Ресторан",
-    "empty": "Не выбрано"
+    "empty": "Не выбрано",
+    "timezone": "Часовой пояс"
   },
   "errors": {
     "unknown": "Неизвестная ошибка",

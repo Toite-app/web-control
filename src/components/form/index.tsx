@@ -225,7 +225,7 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
                             <SelectValue
                               placeholder={text(
                                 data.placeholder,
-                                data.intl === true ? true : intl
+                                data.intl !== undefined ? data.intl : intl
                               )}
                             />
                           </SelectTrigger>
@@ -243,7 +243,7 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
                             >
                               {text(
                                 option.label,
-                                option.intl === true ? true : intl
+                                option.intl !== undefined ? option.intl : intl
                               )}
                             </SelectItem>
                           ))}

@@ -4,6 +4,7 @@ export enum ApiCacheTag {
   WORKERS = "WORKERS",
   RESTAURANTS = "RESTAURANTS",
   ADDRESS_SUGGESTIONS = "ADDRESS_SUGGESTIONS",
+  TIMEZONES = "TIMEZONES",
 }
 
 export type PaginationMeta = {

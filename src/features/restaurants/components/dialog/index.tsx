@@ -19,6 +19,7 @@ import {
   createRestaurantMutation,
 } from "../../api/createRestaurant";
 import { putRestaurantMutation } from "../../api/putRestaurant";
+import { useGetTimezones } from "@/api/fetch/useGetTimezones";
 
 export type RestaurantDialogProps = {
   data?: IRestaurant | null;
@@ -34,13 +35,16 @@ const RestaurantDialog: FC<RestaurantDialogProps> = (props) => {
   const handleError = useErrorHandler();
   const { toast } = useToast();
 
+  const timezones = useGetTimezones();
+
   const form = useForm<ICreateRestaurant>({
     defaultValues: {
-      name: restaurant?.name || "",
-      legalEntity: restaurant?.legalEntity || "",
-      address: restaurant?.address || "",
-      latitude: restaurant?.latitude || 0,
-      longitude: restaurant?.longitude || 0,
+      name: restaurant?.name ?? "",
+      legalEntity: restaurant?.legalEntity ?? "",
+      address: restaurant?.address ?? "",
+      timezone: restaurant?.timezone ?? "",
+      latitude: restaurant?.latitude ?? 0,
+      longitude: restaurant?.longitude ?? 0,
       isEnabled: restaurant?.isEnabled ?? true,
     },
   });
@@ -77,13 +81,14 @@ const RestaurantDialog: FC<RestaurantDialogProps> = (props) => {
   useEffect(() => {
     if (open) {
       form.reset({
-        name: restaurant?.name || "",
-        legalEntity: restaurant?.legalEntity || "",
-        address: restaurant?.address || "",
-        latitude: restaurant?.latitude || 0,
-        longitude: restaurant?.longitude || 0,
-        isEnabled: restaurant?.isEnabled || true,
-        isClosedForever: restaurant?.isClosedForever || false,
+        name: restaurant?.name ?? "",
+        legalEntity: restaurant?.legalEntity ?? "",
+        address: restaurant?.address ?? "",
+        latitude: restaurant?.latitude ?? 0,
+        longitude: restaurant?.longitude ?? 0,
+        timezone: restaurant?.timezone ?? "",
+        isEnabled: restaurant?.isEnabled ?? true,
+        isClosedForever: restaurant?.isClosedForever ?? false,
       });
     }
   }, [open, restaurant, form]);
@@ -152,6 +157,19 @@ const RestaurantDialog: FC<RestaurantDialogProps> = (props) => {
               data: {
                 type: "number",
                 placeholder: "Restaurants.dialog.form.longitude-placeholder",
+              },
+            },
+            {
+              name: "timezone",
+              label: "fields.timezone",
+              required: true,
+              data: {
+                type: "select",
+                options: (timezones.data?.timezones || []).map((tzName) => ({
+                  label: tzName,
+                  value: tzName,
+                  intl: false,
+                })),
               },
             },
             {
