@@ -12,6 +12,7 @@ import { useSorting } from "@/components/data-table/hooks/useSorting";
 import { useFilters } from "@/components/data-table/hooks/useFilters";
 import useDialogsStore from "@/store/dialogs-store";
 import { useGetGuests } from "@/api/fetch/guests/useGetGuests";
+import { GuestsTableFilters } from "@/features/guests/components/data-table/components/TableFilters";
 
 const GuestsPageContent: FC = () => {
   const t = useTranslations();
@@ -70,6 +71,7 @@ const GuestsPageContent: FC = () => {
             </Button>
           </div>
         </header>
+        <GuestsTableFilters />
         <DataTable
           className="h-[75vh] overflow-clip bg-stone-200/30 dark:bg-stone-800/20"
           {...{
