@@ -159,7 +159,10 @@
     "longitude": "Pikkuskraad",
     "isEnabled": "Aktiivne",
     "restaurant": "Restoran",
-    "empty": "Pole valitud"
+    "empty": "Pole valitud",
+    "bonusBalance": "Boonuse saldo",
+    "lastVisit": "Viimane külastus",
+    "phone": "Telefon"
   },
   "errors": {
     "unknown": "Tundmatu viga",
@@ -236,5 +239,38 @@
   "time-select": {
     "hour": "Tund",
     "minute": "Minut"
+  },
+  "Guests": {
+    "page": {
+      "description": "Halda külaliste andmeid süsteemis",
+      "create": "Loo",
+      "edit": "Muuda"
+    },
+    "dialog": {
+      "create-title": "Loo külaline",
+      "edit-title": "Muuda külalist",
+      "create-success": "Külaline edukalt loodud",
+      "create-success-description": "Külaline on edukalt loodud",
+      "edit-success": "Külaline edukalt uuendatud",
+      "edit-success-description": "Külaline on edukalt uuendatud",
+      "submit": "Salvesta",
+      "form": {
+        "name-placeholder": "Sisesta külalise nimi",
+        "phone-placeholder": "Sisesta telefoninumber",
+        "email-placeholder": "Sisesta e-posti aadress",
+        "bonus-placeholder": "Sisesta boonuse saldo",
+        "password-description": "Loo parool uue külalise sisselogimiseks"
+      }
+    },
+    "table": {
+      "actions": {
+        "open": "Ava tegevused",
+        "title": "Tegevused",
+        "copyId": "Kopeeri ID",
+        "edit": "Muuda",
+        "edit-history": "Muutmise ajalugu",
+        "delete": "Kustuta"
+      }
+    }
   }
 }

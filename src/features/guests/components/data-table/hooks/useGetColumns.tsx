@@ -2,8 +2,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { formatDistance } from "date-fns";
-import { Badge } from "@/components/ui/badge";
+import { format, formatDistance } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { AvatarFallback, Avatar } from "@/components/ui/avatar";
 import {
@@ -75,6 +74,21 @@ export const useGetColumns = (options: Options) => {
             <SortButton column={column}>{t("fields.bonusBalance")}</SortButton>
           );
         },
+      },
+      {
+        accessorKey: "createdAt",
+        header: ({ column }) => {
+          return (
+            <SortButton column={column}>{t("fields.createdAt")}</SortButton>
+          );
+        },
+        cell: ({ row }) => (
+          <span>
+            {format(new Date(row.original.createdAt), "dd.MM.yyyy HH:mm", {
+              locale: locale === "ru" ? ru : locale === "en" ? enUS : et,
+            })}
+          </span>
+        ),
       },
       {
         accessorKey: "lastVisitAt",

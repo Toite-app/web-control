@@ -159,7 +159,10 @@
     "longitude": "Longitude",
     "isEnabled": "Active",
     "restaurant": "Restaurant",
-    "empty": "Not selected"
+    "empty": "Not selected",
+    "bonusBalance": "Bonus Balance",
+    "lastVisit": "Last Visit",
+    "phone": "Phone"
   },
   "errors": {
     "unknown": "Unknown error",
@@ -236,5 +239,38 @@
   "time-select": {
     "hour": "Hour",
     "minute": "Minute"
+  },
+  "Guests": {
+    "page": {
+      "description": "Manage guest data in the system",
+      "create": "Create",
+      "edit": "Edit"
+    },
+    "dialog": {
+      "create-title": "Create Guest",
+      "edit-title": "Edit Guest",
+      "create-success": "Guest created successfully",
+      "create-success-description": "Guest has been created successfully",
+      "edit-success": "Guest updated successfully",
+      "edit-success-description": "Guest has been updated successfully",
+      "submit": "Save",
+      "form": {
+        "name-placeholder": "Enter guest name",
+        "phone-placeholder": "Enter phone number",
+        "email-placeholder": "Enter email address",
+        "bonus-placeholder": "Enter bonus balance",
+        "password-description": "Create password for new guest login"
+      }
+    },
+    "table": {
+      "actions": {
+        "open": "Open actions",
+        "title": "Actions",
+        "copyId": "Copy ID",
+        "edit": "Edit",
+        "edit-history": "Edit History",
+        "delete": "Delete"
+      }
+    }
   }
 }

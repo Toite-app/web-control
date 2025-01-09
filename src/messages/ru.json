@@ -118,6 +118,22 @@
       "create": "Создать",
       "edit": "Редактировать"
     },
+    "dialog": {
+      "create-title": "Создать гостя",
+      "edit-title": "Редактировать гостя",
+      "create-success": "Гость успешно создан",
+      "create-success-description": "Гость успешно создан",
+      "edit-success": "Гость успешно обновлен",
+      "edit-success-description": "Гость успешно обновлен",
+      "submit": "Сохранить",
+      "form": {
+        "name-placeholder": "Введите имя гостя",
+        "phone-placeholder": "Введите номер телефона",
+        "email-placeholder": "Введите электронную почту",
+        "bonus-placeholder": "Введите бонусный баланс",
+        "password-description": "Создайте пароль для входа нового гостя"
+      }
+    },
     "table": {
       "actions": {
         "open": "Открыть действия",

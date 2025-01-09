@@ -19,7 +19,7 @@ const GuestsPageContent: FC = () => {
 
   const columns = useGetColumns({
     onEdit: (guest) => {
-      // toggleDialog("guest", true, guest);
+      toggleDialog("guest", true, guest);
     },
   });
 
@@ -45,44 +45,46 @@ const GuestsPageContent: FC = () => {
   });
 
   return (
-    <div className="mx-auto flex h-full w-full max-w-screen-xl flex-col gap-4 p-4 py-12">
-      <header className="flex flex-row items-center justify-between">
-        <div className="flex flex-col gap-1">
-          <div className="flex flex-row items-center gap-4">
-            <h1 className="text-4xl font-bold">{t("navbar.guests")}</h1>
-            <Badge className="rounded-lg" variant="default">
-              {guests.data?.meta.total || "-"}
-            </Badge>
+    <>
+      <div className="mx-auto flex h-full w-full max-w-screen-xl flex-col gap-4 p-4 py-12">
+        <header className="flex flex-row items-center justify-between">
+          <div className="flex flex-col gap-1">
+            <div className="flex flex-row items-center gap-4">
+              <h1 className="text-4xl font-bold">{t("navbar.guests")}</h1>
+              <Badge className="rounded-lg" variant="default">
+                {guests.data?.meta.total || "-"}
+              </Badge>
+            </div>
+            <p className="text-stone-500">{t("Guests.page.description")}</p>
           </div>
-          <p className="text-stone-500">{t("Guests.page.description")}</p>
-        </div>
-        <div className="flex flex-row items-center gap-4">
-          <Button
-            className="flex flex-row items-center gap-2"
-            variant="default"
-            onClick={() => {
-              // toggleDialog("guest", true);
-            }}
-          >
-            <PlusIcon className="h-5 w-5" />
-            <span className="text-[16px]">{t("Guests.page.create")}</span>
-          </Button>
-        </div>
-      </header>
-      <DataTable
-        className="h-[75vh] overflow-clip bg-stone-200/30 dark:bg-stone-800/20"
-        {...{
-          data: guests.data?.data,
-          columns,
-          isLoading: guests.isLoading,
-          pagination: {
-            ...pagination,
-            meta: guests.data?.meta,
-          },
-          sorting,
-        }}
-      />
-    </div>
+          <div className="flex flex-row items-center gap-4">
+            <Button
+              className="flex flex-row items-center gap-2"
+              variant="default"
+              onClick={() => {
+                toggleDialog("guest", true);
+              }}
+            >
+              <PlusIcon className="h-5 w-5" />
+              <span className="text-[16px]">{t("Guests.page.create")}</span>
+            </Button>
+          </div>
+        </header>
+        <DataTable
+          className="h-[75vh] overflow-clip bg-stone-200/30 dark:bg-stone-800/20"
+          {...{
+            data: guests.data?.data,
+            columns,
+            isLoading: guests.isLoading,
+            pagination: {
+              ...pagination,
+              meta: guests.data?.meta,
+            },
+            sorting,
+          }}
+        />
+      </div>
+    </>
   );
 };
 
