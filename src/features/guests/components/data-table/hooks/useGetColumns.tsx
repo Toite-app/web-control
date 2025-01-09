@@ -1,0 +1,149 @@
+"use client";
+import { ColumnDef } from "@tanstack/react-table";
+import { useMemo, useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
+import { formatDistance } from "date-fns";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { AvatarFallback, Avatar } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  EditIcon,
+  FingerprintIcon,
+  HistoryIcon,
+  MoreHorizontalIcon,
+} from "lucide-react";
+import { ru, enUS, et } from "date-fns/locale";
+import { toast } from "sonner";
+import { IGuest } from "@/types/guest.types";
+import { SortButton } from "@/components/data-table/components/SortButton";
+
+type Options = {
+  onEdit: (guest: IGuest) => void;
+};
+
+export const useGetColumns = (options: Options) => {
+  const { onEdit } = options;
+  const locale = useLocale();
+  const t = useTranslations();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  return useMemo<ColumnDef<IGuest>[]>(
+    () => [
+      {
+        accessorKey: "name",
+        header: ({ column }) => {
+          return <SortButton column={column}>{t("fields.name")}</SortButton>;
+        },
+        cell: ({ row }) => {
+          return (
+            <div className="flex flex-row items-center gap-1">
+              <Avatar className="mr-4 h-9 w-9">
+                <AvatarFallback>
+                  <span>{row.original.name.charAt(0).toUpperCase()}</span>
+                </AvatarFallback>
+              </Avatar>
+              <span>{row.original.name}</span>
+            </div>
+          );
+        },
+      },
+      {
+        accessorKey: "phone",
+        header: ({ column }) => {
+          return <SortButton column={column}>{t("fields.phone")}</SortButton>;
+        },
+      },
+      {
+        accessorKey: "email",
+        header: ({ column }) => {
+          return <SortButton column={column}>{t("fields.email")}</SortButton>;
+        },
+        cell: ({ row }) => <span>{row.original.email || "—"}</span>,
+      },
+      {
+        accessorKey: "bonusBalance",
+        header: ({ column }) => {
+          return (
+            <SortButton column={column}>{t("fields.bonusBalance")}</SortButton>
+          );
+        },
+      },
+      {
+        accessorKey: "lastVisitAt",
+        header: ({ column }) => {
+          return (
+            <SortButton column={column}>{t("fields.lastVisit")}</SortButton>
+          );
+        },
+        cell: ({ row }) => (
+          <span>
+            {row.original.lastVisitAt
+              ? formatDistance(new Date(row.original.lastVisitAt), new Date(), {
+                  addSuffix: true,
+                  locale: locale === "ru" ? ru : locale === "en" ? enUS : et,
+                })
+              : "—"}
+          </span>
+        ),
+      },
+      {
+        id: "actions",
+        cell: ({ row }) => {
+          return (
+            <DropdownMenu open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="h-8 w-8 p-0">
+                  <span className="sr-only">
+                    {t("Guests.table.actions.open")}
+                  </span>
+                  <MoreHorizontalIcon className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>
+                  {t("Guests.table.actions.title")}
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  className="cursor-pointer"
+                  onClick={() => {
+                    navigator.clipboard.writeText(row.original.id);
+                    toast.success(t("table.copied"), {
+                      dismissible: false,
+                    });
+                  }}
+                >
+                  <FingerprintIcon className="mr-2 h-4 w-4" />
+                  <span>{t("Guests.table.actions.copyId")}</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  className="cursor-pointer"
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    onEdit(row.original);
+                  }}
+                >
+                  <EditIcon className="mr-2 h-4 w-4" />
+                  <span>{t("Guests.table.actions.edit")}</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem disabled>
+                  <HistoryIcon className="mr-2 h-4 w-4" />
+                  <span>{t("Guests.table.actions.edit-history")}</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          );
+        },
+      },
+    ],
+    [t, locale, onEdit, isMenuOpen]
+  );
+};
