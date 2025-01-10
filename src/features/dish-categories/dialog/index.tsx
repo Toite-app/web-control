@@ -39,7 +39,6 @@ const DishCategoryDialog: FC<DishCategoryDialogProps> = (props) => {
       name: dishCategory?.name ?? "",
       showForWorkers: dishCategory?.showForWorkers ?? false,
       showForGuests: dishCategory?.showForGuests ?? false,
-      sortIndex: dishCategory?.sortIndex ?? 0,
     },
   });
 
@@ -78,7 +77,6 @@ const DishCategoryDialog: FC<DishCategoryDialogProps> = (props) => {
         name: dishCategory?.name ?? "",
         showForWorkers: dishCategory?.showForWorkers ?? false,
         showForGuests: dishCategory?.showForGuests ?? false,
-        sortIndex: dishCategory?.sortIndex ?? 0,
       });
     }
   }, [open, dishCategory, form]);
@@ -127,15 +125,6 @@ const DishCategoryDialog: FC<DishCategoryDialogProps> = (props) => {
               label: "fields.showForGuests",
               data: {
                 type: "switch",
-              },
-            },
-            {
-              name: "sortIndex",
-              label: "fields.sortIndex",
-              required: true,
-              data: {
-                type: "number",
-                placeholder: "DishCategories.dialog.form.sortIndex-placeholder",
               },
             },
           ]}
