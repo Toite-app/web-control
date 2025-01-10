@@ -336,5 +336,11 @@
   "time-select": {
     "hour": "Час",
     "minute": "Минута"
+  },
+  "dish-card": {
+    "pieces": "шт",
+    "minutes": "мин",
+    "grams": "г",
+    "milliliters": "мл"
   }
 }

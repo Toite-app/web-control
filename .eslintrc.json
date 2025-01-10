@@ -10,7 +10,8 @@
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/ban-ts-ignore": "off",
     "@typescript-eslint/ban-ts-comment": "off",
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "@next/next/no-img-element": "off"
   },
   "ignorePatterns": ["node_modules", ".next", "out", "public", "dist"]
 }
