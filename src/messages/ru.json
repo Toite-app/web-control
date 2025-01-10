@@ -112,6 +112,28 @@
       "isLabelPrintingEnabled": "Печать этикеток"
     }
   },
+  "Dishes": {
+    "page": {
+      "description": "Управляйте данными о блюдах в системе",
+      "create": "Создать"
+    }
+  },
+  "DishCategories": {
+    "title": "Категории",
+    "dialog": {
+      "create-title": "Создать категорию",
+      "edit-title": "Редактировать категорию",
+      "create-success": "Категория создана",
+      "create-success-description": "Категория блюд успешно создана",
+      "edit-success": "Категория обновлена",
+      "edit-success-description": "Категория блюд успешно обновлена",
+      "form": {
+        "name-placeholder": "Введите название категории",
+        "sortIndex-placeholder": "Введите индекс сортировки"
+      },
+      "submit": "Сохранить"
+    }
+  },
   "Guests": {
     "page": {
       "description": "Управляйте данными о гостях в системе",
@@ -203,7 +225,10 @@
     "timezone": "Часовой пояс",
     "bonusBalance": "Бонусный баланс",
     "lastVisit": "Последний визит",
-    "phone": "Телефон"
+    "phone": "Телефон",
+    "showForWorkers": "Показывать сотрудникам",
+    "showForGuests": "Показывать гостям",
+    "sortIndex": "Индекс сортировки"
   },
   "errors": {
     "unknown": "Неизвестная ошибка",

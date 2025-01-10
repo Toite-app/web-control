@@ -29,6 +29,10 @@ const dialogComponents = {
     () => import("@/features/guests/components/dialog/index"),
     { ssr: false }
   ),
+  [DialogType.DishCategory]: dynamic(
+    () => import("@/features/dish-categories/dialog/index"),
+    { ssr: false }
+  ),
 };
 
 const DialogsPortal = () => {

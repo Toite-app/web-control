@@ -5,6 +5,7 @@ import { IRestaurant } from "@/types/restaurant.types";
 import { IWorker } from "@/types/worker.types";
 import { create } from "zustand";
 import { IGuest } from "@/types/guest.types";
+import { IDishCategory } from "@/types/dish-category.types";
 
 export enum DialogType {
   Restaurant = "restaurant",
@@ -13,6 +14,7 @@ export enum DialogType {
   RestaurantWorkshopWorkers = "restaurantWorkshopWorkers",
   Worker = "worker",
   Guest = "guest",
+  DishCategory = "dishCategory",
 }
 
 // Define data types for each dialog that needs data
@@ -23,6 +25,7 @@ export type DialogData = {
   [DialogType.RestaurantWorkshop]?: RestaurantWorkshopDialogProps["data"];
   [DialogType.RestaurantWorkshopWorkers]?: WorkshopWorkersDialogProps["data"];
   [DialogType.Guest]?: IGuest;
+  [DialogType.DishCategory]?: IDishCategory;
 };
 
 interface DialogsStore {
