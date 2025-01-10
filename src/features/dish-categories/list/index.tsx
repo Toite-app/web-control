@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-import { PlusIcon, GripVertical } from "lucide-react";
+import { PencilIcon, PlusIcon } from "lucide-react";
 import { IDishCategory } from "@/types/dish-category.types";
 import useDialogsStore from "@/store/dialogs-store";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -33,6 +33,8 @@ interface SortableItemProps {
 }
 
 function SortableItem({ category }: SortableItemProps) {
+  const toggleDialog = useDialogsStore((state) => state.toggle);
+
   const {
     attributes,
     listeners,
@@ -52,18 +54,23 @@ function SortableItem({ category }: SortableItemProps) {
       ref={setNodeRef}
       style={style}
       className={cn(
-        "flex w-full items-center gap-2 rounded-md hover:bg-accent hover:text-accent-foreground",
+        "group flex w-full items-center justify-between gap-2 rounded-md pl-2 hover:bg-accent hover:text-accent-foreground",
         isDragging && "opacity-50"
       )}
     >
-      <button
-        {...attributes}
-        {...listeners}
-        className="cursor-grab p-2 hover:text-accent-foreground"
-      >
-        <GripVertical className="h-4 w-4" />
-      </button>
-      <span className="flex-1 py-2">{category.name}</span>
+      <div className="flex-1 py-2" {...attributes} {...listeners}>
+        {category.name}
+      </div>
+      <div className="opacity-0 transition-opacity group-hover:opacity-100">
+        <Button
+          variant="outline"
+          size="icon-sm"
+          onClick={() => toggleDialog("dishCategory", true, category)}
+          className="mr-2"
+        >
+          <PencilIcon className="h-4 w-4" />
+        </Button>
+      </div>
     </div>
   );
 }
