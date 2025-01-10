@@ -116,6 +116,23 @@
     "page": {
       "description": "Управляйте данными о блюдах в системе",
       "create": "Создать"
+    },
+    "dialog": {
+      "create-title": "Создать блюдо",
+      "edit-title": "Редактировать блюдо",
+      "create-success": "Блюдо успешно создано",
+      "create-success-description": "Блюдо успешно создано",
+      "edit-success": "Блюдо успешно обновлено",
+      "edit-success-description": "Блюдо успешно обновлено",
+      "submit": "Сохранить",
+      "form": {
+        "name-placeholder": "Введите название блюда",
+        "note-placeholder": "Введите примечание",
+        "cookingTimeInMin-placeholder": "Введите время приготовления в минутах",
+        "amountPerItem-placeholder": "Введите количество в одной порции",
+        "weight-placeholder": "Введите вес",
+        "printLabelEveryItem-placeholder": "Введите количество этикеток на порцию"
+      }
     }
   },
   "DishCategories": {
@@ -228,7 +245,20 @@
     "phone": "Телефон",
     "showForWorkers": "Показывать сотрудникам",
     "showForGuests": "Показывать гостям",
-    "sortIndex": "Индекс сортировки"
+    "sortIndex": "Индекс сортировки",
+    "note": "Примечание",
+    "cookingTimeInMin": "Время приготовления (мин)",
+    "amountPerItem": "Количество в порции",
+    "weight": "Вес",
+    "weightMeasureEnum": {
+      "grams": "Граммы",
+      "milliliters": "Миллилитры"
+    },
+    "weightMeasure": "Единица измерения",
+    "isLabelPrintingEnabled": "Печать этикеток",
+    "printLabelEveryItem": "Этикеток на порцию",
+    "isPublishedInApp": "Опубликовано в приложении",
+    "isPublishedAtSite": "Опубликовано на сайте"
   },
   "errors": {
     "unknown": "Неизвестная ошибка",

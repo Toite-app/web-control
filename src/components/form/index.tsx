@@ -26,6 +26,7 @@ import { PasswordInput } from "../password-input";
 import { Switch } from "@/components/ui/switch";
 import { AddressSuggestionCombobox } from "./components/AddressSuggestionCombobox";
 import { TimeSelect } from "./components/TimeSelect";
+import { Textarea } from "../ui/textarea";
 
 export type PasswordInputFormField = {
   type: "password";
@@ -72,6 +73,12 @@ export type TimeSelectFormField = {
   type: "time-select";
 };
 
+export type TextareaFormField = {
+  type: "textarea";
+  placeholder?: string;
+  rows?: number;
+};
+
 export type FormField<TFieldValues> = {
   name: Path<TFieldValues>;
   data:
@@ -81,7 +88,8 @@ export type FormField<TFieldValues> = {
     | NumberInputFormField
     | SwitchFormField
     | AddressSuggestionFormField
-    | TimeSelectFormField;
+    | TimeSelectFormField
+    | TextareaFormField;
   label?: string;
   description?: string;
   intl?: boolean;
@@ -261,6 +269,23 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
                           min={data.min}
                           max={data.max}
                           step={data.step}
+                          {...field}
+                          onChange={(e) => {
+                            field.onChange(Number(e.target.value));
+                          }}
+                          value={field.value ?? ""}
+                          disabled={disabled || field.disabled}
+                        />
+                      </FormControl>
+                    )}
+
+                    {/* Rendering textarea */}
+                    {data.type === "textarea" && (
+                      <FormControl>
+                        <Textarea
+                          placeholder={text(data.placeholder, intl)}
+                          required={required}
+                          rows={data.rows}
                           {...field}
                           value={field.value ?? ""}
                           disabled={disabled || field.disabled}

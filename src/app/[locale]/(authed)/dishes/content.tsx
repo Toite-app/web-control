@@ -1,10 +1,15 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import DishCategoriesList from "@/features/dish-categories/list";
+import useDialogsStore from "@/store/dialogs-store";
+import { PlusIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 export default function DishesPageContent() {
   const t = useTranslations();
+
+  const toggleDialog = useDialogsStore((state) => state.toggle);
 
   return (
     <>
@@ -20,16 +25,16 @@ export default function DishesPageContent() {
             <p className="text-stone-500">{t("Dishes.page.description")}</p>
           </div>
           <div className="flex flex-row items-center gap-4">
-            {/* <Button
+            <Button
               className="flex flex-row items-center gap-2"
               variant="default"
               onClick={() => {
-                toggleDialog("guest", true);
+                toggleDialog("dish", true);
               }}
             >
               <PlusIcon className="h-5 w-5" />
-              <span className="text-[16px]">{t("Guests.page.create")}</span>
-            </Button> */}
+              <span className="text-[16px]">{t("Dishes.page.create")}</span>
+            </Button>
           </div>
         </header>
         <div className="flex flex-row gap-4">
