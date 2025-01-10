@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
 import { IDishCategory } from "@/types/dish-category.types";
 import useDialogsStore from "@/store/dialogs-store";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 type Props = {
   className?: string;
@@ -42,7 +43,7 @@ export default function DishCategoriesList(props: Props) {
         </Button>
       </div>
       <Separator />
-      <div className="flex-1 overflow-y-auto">
+      <ScrollArea className="flex-1">
         {isLoading ? (
           <div className="flex items-center justify-center p-4">
             <p className="text-sm text-muted-foreground">
@@ -56,7 +57,7 @@ export default function DishCategoriesList(props: Props) {
             </p>
           </div>
         ) : (
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1 p-1">
             {data.data.map((category: IDishCategory) => (
               <button
                 key={category.id}
@@ -67,7 +68,7 @@ export default function DishCategoriesList(props: Props) {
             ))}
           </div>
         )}
-      </div>
+      </ScrollArea>
     </Card>
   );
 }
