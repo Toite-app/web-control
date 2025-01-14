@@ -42,6 +42,14 @@ export const _requestEndpoint = async <
     baseURL: `/api`,
     withCredentials: true,
     ...config,
+    headers: {
+      "X-Lang":
+        document.cookie
+          .split("; ")
+          .find((row) => row.startsWith("NEXT_LOCALE="))
+          ?.split("=")[1] ?? "en",
+      ...(config.headers ?? {}),
+    },
     url,
     params,
   });
