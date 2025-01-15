@@ -1,11 +1,9 @@
 "use client";
 import { IDish } from "@/types/dish.types";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { ImagePlus } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { DishImageCard } from "./dish-card";
+import { UploadCard } from "./upload-card";
 
 type Props = {
   data?: IDish;
@@ -13,21 +11,12 @@ type Props = {
 
 export default function DishImagesTab({ data }: Props) {
   const images = data?.images ?? [];
-
   const t = useTranslations();
 
   return (
     <div className="space-y-6">
       {/* Upload Section */}
-      <Card className="p-4">
-        <div className="flex items-center gap-4">
-          <Input type="file" accept="image/*" className="w-full" />
-          <Button>
-            <ImagePlus className="mr-2 h-4 w-4" />
-            {t("Images.upload")}
-          </Button>
-        </div>
-      </Card>
+      <UploadCard dishId={data?.id ?? ""} />
 
       {/* Images Grid */}
       {images.length > 0 ? (
