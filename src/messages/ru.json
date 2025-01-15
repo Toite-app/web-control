@@ -141,7 +141,11 @@
     },
     "form": {
       "save": "Сохранить",
-      "create": "Создать"
+      "create": "Создать",
+      "create-success": "Блюдо успешно создано",
+      "create-success-description": "Блюдо успешно создано",
+      "edit-success": "Блюдо успешно обновлено",
+      "edit-success-description": "Блюдо успешно обновлено"
     }
   },
   "DishCategories": {
@@ -193,6 +197,12 @@
       }
     }
   },
+  "Images": {
+    "no-images": "Нет изображений",
+    "image-alt": "Краткое описание изображения",
+    "upload": "Загрузить",
+    "main-image": "Основное изображение"
+  },
   "toite": {
     "copyright": "Разработано при помощи",
     "light-mode": "Светлая тема",
@@ -206,7 +216,9 @@
     "no": "Нет",
     "enabled": "Активен",
     "disabled": "Не активен",
-    "blocked": "Заблокирован"
+    "blocked": "Заблокирован",
+    "delete": "Удалить",
+    "upload": "Загрузить"
   },
   "navbar": {
     "dashboard": "Главная",

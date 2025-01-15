@@ -1,1 +1,6 @@
-Always prefer ?? instead of ||
+Always prefer ?? instead of ||,
+Project is using shadcn/ui for the UI components and tailwind css,
+Project is using react-hook-form for the form handling,
+Project is using next-intl and three language support: russian english estonian,
+For texts always use next-intl and add ru translations if not asked for other languages,
+Don't use next/image,

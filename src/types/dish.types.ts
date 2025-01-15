@@ -1,6 +1,13 @@
+import { IFile } from "@/types/file.types";
+
 export enum WeightMeasure {
   grams = "grams",
   milliliters = "milliliters",
+}
+
+export interface IDishImage extends IFile {
+  sortIndex: number;
+  alt: string;
 }
 
 export interface IDish {
@@ -15,6 +22,7 @@ export interface IDish {
   printLabelEveryItem: number;
   isPublishedInApp: boolean;
   isPublishedAtSite: boolean;
+  images: IDishImage[];
   createdAt: Date;
   updatedAt: Date;
 }

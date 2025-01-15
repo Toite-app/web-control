@@ -84,7 +84,7 @@ const DishFormTab: FC<DishFormTabProps> = (props) => {
       <DishForm
         form={form}
         onSubmit={onSubmit}
-        submitText={t(isEdit ? "Dishes.form.save" : "Dishes.form.create")}
+        submitText={isEdit ? "Dishes.form.save" : "Dishes.form.create"}
       />
     </div>
   );

@@ -110,7 +110,7 @@ const DishDialog: FC<DishDialogProps> = (props) => {
         <DishForm
           form={form}
           onSubmit={onSubmit}
-          submitText={t("Dishes.dialog.submit")}
+          submitText="Dishes.dialog.submit"
         />
       </DialogContent>
     </Dialog>

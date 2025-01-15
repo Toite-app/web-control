@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 import { useQueryState } from "nuqs";
 import DishFormTab from "@/features/dish/form-tab";
 import { Card } from "@/components/ui/card";
+import DishImagesTab from "@/features/dish/images-tab";
 type TabValue = "dishForm" | "pricelist" | "images";
 
 type Props = {
@@ -29,6 +30,9 @@ export default function DishPageContent({ dishId }: Props) {
   const dish = useGetDish({
     urlValues: {
       dishId,
+    },
+    config: {
+      keepPreviousData: true,
     },
   });
 
@@ -86,6 +90,9 @@ export default function DishPageContent({ dishId }: Props) {
             <Card>
               <DishFormTab data={dish.data} />
             </Card>
+          </TabsContent>
+          <TabsContent value="images">
+            <DishImagesTab data={dish.data} />
           </TabsContent>
 
           {/* <TabsContent value="hours">
