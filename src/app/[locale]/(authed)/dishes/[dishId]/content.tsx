@@ -20,7 +20,7 @@ export default function DishPageContent({ dishId }: Props) {
   const [activeTab, setActiveTab] = useQueryState<TabValue>("tab", {
     defaultValue: "dishForm",
     parse: (value): TabValue => {
-      const validTabs: TabValue[] = ["dishForm", "pricelist"];
+      const validTabs: TabValue[] = ["dishForm", "pricelist", "images"];
       return validTabs.includes(value as TabValue)
         ? (value as TabValue)
         : "dishForm";
