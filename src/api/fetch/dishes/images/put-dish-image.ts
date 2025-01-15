@@ -2,7 +2,8 @@ import { buildApiMutation } from "@/api/builder/mutation";
 import { ApiCacheTag } from "@/api/types";
 
 export type IUpdateDishImage = {
-  alt: string;
+  alt?: string;
+  sortIndex?: number;
 };
 
 export const updateDishImageMutation = buildApiMutation<
