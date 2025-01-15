@@ -10,12 +10,12 @@ import { useTranslations } from "next-intl";
 import { FC, memo, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 
-import { Form } from "@/components/form";
 import { IDish, WeightMeasure } from "@/types/dish.types";
 import { useErrorHandler } from "@/hooks/useErrorHandler";
 import { useForm } from "react-hook-form";
 import { ICreateDish, createDishMutation } from "@/api/fetch/dishes/createDish";
 import { putDishMutation } from "@/api/fetch/dishes/putDish";
+import DishForm from "../form";
 
 export type DishDialogProps = {
   data?: IDish | null;
@@ -99,7 +99,7 @@ const DishDialog: FC<DishDialogProps> = (props) => {
         if (!value && onClose) onClose();
       }}
     >
-      <DialogContent className="sm:max-w-[400px]">
+      <DialogContent className="sm:max-w-[700px]">
         <DialogHeader>
           <DialogTitle>
             {t(
@@ -107,101 +107,10 @@ const DishDialog: FC<DishDialogProps> = (props) => {
             )}
           </DialogTitle>
         </DialogHeader>
-        <Form<ICreateDish>
+        <DishForm
           form={form}
-          intlFields
-          fields={[
-            {
-              name: "name",
-              label: "fields.name",
-              required: true,
-              data: {
-                type: "input",
-                placeholder: "Dishes.dialog.form.name-placeholder",
-              },
-            },
-            {
-              name: "note",
-              label: "fields.note",
-              data: {
-                type: "textarea",
-                placeholder: "Dishes.dialog.form.note-placeholder",
-              },
-            },
-            {
-              name: "cookingTimeInMin",
-              label: "fields.cookingTimeInMin",
-              required: true,
-              data: {
-                type: "number",
-                placeholder: "Dishes.dialog.form.cookingTimeInMin-placeholder",
-              },
-            },
-            {
-              name: "amountPerItem",
-              label: "fields.amountPerItem",
-              required: true,
-              data: {
-                type: "number",
-                placeholder: "Dishes.dialog.form.amountPerItem-placeholder",
-              },
-            },
-            {
-              name: "weight",
-              label: "fields.weight",
-              required: true,
-              data: {
-                type: "number",
-                placeholder: "Dishes.dialog.form.weight-placeholder",
-              },
-            },
-            {
-              name: "weightMeasure",
-              label: "fields.weightMeasure",
-              required: true,
-              data: {
-                type: "select",
-                options: Object.values(WeightMeasure).map((measure) => ({
-                  label: `fields.weightMeasureEnum.${measure}`,
-                  value: measure,
-                })),
-              },
-            },
-            {
-              name: "isLabelPrintingEnabled",
-              label: "fields.isLabelPrintingEnabled",
-              data: {
-                type: "switch",
-              },
-            },
-            {
-              name: "printLabelEveryItem",
-              label: "fields.printLabelEveryItem",
-              data: {
-                type: "number",
-                placeholder:
-                  "Dishes.dialog.form.printLabelEveryItem-placeholder",
-              },
-            },
-            {
-              name: "isPublishedInApp",
-              label: "fields.isPublishedInApp",
-              data: {
-                type: "switch",
-              },
-            },
-            {
-              name: "isPublishedAtSite",
-              label: "fields.isPublishedAtSite",
-              data: {
-                type: "switch",
-              },
-            },
-          ]}
           onSubmit={onSubmit}
-          submitButton={{
-            text: "Dishes.dialog.submit",
-          }}
+          submitText={t("Dishes.dialog.submit")}
         />
       </DialogContent>
     </Dialog>

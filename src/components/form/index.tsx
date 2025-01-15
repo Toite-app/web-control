@@ -80,6 +80,7 @@ export type TextareaFormField = {
 };
 
 export type FormField<TFieldValues> = {
+  className?: string;
   name: Path<TFieldValues>;
   data:
     | InputFormField
@@ -162,13 +163,14 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
     // Shadcn/ui wrapper
     <UiForm {...form}>
       <form
-        className={cn("flex w-full flex-col gap-2", className)}
+        className={cn("grid w-full grid-cols-12 gap-2", className)}
         onSubmit={handleSubmit(proxySubmit)}
       >
         {fields
           .filter(({ hidden }) => !hidden)
           .map(
             ({
+              className,
               name,
               label,
               description,
@@ -183,7 +185,7 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
                 name={name}
                 disabled={disabled}
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className={cn("col-span-12", className)}>
                     {label && (
                       <FormLabel className="flex flex-row gap-1">
                         {text(label, intl)}
@@ -343,13 +345,17 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
           )}
 
         {/* Show root error message if present */}
-        {errors.root && <FormMessage>{errors.root.message}</FormMessage>}
+        {errors.root && (
+          <FormMessage className="col-span-12">
+            {errors.root.message}
+          </FormMessage>
+        )}
 
         <Button
           variant="default"
           {...submitButton}
           type="submit"
-          className={cn("mt-4 w-full", submitButton.className)}
+          className={cn("col-span-12 mt-4", submitButton.className)}
           disabled={isSubmitting || isSubmitSuccessful || submitButton.disabled}
         >
           {isSubmitting && (

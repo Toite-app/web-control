@@ -117,6 +117,11 @@
       "description": "Управляйте данными о блюдах в системе",
       "create": "Создать"
     },
+    "tabs": {
+      "dishForm": "Данные блюда",
+      "pricelist": "Прайс-лист",
+      "images": "Изображения"
+    },
     "dialog": {
       "create-title": "Создать блюдо",
       "edit-title": "Редактировать блюдо",
@@ -133,6 +138,10 @@
         "weight-placeholder": "Введите вес",
         "printLabelEveryItem-placeholder": "Введите количество этикеток на порцию"
       }
+    },
+    "form": {
+      "save": "Сохранить",
+      "create": "Создать"
     }
   },
   "DishCategories": {

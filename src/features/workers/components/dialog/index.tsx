@@ -62,7 +62,10 @@ const WorkerDialog: FC<WorkerDialogProps> = (props) => {
           urlValues: {
             id: worker.id,
           },
-          data,
+          data: {
+            ...data,
+            name: 2,
+          },
         });
         toast({
           title: t("Workers.dialog.edit-success"),

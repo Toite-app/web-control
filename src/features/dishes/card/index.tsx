@@ -27,19 +27,19 @@ export default function DishCard(props: Props) {
         <div className="flex flex-row gap-4 text-sm text-muted-foreground">
           <div className="flex items-center gap-1">
             <Box className="h-4 w-4" />
-            <span>
+            <span className="whitespace-nowrap">
               {data.amountPerItem} {t("pieces")}
             </span>
           </div>
           <div className="flex items-center gap-1">
             <Clock className="h-4 w-4" />
-            <span>
+            <span className="whitespace-nowrap">
               {data.cookingTimeInMin} {t("minutes")}
             </span>
           </div>
           <div className="flex items-center gap-1">
             <Scale className="h-4 w-4" />
-            <span>
+            <span className="whitespace-nowrap">
               {data.weight}{" "}
               {t(data.weightMeasure === "grams" ? "grams" : "milliliters")}
             </span>
