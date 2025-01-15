@@ -21,8 +21,13 @@ export default function DishImagesTab({ data }: Props) {
       {/* Images Grid */}
       {images.length > 0 ? (
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {images.map((image) => (
-            <DishImageCard key={image.id} image={image} />
+          {images.map((image, index) => (
+            <DishImageCard
+              key={image.id}
+              dishId={data?.id ?? ""}
+              image={image}
+              index={index}
+            />
           ))}
         </div>
       ) : (

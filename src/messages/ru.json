@@ -204,7 +204,12 @@
     "uploading": "Загрузка...",
     "main-image": "Основное изображение",
     "upload-success": "Изображение успешно загружено",
-    "upload-success-description": "Изображение успешно загружено"
+    "upload-success-description": "Изображение успешно загружено",
+    "delete-success": "Изображение удалено",
+    "delete-success-description": "Изображение успешно удалено",
+    "deleting": "Удаление...",
+    "alt-update-success": "Описание обновлено",
+    "alt-update-success-description": "Описание изображения успешно обновлено"
   },
   "toite": {
     "copyright": "Разработано при помощи",
