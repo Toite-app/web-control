@@ -23,12 +23,12 @@ export const NavigationBar: FC = () => {
 
   const t = useTranslations(MessageCategories.ROLES);
 
-  const name = data?.name || data?.login;
+  const name = data?.name ?? data?.login;
 
   return (
     <div
       data-open={isOpen}
-      className="block border-r bg-stone-100/40 transition-all data-[open=false]:w-[82px] data-[open=true]:w-[300px] dark:bg-stone-800/40"
+      className="fixed left-0 top-0 z-20 h-screen border-r bg-stone-50 transition-all data-[open=false]:w-[82px] data-[open=true]:w-[300px] dark:bg-stone-900"
     >
       <div className="flex h-full max-h-[100vh] flex-col gap-2 overflow-clip">
         <div
