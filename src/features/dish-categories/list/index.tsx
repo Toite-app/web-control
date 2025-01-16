@@ -143,13 +143,13 @@ export default function DishCategoriesList(props: Props) {
       </div>
       <Separator />
       <ScrollArea className="flex-1 p-0">
-        {!data?.data?.length ? (
+        {!data?.data ? (
           <div className="flex items-center justify-center p-4">
             <p className="text-sm text-muted-foreground">
               {t("table.loading")}
             </p>
           </div>
-        ) : data?.data?.length && data.data.length === 0 ? (
+        ) : data.data.length === 0 ? (
           <div className="flex items-center justify-center p-4">
             <p className="text-sm text-muted-foreground">
               {t("table.no-rows")}
