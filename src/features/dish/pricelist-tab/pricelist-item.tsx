@@ -143,7 +143,18 @@ export function PricelistItem({ dish, item }: Props) {
               <Label>{t("Dishes.pricelist.price")}</Label>
               <Input
                 type="number"
-                {...form.register("price", { valueAsNumber: true })}
+                step="0.01"
+                min="0"
+                {...form.register("price", {
+                  valueAsNumber: true,
+                  validate: {
+                    isPositive: (value) =>
+                      value >= 0 || t("Dishes.pricelist.price-positive"),
+                    decimals: (value) =>
+                      /^\d+(\.\d{0,2})?$/.test(value.toString()) ||
+                      t("Dishes.pricelist.price-decimals"),
+                  },
+                })}
                 className="w-full"
               />
             </div>

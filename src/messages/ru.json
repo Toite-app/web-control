@@ -157,7 +157,9 @@
       "settings": "Настройки ресторана",
       "save": "Сохранить",
       "save-success": "Прайс-лист обновлен",
-      "save-success-description": "Прайс-лист успешно обновлен"
+      "save-success-description": "Прайс-лист успешно обновлен",
+      "price-positive": "Цена должна быть положительным числом",
+      "price-decimals": "Цена должна иметь не более 2 десятичных знаков"
     }
   },
   "DishCategories": {
