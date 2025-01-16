@@ -37,7 +37,6 @@ export interface IDishPricelistWorkshop {
   workshopName: string;
   isActive: boolean;
   createdAt: Date | null;
-  updatedAt: Date | null;
 }
 
 export interface IDishPricelistItem {
@@ -47,6 +46,8 @@ export interface IDishPricelistItem {
   price: number;
   currency: ICurrency;
   isInStoplist: boolean;
+  createdAt: Date | null;
+  updatedAt: Date | null;
 }
 
 export interface IUpdateDishPricelist {
