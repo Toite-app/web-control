@@ -8,6 +8,7 @@ import { useQueryState } from "nuqs";
 import DishFormTab from "@/features/dish/form-tab";
 import { Card } from "@/components/ui/card";
 import DishImagesTab from "@/features/dish/images-tab";
+import DishPricelistTab from "@/features/dish/pricelist-tab";
 type TabValue = "dishForm" | "pricelist" | "images";
 
 type Props = {
@@ -91,22 +92,12 @@ export default function DishPageContent({ dishId }: Props) {
               <DishFormTab data={dish.data} />
             </Card>
           </TabsContent>
+          <TabsContent value="pricelist">
+            <DishPricelistTab data={dish.data} />
+          </TabsContent>
           <TabsContent value="images">
             <DishImagesTab data={dish.data} />
           </TabsContent>
-
-          {/* <TabsContent value="hours">
-              <RestaurantHoursTab restaurant={data} />
-            </TabsContent>
-            <TabsContent value="workshops">
-              <RestaurantWorkshopsTab restaurant={data} />
-            </TabsContent>
-            <TabsContent value="workers">
-              <RestaurantWorkersTab restaurant={data} />
-            </TabsContent>
-            <TabsContent value="statistics">
-              {/* Statistics content will go here 
-            </TabsContent> */}
         </Tabs>
       </div>
     </div>

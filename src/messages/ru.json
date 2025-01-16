@@ -146,6 +146,18 @@
       "create-success-description": "Блюдо успешно создано",
       "edit-success": "Блюдо успешно обновлено",
       "edit-success-description": "Блюдо успешно обновлено"
+    },
+    "pricelist": {
+      "noData": "Нет данных о ценах в ресторанах",
+      "price": "Цена",
+      "currency": "Валюта",
+      "workshops": "Цеха",
+      "stoplist": "В стоп листе",
+      "create-workshop": "Создать цех",
+      "settings": "Настройки ресторана",
+      "save": "Сохранить",
+      "save-success": "Прайс-лист обновлен",
+      "save-success-description": "Прайс-лист успешно обновлен"
     }
   },
   "DishCategories": {

@@ -1,4 +1,5 @@
 import { IFile } from "@/types/file.types";
+import { ICurrency } from "@/types/general.types";
 
 export enum WeightMeasure {
   grams = "grams",
@@ -30,3 +31,27 @@ export interface IDish {
 export type CreateDishDto = Omit<IDish, "id" | "createdAt" | "updatedAt">;
 
 export type UpdateDishDto = Partial<CreateDishDto>;
+
+export interface IDishPricelistWorkshop {
+  workshopId: string;
+  workshopName: string;
+  isActive: boolean;
+  createdAt: Date | null;
+  updatedAt: Date | null;
+}
+
+export interface IDishPricelistItem {
+  restaurantId: string;
+  restaurantName: string;
+  workshops: IDishPricelistWorkshop[];
+  price: number;
+  currency: ICurrency;
+  isInStoplist: boolean;
+}
+
+export interface IUpdateDishPricelist {
+  price: number;
+  currency: ICurrency;
+  isInStoplist: boolean;
+  workshopIds: string[];
+}
