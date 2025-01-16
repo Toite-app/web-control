@@ -28,6 +28,7 @@ interface AddressSuggestionComboboxProps {
   language?: string;
   provider?: "dadata" | "google";
   disabled?: boolean;
+  error?: boolean;
 }
 
 export function AddressSuggestionCombobox({
@@ -37,6 +38,7 @@ export function AddressSuggestionCombobox({
   language = "ru",
   provider = "dadata",
   disabled,
+  error,
 }: AddressSuggestionComboboxProps) {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
@@ -72,6 +74,7 @@ export function AddressSuggestionCombobox({
             placeholder={placeholder ?? "fields.address-placeholder"}
             value={search}
             onValueChange={setSearch}
+            error={error}
           />
           <CommandList>
             <CommandEmpty>{t("fields.address-not-found")}</CommandEmpty>

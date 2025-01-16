@@ -11,12 +11,14 @@ interface TimeSelectProps {
   value: string;
   onChange: (value: string) => void;
   disabled?: boolean;
+  error?: boolean;
 }
 
 export const TimeSelect = ({
   value = "00:00",
   onChange,
   disabled,
+  error,
 }: TimeSelectProps) => {
   // Move value parsing into useMemo
   const { currentHour, currentMinute } = useMemo(() => {
@@ -57,7 +59,7 @@ export const TimeSelect = ({
         onValueChange={handleHourChange}
         disabled={disabled}
       >
-        <SelectTrigger className="w-full">
+        <SelectTrigger className="w-full" error={error}>
           <SelectValue
           // placeholder={hourLabel ? t(hourLabel) : t("time-select.hour")}
           />
@@ -76,7 +78,7 @@ export const TimeSelect = ({
         onValueChange={handleMinuteChange}
         disabled={disabled}
       >
-        <SelectTrigger className="w-full">
+        <SelectTrigger className="w-full" error={error}>
           <SelectValue
           // placeholder={minuteLabel ? t(minuteLabel) : t("time-select.minute")}
           />

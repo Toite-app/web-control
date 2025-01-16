@@ -197,6 +197,7 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
                     {data.type === "input" && (
                       <FormControl>
                         <Input
+                          error={!!errors?.[name]}
                           placeholder={text(data.placeholder, intl)}
                           required={required}
                           {...{ autoComplete }}
@@ -211,6 +212,7 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
                     {data.type === "password" && (
                       <FormControl>
                         <PasswordInput
+                          error={!!errors?.[name]}
                           placeholder={text(data.placeholder, intl)}
                           required={required}
                           {...{ autoComplete }}
@@ -224,14 +226,13 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
                     {/* Rendering select */}
                     {data.type === "select" && (
                       <Select
-                        // defaultValue={field.value ?? ""}
                         value={field.value ?? ""}
                         onValueChange={field.onChange}
                         required={required}
                         disabled={disabled || field.disabled}
                       >
                         <FormControl>
-                          <SelectTrigger>
+                          <SelectTrigger error={!!errors?.[name]}>
                             <SelectValue
                               placeholder={text(
                                 data.placeholder,
@@ -277,6 +278,7 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
                           }}
                           value={field.value ?? ""}
                           disabled={disabled || field.disabled}
+                          error={!!errors?.[name]}
                         />
                       </FormControl>
                     )}
@@ -291,6 +293,7 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
                           {...field}
                           value={field.value ?? ""}
                           disabled={disabled || field.disabled}
+                          error={!!errors?.[name]}
                         />
                       </FormControl>
                     )}
@@ -316,6 +319,7 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
                           language={data.language}
                           provider={data.provider}
                           disabled={disabled || field.disabled}
+                          error={!!errors?.[name]}
                         />
                       </FormControl>
                     )}
@@ -327,6 +331,7 @@ export const Form = <TFieldValues extends FieldValues = FieldValues>(
                           value={field.value ?? "00:00"}
                           onChange={field.onChange}
                           disabled={disabled || field.disabled}
+                          error={!!errors?.[name]}
                         />
                       </FormControl>
                     )}

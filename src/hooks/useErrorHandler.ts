@@ -1,129 +1,90 @@
 import { FormInstance } from "@/components/form";
 import { isAxiosError } from "axios";
-
-import { useMessages } from "next-intl";
 import { useCallback } from "react";
 
-export const isApiHandledError = (error: any) => {
-  if (!isAxiosError(error)) {
-    return false;
-  }
+type ErrorText = string;
 
-  if (
-    typeof error.response?.data !== "object" ||
-    !("errorCode" in error.response?.data)
-  ) {
-    return false;
-  }
-
-  return true;
-};
-
-export enum ApiErrorCode {
-  BAD_REQUEST = "BAD_REQUEST",
-  CONFLICT = "CONFLICT",
-  FORBIDDEN = "FORBIDDEN",
-  FORM = "FORM",
-  NOT_FOUND = "NOT_FOUND",
-  SERVER_ERROR = "SERVER_ERROR",
-  UNAUTHORIZED = "UNAUTHORIZED",
-}
-
-export enum ApiErrorCategory {
-  WORKERS = "WORKERS",
-}
-
-export type FormExceptionDetail = {
+export type ValidationError = {
   property: string;
-  constraints?: Record<string, string>;
+  constraints: Record<string, ErrorText>;
+};
+
+export type ApiError = {
   message: string;
-};
-
-export type DetailedMessage<T = any> = {
-  title: string;
-  description?: string;
-  details?: T;
-};
-
-export type ApiError<T = any> = {
+  path: string;
   statusCode: number;
-  errorCode: ApiErrorCode;
-  errorCategory: ApiErrorCategory;
-  errorSubCode: string | null;
-  message: string | DetailedMessage<T>;
-  pathname: string;
   timestamp: number;
+  validationErrors?: ValidationError[];
+};
+
+export type ErrorHandlerOptions = {
+  error: unknown;
+  form?: FormInstance<any>;
 };
 
 export const useErrorHandler = () => {
-  const messages = useMessages() as any;
-  const errors = messages.apiErrors as any;
+  const handleValidationErrors = useCallback(
+    (error: ApiError, form: FormInstance<any>) => {
+      if (!error.validationErrors) return;
 
-  const getErrorMessage = useCallback(
-    (data: ApiError) => {
-      const errorCategory = data.errorCategory.toLowerCase();
-      const errorCode = data.errorCode.toLocaleLowerCase();
-      const errorSubCode = data.errorSubCode?.toLowerCase() || "";
+      const unhandledErrors: string[] = [];
 
-      const defaultMessage = errors.default?.[errorCode];
-      const categoryMessage =
-        errors?.[errorCategory]?.[errorCode]?.[errorSubCode];
+      error.validationErrors.forEach((validationError) => {
+        const fieldName = validationError.property;
+        const errorMessages = Object.values(validationError.constraints);
 
-      return categoryMessage || defaultMessage || errorCode;
-    },
-    [errors]
-  );
+        // Check if form has field with this name
+        if (form.getFieldState(fieldName)) {
+          form.setError(fieldName, {
+            type: "server",
+            message: errorMessages?.[0] ?? error.message,
+          });
+        } else {
+          // Collect errors for fields that don't exist in the form
+          unhandledErrors.push(...errorMessages);
+        }
+      });
 
-  const handleFormError = useCallback(
-    (data: ApiError, form: FormInstance<any>) => {
-      const message = data.message as DetailedMessage<FormExceptionDetail[]>;
-      const details = message.details || [];
-
-      for (const { property, message, constraints } of details) {
-        const contraintKey = Object.keys(constraints || {})?.[0] ?? "";
-        const contraintMessage =
-          errors?.[data.errorCategory.toLowerCase()]?.form?.[
-            property.toLowerCase()
-          ]?.[contraintKey];
-
-        form.setError(property, {
-          message: contraintMessage || message,
+      // If we have unhandled errors, set them as root errors
+      if (unhandledErrors.length > 0) {
+        form.setError("root", {
+          type: "server",
+          message: unhandledErrors.join(". "),
         });
       }
-
-      return message.title;
     },
-    [errors]
+    []
   );
 
-  return useCallback(
-    (opts: { error: any; form?: FormInstance<any> }) => {
-      const { error, form } = opts;
+  const handleError = useCallback(
+    (options: ErrorHandlerOptions) => {
+      const { error, form } = options;
 
-      let message = errors.default.unknown;
+      if (isAxiosError(error) && error.response?.data) {
+        const apiError = error.response.data as ApiError;
 
-      if (isAxiosError(error) && isApiHandledError(error)) {
-        const data = error.response?.data as ApiError;
-
-        if (
-          typeof data.message === "object" &&
-          "details" in data.message &&
-          form
-        ) {
-          return handleFormError(data, form);
+        if (form && apiError.validationErrors) {
+          handleValidationErrors(apiError, form);
+        } else if (form) {
+          form.setError("root", {
+            type: "server",
+            message: apiError.message,
+          });
         }
-
-        const newMessage = getErrorMessage(data);
-
-        if (newMessage) message = newMessage;
+        return;
       }
 
+      // Handle unknown errors
       if (form) {
-        form.setError("root", { message });
+        form.setError("root", {
+          type: "server",
+          message:
+            error instanceof Error ? error.message : "Unknown error occurred",
+        });
       }
-
-      return message;
     },
-    [errors, getErrorMessage, handleFormError]
+    [handleValidationErrors]
   );
+
+  return handleError;
 };
