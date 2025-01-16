@@ -63,7 +63,11 @@ export const useErrorHandler = () => {
       if (isAxiosError(error) && error.response?.data) {
         const apiError = error.response.data as ApiError;
 
-        if (form && apiError.validationErrors) {
+        if (
+          form &&
+          apiError.validationErrors &&
+          apiError.validationErrors.length > 0
+        ) {
           handleValidationErrors(apiError, form);
         } else if (form) {
           form.setError("root", {
