@@ -1,4 +1,6 @@
 import { Card } from "@/components/ui/card";
+import DishLib from "@/lib/dish";
+import ImageLib from "@/lib/image";
 import { cn } from "@/lib/utils";
 import { IDish } from "@/types/dish.types";
 import { Clock, Scale, Box } from "lucide-react";
@@ -19,7 +21,7 @@ export default function DishCard(props: Props) {
     >
       <img
         className="h-14 max-h-14 w-14 max-w-14"
-        src="https://hinkali.city/_next/image?url=%2Fimages%2Fhinkali.png&w=1920&q=75"
+        src={ImageLib.getImageUrl(DishLib.getDishMainImage(data))}
         alt=""
       />
       <div className="flex w-full flex-col gap-2">

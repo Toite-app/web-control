@@ -14,6 +14,7 @@ import { updateDishImageMutation } from "@/api/fetch/dishes/images/put-dish-imag
 import { deleteDishImageMutation } from "@/api/fetch/dishes/images/delete-dish-image";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import ImageLib from "@/lib/image";
 
 interface DishImageCardProps {
   dishId: string;
@@ -113,7 +114,7 @@ export function DishImageCard({ dishId, image, index }: DishImageCardProps) {
       >
         <div className="relative aspect-video w-full">
           <img
-            src={`${image.endpoint}/${image.bucketName}/${image.id}${image.extension}`}
+            src={ImageLib.getImageUrl(image)}
             alt={altText}
             className="absolute inset-0 h-full w-full rounded-md object-cover"
           />
