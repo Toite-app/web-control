@@ -8,7 +8,11 @@ import {
 } from "@/api/types";
 import { IDish } from "@/types/dish.types";
 
-export type GetDishesParams = PaginationParams & SortingParams & FilterParams;
+export type GetDishesParams = PaginationParams &
+  SortingParams &
+  FilterParams & {
+    search?: string;
+  };
 
 export const useGetDishes = buildApiHook<
   string,
