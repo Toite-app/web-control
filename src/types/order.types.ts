@@ -36,4 +36,7 @@ export interface IOrder {
   updatedAt: Date;
   removedAt: Date | null;
   delayedTo: Date | null;
+  guestId: string | null;
+  restaurantId: string | null;
+  restaurantName: string | null;
 }

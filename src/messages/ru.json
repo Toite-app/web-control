@@ -228,6 +228,23 @@
     "alt-update-success": "Описание обновлено",
     "alt-update-success-description": "Описание изображения успешно обновлено"
   },
+  "OrderCard": {
+    "statuses": {
+      "general": {
+        "pending": "Заказ создан",
+        "cooking": "На кухне",
+        "ready": "Приготовлено",
+        "delivering": "Доставляется",
+        "paid": "Оплачен",
+        "completed": "Завершен",
+        "cancelled": "Отменен"
+      },
+      "dishes-ready": "Блюда приготовлены",
+      "attach-restaurant": "Назначьте ресторан",
+      "send-to-kitchen": "Отправьте на кухню",
+      "delayed-to": "Отложено к"
+    }
+  },
   "toite": {
     "copyright": "Разработано при помощи",
     "light-mode": "Светлая тема",

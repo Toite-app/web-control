@@ -8,6 +8,7 @@ export enum ApiCacheTag {
   DISH_CATEGORIES = "DISH_CATEGORIES",
   DISHES = "DISHES",
   TIMEZONES = "TIMEZONES",
+  ORDERS = "ORDERS",
 }
 
 export type PaginationMeta = {
