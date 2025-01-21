@@ -40,7 +40,6 @@ const GuestDialog: FC<GuestDialogProps> = (props) => {
       phone: guest?.phone || "",
       email: guest?.email || "",
       bonusBalance: guest?.bonusBalance || 0,
-      password: "",
     },
   });
 
@@ -142,14 +141,6 @@ const GuestDialog: FC<GuestDialogProps> = (props) => {
                 type: "number",
                 placeholder: "Guests.dialog.form.bonus-placeholder",
               },
-            },
-            {
-              name: "password",
-              label: "fields.password",
-              required: !isEdit,
-              hidden: isEdit,
-              data: { type: "password" },
-              description: "Guests.dialog.form.password-description",
             },
           ]}
           onSubmit={onSubmit}
