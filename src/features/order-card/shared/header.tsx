@@ -1,13 +1,19 @@
 import formatOrderNumber from "@/utils/format-order-number";
 import { IOrder } from "@/types/order.types";
 import { cn } from "@/lib/utils";
+import { DeviceMobile } from "@phosphor-icons/react/dist/ssr/DeviceMobile";
+import { Desktop } from "@phosphor-icons/react/dist/ssr/Desktop";
+import { Truck } from "@phosphor-icons/react/dist/ssr/Truck";
+import { Backpack } from "@phosphor-icons/react/dist/ssr/Backpack";
+import { Cheers } from "@phosphor-icons/react/dist/ssr/Cheers";
+
 type Props = {
   order: IOrder;
 };
 
 export default function OrderCardHeader(props: Props) {
   const { order } = props;
-  const { number, status, type } = order;
+  const { number, status, type, from } = order;
 
   return (
     <div
@@ -29,10 +35,25 @@ export default function OrderCardHeader(props: Props) {
         <div className="max-h-[22px] rounded-xl bg-white px-3">
           <span className="text-sm text-stone-700">1 / 0 / 4</span>
         </div>
+        {from === "app" && (
+          <DeviceMobile className="h-5 w-5 text-white" weight="fill" />
+        )}
+        {from === "website" && (
+          <Desktop className="h-5 w-5 text-white" weight="fill" />
+        )}
         {type === "hall" && (
           <svg className="h-5 w-5 fill-white" viewBox="0 0 24 24">
             <path d="M22 7.5C22 5.57 17.52 4 12 4S2 5.57 2 7.5c0 1.81 3.95 3.31 9 3.48V15H9.35c-.82 0-1.55.5-1.86 1.26L6 20h2l1.2-3h5.6l1.2 3h2l-1.5-3.74c-.3-.76-1.04-1.26-1.85-1.26H13v-4.02c5.05-.17 9-1.67 9-3.48z"></path>
           </svg>
+        )}
+        {type === "delivery" && (
+          <Truck className="h-5 w-5 text-white" weight="fill" />
+        )}
+        {type === "takeaway" && (
+          <Backpack className="h-5 w-5 text-white" weight="fill" />
+        )}
+        {type === "banquet" && (
+          <Cheers className="h-5 w-5 text-white" weight="fill" />
         )}
       </div>
     </div>
