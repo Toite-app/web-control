@@ -10,11 +10,14 @@ import { WhatsappLogo } from "@phosphor-icons/react/dist/ssr/WhatsappLogo";
 import { Clock } from "@phosphor-icons/react/dist/ssr/Clock";
 import { CookingPot } from "@phosphor-icons/react/dist/ssr/CookingPot";
 import { ChefHat } from "@phosphor-icons/react/dist/ssr/ChefHat";
+import { IOrder } from "@/types/order.types";
 
-type DispatcherOrderCardProps = {};
+type DispatcherOrderCardProps = {
+  order: IOrder;
+};
 
 export default function DispatcherOrderCard(props: DispatcherOrderCardProps) {
-  const {} = props;
+  const { order } = props;
 
   return (
     <div className="flex w-full max-w-[350px] cursor-pointer flex-col overflow-clip rounded-lg bg-white shadow-md">
