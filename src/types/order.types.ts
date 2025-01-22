@@ -40,3 +40,15 @@ export interface IOrder {
   restaurantId: string | null;
   restaurantName: string | null;
 }
+
+export type OrderDishStatus = "pending" | "cooking" | "ready" | "completed";
+
+export interface OrderDish {
+  status: OrderDishStatus;
+}
+
+export interface IDispatcherOrderDish extends Pick<OrderDish, "status"> {}
+
+export type IDispatcherOrder = IOrder & {
+  orderDishes: IDispatcherOrderDish[];
+};

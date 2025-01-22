@@ -1,19 +1,32 @@
 import formatOrderNumber from "@/utils/format-order-number";
-import { IOrder } from "@/types/order.types";
+import { IDispatcherOrder } from "@/types/order.types";
 import { cn } from "@/lib/utils";
 import { DeviceMobile } from "@phosphor-icons/react/dist/ssr/DeviceMobile";
 import { Desktop } from "@phosphor-icons/react/dist/ssr/Desktop";
 import { Truck } from "@phosphor-icons/react/dist/ssr/Truck";
 import { Backpack } from "@phosphor-icons/react/dist/ssr/Backpack";
 import { Cheers } from "@phosphor-icons/react/dist/ssr/Cheers";
+import { CheckIcon, ClockIcon, PenIcon } from "lucide-react";
 
 type Props = {
-  order: IOrder;
+  order: IDispatcherOrder;
 };
 
 export default function OrderCardHeader(props: Props) {
   const { order } = props;
-  const { number, status, type, from } = order;
+  const { number, status, type, from, orderDishes } = order;
+
+  const notStartedCnt = orderDishes.filter(
+    (dish) => dish.status === "pending"
+  ).length;
+
+  const inProcessCnt = orderDishes.filter(
+    (dish) => dish.status === "cooking"
+  ).length;
+
+  const readyCnt = orderDishes.filter(
+    (dish) => dish.status === "ready" || dish.status === "completed"
+  ).length;
 
   return (
     <div
@@ -32,8 +45,19 @@ export default function OrderCardHeader(props: Props) {
         {formatOrderNumber(number)}
       </span>
       <div className="flex flex-row items-center gap-4">
-        <div className="max-h-[22px] rounded-xl bg-white px-3">
-          <span className="text-sm text-stone-700">1 / 0 / 4</span>
+        <div className="flex max-h-[22px] flex-row items-center gap-2 rounded-xl bg-white px-3">
+          <span className="flex flex-row items-center gap-1 text-sm text-stone-700">
+            <CheckIcon className="h-4 w-4 text-stone-700" />
+            {readyCnt}
+          </span>
+          <span className="flex flex-row items-center gap-1 text-sm text-stone-700">
+            <ClockIcon className="h-4 w-4 text-stone-700" />
+            {inProcessCnt}
+          </span>
+          <span className="flex flex-row items-center gap-1 text-sm text-stone-700">
+            <PenIcon className="h-4 w-4 text-stone-700" />
+            {notStartedCnt}
+          </span>
         </div>
         {from === "app" && (
           <DeviceMobile className="h-5 w-5 text-white" weight="fill" />

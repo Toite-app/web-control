@@ -33,8 +33,8 @@ export const menuItems: MenuItem[] = [
     icon: <ShoppingBasketIcon />,
     childrens: [
       {
-        labelId: "orders-all",
-        href: "/orders",
+        labelId: "orders-dispatcher",
+        href: "/orders/dispatcher",
       },
       {
         labelId: "orders-hall",

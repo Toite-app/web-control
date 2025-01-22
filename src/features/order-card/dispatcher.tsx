@@ -6,7 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { WhatsappLogo } from "@phosphor-icons/react/dist/ssr/WhatsappLogo";
 
-import { IOrder } from "@/types/order.types";
+import { IDispatcherOrder } from "@/types/order.types";
 import OrderCardHeader from "@/features/order-card/shared/header";
 import OrderCardShortInfo from "@/features/order-card/shared/short-info";
 import OrderCardStatusesSubheader from "@/features/order-card/shared/statuses-subheader";
@@ -14,7 +14,7 @@ import OrderCardStatusText from "@/features/order-card/shared/status-text";
 import OrderCardTime from "@/features/order-card/shared/time";
 import OrderCardPrice from "@/features/order-card/shared/price";
 type DispatcherOrderCardProps = {
-  order: IOrder;
+  order: IDispatcherOrder;
 };
 
 export default function DispatcherOrderCard(props: DispatcherOrderCardProps) {
@@ -42,7 +42,7 @@ export default function DispatcherOrderCard(props: DispatcherOrderCardProps) {
       <div className="flex flex-col px-3 py-3">
         <OrderCardShortInfo order={order} />
         {note && (
-          <div className="flex py-1">
+          <div className="flex py-1 text-base">
             <p className="text-indigo-500 dark:text-indigo-300">{note}</p>
           </div>
         )}
