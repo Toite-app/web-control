@@ -293,7 +293,8 @@
       "takeaway": "С собой",
       "hall": "Зал",
       "banquet": "Банкет"
-    }
+    },
+    "search-placeholder": "Поиск заказов..."
   },
   "toite": {
     "copyright": "Разработано при помощи",

@@ -3,7 +3,7 @@ import { useGetDispatcherAttentionOrders } from "@/api/fetch/dispatcher/useGetDi
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DispatcherOrderCard from "@/features/order-card/dispatcher";
-import { ClockIcon, PlusIcon, ShieldAlertIcon } from "lucide-react";
+import { ClockIcon, PlusIcon, SearchIcon, ShieldAlertIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Backpack } from "@phosphor-icons/react/dist/ssr/Backpack";
 import { Truck } from "@phosphor-icons/react/dist/ssr/Truck";
@@ -14,6 +14,8 @@ import { Button } from "@/components/ui/button";
 import { useGetDispatcherDelayedOrders } from "@/api/fetch/dispatcher/useGetDispatcherDelayedOrders";
 import { Link } from "@/navigation";
 import { useGetDispatcherOrders } from "@/api/fetch/dispatcher/useGetDispatcherOrders";
+import { Input } from "@/components/ui/input";
+import { useState } from "react";
 
 export default function OrdersPageContent() {
   const t = useTranslations();
@@ -21,6 +23,7 @@ export default function OrdersPageContent() {
     "type",
     parseAsString.withDefault("all")
   );
+  const [search, setSearch] = useState("");
 
   const orders = useGetDispatcherOrders({
     params: {
@@ -42,7 +45,7 @@ export default function OrdersPageContent() {
 
   return (
     <div className="flex w-full flex-col gap-2 p-4">
-      <div className="flex flex-row items-center justify-between gap-2">
+      <div className="flex flex-row items-center justify-between gap-4">
         <Tabs value={type} onValueChange={setType}>
           <TabsList>
             <TabsTrigger value="all">{t("navbar.orders-all")}</TabsTrigger>
@@ -66,12 +69,23 @@ export default function OrdersPageContent() {
             </TabsTrigger>
           </TabsList>
         </Tabs>
-        <Link href="/orders/create">
-          <Button>
-            <PlusIcon className="mr-2 h-4 w-4" />
-            {t("Orders.create-order")}
-          </Button>
-        </Link>
+        <div className="flex items-center gap-2">
+          <div className="relative w-[300px]">
+            <SearchIcon className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              className="pl-9"
+              placeholder={t("Orders.search-placeholder")}
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+          <Link href="/orders/create">
+            <Button>
+              <PlusIcon className="mr-2 h-4 w-4" />
+              {t("Orders.create-order")}
+            </Button>
+          </Link>
+        </div>
       </div>
       <Separator />
       {attentionOrders.data?.data && attentionOrders.data?.data.length > 0 && (
