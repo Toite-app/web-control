@@ -8,13 +8,13 @@ export type GetOrdersParams = {
   type?: OrderType;
 };
 
-export const useGetDispatcherOrders = buildApiHook<
+export const useGetDispatcherAttentionOrders = buildApiHook<
   string,
   PaginatedResponse<IDispatcherOrder>,
   GetOrdersParams,
   unknown
 >({
-  url: "/dispatcher/orders",
+  url: "/dispatcher/orders/attention-required",
   method: "GET",
-  tags: [ApiCacheTag.DISPATCHER_ORDERS],
+  tags: [ApiCacheTag.DISPATCHER_ATTENTION_ORDERS],
 });

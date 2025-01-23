@@ -13,12 +13,15 @@ import OrderCardStatusesSubheader from "@/features/order-card/shared/statuses-su
 import OrderCardStatusText from "@/features/order-card/shared/status-text";
 import OrderCardTime from "@/features/order-card/shared/time";
 import OrderCardPrice from "@/features/order-card/shared/price";
+import { cn } from "@/lib/utils";
+
 type DispatcherOrderCardProps = {
+  className?: string;
   order: IDispatcherOrder;
 };
 
 export default function DispatcherOrderCard(props: DispatcherOrderCardProps) {
-  const { order } = props;
+  const { order, className } = props;
   const { note, guestPhone, guestName } = order;
 
   const handlePhoneClick = () => {
@@ -36,7 +39,12 @@ export default function DispatcherOrderCard(props: DispatcherOrderCardProps) {
   };
 
   return (
-    <div className="flex w-full cursor-pointer flex-col overflow-clip rounded-lg bg-white shadow-md dark:bg-stone-800">
+    <div
+      className={cn(
+        "flex w-full cursor-pointer flex-col overflow-clip rounded-lg bg-white shadow-md hover:bg-stone-100 dark:bg-stone-800 dark:hover:bg-stone-700",
+        className
+      )}
+    >
       <OrderCardHeader order={order} />
       <OrderCardStatusesSubheader order={order} />
       <div className="flex flex-col px-3 py-3">

@@ -18,7 +18,9 @@ export default function OrderCardStatusesSubheader(props: Props) {
 
   const t = useTranslations();
 
-  const isAllDishesReady = orderDishes.every((dish) => dish.status === "ready");
+  const isAllDishesReady =
+    orderDishes.every((dish) => dish.status === "ready") &&
+    orderDishes.length > 0;
 
   const isHavePendingDishes = orderDishes.some(
     (dish) => dish.status === "pending"

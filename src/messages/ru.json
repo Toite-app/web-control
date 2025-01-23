@@ -245,6 +245,45 @@
       "delayed-to": "Отложено к"
     }
   },
+  "Orders": {
+    "create-order": "Создать заказ",
+    "attention-required": "Требует внимания",
+    "delayed-orders": "Отложенные заказы",
+    "create-order-description": "Укажите основную информацию для создания нового заказа",
+    "form": {
+      "type-label": "Тип заказа",
+      "type-placeholder": "Выберите тип заказа",
+      "required-section": "Обязательные поля",
+      "optional-section": "Дополнительные поля",
+      "table-number": "Номер стола",
+      "guest-name": "Имя гостя",
+      "guest-phone": "Телефон гостя",
+      "guests-amount": "Количество гостей",
+      "note": "Примечание",
+      "restaurant": "Ресторан",
+      "restaurant-placeholder": "Выберите ресторан",
+      "errors": {
+        "guests-amount-required": "Укажите количество гостей",
+        "guest-phone-required": "Укажите номер телефона",
+        "restaurant-required": "Выберите ресторан",
+        "table-number-required": "Укажите номер стола"
+      },
+      "guests-amount-placeholder": "Введите количество гостей",
+      "table-number-placeholder": "Введите номер стола",
+      "guest-phone-placeholder": "Введите номер телефона",
+      "guest-name-placeholder": "Введите имя гостя",
+      "note-placeholder": "Введите примечание к заказу",
+      "submit": "Создать заказ",
+      "create-success": "Заказ создан",
+      "create-success-description": "Заказ успешно создан"
+    },
+    "types": {
+      "delivery": "Доставка",
+      "takeaway": "С собой",
+      "hall": "Зал",
+      "banquet": "Банкет"
+    }
+  },
   "toite": {
     "copyright": "Разработано при помощи",
     "light-mode": "Светлая тема",
@@ -265,6 +304,7 @@
   "navbar": {
     "dashboard": "Главная",
     "orders": "Заказы",
+    "orders-create": "Создать заказ",
     "orders-all": "Все заказы",
     "orders-dispatcher": "Диспетчер",
     "orders-hall": "Зал",
@@ -407,5 +447,9 @@
     "minutes": "мин",
     "grams": "г",
     "milliliters": "мл"
+  },
+  "phone-input": {
+    "search-country": "Поиск страны...",
+    "no-country": "Страна не найдена"
   }
 }
