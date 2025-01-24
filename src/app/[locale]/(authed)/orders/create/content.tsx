@@ -9,6 +9,8 @@ import { useCallback } from "react";
 import OrderForm, { OrderFormValues } from "@/features/order/order-form";
 import { UseFormReturn } from "react-hook-form";
 import { useRouter } from "@/navigation";
+import { Card } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 
 export default function OrdersCreatePageContent() {
   const t = useTranslations();
@@ -59,7 +61,13 @@ export default function OrdersCreatePageContent() {
       </header>
 
       <div className="mt-8 max-w-xl">
-        <OrderForm onSubmit={onSubmit} />
+        <Card className="flex flex-col gap-2 p-4">
+          <h2 className="text-xl font-semibold">
+            {t("Orders.form.general-info")}
+          </h2>
+          <Separator className="mb-2" />
+          <OrderForm onSubmit={onSubmit} />
+        </Card>
       </div>
     </div>
   );

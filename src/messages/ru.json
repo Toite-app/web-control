@@ -261,7 +261,9 @@
     "attention-required": "Требует внимания",
     "delayed-orders": "Отложенные заказы",
     "create-order-description": "Укажите основную информацию для создания нового заказа",
+    "edit-order-description": "Теперь вы можете изменить содержание заказа",
     "form": {
+      "general-info": "Основная информация",
       "type-label": "Тип заказа",
       "type-placeholder": "Выберите тип заказа",
       "required-section": "Обязательные поля",
@@ -284,7 +286,7 @@
       "guest-phone-placeholder": "Введите номер телефона",
       "guest-name-placeholder": "Введите имя гостя",
       "note-placeholder": "Введите примечание к заказу",
-      "submit": "Создать заказ",
+      "submit": "Сохранить заказ",
       "create-success": "Заказ создан",
       "create-success-description": "Заказ успешно создан"
     },
@@ -318,6 +320,7 @@
     "order": "Заказ",
     "orders": "Заказы",
     "orders-create": "Создать заказ",
+    "orders-edit": "Редактировать заказ",
     "orders-all": "Все заказы",
     "orders-dispatcher": "Диспетчер",
     "orders-hall": "Зал",

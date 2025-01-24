@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button";
 import { PhoneInput } from "@/components/phone-input";
 import OrderTypeSelect from "./components/OrderTypeSelect";
 import RestaurantSelect from "./components/RestaurantSelect";
+import { useEffect } from "react";
 
 const formSchema = z.object({
   type: z.enum(["delivery", "takeaway", "hall", "banquet"] as const),
@@ -61,6 +62,11 @@ export default function OrderForm({ initialValues, onSubmit }: OrderFormProps) {
   const handleSubmit = async (data: OrderFormValues) => {
     await onSubmit(data, form);
   };
+
+  useEffect(() => {
+    if (!initialValues) return;
+    form.reset(initialValues);
+  }, [initialValues, form]);
 
   return (
     <Form {...form}>

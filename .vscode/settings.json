@@ -7,5 +7,6 @@
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "npm.packageManager": "yarn",
-  "i18n-ally.localesPaths": ["src/messages"]
+  "i18n-ally.localesPaths": ["src/messages"],
+  "i18n-ally.keystyle": "nested"
 }
