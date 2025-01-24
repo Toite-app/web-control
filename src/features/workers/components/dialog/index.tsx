@@ -110,6 +110,7 @@ const WorkerDialog: FC<WorkerDialogProps> = (props) => {
         <Form<ICreateWorker>
           form={form}
           intlFields
+          // debug
           fields={[
             {
               name: "name",
