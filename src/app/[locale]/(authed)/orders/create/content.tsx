@@ -8,16 +8,18 @@ import { useToast } from "@/hooks/use-toast";
 import { useCallback } from "react";
 import OrderForm, { OrderFormValues } from "@/features/order/order-form";
 import { UseFormReturn } from "react-hook-form";
+import { useRouter } from "@/navigation";
 
 export default function OrdersCreatePageContent() {
   const t = useTranslations();
   const { toast } = useToast();
   const handleError = useErrorHandler();
+  const router = useRouter();
 
   const onSubmit = useCallback(
     async (data: OrderFormValues, form: UseFormReturn<OrderFormValues>) => {
       try {
-        await createOrderMutation({
+        const order = await createOrderMutation({
           data: {
             type: data.type,
             tableNumber: data.tableNumber,
@@ -34,11 +36,16 @@ export default function OrdersCreatePageContent() {
           description: t("Orders.form.create-success-description"),
           variant: "success",
         });
+
+        router.push({
+          pathname: "/orders/[orderId]",
+          params: { orderId: order.id },
+        });
       } catch (error) {
         handleError({ error, form });
       }
     },
-    [t, toast, handleError]
+    [t, toast, handleError, router]
   );
 
   return (

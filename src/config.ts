@@ -12,6 +12,7 @@ export const pathnames = {
   "/dishes": "/dishes",
   "/orders/create": "/orders/create",
   "/orders/dispatcher": "/orders/dispatcher",
+  "/orders/[orderId]": "/orders/[orderId]",
 } satisfies Pathnames<typeof locales>;
 
 // Use the default: `always`

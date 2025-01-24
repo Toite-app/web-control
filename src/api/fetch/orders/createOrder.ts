@@ -1,6 +1,6 @@
 import { buildApiMutation } from "@/api/builder/mutation";
 import { ApiCacheTag } from "@/api/types";
-import { IOrder } from "@/types/order.types";
+import { IDispatcherOrder, IOrder } from "@/types/order.types";
 
 export type ICreateOrder = Pick<IOrder, "type"> &
   Partial<
@@ -18,7 +18,7 @@ export type ICreateOrder = Pick<IOrder, "type"> &
 
 export const createOrderMutation = buildApiMutation<
   unknown,
-  unknown,
+  IDispatcherOrder,
   unknown,
   ICreateOrder
 >({

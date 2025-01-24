@@ -99,11 +99,18 @@ export default function OrdersPageContent() {
           <Separator />
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {attentionOrders.data?.data.map((order) => (
-              <DispatcherOrderCard
-                className="shadow-[0_0_8px_rgba(239,68,68,0.9)]"
-                order={order}
+              <Link
+                href={{
+                  pathname: "/orders/[orderId]",
+                  params: { orderId: order.id },
+                }}
                 key={order.id}
-              />
+              >
+                <DispatcherOrderCard
+                  className="shadow-[0_0_8px_rgba(239,68,68,0.9)]"
+                  order={order}
+                />
+              </Link>
             ))}
           </div>
         </>
@@ -118,7 +125,16 @@ export default function OrdersPageContent() {
           </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {orders.data.data.map((order) => (
-              <DispatcherOrderCard order={order} key={order.id} />
+              <Link
+                className="h-full"
+                href={{
+                  pathname: "/orders/[orderId]",
+                  params: { orderId: order.id },
+                }}
+                key={order.id}
+              >
+                <DispatcherOrderCard order={order} />
+              </Link>
             ))}
           </div>
         </>
@@ -133,7 +149,15 @@ export default function OrdersPageContent() {
       <Separator />
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {delayedOrders.data?.data.map((order) => (
-          <DispatcherOrderCard order={order} key={order.id} />
+          <Link
+            href={{
+              pathname: "/orders/[orderId]",
+              params: { orderId: order.id },
+            }}
+            key={order.id}
+          >
+            <DispatcherOrderCard order={order} />
+          </Link>
         ))}
       </div>
     </div>

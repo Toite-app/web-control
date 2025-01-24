@@ -315,6 +315,7 @@
   },
   "navbar": {
     "dashboard": "Главная",
+    "order": "Заказ",
     "orders": "Заказы",
     "orders-create": "Создать заказ",
     "orders-all": "Все заказы",

@@ -41,7 +41,7 @@ export default function DispatcherOrderCard(props: DispatcherOrderCardProps) {
   return (
     <div
       className={cn(
-        "flex w-full cursor-pointer flex-col overflow-clip rounded-lg bg-white shadow-md hover:bg-stone-100 dark:bg-stone-800 dark:hover:bg-stone-700",
+        "flex h-full w-full cursor-pointer flex-col overflow-clip rounded-lg bg-white shadow-md hover:bg-stone-100 dark:bg-stone-800 dark:hover:bg-stone-700",
         className
       )}
     >
