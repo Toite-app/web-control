@@ -1,4 +1,5 @@
 import { ButtonProps } from "@/components/ui/button";
+import { ReactNode } from "react";
 import { FieldValues, Path, UseFormReturn } from "react-hook-form";
 
 export type PasswordInputFormField = {
@@ -11,16 +12,19 @@ export type InputFormField = {
   placeholder?: string;
 };
 
+export type SelectFormFieldOption = {
+  label: string;
+  value: string;
+  intl?: boolean;
+  icon?: ReactNode;
+};
+
 export type SelectFormField = {
   type: "select";
   placeholder?: string;
   intl?: boolean;
   withEmptyOption?: boolean;
-  options: {
-    label: string;
-    value: string;
-    intl?: boolean;
-  }[];
+  options: SelectFormFieldOption[];
 };
 
 export type NumberInputFormField = {

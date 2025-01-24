@@ -134,10 +134,15 @@ const FormFieldWrapper = <TFieldValues extends FieldValues>({
                 )}
                 {data.options.map((option) => (
                   <SelectItem value={option.value} key={JSON.stringify(option)}>
-                    {text(
-                      option.label,
-                      option.intl !== undefined ? option.intl : intl
-                    )}
+                    <div className="flex flex-row items-center gap-2">
+                      {option.icon}
+                      <span>
+                        {text(
+                          option.label,
+                          option.intl !== undefined ? option.intl : intl
+                        )}
+                      </span>
+                    </div>
                   </SelectItem>
                 ))}
               </SelectContent>
