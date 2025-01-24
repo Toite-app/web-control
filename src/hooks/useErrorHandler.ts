@@ -1,4 +1,4 @@
-import { FormInstance } from "@/components/form";
+import { FormInstance } from "@/components/form/types";
 import { isAxiosError } from "axios";
 import { useCallback } from "react";
 

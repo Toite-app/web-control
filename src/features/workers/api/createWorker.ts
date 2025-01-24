@@ -11,7 +11,7 @@ export type ICreateWorker = Pick<
 
 export const createWorkerMutation = buildApiMutation<
   unknown,
-  unknown,
+  IWorker,
   unknown,
   ICreateWorker
 >({
