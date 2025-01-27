@@ -296,7 +296,16 @@
       "hall": "Зал",
       "banquet": "Банкет"
     },
-    "search-placeholder": "Поиск заказов..."
+    "search-placeholder": "Поиск заказов...",
+    "add-dishes": {
+      "title": "Добавить в заказ",
+      "category-placeholder": "Выберите категорию",
+      "search-placeholder": "Поиск блюд...",
+      "none-category": "Все категории",
+      "quantity": "Количество",
+      "quantity-placeholder": "0",
+      "add-button": "Добавить"
+    }
   },
   "toite": {
     "copyright": "Разработано при помощи",
