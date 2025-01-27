@@ -35,7 +35,7 @@ export default function OrderPageContent({ orderId }: Props) {
       </header>
 
       <div className="flex min-h-[500px] max-w-screen-xl flex-row gap-4">
-        <AddOrderDishesCard orderId={orderId} />
+        <AddOrderDishesCard order={data} />
         <Card className="flex w-full flex-col gap-2 p-4">
           <h2 className="text-xl font-semibold">Содержимое заказа</h2>
           <Separator className="mb-2" />

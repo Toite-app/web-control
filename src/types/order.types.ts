@@ -39,16 +39,23 @@ export interface IOrder {
   guestId: string | null;
   restaurantId: string | null;
   restaurantName: string | null;
+  orderDishes: IOrderDish[];
 }
 
 export type OrderDishStatus = "pending" | "cooking" | "ready" | "completed";
 
-export interface OrderDish {
+export interface IOrderDish {
+  id: string;
+  orderId: string;
+  dishId: string;
   status: OrderDishStatus;
+  quantity: number;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
-export interface IDispatcherOrderDish extends Pick<OrderDish, "status"> {}
+export interface IDispatcherOrderDish extends Pick<IOrderDish, "status"> {}
 
-export type IDispatcherOrder = IOrder & {
+export type IDispatcherOrder = Omit<IOrder, "orderDishes"> & {
   orderDishes: IDispatcherOrderDish[];
 };

@@ -304,7 +304,9 @@
       "none-category": "Все категории",
       "quantity": "Количество",
       "quantity-placeholder": "0",
-      "add-button": "Добавить"
+      "add-button": "Добавить",
+      "no-restaurant-warning": "Назначьте ресторан, чтобы добавить блюда",
+      "no-restaurant-warning-description": "Выберите ресторан в основной информации заказа"
     }
   },
   "toite": {
