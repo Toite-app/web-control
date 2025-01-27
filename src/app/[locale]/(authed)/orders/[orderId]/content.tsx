@@ -4,6 +4,7 @@ import { useGetOrder } from "@/api/fetch/orders/useGetOrder";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import AddOrderDishesCard from "@/features/order/add-dishes-card";
+import AddedDishesList from "@/features/order/added-dishes-list";
 import OrderForm from "@/features/order/order-form";
 import formatOrderNumber from "@/utils/format-order-number";
 import { ShoppingBagIcon } from "lucide-react";
@@ -20,6 +21,9 @@ export default function OrderPageContent({ orderId }: Props) {
       orderId,
     },
     skip: !orderId,
+    config: {
+      keepPreviousData: true,
+    },
   });
 
   return (
@@ -36,10 +40,7 @@ export default function OrderPageContent({ orderId }: Props) {
 
       <div className="flex min-h-[500px] max-w-screen-xl flex-row gap-4">
         <AddOrderDishesCard order={data} />
-        <Card className="flex w-full flex-col gap-2 p-4">
-          <h2 className="text-xl font-semibold">Содержимое заказа</h2>
-          <Separator className="mb-2" />
-        </Card>
+        <AddedDishesList order={data} />
       </div>
 
       <Card className="mt-4 flex max-w-xl flex-col gap-2 p-4">

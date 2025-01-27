@@ -47,9 +47,12 @@ export type OrderDishStatus = "pending" | "cooking" | "ready" | "completed";
 export interface IOrderDish {
   id: string;
   orderId: string;
+  name: string;
   dishId: string;
   status: OrderDishStatus;
   quantity: number;
+  price: string;
+  finalPrice: string;
   createdAt: Date;
   updatedAt: Date;
 }

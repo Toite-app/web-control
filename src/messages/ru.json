@@ -256,6 +256,14 @@
       "banquet": "Банкет"
     }
   },
+  "AddedDishesList": {
+    "orderContent": "Содержимое заказа",
+    "noAddedDishes": "Нет добавленных блюд",
+    "dishName": "Название",
+    "status": "Статус",
+    "quantity": "Количество",
+    "price": "Цена"
+  },
   "Orders": {
     "create-order": "Создать заказ",
     "attention-required": "Требует внимания",
