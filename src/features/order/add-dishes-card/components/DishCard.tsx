@@ -1,9 +1,11 @@
 "use client";
 
 import { createOrderDishMutation } from "@/api/fetch/orders/dishes/createOrderDish";
+import { updateOrderDishMutation } from "@/api/fetch/orders/dishes/updateOrderDish";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useErrorHandler } from "@/hooks/useErrorHandler";
+import useDebouncedValue from "@/hooks/use-debounced-value";
 import DishLib from "@/lib/dish";
 import ImageLib from "@/lib/image";
 import { cn } from "@/lib/utils";
@@ -40,6 +42,52 @@ export default function OrderDishCard({ dish, order }: Props) {
   });
 
   const quantity = watch("quantity");
+  const debouncedQuantity = useDebouncedValue(quantity, 1000);
+
+  const updateQuantity = useCallback(
+    async (newQuantity: number) => {
+      if (!order || newQuantity === alreadyAdded?.quantity) return;
+
+      try {
+        if (alreadyAdded) {
+          // Update existing order dish
+          await updateOrderDishMutation({
+            urlValues: {
+              orderId: order.id,
+              orderDishId: alreadyAdded.id,
+            },
+            data: {
+              dishId: dish.id,
+              quantity: newQuantity,
+            },
+          });
+        } else {
+          // Create new order dish
+          await createOrderDishMutation({
+            urlValues: { orderId: order.id },
+            data: {
+              dishId: dish.id,
+              quantity: newQuantity,
+            },
+          });
+        }
+      } catch (error) {
+        handleError({
+          error,
+        });
+        // Revert to previous value on error
+        setValue("quantity", alreadyAdded?.quantity ?? 0);
+      }
+    },
+    [order, alreadyAdded, dish.id, setValue, handleError]
+  );
+
+  // Watch for debounced quantity changes and update the server
+  useEffect(() => {
+    if (debouncedQuantity > 0) {
+      updateQuantity(debouncedQuantity);
+    }
+  }, [debouncedQuantity, updateQuantity]);
 
   const handleIncrement = () => {
     setValue("quantity", getValues("quantity") + 1);
@@ -56,24 +104,16 @@ export default function OrderDishCard({ dish, order }: Props) {
     e.currentTarget.select();
   };
 
-  const handleAdd = useCallback(async () => {
-    if (!order) return;
+  const handleAdd = () => {
+    setValue("quantity", 1);
+  };
 
-    try {
-      await createOrderDishMutation({
-        urlValues: { orderId: order.id },
-        data: {
-          dishId: dish.id,
-          quantity: 1,
-        },
-      });
-      setValue("quantity", 1);
-    } catch (error) {
-      handleError({
-        error,
-      });
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newQuantity = parseInt(e.target.value);
+    if (!isNaN(newQuantity) && newQuantity >= 0) {
+      setValue("quantity", newQuantity);
     }
-  }, [order, dish.id, handleError, setValue]);
+  };
 
   // Update quantity if alreadyAdded changes
   useEffect(() => {
@@ -141,6 +181,7 @@ export default function OrderDishCard({ dish, order }: Props) {
                 type="number"
                 className="w-full text-center"
                 onClick={handleInputClick}
+                onChange={handleInputChange}
                 placeholder={t("Orders.add-dishes.quantity-placeholder")}
               />
               <Button
