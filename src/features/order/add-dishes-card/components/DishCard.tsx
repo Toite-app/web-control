@@ -31,7 +31,7 @@ export default function OrderDishCard({ dish, order }: Props) {
 
   const alreadyAdded = useMemo(() => {
     return (order?.orderDishes ?? []).find(
-      (od) => od.dishId === dish.id && od.status === "pending"
+      (od) => od.dishId === dish.id && od.status === "pending" && !od.isRemoved
     );
   }, [order, dish.id]);
 

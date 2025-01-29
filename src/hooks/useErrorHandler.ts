@@ -1,4 +1,5 @@
 import { FormInstance } from "@/components/form/types";
+import { useToast } from "@/hooks/use-toast";
 import { isAxiosError } from "axios";
 import { useCallback } from "react";
 
@@ -23,6 +24,8 @@ export type ErrorHandlerOptions = {
 };
 
 export const useErrorHandler = () => {
+  const { toast } = useToast();
+
   const handleValidationErrors = useCallback(
     (error: ApiError, form: FormInstance<any>) => {
       if (!error.validationErrors) return;
@@ -63,6 +66,8 @@ export const useErrorHandler = () => {
       if (isAxiosError(error) && error.response?.data) {
         const apiError = error.response.data as ApiError;
 
+        console.log(apiError);
+
         if (
           form &&
           apiError.validationErrors &&
@@ -73,6 +78,11 @@ export const useErrorHandler = () => {
           form.setError("root", {
             type: "server",
             message: apiError.message,
+          });
+        } else {
+          toast({
+            variant: "destructive",
+            description: apiError.message,
           });
         }
         return;
@@ -86,8 +96,14 @@ export const useErrorHandler = () => {
             error instanceof Error ? error.message : "Unknown error occurred",
         });
       }
+
+      toast({
+        variant: "destructive",
+        description:
+          error instanceof Error ? error.message : "Unknown error occurred",
+      });
     },
-    [handleValidationErrors]
+    [handleValidationErrors, toast]
   );
 
   return handleError;

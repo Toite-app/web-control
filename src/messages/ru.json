@@ -262,7 +262,13 @@
     "dishName": "Название",
     "status": "Статус",
     "quantity": "Количество",
-    "price": "Цена"
+    "price": "Цена",
+    "statuses": {
+      "pending": "Добавлено",
+      "cooking": "На кухне",
+      "ready": "Приготовлено",
+      "completed": "Завершено"
+    }
   },
   "Orders": {
     "create-order": "Создать заказ",

@@ -17,6 +17,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { cn } from "@/lib/utils";
 
 type Props = {
   order?: IOrder | null;
@@ -61,7 +62,19 @@ export default function AddedDishesList({ order }: Props) {
           {order.orderDishes.map((orderDish) => (
             <TableRow key={orderDish.id}>
               <TableCell>{orderDish.name}</TableCell>
-              <TableCell>{orderDish.status}</TableCell>
+              <TableCell>
+                <div
+                  className={cn(
+                    "rounded-lg px-2 py-1 text-center text-white",
+                    orderDish.status === "cooking" && "bg-amber-500",
+                    orderDish.status === "ready" && "bg-green-500",
+                    orderDish.status === "completed" && "bg-emerald-500",
+                    orderDish.status === "pending" && "bg-stone-700"
+                  )}
+                >
+                  {t(`AddedDishesList.statuses.${orderDish.status}`)}
+                </div>
+              </TableCell>
               <TableCell>{orderDish.quantity}</TableCell>
               <TableCell>
                 <div className="flex flex-row items-center gap-1">
