@@ -13,7 +13,7 @@ import { IDish } from "@/types/dish.types";
 import { IOrder } from "@/types/order.types";
 import { Minus, Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import { useForm } from "react-hook-form";
 
 type Props = {
@@ -28,6 +28,7 @@ type FormValues = {
 export default function OrderDishCard({ dish, order }: Props) {
   const t = useTranslations();
   const handleError = useErrorHandler();
+  const isInternalUpdate = useRef(false);
 
   const alreadyAdded = useMemo(() => {
     return (order?.orderDishes ?? []).find(
@@ -50,7 +51,6 @@ export default function OrderDishCard({ dish, order }: Props) {
 
       try {
         if (alreadyAdded) {
-          // Update existing order dish
           await updateOrderDishMutation({
             urlValues: {
               orderId: order.id,
@@ -62,7 +62,6 @@ export default function OrderDishCard({ dish, order }: Props) {
             },
           });
         } else {
-          // Create new order dish
           await createOrderDishMutation({
             urlValues: { orderId: order.id },
             data: {
@@ -76,6 +75,7 @@ export default function OrderDishCard({ dish, order }: Props) {
           error,
         });
         // Revert to previous value on error
+        isInternalUpdate.current = true;
         setValue("quantity", alreadyAdded?.quantity ?? 0);
       }
     },
@@ -84,10 +84,22 @@ export default function OrderDishCard({ dish, order }: Props) {
 
   // Watch for debounced quantity changes and update the server
   useEffect(() => {
-    if (debouncedQuantity > 0) {
+    if (debouncedQuantity > 0 && !isInternalUpdate.current) {
       updateQuantity(debouncedQuantity);
     }
+    isInternalUpdate.current = false;
   }, [debouncedQuantity, updateQuantity]);
+
+  // Update form value only if alreadyAdded quantity actually changed
+  useEffect(() => {
+    const currentQuantity = getValues("quantity");
+    const newQuantity = alreadyAdded?.quantity ?? 0;
+
+    if (currentQuantity !== newQuantity) {
+      isInternalUpdate.current = true;
+      setValue("quantity", newQuantity);
+    }
+  }, [alreadyAdded?.quantity, setValue, getValues]);
 
   const handleIncrement = () => {
     setValue("quantity", getValues("quantity") + 1);
@@ -115,16 +127,10 @@ export default function OrderDishCard({ dish, order }: Props) {
     }
   };
 
-  // Update quantity if alreadyAdded changes
-  useEffect(() => {
-    if (alreadyAdded) {
-      setValue("quantity", alreadyAdded.quantity);
-    }
-  }, [alreadyAdded, setValue]);
-
   // Ensure quantity is never less than 0
   useEffect(() => {
     if (quantity < 0) {
+      isInternalUpdate.current = true;
       setValue("quantity", 0);
     }
   }, [quantity, setValue]);

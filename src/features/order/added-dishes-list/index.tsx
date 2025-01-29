@@ -18,6 +18,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
+import OrderDishQuantityInput from "@/features/order/added-dishes-list/components/QuantityInput";
 
 type Props = {
   order?: IOrder | null;
@@ -59,42 +60,48 @@ export default function AddedDishesList({ order }: Props) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {order.orderDishes.map((orderDish) => (
-            <TableRow key={orderDish.id}>
-              <TableCell>{orderDish.name}</TableCell>
-              <TableCell>
-                <div
-                  className={cn(
-                    "rounded-lg px-2 py-1 text-center text-white",
-                    orderDish.status === "cooking" && "bg-amber-500",
-                    orderDish.status === "ready" && "bg-green-500",
-                    orderDish.status === "completed" && "bg-emerald-500",
-                    orderDish.status === "pending" && "bg-stone-700"
-                  )}
-                >
-                  {t(`AddedDishesList.statuses.${orderDish.status}`)}
-                </div>
-              </TableCell>
-              <TableCell>{orderDish.quantity}</TableCell>
-              <TableCell>
-                <div className="flex flex-row items-center gap-1">
-                  {Number(orderDish.finalPrice) * orderDish.quantity}
-                  {order.currency === "RUB" && (
-                    <RussianRubleIcon className="h-4 w-4" />
-                  )}
-                  {order.currency === "EUR" && <EuroIcon className="h-4 w-4" />}
-                  {order.currency === "USD" && (
-                    <DollarSignIcon className="h-4 w-4" />
-                  )}
-                </div>
-              </TableCell>
-              <TableCell>
-                <Button variant="ghost" size="icon-sm">
-                  <XIcon className="h-4 w-4 text-red-500" />
-                </Button>
-              </TableCell>
-            </TableRow>
-          ))}
+          {order.orderDishes
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map((orderDish) => (
+              <TableRow key={orderDish.id}>
+                <TableCell>{orderDish.name}</TableCell>
+                <TableCell>
+                  <div
+                    className={cn(
+                      "rounded-lg px-2 py-1 text-center text-white",
+                      orderDish.status === "cooking" && "bg-amber-500",
+                      orderDish.status === "ready" && "bg-green-500",
+                      orderDish.status === "completed" && "bg-emerald-500",
+                      orderDish.status === "pending" && "bg-stone-700"
+                    )}
+                  >
+                    {t(`AddedDishesList.statuses.${orderDish.status}`)}
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <OrderDishQuantityInput orderDish={orderDish} />
+                </TableCell>
+                <TableCell>
+                  <div className="flex flex-row items-center gap-1">
+                    {Number(orderDish.finalPrice) * orderDish.quantity}
+                    {order.currency === "RUB" && (
+                      <RussianRubleIcon className="h-4 w-4" />
+                    )}
+                    {order.currency === "EUR" && (
+                      <EuroIcon className="h-4 w-4" />
+                    )}
+                    {order.currency === "USD" && (
+                      <DollarSignIcon className="h-4 w-4" />
+                    )}
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <Button variant="ghost" size="icon-sm">
+                    <XIcon className="h-4 w-4 text-red-500" />
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
       {/* <div className="flex flex-col gap-3">
