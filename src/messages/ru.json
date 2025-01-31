@@ -268,7 +268,8 @@
       "cooking": "На кухне",
       "ready": "Приготовлено",
       "completed": "Завершено"
-    }
+    },
+    "searchPlaceholder": "Поиск блюд..."
   },
   "Orders": {
     "create-order": "Создать заказ",
