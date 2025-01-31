@@ -269,7 +269,11 @@
       "ready": "Приготовлено",
       "completed": "Завершено"
     },
-    "searchPlaceholder": "Поиск блюд..."
+    "searchPlaceholder": "Поиск блюд...",
+    "sort": {
+      "asc": "По возрастанию",
+      "desc": "По убыванию"
+    }
   },
   "Orders": {
     "create-order": "Создать заказ",

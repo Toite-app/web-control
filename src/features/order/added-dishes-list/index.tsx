@@ -8,6 +8,9 @@ import {
   DollarSignIcon,
   XIcon,
   SearchIcon,
+  ArrowUpDown,
+  ChevronUp,
+  ChevronDown,
 } from "lucide-react";
 import { IOrder } from "@/types/order.types";
 import {
@@ -28,20 +31,69 @@ type Props = {
   order?: IOrder | null;
 };
 
+type SortField = "name" | "status" | "quantity" | "price";
+type SortOrder = "asc" | "desc";
+
 export default function AddedDishesList({ order }: Props) {
   const t = useTranslations();
   const [searchQuery, setSearchQuery] = useState("");
   const debouncedSearch = useDebouncedValue(searchQuery, 300);
+  const [sortField, setSortField] = useState<SortField>("name");
+  const [sortOrder, setSortOrder] = useState<SortOrder>("asc");
+
+  const handleSort = (field: SortField) => {
+    if (sortField === field) {
+      if (sortOrder === "desc") {
+        setSortField("name");
+        setSortOrder("asc");
+      } else {
+        setSortOrder("desc");
+      }
+    } else {
+      setSortField(field);
+      setSortOrder("asc");
+    }
+  };
+
+  const getSortIcon = (field: SortField) => {
+    if (sortField !== field) {
+      return <ArrowUpDown className="h-4 w-4 text-muted-foreground" />;
+    }
+    return sortOrder === "asc" ? (
+      <ChevronUp className="h-4 w-4" />
+    ) : (
+      <ChevronDown className="h-4 w-4" />
+    );
+  };
 
   const filteredDishes = useMemo(() => {
     if (!order?.orderDishes) return [];
 
-    return order.orderDishes
-      .filter((dish) =>
-        dish.name.toLowerCase().includes(debouncedSearch.toLowerCase())
-      )
-      .sort((a, b) => a.name.localeCompare(b.name));
-  }, [order?.orderDishes, debouncedSearch]);
+    const filtered = order.orderDishes.filter((dish) =>
+      dish.name.toLowerCase().includes(debouncedSearch.toLowerCase())
+    );
+
+    return filtered.sort((a, b) => {
+      const multiplier = sortOrder === "asc" ? 1 : -1;
+
+      switch (sortField) {
+        case "name":
+          return multiplier * a.name.localeCompare(b.name);
+        case "status":
+          return multiplier * a.status.localeCompare(b.status);
+        case "quantity":
+          return multiplier * (a.quantity - b.quantity);
+        case "price":
+          return (
+            multiplier *
+            (Number(a.finalPrice) * a.quantity -
+              Number(b.finalPrice) * b.quantity)
+          );
+        default:
+          return 0;
+      }
+    });
+  }, [order?.orderDishes, debouncedSearch, sortField, sortOrder]);
 
   if (!order?.orderDishes?.length) {
     return (
@@ -77,12 +129,42 @@ export default function AddedDishesList({ order }: Props) {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="min-w-[100px]">
-              {t("AddedDishesList.dishName")}
+            <TableHead
+              className="min-w-[100px] cursor-pointer hover:bg-muted/50"
+              onClick={() => handleSort("name")}
+            >
+              <div className="flex items-center gap-1">
+                {t("AddedDishesList.dishName")}
+                {getSortIcon("name")}
+              </div>
             </TableHead>
-            <TableHead>{t("AddedDishesList.status")}</TableHead>
-            <TableHead>{t("AddedDishesList.quantity")}</TableHead>
-            <TableHead>{t("AddedDishesList.price")}</TableHead>
+            <TableHead
+              className="cursor-pointer hover:bg-muted/50"
+              onClick={() => handleSort("status")}
+            >
+              <div className="flex items-center gap-1">
+                {t("AddedDishesList.status")}
+                {getSortIcon("status")}
+              </div>
+            </TableHead>
+            <TableHead
+              className="cursor-pointer hover:bg-muted/50"
+              onClick={() => handleSort("quantity")}
+            >
+              <div className="flex items-center gap-1">
+                {t("AddedDishesList.quantity")}
+                {getSortIcon("quantity")}
+              </div>
+            </TableHead>
+            <TableHead
+              className="cursor-pointer hover:bg-muted/50"
+              onClick={() => handleSort("price")}
+            >
+              <div className="flex items-center gap-1">
+                {t("AddedDishesList.price")}
+                {getSortIcon("price")}
+              </div>
+            </TableHead>
             <TableHead />
           </TableRow>
         </TableHeader>
