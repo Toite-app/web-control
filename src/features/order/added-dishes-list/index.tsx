@@ -1,31 +1,20 @@
 import { useTranslations } from "next-intl";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
-import {
-  RussianRubleIcon,
-  EuroIcon,
-  DollarSignIcon,
-  XIcon,
-  SearchIcon,
-  ArrowUpDown,
-  ChevronUp,
-  ChevronDown,
-} from "lucide-react";
+import { SearchIcon, ArrowUpDown, ChevronUp, ChevronDown } from "lucide-react";
 import { IOrder } from "@/types/order.types";
 import {
   Table,
   TableBody,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { cn } from "@/lib/utils";
-import OrderDishQuantityInput from "@/features/order/added-dishes-list/components/QuantityInput";
 import { Input } from "@/components/ui/input";
 import { useState, useMemo } from "react";
 import useDebouncedValue from "@/hooks/use-debounced-value";
+import AddedOrderDishRow from "./components/AddedOrderDishRow";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 type Props = {
   order?: IOrder | null;
@@ -128,96 +117,60 @@ export default function AddedDishesList({ order }: Props) {
         </div>
       </div>
       <Separator className="mt-2" />
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead
-              className="min-w-[100px] cursor-pointer hover:bg-muted/50"
-              onClick={() => handleSort("name")}
-            >
-              <div className="flex items-center gap-1">
-                {t("AddedDishesList.dishName")}
-                {getSortIcon("name")}
-              </div>
-            </TableHead>
-            <TableHead
-              className="cursor-pointer hover:bg-muted/50"
-              onClick={() => handleSort("status")}
-            >
-              <div className="flex items-center gap-1">
-                {t("AddedDishesList.status")}
-                {getSortIcon("status")}
-              </div>
-            </TableHead>
-            <TableHead
-              className="cursor-pointer hover:bg-muted/50"
-              onClick={() => handleSort("quantity")}
-            >
-              <div className="flex items-center gap-1">
-                {t("AddedDishesList.quantity")}
-                {getSortIcon("quantity")}
-              </div>
-            </TableHead>
-            <TableHead
-              className="cursor-pointer hover:bg-muted/50"
-              onClick={() => handleSort("price")}
-            >
-              <div className="flex items-center gap-1">
-                {t("AddedDishesList.price")}
-                {getSortIcon("price")}
-              </div>
-            </TableHead>
-            <TableHead />
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {filteredDishes.map((orderDish) => (
-            <TableRow key={orderDish.id}>
-              <TableCell>{orderDish.name}</TableCell>
-              <TableCell>
-                <div
-                  className={cn(
-                    "rounded-lg px-2 py-1 text-center text-white",
-                    orderDish.status === "cooking" && "bg-amber-500",
-                    orderDish.status === "ready" && "bg-green-500",
-                    orderDish.status === "completed" && "bg-emerald-500",
-                    orderDish.status === "pending" && "bg-stone-700"
-                  )}
-                >
-                  {t(`AddedDishesList.statuses.${orderDish.status}`)}
+      <ScrollArea className="relative h-[610px] rounded-md">
+        <Table>
+          <TableHeader className="sticky top-0 z-10 bg-background">
+            <TableRow>
+              <TableHead
+                className="min-w-[100px] cursor-pointer hover:bg-muted/50"
+                onClick={() => handleSort("name")}
+              >
+                <div className="flex items-center gap-1">
+                  {t("AddedDishesList.dishName")}
+                  {getSortIcon("name")}
                 </div>
-              </TableCell>
-              <TableCell>
-                <OrderDishQuantityInput orderDish={orderDish} />
-              </TableCell>
-              <TableCell>
-                <div className="flex flex-row items-center gap-1">
-                  {Number(orderDish.finalPrice) * orderDish.quantity}
-                  {order.currency === "RUB" && (
-                    <RussianRubleIcon className="h-4 w-4" />
-                  )}
-                  {order.currency === "EUR" && <EuroIcon className="h-4 w-4" />}
-                  {order.currency === "USD" && (
-                    <DollarSignIcon className="h-4 w-4" />
-                  )}
+              </TableHead>
+              <TableHead
+                className="cursor-pointer hover:bg-muted/50"
+                onClick={() => handleSort("status")}
+              >
+                <div className="flex items-center gap-1">
+                  {t("AddedDishesList.status")}
+                  {getSortIcon("status")}
                 </div>
-              </TableCell>
-              <TableCell>
-                <Button variant="ghost" size="icon-sm">
-                  <XIcon className="h-4 w-4 text-red-500" />
-                </Button>
-              </TableCell>
+              </TableHead>
+              <TableHead
+                className="cursor-pointer hover:bg-muted/50"
+                onClick={() => handleSort("quantity")}
+              >
+                <div className="flex items-center gap-1">
+                  {t("AddedDishesList.quantity")}
+                  {getSortIcon("quantity")}
+                </div>
+              </TableHead>
+              <TableHead
+                className="cursor-pointer hover:bg-muted/50"
+                onClick={() => handleSort("price")}
+              >
+                <div className="flex items-center gap-1">
+                  {t("AddedDishesList.price")}
+                  {getSortIcon("price")}
+                </div>
+              </TableHead>
+              <TableHead />
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-      {/* <div className="flex flex-col gap-3">
-        {order.orderDishes.map((orderDish) => (
-          <div className="flex flex-row items-center gap-2" key={orderDish.id}>
-            
-          </div>
-        ))}
-      </div> */}
+          </TableHeader>
+          <TableBody>
+            {filteredDishes.map((orderDish) => (
+              <AddedOrderDishRow
+                key={orderDish.id}
+                orderDish={orderDish}
+                order={order}
+              />
+            ))}
+          </TableBody>
+        </Table>
+      </ScrollArea>
     </Card>
   );
 }
