@@ -11,6 +11,14 @@ import {
   XIcon,
 } from "lucide-react";
 import OrderDishQuantityInput from "./QuantityInput";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { removeOrderDishMutation } from "@/api/fetch/orders/dishes/removeOrderDish";
+import { useErrorHandler } from "@/hooks/useErrorHandler";
 
 type Props = {
   orderDish: IOrderDish;
@@ -20,6 +28,20 @@ type Props = {
 export default function AddedOrderDishRow({ orderDish, order }: Props) {
   const { currency } = order;
   const t = useTranslations();
+  const handleError = useErrorHandler();
+
+  const handleRemove = async () => {
+    try {
+      await removeOrderDishMutation({
+        urlValues: {
+          orderId: order.id,
+          orderDishId: orderDish.id,
+        },
+      });
+    } catch (error) {
+      handleError({ error });
+    }
+  };
 
   return (
     <TableRow>
@@ -49,9 +71,20 @@ export default function AddedOrderDishRow({ orderDish, order }: Props) {
         </div>
       </TableCell>
       <TableCell>
-        <Button variant="ghost" size="icon-sm">
-          <XIcon className="h-4 w-4 text-red-500" />
-        </Button>
+        {orderDish.status === "pending" && (
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant="ghost" size="icon-sm" onClick={handleRemove}>
+                  <XIcon className="h-4 w-4 text-red-500" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{t("AddedDishesList.removeDish")}</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        )}
       </TableCell>
     </TableRow>
   );

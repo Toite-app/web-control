@@ -119,11 +119,6 @@ export default function useDishQuantity(options: Options) {
             },
           });
         } else {
-          console.log("remove", {
-            orderId,
-            orderDish,
-            debouncedQuantity,
-          });
           await removeOrderDishMutation({
             urlValues: {
               orderId,
