@@ -17,8 +17,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { removeOrderDishMutation } from "@/api/fetch/orders/dishes/removeOrderDish";
-import { useErrorHandler } from "@/hooks/useErrorHandler";
+import useDishQuantity from "@/features/order/hooks/use-dish-quantity";
 
 type Props = {
   orderDish: IOrderDish;
@@ -28,20 +27,13 @@ type Props = {
 export default function AddedOrderDishRow({ orderDish, order }: Props) {
   const { currency } = order;
   const t = useTranslations();
-  const handleError = useErrorHandler();
 
-  const handleRemove = async () => {
-    try {
-      await removeOrderDishMutation({
-        urlValues: {
-          orderId: order.id,
-          orderDishId: orderDish.id,
-        },
-      });
-    } catch (error) {
-      handleError({ error });
-    }
-  };
+  const { remove } = useDishQuantity({
+    dishId: orderDish.dishId,
+    orderDish,
+    orderId: order.id,
+    saveDebounceTime: 50,
+  });
 
   return (
     <TableRow>
@@ -75,7 +67,7 @@ export default function AddedOrderDishRow({ orderDish, order }: Props) {
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button variant="ghost" size="icon-sm" onClick={handleRemove}>
+                <Button variant="ghost" size="icon-sm" onClick={remove}>
                   <XIcon className="h-4 w-4 text-red-500" />
                 </Button>
               </TooltipTrigger>
