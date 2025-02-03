@@ -1,7 +1,14 @@
 import { useTranslations } from "next-intl";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { SearchIcon, ArrowUpDown, ChevronUp, ChevronDown } from "lucide-react";
+import {
+  SearchIcon,
+  ArrowUpDown,
+  ChevronUp,
+  ChevronDown,
+  SearchX,
+  PlusIcon,
+} from "lucide-react";
 import { IOrder } from "@/types/order.types";
 import {
   Table,
@@ -161,13 +168,41 @@ export default function AddedDishesList({ order }: Props) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {filteredDishes.map((orderDish) => (
-              <AddedOrderDishRow
-                key={orderDish.id}
-                orderDish={orderDish}
-                order={order}
-              />
-            ))}
+            {filteredDishes.length > 0 ? (
+              filteredDishes.map((orderDish) => (
+                <AddedOrderDishRow
+                  key={orderDish.id}
+                  orderDish={orderDish}
+                  order={order}
+                />
+              ))
+            ) : (
+              <TableRow>
+                <td colSpan={5} className="h-[400px]">
+                  <div className="flex h-full flex-col items-center justify-center gap-2 text-muted-foreground">
+                    {debouncedSearch.length > 0 ? (
+                      <SearchX className="h-12 w-12" />
+                    ) : (
+                      <PlusIcon className="h-12 w-12" />
+                    )}
+                    <p className="text-lg font-medium">
+                      {t(
+                        debouncedSearch.length > 0
+                          ? "AddedDishesList.noFilteredDishes"
+                          : "AddedDishesList.noDishes"
+                      )}
+                    </p>
+                    <p className="text-sm">
+                      {t(
+                        debouncedSearch.length > 0
+                          ? "AddedDishesList.tryDifferentSearch"
+                          : "AddedDishesList.pleaseAddDishes"
+                      )}
+                    </p>
+                  </div>
+                </td>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
       </ScrollArea>

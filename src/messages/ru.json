@@ -274,7 +274,11 @@
       "asc": "По возрастанию",
       "desc": "По убыванию"
     },
-    "removeDish": "Удалить блюдо"
+    "removeDish": "Удалить блюдо",
+    "noDishes": "Нет блюд",
+    "pleaseAddDishes": "Пожалуйста, добавьте блюда в заказ",
+    "noFilteredDishes": "Блюда не найдены",
+    "tryDifferentSearch": "Попробуйте изменить параметры поиска"
   },
   "Orders": {
     "create-order": "Создать заказ",
