@@ -69,8 +69,10 @@ export default function AddedDishesList({ order }: Props) {
   const filteredDishes = useMemo(() => {
     if (!order?.orderDishes) return [];
 
-    const filtered = order.orderDishes.filter((dish) =>
-      dish.name.toLowerCase().includes(debouncedSearch.toLowerCase())
+    const filtered = order.orderDishes.filter(
+      (dish) =>
+        dish.name.toLowerCase().includes(debouncedSearch.toLowerCase()) &&
+        dish.isRemoved === false
     );
 
     return filtered.sort((a, b) => {

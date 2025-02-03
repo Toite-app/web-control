@@ -42,7 +42,7 @@ export default function OrderDishQuantityInput({ orderDish }: Props) {
         <Minus className="h-3 w-3" />
       </Button>
       <Input
-        value={value}
+        value={value ?? ""}
         type="number"
         className="h-8 w-14 text-center text-sm"
         onClick={handleInputClick}

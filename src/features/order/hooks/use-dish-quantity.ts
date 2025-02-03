@@ -1,9 +1,10 @@
 import { createOrderDishMutation } from "@/api/fetch/orders/dishes/createOrderDish";
+import { removeOrderDishMutation } from "@/api/fetch/orders/dishes/removeOrderDish";
 import { updateOrderDishMutation } from "@/api/fetch/orders/dishes/updateOrderDish";
 import useDebouncedValue from "@/hooks/use-debounced-value";
 import { useErrorHandler } from "@/hooks/useErrorHandler";
 import { IOrderDish } from "@/types/order.types";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { create } from "zustand";
 
@@ -47,7 +48,13 @@ export default function useDishQuantity(options: Options) {
 
   const handleError = useErrorHandler();
 
-  const [localQuantity, setLocalQuantity] = useState(quantity ?? 0);
+  const prevOrderDish = useRef<Pick<IOrderDish, "id" | "quantity"> | null>(
+    orderDish ?? null
+  );
+
+  const [localQuantity, setLocalQuantity] = useState<number | null>(
+    quantity ?? orderDish?.quantity ?? null
+  );
 
   // Debounce the quantity to save to the server
   const debouncedQuantity = useDebouncedValue(localQuantity, saveDebounceTime);
@@ -56,7 +63,7 @@ export default function useDishQuantity(options: Options) {
    * Increment the quantity of the dish
    */
   const increment = useCallback(() => {
-    setLocalQuantity((prev) => prev + 1);
+    setLocalQuantity((prev) => (prev ?? 0) + 1);
   }, []);
 
   /**
@@ -65,11 +72,15 @@ export default function useDishQuantity(options: Options) {
   const decrement = useCallback(
     () =>
       setLocalQuantity((prev) => {
-        if (prev <= 0) return 0;
+        if (prev === null || prev <= 0) return 0;
         return prev - 1;
       }),
     []
   );
+
+  const remove = useCallback(() => {
+    setLocalQuantity(0);
+  }, []);
 
   /**
    * Set the local quantity from the parent component
@@ -85,13 +96,10 @@ export default function useDishQuantity(options: Options) {
     const isAlreadyUpdating =
       !!updatingDishesStore.getState().updatingMap?.[dishId];
 
-    if (isAlreadyUpdating) return;
-
-    if (!orderId) return;
+    if (isAlreadyUpdating || debouncedQuantity === null || !orderId) return;
     if (!orderDish && debouncedQuantity === 0) return;
 
     if (orderDish && orderDish.quantity === debouncedQuantity) {
-      console.log("debouncedQuantity === orderDish.quantity");
       return;
     }
 
@@ -108,6 +116,18 @@ export default function useDishQuantity(options: Options) {
             },
             data: {
               quantity: debouncedQuantity,
+            },
+          });
+        } else {
+          console.log("remove", {
+            orderId,
+            orderDish,
+            debouncedQuantity,
+          });
+          await removeOrderDishMutation({
+            urlValues: {
+              orderId,
+              orderDishId: orderDish.id,
             },
           });
         }
@@ -127,6 +147,8 @@ export default function useDishQuantity(options: Options) {
       handleError({
         error,
       });
+
+      setLocalQuantity(orderDish?.quantity ?? 0);
     } finally {
       // Prevent from spamming with one second timeout
       setTimeout(() => {
@@ -146,9 +168,15 @@ export default function useDishQuantity(options: Options) {
   }, [quantity]);
 
   useEffect(() => {
-    if (!orderDish) return;
+    if (orderDish) {
+      setLocalQuantity(orderDish.quantity);
+    } else {
+      if (prevOrderDish.current) {
+        setLocalQuantity(null);
+      }
+    }
 
-    setLocalQuantity(orderDish.quantity);
+    prevOrderDish.current = orderDish ?? null;
   }, [orderDish]);
 
   useEffect(() => {
@@ -160,5 +188,6 @@ export default function useDishQuantity(options: Options) {
     onChange,
     increment,
     decrement,
+    remove,
   };
 }

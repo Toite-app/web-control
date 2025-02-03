@@ -51,7 +51,7 @@ export default function OrderDishCard({ dish, order }: Props) {
     <div
       className={cn(
         "relative flex w-full flex-row rounded-xl border border-stone-200 p-2",
-        value > 0 && "bg-primary/30"
+        value && value > 0 ? "bg-primary/30" : ""
       )}
     >
       <div className="absolute left-0 top-0 z-10 drop-shadow-lg">
@@ -65,7 +65,7 @@ export default function OrderDishCard({ dish, order }: Props) {
       </div>
       <div className="ml-16 flex w-full flex-col gap-1">
         <span className="font-bold">{dish.name}</span>
-        {value === 0 ? (
+        {!value || value === 0 ? (
           <Button
             variant="outline"
             className="w-full"
@@ -92,7 +92,7 @@ export default function OrderDishCard({ dish, order }: Props) {
                 <Minus className="h-4 w-4" />
               </Button>
               <Input
-                value={value}
+                value={value ?? ""}
                 type="number"
                 className="w-full text-center"
                 onClick={handleInputClick}
