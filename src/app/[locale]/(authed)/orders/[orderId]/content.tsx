@@ -1,14 +1,17 @@
 "use client";
 
+import { updateOrderMutation } from "@/api/fetch/orders/updateOrder";
 import { useGetOrder } from "@/api/fetch/orders/useGetOrder";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import AddOrderDishesCard from "@/features/order/add-dishes-card";
 import AddedDishesList from "@/features/order/added-dishes-list";
-import OrderForm from "@/features/order/order-form";
+import OrderForm, { OrderFormValues } from "@/features/order/order-form";
+import { useErrorHandler } from "@/hooks/useErrorHandler";
 import formatOrderNumber from "@/utils/format-order-number";
 import { ShoppingBagIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { UseFormReturn } from "react-hook-form";
 
 type Props = {
   orderId: string;
@@ -16,6 +19,8 @@ type Props = {
 
 export default function OrderPageContent({ orderId }: Props) {
   const t = useTranslations();
+  const handleError = useErrorHandler();
+
   const { data, isLoading } = useGetOrder({
     urlValues: {
       orderId,
@@ -26,6 +31,24 @@ export default function OrderPageContent({ orderId }: Props) {
     },
   });
 
+  const onSubmit = async (
+    data: OrderFormValues,
+    form: UseFormReturn<OrderFormValues>
+  ) => {
+    try {
+      await updateOrderMutation({
+        urlValues: {
+          orderId,
+        },
+        data,
+      });
+    } catch (error) {
+      handleError({
+        error,
+        form,
+      });
+    }
+  };
   return (
     <div className="mx-auto flex h-full w-full max-w-screen-xl flex-col gap-4 p-4 py-12">
       <header className="flex flex-col gap-1">
@@ -58,7 +81,7 @@ export default function OrderPageContent({ orderId }: Props) {
             restaurantId: data?.restaurantId ?? undefined,
             tableNumber: data?.tableNumber ?? undefined,
           }}
-          onSubmit={console.log}
+          onSubmit={onSubmit}
         />
       </Card>
     </div>

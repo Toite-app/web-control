@@ -93,7 +93,7 @@ export default function AddedDishesList({ order }: Props) {
     });
   }, [order?.orderDishes, debouncedSearch, sortField, sortOrder]);
 
-  if (!order?.orderDishes?.length) {
+  if (!order) {
     return (
       <Card className="flex w-full flex-col gap-2 p-4">
         <h2 className="text-xl font-semibold">
