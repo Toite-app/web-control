@@ -1,11 +1,7 @@
 "use client";
 
-import { createOrderDishMutation } from "@/api/fetch/orders/dishes/createOrderDish";
-import { updateOrderDishMutation } from "@/api/fetch/orders/dishes/updateOrderDish";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useErrorHandler } from "@/hooks/useErrorHandler";
-import useDebouncedValue from "@/hooks/use-debounced-value";
 import DishLib from "@/lib/dish";
 import ImageLib from "@/lib/image";
 import { cn } from "@/lib/utils";
@@ -13,22 +9,16 @@ import { IDish } from "@/types/dish.types";
 import { IOrder } from "@/types/order.types";
 import { Minus, Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useCallback, useEffect, useMemo, useRef } from "react";
-import { useForm } from "react-hook-form";
+import { useMemo } from "react";
+import useDishQuantity from "@/features/order/hooks/use-dish-quantity";
 
 type Props = {
   dish: IDish;
   order?: IOrder | null;
 };
 
-type FormValues = {
-  quantity: number;
-};
-
 export default function OrderDishCard({ dish, order }: Props) {
   const t = useTranslations();
-  const handleError = useErrorHandler();
-  const isInternalUpdate = useRef(false);
 
   const alreadyAdded = useMemo(() => {
     return (order?.orderDishes ?? []).find(
@@ -36,110 +26,32 @@ export default function OrderDishCard({ dish, order }: Props) {
     );
   }, [order, dish.id]);
 
-  const { register, watch, setValue, getValues } = useForm<FormValues>({
-    defaultValues: {
-      quantity: alreadyAdded?.quantity ?? 0,
-    },
+  const { decrement, increment, value, onChange } = useDishQuantity({
+    dishId: dish.id,
+    orderId: order?.id,
+    orderDish: alreadyAdded,
   });
-
-  const quantity = watch("quantity");
-  const debouncedQuantity = useDebouncedValue(quantity, 1000);
-
-  const updateQuantity = useCallback(
-    async (newQuantity: number) => {
-      if (!order || newQuantity === alreadyAdded?.quantity) return;
-
-      try {
-        if (alreadyAdded) {
-          await updateOrderDishMutation({
-            urlValues: {
-              orderId: order.id,
-              orderDishId: alreadyAdded.id,
-            },
-            data: {
-              dishId: dish.id,
-              quantity: newQuantity,
-            },
-          });
-        } else {
-          await createOrderDishMutation({
-            urlValues: { orderId: order.id },
-            data: {
-              dishId: dish.id,
-              quantity: newQuantity,
-            },
-          });
-        }
-      } catch (error) {
-        handleError({
-          error,
-        });
-        // Revert to previous value on error
-        isInternalUpdate.current = true;
-        setValue("quantity", alreadyAdded?.quantity ?? 0);
-      }
-    },
-    [order, alreadyAdded, dish.id, setValue, handleError]
-  );
-
-  // Watch for debounced quantity changes and update the server
-  useEffect(() => {
-    if (debouncedQuantity > 0 && !isInternalUpdate.current) {
-      updateQuantity(debouncedQuantity);
-    }
-    isInternalUpdate.current = false;
-  }, [debouncedQuantity, updateQuantity]);
-
-  // Update form value only if alreadyAdded quantity actually changed
-  useEffect(() => {
-    const currentQuantity = getValues("quantity");
-    const newQuantity = alreadyAdded?.quantity ?? 0;
-
-    if (currentQuantity !== newQuantity) {
-      isInternalUpdate.current = true;
-      setValue("quantity", newQuantity);
-    }
-  }, [alreadyAdded?.quantity, setValue, getValues]);
-
-  const handleIncrement = () => {
-    setValue("quantity", getValues("quantity") + 1);
-  };
-
-  const handleDecrement = () => {
-    const currentValue = getValues("quantity");
-    if (currentValue > 0) {
-      setValue("quantity", currentValue - 1);
-    }
-  };
 
   const handleInputClick = (e: React.MouseEvent<HTMLInputElement>) => {
     e.currentTarget.select();
   };
 
   const handleAdd = () => {
-    setValue("quantity", 1);
+    onChange(1);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newQuantity = parseInt(e.target.value);
     if (!isNaN(newQuantity) && newQuantity >= 0) {
-      setValue("quantity", newQuantity);
+      onChange(newQuantity);
     }
   };
-
-  // Ensure quantity is never less than 0
-  useEffect(() => {
-    if (quantity < 0) {
-      isInternalUpdate.current = true;
-      setValue("quantity", 0);
-    }
-  }, [quantity, setValue]);
 
   return (
     <div
       className={cn(
         "relative flex w-full flex-row rounded-xl border border-stone-200 p-2",
-        quantity > 0 && "bg-primary/30"
+        value > 0 && "bg-primary/30"
       )}
     >
       <div className="absolute left-0 top-0 z-10 drop-shadow-lg">
@@ -153,7 +65,7 @@ export default function OrderDishCard({ dish, order }: Props) {
       </div>
       <div className="ml-16 flex w-full flex-col gap-1">
         <span className="font-bold">{dish.name}</span>
-        {quantity === 0 ? (
+        {value === 0 ? (
           <Button
             variant="outline"
             className="w-full"
@@ -174,16 +86,13 @@ export default function OrderDishCard({ dish, order }: Props) {
                 variant="outline"
                 size="icon"
                 className="h-8 w-8"
-                onClick={handleDecrement}
+                onClick={decrement}
                 type="button"
               >
                 <Minus className="h-4 w-4" />
               </Button>
               <Input
-                {...register("quantity", {
-                  valueAsNumber: true,
-                  min: 0,
-                })}
+                value={value}
                 type="number"
                 className="w-full text-center"
                 onClick={handleInputClick}
@@ -194,7 +103,7 @@ export default function OrderDishCard({ dish, order }: Props) {
                 variant="outline"
                 size="icon"
                 className="h-8 w-8"
-                onClick={handleIncrement}
+                onClick={increment}
                 type="button"
               >
                 <Plus className="h-4 w-4" />

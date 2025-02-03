@@ -3,7 +3,6 @@ import { ApiCacheTag } from "@/api/types";
 import { IDispatcherOrder } from "@/types/order.types";
 
 export type IUpdateOrderDish = {
-  dishId: string;
   quantity: number;
 };
 
