@@ -1,6 +1,6 @@
 "use client";
 import formatOrderNumber from "@/utils/format-order-number";
-import { IDispatcherOrder } from "@/types/order.types";
+import { IDispatcherOrder, IOrder } from "@/types/order.types";
 import { cn } from "@/lib/utils";
 import { DeviceMobile } from "@phosphor-icons/react/dist/ssr/DeviceMobile";
 import { Desktop } from "@phosphor-icons/react/dist/ssr/Desktop";
@@ -18,6 +18,16 @@ import {
 
 type Props = {
   order: IDispatcherOrder;
+};
+
+export const orderStatusColors: Record<IOrder["status"], string> = {
+  pending: "bg-indigo-500 dark:bg-indigo-800",
+  cooking: "bg-orange-500 dark:bg-orange-800",
+  ready: "bg-green-500 dark:bg-green-800",
+  delivering: "bg-blue-500 dark:bg-blue-800",
+  paid: "bg-purple-500 dark:bg-purple-800",
+  completed: "bg-gray-500 dark:bg-gray-800",
+  cancelled: "bg-gray-500 dark:bg-gray-800",
 };
 
 export default function OrderCardHeader(props: Props) {
@@ -41,13 +51,7 @@ export default function OrderCardHeader(props: Props) {
     <div
       className={cn(
         "flex w-full flex-row items-center justify-between bg-stone-400 px-2 py-1",
-        status === "pending" && "bg-indigo-500 dark:bg-indigo-800",
-        status === "cooking" && "bg-orange-500 dark:bg-orange-800",
-        status === "ready" && "bg-green-500 dark:bg-green-800",
-        status === "delivering" && "bg-blue-500 dark:bg-blue-800",
-        status === "paid" && "bg-purple-500 dark:bg-purple-800",
-        status === "completed" && "bg-gray-500 dark:bg-gray-800",
-        status === "cancelled" && "bg-gray-500 dark:bg-gray-800"
+        orderStatusColors[status]
       )}
     >
       <span className="text-lg font-bold text-white dark:text-stone-100">

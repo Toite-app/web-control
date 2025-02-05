@@ -21,7 +21,6 @@ import { Input } from "@/components/ui/input";
 import { useState, useMemo } from "react";
 import useDebouncedValue from "@/hooks/use-debounced-value";
 import AddedOrderDishRow from "./components/AddedOrderDishRow";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 type Props = {
   order?: IOrder | null;
@@ -96,9 +95,7 @@ export default function AddedDishesList({ order }: Props) {
   if (!order) {
     return (
       <Card className="flex w-full flex-col gap-2 p-4">
-        <h2 className="text-xl font-semibold">
-          {t("AddedDishesList.orderContent")}
-        </h2>
+        <h2 className="text-xl font-semibold">{t("AddedDishesList.list")}</h2>
         <Separator className="mb-2" />
         <p className="py-4 text-center text-muted-foreground">
           {t("AddedDishesList.noAddedDishes")}
@@ -110,9 +107,7 @@ export default function AddedDishesList({ order }: Props) {
   return (
     <Card className="flex w-full flex-col p-4">
       <div className="flex flex-row items-center justify-between">
-        <h2 className="text-xl font-semibold">
-          {t("AddedDishesList.orderContent")}
-        </h2>
+        <h2 className="text-xl font-semibold">{t("AddedDishesList.list")}</h2>
         <div className="relative w-[300px]">
           <SearchIcon className="absolute left-2 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
@@ -124,88 +119,86 @@ export default function AddedDishesList({ order }: Props) {
         </div>
       </div>
       <Separator className="mt-2" />
-      <ScrollArea className="relative h-[610px] rounded-md">
-        <Table>
-          <TableHeader className="sticky top-0 z-10 bg-background">
+      <Table>
+        <TableHeader className="sticky top-0 z-10 bg-background">
+          <TableRow>
+            <TableHead
+              className="min-w-[100px] cursor-pointer hover:bg-muted/50"
+              onClick={() => handleSort("name")}
+            >
+              <div className="flex items-center gap-1">
+                {t("AddedDishesList.dishName")}
+                {getSortIcon("name")}
+              </div>
+            </TableHead>
+            <TableHead
+              className="cursor-pointer hover:bg-muted/50"
+              onClick={() => handleSort("status")}
+            >
+              <div className="flex items-center gap-1">
+                {t("AddedDishesList.status")}
+                {getSortIcon("status")}
+              </div>
+            </TableHead>
+            <TableHead
+              className="cursor-pointer hover:bg-muted/50"
+              onClick={() => handleSort("quantity")}
+            >
+              <div className="flex items-center gap-1">
+                {t("AddedDishesList.quantity")}
+                {getSortIcon("quantity")}
+              </div>
+            </TableHead>
+            <TableHead
+              className="cursor-pointer hover:bg-muted/50"
+              onClick={() => handleSort("price")}
+            >
+              <div className="flex items-center gap-1">
+                {t("AddedDishesList.price")}
+                {getSortIcon("price")}
+              </div>
+            </TableHead>
+            <TableHead />
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {filteredDishes.length > 0 ? (
+            filteredDishes.map((orderDish) => (
+              <AddedOrderDishRow
+                key={orderDish.id}
+                orderDish={orderDish}
+                order={order}
+              />
+            ))
+          ) : (
             <TableRow>
-              <TableHead
-                className="min-w-[100px] cursor-pointer hover:bg-muted/50"
-                onClick={() => handleSort("name")}
-              >
-                <div className="flex items-center gap-1">
-                  {t("AddedDishesList.dishName")}
-                  {getSortIcon("name")}
-                </div>
-              </TableHead>
-              <TableHead
-                className="cursor-pointer hover:bg-muted/50"
-                onClick={() => handleSort("status")}
-              >
-                <div className="flex items-center gap-1">
-                  {t("AddedDishesList.status")}
-                  {getSortIcon("status")}
-                </div>
-              </TableHead>
-              <TableHead
-                className="cursor-pointer hover:bg-muted/50"
-                onClick={() => handleSort("quantity")}
-              >
-                <div className="flex items-center gap-1">
-                  {t("AddedDishesList.quantity")}
-                  {getSortIcon("quantity")}
-                </div>
-              </TableHead>
-              <TableHead
-                className="cursor-pointer hover:bg-muted/50"
-                onClick={() => handleSort("price")}
-              >
-                <div className="flex items-center gap-1">
-                  {t("AddedDishesList.price")}
-                  {getSortIcon("price")}
-                </div>
-              </TableHead>
-              <TableHead />
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {filteredDishes.length > 0 ? (
-              filteredDishes.map((orderDish) => (
-                <AddedOrderDishRow
-                  key={orderDish.id}
-                  orderDish={orderDish}
-                  order={order}
-                />
-              ))
-            ) : (
-              <TableRow>
-                <td colSpan={5} className="h-[400px]">
-                  <div className="flex h-full flex-col items-center justify-center gap-2 text-muted-foreground">
-                    {debouncedSearch.length > 0 ? (
-                      <SearchX className="h-12 w-12" />
-                    ) : (
-                      <PlusIcon className="h-12 w-12" />
+              <td colSpan={5} className="h-[400px]">
+                <div className="flex h-full flex-col items-center justify-center gap-2 text-muted-foreground">
+                  {debouncedSearch.length > 0 ? (
+                    <SearchX className="h-12 w-12" />
+                  ) : (
+                    <PlusIcon className="h-12 w-12" />
+                  )}
+                  <p className="text-lg font-medium">
+                    {t(
+                      debouncedSearch.length > 0
+                        ? "AddedDishesList.noFilteredDishes"
+                        : "AddedDishesList.noDishes"
                     )}
-                    <p className="text-lg font-medium">
-                      {t(
-                        debouncedSearch.length > 0
-                          ? "AddedDishesList.noFilteredDishes"
-                          : "AddedDishesList.noDishes"
-                      )}
-                    </p>
-                    <p className="text-sm">
-                      {t(
-                        debouncedSearch.length > 0
-                          ? "AddedDishesList.tryDifferentSearch"
-                          : "AddedDishesList.pleaseAddDishes"
-                      )}
-                    </p>
-                  </div>
-                </td>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </ScrollArea>
+                  </p>
+                  <p className="text-sm">
+                    {t(
+                      debouncedSearch.length > 0
+                        ? "AddedDishesList.tryDifferentSearch"
+                        : "AddedDishesList.pleaseAddDishes"
+                    )}
+                  </p>
+                </div>
+              </td>
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
     </Card>
   );
 }

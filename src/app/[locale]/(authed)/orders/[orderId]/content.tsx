@@ -2,14 +2,15 @@
 
 import { updateOrderMutation } from "@/api/fetch/orders/updateOrder";
 import { useGetOrder } from "@/api/fetch/orders/useGetOrder";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 import AddOrderDishesCard from "@/features/order/add-dishes-card";
 import AddedDishesList from "@/features/order/added-dishes-list";
 import OrderForm, { OrderFormValues } from "@/features/order/order-form";
+import OrderInfoCard from "@/features/order/order-info-card";
 import { useErrorHandler } from "@/hooks/useErrorHandler";
 import formatOrderNumber from "@/utils/format-order-number";
-import { ShoppingBagIcon } from "lucide-react";
+import { ChevronLeft, MenuIcon, ShoppingBagIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { UseFormReturn } from "react-hook-form";
 
@@ -51,39 +52,72 @@ export default function OrderPageContent({ orderId }: Props) {
   };
   return (
     <div className="mx-auto flex h-full w-full max-w-screen-xl flex-col gap-4 p-4 py-12">
-      <header className="flex flex-col gap-1">
-        <div className="flex flex-row items-center gap-2">
-          <ShoppingBagIcon className="h-6 w-6" />
-          <h1 className="text-4xl font-bold">{`${t(
-            "navbar.order"
-          )} ${formatOrderNumber(data?.number ?? "")}`}</h1>
+      <div className="flex flex-row items-center justify-between">
+        <div className="flex flex-row items-center gap-4">
+          <Button variant="outline" size="icon">
+            <ChevronLeft className="h-4 w-4" />
+          </Button>
+          <header className="flex flex-col">
+            <div className="flex flex-row items-center gap-2">
+              <ShoppingBagIcon className="h-6 w-6" />
+              <h1 className="text-4xl font-bold">{`${t(
+                "navbar.order"
+              )} ${formatOrderNumber(data?.number ?? "")}`}</h1>
+            </div>
+            <p className="text-stone-500">
+              {t("Orders.edit-order-description")}
+            </p>
+          </header>
         </div>
-        <p className="text-stone-500">{t("Orders.edit-order-description")}</p>
-      </header>
-
-      <div className="flex min-h-[500px] max-w-screen-xl flex-row gap-4">
-        <AddOrderDishesCard order={data} />
-        <AddedDishesList order={data} />
+        <Button variant="outline" size="icon">
+          <MenuIcon className="h-4 w-4" />
+        </Button>
       </div>
 
-      <Card className="mt-4 flex max-w-xl flex-col gap-2 p-4">
-        <h2 className="text-xl font-semibold">
-          {t("Orders.form.general-info")}
-        </h2>
-        <Separator className="mb-2" />
-        <OrderForm
-          initialValues={{
-            type: data?.type ?? undefined,
-            note: data?.note ?? undefined,
-            guestName: data?.guestName ?? undefined,
-            guestPhone: data?.guestPhone ?? undefined,
-            guestsAmount: data?.guestsAmount ?? undefined,
-            restaurantId: data?.restaurantId ?? undefined,
-            tableNumber: data?.tableNumber ?? undefined,
-          }}
-          onSubmit={onSubmit}
-        />
-      </Card>
+      <div className="mt-4 flex max-w-3xl flex-col gap-8">
+        <div className="flex flex-col gap-3">
+          <h2 className="text-3xl font-semibold">{t("Order.info")}</h2>
+          <OrderInfoCard order={data} />
+        </div>
+        <div className="flex flex-col gap-3">
+          <h2 className="text-3xl font-semibold">
+            {t("AddedDishesList.orderContent")}
+          </h2>
+          <AddOrderDishesCard order={data} />
+          <AddedDishesList order={data} />
+        </div>
+        <div className="flex flex-col gap-3">
+          <h2 className="text-3xl font-semibold">
+            {t("Orders.form.general-info")}
+          </h2>
+          <Card className="flex flex-col gap-2 p-4">
+            <OrderForm
+              initialValues={{
+                type: data?.type ?? undefined,
+                note: data?.note ?? undefined,
+                guestName: data?.guestName ?? undefined,
+                guestPhone: data?.guestPhone ?? undefined,
+                guestsAmount: data?.guestsAmount ?? undefined,
+                restaurantId: data?.restaurantId ?? undefined,
+                tableNumber: data?.tableNumber ?? undefined,
+              }}
+              onSubmit={onSubmit}
+            />
+          </Card>
+        </div>
+      </div>
+      {/* <div className="grid grid-cols-2 gap-4">
+        <div className="flex flex-col gap-4">
+          
+
+        </div>
+
+        <div className="relative">
+          <div className="sticky top-4">
+            <AddedDishesList order={data} />
+          </div>
+        </div>
+      </div> */}
     </div>
   );
 }

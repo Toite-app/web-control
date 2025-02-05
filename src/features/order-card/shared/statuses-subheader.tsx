@@ -18,11 +18,13 @@ export default function OrderCardStatusesSubheader(props: Props) {
 
   const t = useTranslations();
 
+  const notDeletedDishes = orderDishes.filter((dish) => !dish.isRemoved);
+
   const isAllDishesReady =
-    orderDishes.every((dish) => dish.status === "ready") &&
+    notDeletedDishes.every((dish) => dish.status === "ready") &&
     orderDishes.length > 0;
 
-  const isHavePendingDishes = orderDishes.some(
+  const isHavePendingDishes = notDeletedDishes.some(
     (dish) => dish.status === "pending"
   );
 

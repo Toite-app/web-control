@@ -40,6 +40,10 @@ export interface IOrder {
   restaurantId: string | null;
   restaurantName: string | null;
   orderDishes: IOrderDish[];
+  cookingStartedAt?: Date;
+  readyAt?: Date;
+  paidAt?: Date;
+  completedAt?: Date;
 }
 
 export type OrderDishStatus = "pending" | "cooking" | "ready" | "completed";
@@ -58,7 +62,8 @@ export interface IOrderDish {
   updatedAt: Date;
 }
 
-export interface IDispatcherOrderDish extends Pick<IOrderDish, "status"> {}
+export interface IDispatcherOrderDish
+  extends Pick<IOrderDish, "status" | "isRemoved"> {}
 
 export type IDispatcherOrder = Omit<IOrder, "orderDishes"> & {
   orderDishes: IDispatcherOrderDish[];
