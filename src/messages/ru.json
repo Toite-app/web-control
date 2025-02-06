@@ -287,6 +287,11 @@
     "current": "Текущее",
     "summary": "Сводка",
     "actions": "Действия",
+    "action-variants": {
+      "send-to-kitchen": "Отправить на кухню",
+      "print-pre-check": "Распечатать пречек",
+      "calculate-order": "Рассчитать заказ"
+    },
     "summary-card": {
       "order-type": "Тип заказа",
       "order-from": "Оформлено",

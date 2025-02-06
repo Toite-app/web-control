@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import AddOrderDishesCard from "@/features/order/add-dishes-card";
 import AddedDishesList from "@/features/order/added-dishes-list";
+import OrderActions from "@/features/order/order-actions";
 import OrderForm, { OrderFormValues } from "@/features/order/order-form";
 import OrderInfoCard from "@/features/order/order-info-card";
 import OrderSummaryCard from "@/features/order/order-summary-card";
@@ -109,10 +110,14 @@ export default function OrderPageContent({ orderId }: Props) {
           </div>
         </div>
         <div className="relative">
-          <div className="sticky top-4">
+          <div className="sticky top-6 flex flex-col gap-6">
             <div className="flex w-full flex-col gap-3">
               <h2 className="text-3xl font-semibold">{t("Order.summary")}</h2>
               <OrderSummaryCard order={data} />
+            </div>
+            <div className="flex w-full flex-col gap-3">
+              <h2 className="text-xl font-semibold">{t("Order.actions")}</h2>
+              <OrderActions order={data} />
             </div>
           </div>
         </div>
