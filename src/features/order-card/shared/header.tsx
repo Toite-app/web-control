@@ -4,9 +4,7 @@ import { IDispatcherOrder, IOrder } from "@/types/order.types";
 import { cn } from "@/lib/utils";
 import { DeviceMobile } from "@phosphor-icons/react/dist/ssr/DeviceMobile";
 import { Desktop } from "@phosphor-icons/react/dist/ssr/Desktop";
-import { Truck } from "@phosphor-icons/react/dist/ssr/Truck";
-import { Backpack } from "@phosphor-icons/react/dist/ssr/Backpack";
-import { Cheers } from "@phosphor-icons/react/dist/ssr/Cheers";
+
 import { CheckIcon, ClockIcon, PenIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import {
@@ -15,6 +13,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import OrderTypeIcon from "@/features/order-card/shared/type-icon";
 
 type Props = {
   order: IDispatcherOrder;
@@ -103,9 +102,7 @@ export default function OrderCardHeader(props: Props) {
           {type === "hall" && (
             <Tooltip>
               <TooltipTrigger>
-                <svg className="h-5 w-5 fill-white" viewBox="0 0 24 24">
-                  <path d="M22 7.5C22 5.57 17.52 4 12 4S2 5.57 2 7.5c0 1.81 3.95 3.31 9 3.48V15H9.35c-.82 0-1.55.5-1.86 1.26L6 20h2l1.2-3h5.6l1.2 3h2l-1.5-3.74c-.3-.76-1.04-1.26-1.85-1.26H13v-4.02c5.05-.17 9-1.67 9-3.48z"></path>
-                </svg>
+                <OrderTypeIcon type={type} />
               </TooltipTrigger>
               <TooltipContent>
                 <p>{t("type.hall")}</p>
@@ -115,7 +112,7 @@ export default function OrderCardHeader(props: Props) {
           {type === "delivery" && (
             <Tooltip>
               <TooltipTrigger>
-                <Truck className="h-5 w-5 text-white" weight="fill" />
+                <OrderTypeIcon type={type} />
               </TooltipTrigger>
               <TooltipContent>
                 <p>{t("type.delivery")}</p>
@@ -125,7 +122,7 @@ export default function OrderCardHeader(props: Props) {
           {type === "takeaway" && (
             <Tooltip>
               <TooltipTrigger>
-                <Backpack className="h-5 w-5 text-white" weight="fill" />
+                <OrderTypeIcon type={type} />
               </TooltipTrigger>
               <TooltipContent>
                 <p>{t("type.takeaway")}</p>
@@ -135,7 +132,7 @@ export default function OrderCardHeader(props: Props) {
           {type === "banquet" && (
             <Tooltip>
               <TooltipTrigger>
-                <Cheers className="h-5 w-5 text-white" weight="fill" />
+                <OrderTypeIcon type={type} />
               </TooltipTrigger>
               <TooltipContent>
                 <p>{t("type.banquet")}</p>

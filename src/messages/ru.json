@@ -285,6 +285,31 @@
     "order-status": "Статус заказа",
     "info": "Информация",
     "current": "Текущее",
+    "summary": "Сводка",
+    "actions": "Действия",
+    "summary-card": {
+      "order-type": "Тип заказа",
+      "order-from": "Оформлено",
+      "order-from-values": {
+        "internal": "В системе",
+        "app": "В приложении",
+        "website": "На сайте"
+      },
+      "order-type-values": {
+        "hall": "Зал",
+        "delivery": "Доставка",
+        "takeaway": "С собой",
+        "banquet": "Банкет"
+      },
+      "order-restaurant": "Ресторан",
+      "prices": {
+        "subtotal": "Сумма заказа",
+        "total": "Сумма к оплате",
+        "surchargeAmount": "Наценка",
+        "discountAmount": "Скидка",
+        "bonusUsed": "Оплата бонусами"
+      }
+    },
     "stepper": {
       "pending": "Заказ создан и ожидает обработки",
       "cooking": "Заказ готовится на кухне",

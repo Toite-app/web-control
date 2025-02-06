@@ -8,6 +8,7 @@ import AddOrderDishesCard from "@/features/order/add-dishes-card";
 import AddedDishesList from "@/features/order/added-dishes-list";
 import OrderForm, { OrderFormValues } from "@/features/order/order-form";
 import OrderInfoCard from "@/features/order/order-info-card";
+import OrderSummaryCard from "@/features/order/order-summary-card";
 import { useErrorHandler } from "@/hooks/useErrorHandler";
 import formatOrderNumber from "@/utils/format-order-number";
 import { ChevronLeft, MenuIcon, ShoppingBagIcon } from "lucide-react";
@@ -74,50 +75,48 @@ export default function OrderPageContent({ orderId }: Props) {
         </Button>
       </div>
 
-      <div className="mt-4 flex max-w-3xl flex-col gap-8">
-        <div className="flex flex-col gap-3">
-          <h2 className="text-3xl font-semibold">{t("Order.info")}</h2>
-          <OrderInfoCard order={data} />
-        </div>
-        <div className="flex flex-col gap-3">
-          <h2 className="text-3xl font-semibold">
-            {t("AddedDishesList.orderContent")}
-          </h2>
-          <AddOrderDishesCard order={data} />
-          <AddedDishesList order={data} />
-        </div>
-        <div className="flex flex-col gap-3">
-          <h2 className="text-3xl font-semibold">
-            {t("Orders.form.general-info")}
-          </h2>
-          <Card className="flex flex-col gap-2 p-4">
-            <OrderForm
-              initialValues={{
-                type: data?.type ?? undefined,
-                note: data?.note ?? undefined,
-                guestName: data?.guestName ?? undefined,
-                guestPhone: data?.guestPhone ?? undefined,
-                guestsAmount: data?.guestsAmount ?? undefined,
-                restaurantId: data?.restaurantId ?? undefined,
-                tableNumber: data?.tableNumber ?? undefined,
-              }}
-              onSubmit={onSubmit}
-            />
-          </Card>
-        </div>
-      </div>
-      {/* <div className="grid grid-cols-2 gap-4">
-        <div className="flex flex-col gap-4">
-          
-
-        </div>
-
-        <div className="relative">
-          <div className="sticky top-4">
+      <div className="mt-4 grid grid-cols-[minmax(630px,1fr)_minmax(0,400px)] gap-2">
+        <div className="flex max-w-3xl flex-col gap-8">
+          <div className="flex flex-col gap-3">
+            <h2 className="text-3xl font-semibold">{t("Order.info")}</h2>
+            <OrderInfoCard order={data} />
+          </div>
+          <div className="flex flex-col gap-3">
+            <h2 className="text-3xl font-semibold">
+              {t("AddedDishesList.orderContent")}
+            </h2>
+            <AddOrderDishesCard order={data} />
             <AddedDishesList order={data} />
           </div>
+          <div className="flex flex-col gap-3">
+            <h2 className="text-3xl font-semibold">
+              {t("Orders.form.general-info")}
+            </h2>
+            <Card className="flex flex-col gap-2 p-4">
+              <OrderForm
+                initialValues={{
+                  type: data?.type ?? undefined,
+                  note: data?.note ?? undefined,
+                  guestName: data?.guestName ?? undefined,
+                  guestPhone: data?.guestPhone ?? undefined,
+                  guestsAmount: data?.guestsAmount ?? undefined,
+                  restaurantId: data?.restaurantId ?? undefined,
+                  tableNumber: data?.tableNumber ?? undefined,
+                }}
+                onSubmit={onSubmit}
+              />
+            </Card>
+          </div>
         </div>
-      </div> */}
+        <div className="relative">
+          <div className="sticky top-4">
+            <div className="flex w-full flex-col gap-3">
+              <h2 className="text-3xl font-semibold">{t("Order.summary")}</h2>
+              <OrderSummaryCard order={data} />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
