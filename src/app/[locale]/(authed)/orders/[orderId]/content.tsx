@@ -10,7 +10,6 @@ import OrderActions from "@/features/order/order-actions";
 import OrderForm, { OrderFormValues } from "@/features/order/order-form";
 import OrderInfoCard from "@/features/order/order-info-card";
 import OrderSummaryCard from "@/features/order/order-summary-card";
-import useSubscription from "@/hooks/use-subscription";
 import { useErrorHandler } from "@/hooks/useErrorHandler";
 import formatOrderNumber from "@/utils/format-order-number";
 import { ChevronLeft, MenuIcon, ShoppingBagIcon } from "lucide-react";
@@ -53,13 +52,6 @@ export default function OrderPageContent({ orderId }: Props) {
       });
     }
   };
-
-  useSubscription({
-    type: "ORDER",
-    data: {
-      orderId,
-    },
-  });
 
   return (
     <div className="mx-auto flex h-full w-full max-w-screen-xl flex-col gap-4 p-4 py-12">

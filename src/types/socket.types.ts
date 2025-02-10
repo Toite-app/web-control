@@ -1,3 +1,5 @@
+import { IOrder } from "@/types/order.types";
+
 export enum GatewayIncomingMessage {
   SUBSCRIPTION = "subscription",
 }
@@ -24,3 +26,20 @@ export enum IncomingSubscriptionAction {
 export type IncomingSubscription = ClientSubscription & {
   action: `${IncomingSubscriptionAction}`;
 };
+
+export enum SocketEventType {
+  SUBSCRIPTION_UPDATE = "subscription:update",
+}
+
+export type SocketOrderUpdateEvent = {
+  id: string;
+  type: "ORDER";
+  order: IOrder;
+};
+
+export type SocketEventData = SocketOrderUpdateEvent;
+
+export interface SocketEvent {
+  type: `${SocketEventType}`;
+  data: SocketEventData;
+}

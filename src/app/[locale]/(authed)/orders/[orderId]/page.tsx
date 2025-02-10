@@ -4,12 +4,13 @@ import TOITE_CONFIG from "@config";
 
 import { getTranslations } from "next-intl/server";
 import Content from "./content";
+import OrderSocket from "@/app/[locale]/(authed)/orders/[orderId]/socket";
 
 export const generateMetadata = async (
   props: IntlPageParams<{ orderId: string }>
 ) => {
   const {
-    params: { orderId, locale },
+    params: { locale },
   } = props;
 
   const tNav = await getTranslations({
@@ -27,7 +28,12 @@ const OrderPage = (props: IntlPageParams<{ orderId: string }>) => {
     params: { orderId },
   } = props;
 
-  return <Content orderId={orderId} />;
+  return (
+    <>
+      <Content orderId={orderId} />
+      <OrderSocket orderId={orderId} />
+    </>
+  );
 };
 
 export default OrderPage;
