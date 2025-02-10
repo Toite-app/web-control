@@ -10,8 +10,6 @@ export interface SocketStore {
 export const socketStore = create<SocketStore>((set, get) => ({
   socket: null,
   status: null,
-  cacheKeys: new Set(),
-  sentCacheKeys: new Set(),
   connect: () => {
     if (get().socket) return;
 
@@ -33,6 +31,12 @@ export const socketStore = create<SocketStore>((set, get) => ({
       });
     });
 
+    socket.on("disconnect", () => {
+      set({
+        status: null,
+      });
+    });
+
     set({
       socket,
       status: "connecting",
@@ -44,5 +48,7 @@ export const useSocketStore = socketStore;
 export const socket = socketStore.getState().socket;
 
 export const useSocket = () => {
-  return useSocketStore((state) => state.socket);
+  const instance = useSocketStore((state) => state.socket);
+
+  return instance;
 };
