@@ -52,6 +52,7 @@ export default function OrderPageContent({ orderId }: Props) {
       });
     }
   };
+
   return (
     <div className="mx-auto flex h-full w-full max-w-screen-xl flex-col gap-4 p-4 py-12">
       <div className="flex flex-row items-center justify-between">

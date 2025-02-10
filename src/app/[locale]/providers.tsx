@@ -3,10 +3,12 @@
 import { AbstractIntlMessages, NextIntlClientProvider } from "next-intl";
 import { ThemeProvider } from "next-themes";
 import { FC, PropsWithChildren } from "react";
+import { SWRDevTools } from "swr-devtools";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 import { Provider as WrapBalancerProvider } from "react-wrap-balancer";
 import DialogsPortal from "@/components/dialogs-portal";
+import SocketProvider from "@/components/socket-provider";
 
 type Props = PropsWithChildren & {
   messages: AbstractIntlMessages;
@@ -18,15 +20,18 @@ const Providers: FC<Props> = (props) => {
 
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-      <NuqsAdapter>
-        <NextIntlClientProvider
-          timeZone={"America/New_York"}
-          {...{ messages, locale }}
-        >
-          <WrapBalancerProvider>{children}</WrapBalancerProvider>
-          <DialogsPortal />
-        </NextIntlClientProvider>
-      </NuqsAdapter>
+      <SWRDevTools>
+        <NuqsAdapter>
+          <NextIntlClientProvider
+            timeZone={"America/New_York"}
+            {...{ messages, locale }}
+          >
+            <WrapBalancerProvider>{children}</WrapBalancerProvider>
+            <DialogsPortal />
+            <SocketProvider />
+          </NextIntlClientProvider>
+        </NuqsAdapter>
+      </SWRDevTools>
     </ThemeProvider>
   );
 };

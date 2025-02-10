@@ -10,5 +10,8 @@ export const useGetOrder = buildApiHook<
 >({
   url: "/orders/{orderId}",
   method: "GET",
-  tags: [ApiCacheTag.ORDERS],
+  tags: ({ urlValues }) => [
+    ApiCacheTag.ORDERS,
+    `${ApiCacheTag.ORDERS}:${urlValues?.orderId}`,
+  ],
 });

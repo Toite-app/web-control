@@ -13,7 +13,13 @@ export type BuildApiHookConfig<
 > = {
   url: string;
   method: Method;
-  tags?: ApiCacheTag[];
+  tags?:
+    | ApiCacheTag[]
+    | ((options: {
+        urlValues: U | undefined;
+        params: P | undefined;
+        url: string;
+      }) => string[]);
 } & Pick<UseApiHookConfig<U, R, P, D>, "config" | "requestConfig">;
 
 // When hook used in client components
@@ -60,7 +66,13 @@ export const buildApiHook = <
     } = config || {};
 
     const url = _buildUrl(_url, urlValues ?? {});
-    const tags = [`${url}-${JSON.stringify(params)}`, ..._b_tags];
+
+    const buildTags =
+      typeof _b_tags === "function"
+        ? _b_tags({ urlValues, params, url })
+        : _b_tags;
+
+    const tags = [`${url}-${JSON.stringify(params)}`, ...buildTags];
 
     return useSWR(
       tags,
