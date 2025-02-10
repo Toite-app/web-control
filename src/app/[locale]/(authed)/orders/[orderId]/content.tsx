@@ -24,7 +24,7 @@ export default function OrderPageContent({ orderId }: Props) {
   const t = useTranslations();
   const handleError = useErrorHandler();
 
-  const { data, isLoading } = useGetOrder({
+  const { data } = useGetOrder({
     urlValues: {
       orderId,
     },
@@ -77,12 +77,13 @@ export default function OrderPageContent({ orderId }: Props) {
         </Button>
       </div>
 
-      <div className="mt-4 grid grid-cols-[minmax(630px,1fr)_minmax(0,400px)] gap-2">
+      <div className="mt-4 grid grid-cols-1 gap-2 lg:grid-cols-[minmax(630px,1fr)_minmax(0,400px)]">
         <div className="flex max-w-3xl flex-col gap-8">
           <div className="flex flex-col gap-3">
             <h2 className="text-3xl font-semibold">{t("Order.info")}</h2>
             <OrderInfoCard order={data} />
           </div>
+
           <div className="flex flex-col gap-3">
             <h2 className="text-3xl font-semibold">
               {t("AddedDishesList.orderContent")}
@@ -90,6 +91,19 @@ export default function OrderPageContent({ orderId }: Props) {
             <AddOrderDishesCard order={data} />
             <AddedDishesList order={data} />
           </div>
+
+          {/* Summary and Actions for mobile/tablet */}
+          <div className="flex flex-col gap-6 lg:hidden">
+            <div className="flex w-full flex-col gap-3">
+              <h2 className="text-3xl font-semibold">{t("Order.summary")}</h2>
+              <OrderSummaryCard order={data} />
+            </div>
+            <div className="flex w-full flex-col gap-3">
+              <h2 className="text-xl font-semibold">{t("Order.actions")}</h2>
+              <OrderActions order={data} />
+            </div>
+          </div>
+
           <div className="flex flex-col gap-3">
             <h2 className="text-3xl font-semibold">
               {t("Orders.form.general-info")}
@@ -110,7 +124,9 @@ export default function OrderPageContent({ orderId }: Props) {
             </Card>
           </div>
         </div>
-        <div className="relative">
+
+        {/* Summary and Actions for desktop */}
+        <div className="relative hidden lg:block">
           <div className="sticky top-6 flex flex-col gap-6">
             <div className="flex w-full flex-col gap-3">
               <h2 className="text-3xl font-semibold">{t("Order.summary")}</h2>
