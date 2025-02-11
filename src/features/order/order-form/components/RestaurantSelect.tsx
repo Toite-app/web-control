@@ -27,6 +27,7 @@ export default function RestaurantSelect({ form }: RestaurantSelectProps) {
 
   const { data: restaurantsData, isLoading: isLoadingRestaurants } =
     useGetRestaurants();
+
   const restaurants = restaurantsData?.data ?? [];
 
   return (
@@ -38,7 +39,7 @@ export default function RestaurantSelect({ form }: RestaurantSelectProps) {
           <FormLabel>{t("Orders.form.restaurant")}</FormLabel>
           <Select
             onValueChange={field.onChange}
-            defaultValue={field.value}
+            value={field.value}
             disabled={isLoadingRestaurants}
           >
             <SelectTrigger error={!!form.formState.errors.restaurantId}>
