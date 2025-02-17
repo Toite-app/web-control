@@ -37,7 +37,16 @@ export default function AddedOrderDishRow({ orderDish, order }: Props) {
 
   return (
     <TableRow>
-      <TableCell>{orderDish.name}</TableCell>
+      <TableCell>
+        <div className="flex flex-col">
+          {orderDish.isAdditional && (
+            <span className="text-sm text-primary">
+              {t("AddedDishesList.additional-cooking")}
+            </span>
+          )}
+          {orderDish.name}
+        </div>
+      </TableCell>
       <TableCell>
         <div
           className={cn(

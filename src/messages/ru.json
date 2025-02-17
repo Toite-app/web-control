@@ -261,6 +261,7 @@
     "orderContent": "Содержимое заказа",
     "noAddedDishes": "Нет добавленных блюд",
     "dishName": "Название",
+    "additional-cooking": "Дозаказ",
     "status": "Статус",
     "quantity": "Количество",
     "price": "Цена",

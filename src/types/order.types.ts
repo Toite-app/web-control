@@ -58,6 +58,7 @@ export interface IOrderDish {
   price: string;
   finalPrice: string;
   isRemoved: boolean;
+  isAdditional: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
