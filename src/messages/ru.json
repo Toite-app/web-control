@@ -256,6 +256,10 @@
       "banquet": "Банкет"
     }
   },
+  "AddedOrderDishRow": {
+    "force-ready-success": "Блюдо принудительно приготовлено",
+    "force-ready-success-description": "Блюдо принудительно приготовлено"
+  },
   "AddedDishesList": {
     "list": "Список блюд",
     "orderContent": "Содержимое заказа",
@@ -277,6 +281,7 @@
       "desc": "По убыванию"
     },
     "removeDish": "Удалить блюдо",
+    "forceCooking": "Принудительно приготовить",
     "noDishes": "Нет блюд",
     "pleaseAddDishes": "Пожалуйста, добавьте блюда в заказ",
     "noFilteredDishes": "Блюда не найдены",

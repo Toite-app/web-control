@@ -9,6 +9,7 @@ import {
   EuroIcon,
   DollarSignIcon,
   XIcon,
+  CheckIcon,
 } from "lucide-react";
 import OrderDishQuantityInput from "./QuantityInput";
 import {
@@ -18,6 +19,10 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import useDishQuantity from "@/features/order/hooks/use-dish-quantity";
+import { useCallback } from "react";
+import { useErrorHandler } from "@/hooks/useErrorHandler";
+import { forceReadyOrderDishMutation } from "@/api/fetch/orders/dishes/forceReady";
+import { useToast } from "@/hooks/use-toast";
 
 type Props = {
   orderDish: IOrderDish;
@@ -27,6 +32,8 @@ type Props = {
 export default function AddedOrderDishRow({ orderDish, order }: Props) {
   const { currency } = order;
   const t = useTranslations();
+  const handleError = useErrorHandler();
+  const { toast } = useToast();
 
   const { remove } = useDishQuantity({
     dishId: orderDish.dishId,
@@ -34,6 +41,25 @@ export default function AddedOrderDishRow({ orderDish, order }: Props) {
     orderId: order.id,
     saveDebounceTime: 50,
   });
+
+  const handleForceReady = useCallback(async () => {
+    try {
+      await forceReadyOrderDishMutation({
+        urlValues: {
+          orderId: order.id,
+          orderDishId: orderDish.id,
+        },
+      });
+
+      toast({
+        title: t("AddedOrderDishRow.force-ready-success"),
+        description: t("AddedOrderDishRow.force-ready-success-description"),
+        variant: "success",
+      });
+    } catch (error) {
+      handleError({ error });
+    }
+  }, [order, orderDish, handleError, t, toast]);
 
   return (
     <TableRow>
@@ -82,6 +108,24 @@ export default function AddedOrderDishRow({ orderDish, order }: Props) {
               </TooltipTrigger>
               <TooltipContent>
                 <p>{t("AddedDishesList.removeDish")}</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        )}
+        {orderDish.status === "cooking" && (
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon-sm"
+                  onClick={handleForceReady}
+                >
+                  <CheckIcon className="h-4 w-4 text-green-500" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{t("AddedDishesList.forceCooking")}</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
