@@ -9,5 +9,11 @@ export const sendToKitchenMutation = buildApiMutation<
 >({
   url: "/orders/{orderId}/actions/send-to-kitchen",
   method: "POST",
-  tags: [ApiCacheTag.ORDERS, ApiCacheTag.ORDER_AVAILABLE_ACTIONS],
+  tags: [
+    ApiCacheTag.DISPATCHER_ORDERS,
+    ApiCacheTag.DISPATCHER_ATTENTION_ORDERS,
+    ApiCacheTag.DISPATCHER_DELAYED_ORDERS,
+    ApiCacheTag.ORDERS,
+    ApiCacheTag.ORDER_AVAILABLE_ACTIONS,
+  ],
 });

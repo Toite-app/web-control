@@ -31,6 +31,14 @@ export default function OrderDishQuantityInput({ orderDish }: Props) {
     }
   };
 
+  if (orderDish.status !== "pending") {
+    return (
+      <div className="flex w-full flex-row items-center justify-center gap-1">
+        <p>{orderDish.quantity}</p>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-row items-center gap-1">
       <Button
