@@ -47,6 +47,7 @@ export default function useDishQuantity(options: Options) {
   } = options;
 
   const handleError = useErrorHandler();
+  const isLocalChange = useRef(false);
 
   const prevOrderDish = useRef<Pick<IOrderDish, "id" | "quantity"> | null>(
     orderDish ?? null
@@ -63,22 +64,23 @@ export default function useDishQuantity(options: Options) {
    * Increment the quantity of the dish
    */
   const increment = useCallback(() => {
+    isLocalChange.current = true;
     setLocalQuantity((prev) => (prev ?? 0) + 1);
   }, []);
 
   /**
    * Decrement the quantity of the dish
    */
-  const decrement = useCallback(
-    () =>
-      setLocalQuantity((prev) => {
-        if (prev === null || prev <= 0) return 0;
-        return prev - 1;
-      }),
-    []
-  );
+  const decrement = useCallback(() => {
+    isLocalChange.current = true;
+    setLocalQuantity((prev) => {
+      if (prev === null || prev <= 0) return 0;
+      return prev - 1;
+    });
+  }, []);
 
   const remove = useCallback(() => {
+    isLocalChange.current = true;
     setLocalQuantity(0);
   }, []);
 
@@ -89,10 +91,13 @@ export default function useDishQuantity(options: Options) {
     if (value === undefined || value === null || Number.isNaN(value)) return;
     if (value < 0) value = 0;
 
+    isLocalChange.current = true;
     setLocalQuantity(value);
   }, []);
 
   const save = useCallback(async () => {
+    if (!isLocalChange.current) return;
+
     const isAlreadyUpdating =
       !!updatingDishesStore.getState().updatingMap?.[dishId];
 
@@ -145,6 +150,7 @@ export default function useDishQuantity(options: Options) {
 
       setLocalQuantity(orderDish?.quantity ?? 0);
     } finally {
+      isLocalChange.current = false;
       // Prevent from spamming with one second timeout
       setTimeout(() => {
         updatingDishesStore.getState().removeFromUpdatingMap(dishId);
@@ -164,7 +170,10 @@ export default function useDishQuantity(options: Options) {
 
   useEffect(() => {
     if (orderDish) {
-      setLocalQuantity(orderDish.quantity);
+      // Only update local quantity if it's not a local change
+      if (!isLocalChange.current) {
+        setLocalQuantity(orderDish.quantity);
+      }
     } else {
       if (prevOrderDish.current) {
         setLocalQuantity(null);
@@ -172,6 +181,7 @@ export default function useDishQuantity(options: Options) {
     }
 
     prevOrderDish.current = orderDish ?? null;
+    isLocalChange.current = false;
   }, [orderDish]);
 
   useEffect(() => {
