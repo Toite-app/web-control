@@ -68,3 +68,9 @@ export interface IDispatcherOrderDish
 export type IDispatcherOrder = Omit<IOrder, "orderDishes"> & {
   orderDishes: IDispatcherOrderDish[];
 };
+
+export interface IOrderAvailableActions {
+  canPrecheck: boolean;
+  canCalculate: boolean;
+  canSendToKitchen: boolean;
+}
