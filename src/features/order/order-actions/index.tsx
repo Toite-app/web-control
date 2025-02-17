@@ -6,7 +6,11 @@ import { CookingPot } from "@phosphor-icons/react/dist/ssr/CookingPot";
 import { Receipt } from "@phosphor-icons/react/dist/ssr/Receipt";
 import { MathOperations } from "@phosphor-icons/react/dist/ssr/MathOperations";
 import { useTranslations } from "next-intl";
-import { useGetOrderAvailableActions } from "@/api/fetch/orders/available-actions/useGetOrderAvailableActions";
+import { useGetOrderAvailableActions } from "@/api/fetch/orders/actions/useGetOrderAvailableActions";
+import { useCallback } from "react";
+import { sendToKitchenMutation } from "@/api/fetch/orders/actions/sendToKitchen";
+import { useErrorHandler } from "@/hooks/useErrorHandler";
+import { useToast } from "@/hooks/use-toast";
 
 type Props = {
   order?: IOrder | null;
@@ -14,6 +18,8 @@ type Props = {
 
 export default function OrderActions({ order }: Props) {
   const t = useTranslations();
+  const handleError = useErrorHandler();
+  const { toast } = useToast();
 
   const actions = useGetOrderAvailableActions({
     urlValues: {
@@ -29,6 +35,24 @@ export default function OrderActions({ order }: Props) {
     : !!actions.data?.canSendToKitchen;
   const canCalculate = actions.isLoading ? false : !!actions.data?.canCalculate;
 
+  const handleSendToKitchen = useCallback(async () => {
+    if (!order?.id) return;
+
+    try {
+      await sendToKitchenMutation({
+        urlValues: { orderId: order?.id },
+      });
+
+      toast({
+        title: t("OrderActions.send-to-kitchen-success"),
+        description: t("OrderActions.send-to-kitchen-success-description"),
+        variant: "success",
+      });
+    } catch (error) {
+      handleError({ error });
+    }
+  }, [order?.id, t, toast, handleError]);
+
   return (
     <div className="flex w-full flex-col gap-2">
       <Button variant="default" disabled={!canPrecheck}>
@@ -43,6 +67,7 @@ export default function OrderActions({ order }: Props) {
         className="bg-cyan-500 hover:bg-cyan-600 disabled:bg-cyan-800"
         variant="default"
         disabled={!canSendToKitchen}
+        onClick={handleSendToKitchen}
       >
         <div className="flex flex-row items-center gap-3">
           <CookingPot

@@ -281,6 +281,10 @@
     "noFilteredDishes": "Блюда не найдены",
     "tryDifferentSearch": "Попробуйте изменить параметры поиска"
   },
+  "OrderActions": {
+    "send-to-kitchen-success": "Блюда отправлены на кухню",
+    "send-to-kitchen-success-description": "Блюда успешно отправлены на кухню"
+  },
   "Order": {
     "order-status": "Статус заказа",
     "info": "Информация",

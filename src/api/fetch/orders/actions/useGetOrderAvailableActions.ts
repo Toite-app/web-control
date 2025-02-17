@@ -8,7 +8,7 @@ export const useGetOrderAvailableActions = buildApiHook<
   unknown,
   unknown
 >({
-  url: "/orders/{orderId}/available-actions",
+  url: "/orders/{orderId}/actions/available",
   method: "GET",
   tags: ({ urlValues }) => [
     ApiCacheTag.ORDERS,
