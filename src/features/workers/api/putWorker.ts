@@ -3,17 +3,12 @@ import { ApiCacheTag } from "@/api/types";
 import { IWorker } from "@/types/worker.types";
 
 export type IPutWorker = Partial<
-  Pick<
-    IWorker,
-    | "name"
-    | "login"
-    | "restaurantId"
-    | "role"
-    | "isBlocked"
-    | "hiredAt"
-    | "firedAt"
-  >
->;
+  Pick<IWorker, "name" | "login" | "role" | "isBlocked" | "hiredAt" | "firedAt">
+> & {
+  restaurants: {
+    restaurantId: string;
+  }[];
+};
 
 export const putWorkerMutation = buildApiMutation<
   { id: string },

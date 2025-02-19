@@ -25,6 +25,7 @@ import { Switch } from "@/components/ui/switch";
 import { AddressSuggestionCombobox } from "./AddressSuggestionCombobox";
 import { TimeSelect } from "./TimeSelect";
 import { Textarea } from "@/components/ui/textarea";
+import MultipleSelector from "@/components/ui/multiple-select";
 
 // Create a separate FormField component to track individual field renders
 const FormFieldWrapper = <TFieldValues extends FieldValues>({
@@ -147,6 +148,21 @@ const FormFieldWrapper = <TFieldValues extends FieldValues>({
                 ))}
               </SelectContent>
             </Select>
+          )}
+
+          {/* Rendering multiple select */}
+          {data.type === "multiple-select" && (
+            <MultipleSelector
+              value={formField.value}
+              onChange={formField.onChange}
+              placeholder={text(
+                data.placeholder,
+                data.intl !== undefined ? data.intl : intl
+              )}
+              options={data.options}
+              disabled={disabled || formField.disabled}
+              error={!!errors?.[name]}
+            />
           )}
 
           {/* Rendering number input */}

@@ -1,4 +1,5 @@
 import { ButtonProps } from "@/components/ui/button";
+import { MultipleSelectOption } from "@/components/ui/multiple-select";
 import { ReactNode } from "react";
 import { FieldValues, Path, UseFormReturn } from "react-hook-form";
 
@@ -25,6 +26,17 @@ export type SelectFormField = {
   intl?: boolean;
   withEmptyOption?: boolean;
   options: SelectFormFieldOption[];
+};
+
+export type MultipleSelectFormFieldOption = MultipleSelectOption & {
+  intl?: boolean;
+};
+
+export type MultipleSelectFormField = {
+  type: "multiple-select";
+  placeholder?: string;
+  intl?: boolean;
+  options: MultipleSelectFormFieldOption[];
 };
 
 export type NumberInputFormField = {
@@ -67,7 +79,8 @@ export type FormField<TFieldValues> = {
     | SwitchFormField
     | AddressSuggestionFormField
     | TimeSelectFormField
-    | TextareaFormField;
+    | TextareaFormField
+    | MultipleSelectFormField;
   label?: string;
   description?: string;
   intl?: boolean;

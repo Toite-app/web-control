@@ -13,8 +13,10 @@ export interface IWorker {
   id: string;
   name: string;
   login: string;
-  restaurantId: string | null;
-  restaurantName: string | null;
+  restaurants: {
+    restaurantId: string;
+    restaurantName: string;
+  }[];
   role: WorkerRole;
   isBlocked: boolean;
   hiredAt: string | null;

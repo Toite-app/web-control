@@ -16,11 +16,16 @@ import { useErrorHandler } from "@/hooks/useErrorHandler";
 import { useForm } from "react-hook-form";
 import { useToast } from "@/hooks/use-toast";
 import { useGetRestaurants } from "@/features/restaurants/api/useGetRestaurants";
+import { MultipleSelectOption } from "@/components/ui/multiple-select";
 
 export type WorkerDialogProps = {
   data?: IWorker;
   open?: boolean;
   onClose?: () => void;
+};
+
+type FormValues = Omit<ICreateWorker, "restaurants"> & {
+  restaurants: MultipleSelectOption[];
 };
 
 const WorkerDialog: FC<WorkerDialogProps> = (props) => {
@@ -38,9 +43,9 @@ const WorkerDialog: FC<WorkerDialogProps> = (props) => {
     },
   });
 
-  const form = useForm<ICreateWorker>({
+  const form = useForm<FormValues>({
     defaultValues: {
-      restaurantId: worker?.restaurantId || undefined,
+      restaurants: worker?.restaurants || [],
       name: worker?.name || "",
       login: worker?.login || "",
       role: worker?.role || undefined,
@@ -48,10 +53,20 @@ const WorkerDialog: FC<WorkerDialogProps> = (props) => {
     },
   });
 
-  const onSubmit = async (data: ICreateWorker) => {
+  const onSubmit = async (values: FormValues) => {
+    const data: ICreateWorker = {
+      ...values,
+      restaurants: values.restaurants.map((restaurant) => ({
+        restaurantId: restaurant.value,
+      })),
+    };
+
     try {
       if (!isEdit) {
-        await createWorkerMutation({ data });
+        await createWorkerMutation({
+          data,
+        });
+
         toast({
           title: t("Workers.dialog.create-success"),
           description: t("Workers.dialog.create-success-description"),
@@ -64,6 +79,7 @@ const WorkerDialog: FC<WorkerDialogProps> = (props) => {
           },
           data,
         });
+
         toast({
           title: t("Workers.dialog.edit-success"),
           description: t("Workers.dialog.edit-success-description"),
@@ -83,7 +99,11 @@ const WorkerDialog: FC<WorkerDialogProps> = (props) => {
         name: worker?.name || "",
         login: worker?.login || "",
         role: worker?.role || undefined,
-        restaurantId: worker?.restaurantId || undefined,
+        restaurants:
+          worker?.restaurants.map((restaurant) => ({
+            label: restaurant.restaurantName,
+            value: restaurant.restaurantId,
+          })) || [],
         password: "",
       });
     }
@@ -107,7 +127,7 @@ const WorkerDialog: FC<WorkerDialogProps> = (props) => {
             )}
           </DialogTitle>
         </DialogHeader>
-        <Form<ICreateWorker>
+        <Form<FormValues>
           form={form}
           intlFields
           // debug
@@ -146,13 +166,12 @@ const WorkerDialog: FC<WorkerDialogProps> = (props) => {
               },
             },
             {
-              name: "restaurantId",
-              label: "fields.restaurant",
+              name: "restaurants",
+              label: "fields.restaurants",
               required: false,
               data: {
-                type: "select",
-                placeholder: "Workers.dialog.form.restaurant-placeholder",
-                withEmptyOption: true,
+                type: "multiple-select",
+                placeholder: "Workers.dialog.form.restaurants-placeholder",
                 options: (restaurants.data?.data ?? []).map((restaurant) => ({
                   label: restaurant.name,
                   value: restaurant.id,

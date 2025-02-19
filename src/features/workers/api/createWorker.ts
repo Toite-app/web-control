@@ -2,11 +2,11 @@ import { buildApiMutation } from "@/api/builder/mutation";
 import { ApiCacheTag } from "@/api/types";
 import { IWorker } from "@/types/worker.types";
 
-export type ICreateWorker = Pick<
-  IWorker,
-  "name" | "login" | "restaurantId" | "role"
-> & {
+export type ICreateWorker = Pick<IWorker, "name" | "login" | "role"> & {
   password: string;
+  restaurants: {
+    restaurantId: string;
+  }[];
 };
 
 export const createWorkerMutation = buildApiMutation<

@@ -23,7 +23,7 @@
         "role-placeholder": "Выберите роль сотрудника",
         "name-placeholder": "Введите имя сотрудника",
         "login-placeholder": "Введите логин сотрудника",
-        "restaurant-placeholder": "Выберите ресторан"
+        "restaurants-placeholder": "Выберите рестораны"
       }
     },
     "table": {
@@ -468,7 +468,8 @@
     "isLabelPrintingEnabled": "Печать этикеток",
     "printLabelEveryItem": "Этикеток на порцию",
     "isPublishedInApp": "Опубликовано в приложении",
-    "isPublishedAtSite": "Опубликовано на сайте"
+    "isPublishedAtSite": "Опубликовано на сайте",
+    "restaurants": "Рестораны"
   },
   "errors": {
     "unknown": "Неизвестная ошибка",
