@@ -8,7 +8,11 @@ import {
 } from "@/api/types";
 import { IWorker } from "@/types/worker.types";
 
-export type GetWorkersParams = PaginationParams & SortingParams & FilterParams;
+export type GetWorkersParams = PaginationParams &
+  SortingParams &
+  FilterParams & {
+    restaurantIds?: string[];
+  };
 
 export const useGetWorkers = buildApiHook<
   string,

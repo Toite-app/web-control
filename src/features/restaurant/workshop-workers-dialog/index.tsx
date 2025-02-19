@@ -1,4 +1,4 @@
-import { memo, useEffect, useMemo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -7,8 +7,6 @@ import {
 } from "@/components/ui/dialog";
 import { useTranslations } from "next-intl";
 import { useGetWorkers } from "@/features/workers/api/useGetWorkers";
-import { buildFiltersParam } from "@/lib/filters";
-import { IWorker } from "@/types/worker.types";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useGetWorkshopWorkers } from "@/features/restaurant/api/useGetWorkshopWorkers";
@@ -34,19 +32,9 @@ const WorkshopWorkersDialog = (props: WorkshopWorkersDialogProps) => {
   const handleError = useErrorHandler();
   const [selectedWorkers, setSelectedWorkers] = useState<string[]>([]);
 
-  const filters = useMemo(() => {
-    return buildFiltersParam<IWorker>([
-      {
-        field: "restaurantId",
-        condition: "equals",
-        value: restaurantId,
-      },
-    ]);
-  }, [restaurantId]);
-
   const { data: workersData, isLoading } = useGetWorkers({
     params: {
-      filters,
+      restaurantIds: [restaurantId],
     },
     skip: !restaurantId,
   });
