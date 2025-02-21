@@ -102,7 +102,9 @@
       "working-hours": "Часы работы",
       "departments": "Цеха",
       "staff": "Персонал",
-      "statistics": "Статистика"
+      "statistics": "Статистика",
+      "payment-methods": "Способы оплаты",
+      "dish-modifiers": "Модификаторы блюд"
     },
     "columns": {
       "dayOfWeek": "День недели",
@@ -479,6 +481,7 @@
     "SYSTEM_ADMIN": "Сис. администратор",
     "CHIEF_ADMIN": "Главный администратор",
     "ADMIN": "Администратор",
+    "OWNER": "Владелец",
     "KITCHENER": "Повар",
     "WAITER": "Официант",
     "CASHIER": "Кассир",
@@ -558,5 +561,49 @@
   "phone-input": {
     "search-country": "Поиск страны...",
     "no-country": "Страна не найдена"
+  },
+  "PaymentMethods": {
+    "columns": {
+      "name": "Название",
+      "type": "Тип",
+      "secretId": "Секретный ID"
+    },
+    "dialog": {
+      "create-title": "Создать способ оплаты",
+      "edit-title": "Редактировать способ оплаты",
+      "create-success": "Способ оплаты создан",
+      "create-success-description": "Способ оплаты успешно создан",
+      "edit-success": "Способ оплаты обновлен",
+      "edit-success-description": "Способ оплаты успешно обновлен",
+      "form": {
+        "name": "Название",
+        "name-placeholder": "Введите название способа оплаты",
+        "type": "Тип",
+        "type-placeholder": "Выберите тип способа оплаты",
+        "icon": "Иконка",
+        "icon-placeholder": "Выберите иконку способа оплаты",
+        "secretId": "Секретный ID",
+        "secretId-placeholder": "Введите секретный ID",
+        "secretKey": "Секретный ключ",
+        "secretKey-placeholder": "Введите секретный ключ",
+        "secretKey-description": "Секретный ключ для метода оплаты"
+      }
+    },
+    "types": {
+      "CUSTOM": "Собственный",
+      "YOO_KASSA": "ЮKassa"
+    },
+    "icons": {
+      "CARD": "Карта",
+      "CASH": "Наличные",
+      "BANK_CARD": "Банковская карта",
+      "YOO_KASSA": "ЮKassa"
+    }
+  },
+  "RestaurantPaymentMethods": {
+    "dialog": {
+      "create-title": "Создать способ оплаты",
+      "edit-title": "Редактировать способ оплаты"
+    }
   }
 }

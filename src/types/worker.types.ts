@@ -1,5 +1,6 @@
 export enum WorkerRole {
   SYSTEM_ADMIN = "SYSTEM_ADMIN",
+  OWNER = "OWNER",
   CHIEF_ADMIN = "CHIEF_ADMIN",
   ADMIN = "ADMIN",
   KITCHENER = "KITCHENER",

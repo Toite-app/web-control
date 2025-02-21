@@ -36,6 +36,10 @@ const dialogComponents = {
   [DialogType.Dish]: dynamic(() => import("@/features/dishes/dialog/index"), {
     ssr: false,
   }),
+  [DialogType.RestaurantPaymentMethod]: dynamic(
+    () => import("@/features/restaurant/payment-method-dialog/index"),
+    { ssr: false }
+  ),
 };
 
 const DialogsPortal = () => {

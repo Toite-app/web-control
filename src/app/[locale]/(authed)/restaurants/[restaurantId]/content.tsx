@@ -11,12 +11,19 @@ import RestaurantHoursTab from "@/features/restaurant/hours-tab";
 import useDialogsStore from "@/store/dialogs-store";
 import RestaurantWorkshopsTab from "@/features/restaurant/workshops-tab";
 import RestaurantWorkersTab from "@/features/restaurant/workers-tab";
+import RestaurantPaymentMethodsTab from "@/features/restaurant/payment-methods-tab";
 
 type Props = {
   restaurantId: string;
 };
 
-type TabValue = "hours" | "workshops" | "workers" | "statistics";
+type TabValue =
+  | "hours"
+  | "workshops"
+  | "workers"
+  | "statistics"
+  | "payment-methods"
+  | "dish-modifiers";
 
 export const RestaurantPageContent = (props: Props) => {
   const { restaurantId } = props;
@@ -32,6 +39,8 @@ export const RestaurantPageContent = (props: Props) => {
         "workshops",
         "workers",
         "statistics",
+        "payment-methods",
+        "dish-modifiers",
       ];
       return validTabs.includes(value as TabValue)
         ? (value as TabValue)
@@ -91,6 +100,12 @@ export const RestaurantPageContent = (props: Props) => {
                 <TabsTrigger value="workers">
                   {t("Restaurants.tabs.staff")}
                 </TabsTrigger>
+                <TabsTrigger value="payment-methods">
+                  {t("Restaurants.tabs.payment-methods")}
+                </TabsTrigger>
+                <TabsTrigger value="dish-modifiers">
+                  {t("Restaurants.tabs.dish-modifiers")}
+                </TabsTrigger>
                 <TabsTrigger value="statistics" disabled>
                   {t("Restaurants.tabs.statistics")}
                 </TabsTrigger>
@@ -125,6 +140,21 @@ export const RestaurantPageContent = (props: Props) => {
                   </span>
                 </Button>
               )}
+              {activeTab === "payment-methods" && (
+                <Button
+                  variant="default"
+                  onClick={() =>
+                    toggleDialog("restaurantPaymentMethod", true, {
+                      restaurantId,
+                    })
+                  }
+                >
+                  <PlusIcon className="h-5 w-5" />
+                  <span className="ml-2 text-[14px]">
+                    {t("RestaurantPaymentMethods.dialog.create-title")}
+                  </span>
+                </Button>
+              )}
             </div>
 
             <TabsContent value="hours">
@@ -135,6 +165,9 @@ export const RestaurantPageContent = (props: Props) => {
             </TabsContent>
             <TabsContent value="workers">
               <RestaurantWorkersTab restaurant={data} />
+            </TabsContent>
+            <TabsContent value="payment-methods">
+              <RestaurantPaymentMethodsTab restaurant={data} />
             </TabsContent>
             <TabsContent value="statistics">
               {/* Statistics content will go here */}
