@@ -40,6 +40,10 @@ const dialogComponents = {
     () => import("@/features/restaurant/payment-method-dialog/index"),
     { ssr: false }
   ),
+  [DialogType.RestaurantDishModifier]: dynamic(
+    () => import("@/features/restaurant/dish-modifier-dialog/index"),
+    { ssr: false }
+  ),
 };
 
 const DialogsPortal = () => {

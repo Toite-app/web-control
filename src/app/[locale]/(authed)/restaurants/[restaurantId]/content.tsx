@@ -12,6 +12,7 @@ import useDialogsStore from "@/store/dialogs-store";
 import RestaurantWorkshopsTab from "@/features/restaurant/workshops-tab";
 import RestaurantWorkersTab from "@/features/restaurant/workers-tab";
 import RestaurantPaymentMethodsTab from "@/features/restaurant/payment-methods-tab";
+import RestaurantDishModifiersTab from "@/features/restaurant/dish-modifiers-tab";
 
 type Props = {
   restaurantId: string;
@@ -155,6 +156,21 @@ export const RestaurantPageContent = (props: Props) => {
                   </span>
                 </Button>
               )}
+              {activeTab === "dish-modifiers" && (
+                <Button
+                  variant="default"
+                  onClick={() =>
+                    toggleDialog("restaurantDishModifier", true, {
+                      restaurantId,
+                    })
+                  }
+                >
+                  <PlusIcon className="h-5 w-5" />
+                  <span className="ml-2 text-[14px]">
+                    {t("RestaurantDishModifiers.dialog.create-title")}
+                  </span>
+                </Button>
+              )}
             </div>
 
             <TabsContent value="hours">
@@ -168,6 +184,9 @@ export const RestaurantPageContent = (props: Props) => {
             </TabsContent>
             <TabsContent value="payment-methods">
               <RestaurantPaymentMethodsTab restaurant={data} />
+            </TabsContent>
+            <TabsContent value="dish-modifiers">
+              <RestaurantDishModifiersTab restaurant={data} />
             </TabsContent>
             <TabsContent value="statistics">
               {/* Statistics content will go here */}

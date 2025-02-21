@@ -605,5 +605,28 @@
       "create-title": "Создать способ оплаты",
       "edit-title": "Редактировать способ оплаты"
     }
+  },
+  "DishModifiers": {
+    "columns": {
+      "name": "Название"
+    },
+    "dialog": {
+      "create-title": "Создать модификатор",
+      "edit-title": "Редактировать модификатор",
+      "create-success": "Модификатор создан",
+      "create-success-description": "Модификатор успешно создан",
+      "edit-success": "Модификатор обновлен",
+      "edit-success-description": "Модификатор успешно обновлен",
+      "form": {
+        "name": "Название",
+        "name-placeholder": "Введите название модификатора"
+      }
+    }
+  },
+  "RestaurantDishModifiers": {
+    "dialog": {
+      "create-title": "Создать модификатор",
+      "edit-title": "Редактировать модификатор"
+    }
   }
 }

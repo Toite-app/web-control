@@ -8,6 +8,7 @@ import { IGuest } from "@/types/guest.types";
 import { IDishCategory } from "@/types/dish-category.types";
 import { IDish } from "@/types/dish.types";
 import { RestaurantPaymentMethodDialogProps } from "@/features/restaurant/payment-method-dialog";
+import { RestaurantDishModifierDialogProps } from "@/features/restaurant/dish-modifier-dialog";
 
 export enum DialogType {
   Restaurant = "restaurant",
@@ -19,6 +20,7 @@ export enum DialogType {
   Guest = "guest",
   DishCategory = "dishCategory",
   Dish = "dish",
+  RestaurantDishModifier = "restaurantDishModifier",
 }
 
 // Define data types for each dialog that needs data
@@ -32,6 +34,7 @@ export type DialogData = {
   [DialogType.DishCategory]?: IDishCategory;
   [DialogType.Dish]?: IDish;
   [DialogType.RestaurantPaymentMethod]?: RestaurantPaymentMethodDialogProps["data"];
+  [DialogType.RestaurantDishModifier]?: RestaurantDishModifierDialogProps["data"];
 };
 
 interface DialogsStore {
