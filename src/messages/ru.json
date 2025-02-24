@@ -287,7 +287,8 @@
     "noDishes": "Нет блюд",
     "pleaseAddDishes": "Пожалуйста, добавьте блюда в заказ",
     "noFilteredDishes": "Блюда не найдены",
-    "tryDifferentSearch": "Попробуйте изменить параметры поиска"
+    "tryDifferentSearch": "Попробуйте изменить параметры поиска",
+    "edit-modifiers": "Изменить модификаторы"
   },
   "OrderActions": {
     "send-to-kitchen-success": "Блюда отправлены на кухню",

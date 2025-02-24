@@ -48,12 +48,18 @@ export interface IOrder {
 
 export type OrderDishStatus = "pending" | "cooking" | "ready" | "completed";
 
+export interface IOrderDishModifier {
+  id: string;
+  name: string;
+}
+
 export interface IOrderDish {
   id: string;
   orderId: string;
   name: string;
   dishId: string;
   status: OrderDishStatus;
+  modifiers: IOrderDishModifier[];
   quantity: number;
   price: string;
   finalPrice: string;

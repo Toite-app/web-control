@@ -10,6 +10,7 @@ import {
   DollarSignIcon,
   XIcon,
   CheckIcon,
+  Settings2Icon,
 } from "lucide-react";
 import OrderDishQuantityInput from "./QuantityInput";
 import {
@@ -64,13 +65,47 @@ export default function AddedOrderDishRow({ orderDish, order }: Props) {
   return (
     <TableRow>
       <TableCell>
-        <div className="flex flex-col">
-          {orderDish.isAdditional && (
-            <span className="text-sm text-primary">
-              {t("AddedDishesList.additional-cooking")}
-            </span>
+        <div className="flex flex-row items-center justify-between">
+          <div className="flex flex-col">
+            {orderDish.isAdditional && (
+              <span className="text-sm text-primary">
+                {t("AddedDishesList.additional-cooking")}
+              </span>
+            )}
+            {orderDish.name}
+            {orderDish.modifiers.length > 0 ? (
+              <div className="flex flex-row items-center gap-1">
+                {(orderDish.status === "pending" ||
+                  orderDish.status === "cooking") && (
+                  <span className="h-2 w-2 animate-pulse rounded-full bg-purple-500" />
+                )}
+                <span className="text-sm text-purple-500">
+                  {orderDish.modifiers
+                    .map((modifier) => modifier.name)
+                    .join(", ")}
+                </span>
+              </div>
+            ) : null}
+          </div>
+          {(orderDish.status === "pending" ||
+            orderDish.status === "cooking") && (
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant="outline"
+                    size="icon-sm"
+                    // onClick={handleForceReady}
+                  >
+                    <Settings2Icon className="h-4 w-4 text-purple-500" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>{t("AddedDishesList.edit-modifiers")}</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           )}
-          {orderDish.name}
         </div>
       </TableCell>
       <TableCell>
@@ -102,7 +137,7 @@ export default function AddedOrderDishRow({ orderDish, order }: Props) {
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button variant="ghost" size="icon-sm" onClick={remove}>
+                <Button variant="outline" size="icon-sm" onClick={remove}>
                   <XIcon className="h-4 w-4 text-red-500" />
                 </Button>
               </TooltipTrigger>
@@ -117,7 +152,7 @@ export default function AddedOrderDishRow({ orderDish, order }: Props) {
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button
-                  variant="ghost"
+                  variant="outline"
                   size="icon-sm"
                   onClick={handleForceReady}
                 >
