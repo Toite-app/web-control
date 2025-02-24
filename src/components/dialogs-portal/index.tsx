@@ -44,6 +44,10 @@ const dialogComponents = {
     () => import("@/features/restaurant/dish-modifier-dialog/index"),
     { ssr: false }
   ),
+  [DialogType.OrderDishModifiers]: dynamic(
+    () => import("@/features/order-dishes/order-dish-modifiers-dialog/index"),
+    { ssr: false }
+  ),
 };
 
 const DialogsPortal = () => {

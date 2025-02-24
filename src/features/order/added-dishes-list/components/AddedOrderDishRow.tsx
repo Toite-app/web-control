@@ -24,6 +24,7 @@ import { useCallback } from "react";
 import { useErrorHandler } from "@/hooks/useErrorHandler";
 import { forceReadyOrderDishMutation } from "@/api/fetch/orders/dishes/forceReady";
 import { useToast } from "@/hooks/use-toast";
+import useDialogsStore, { DialogType } from "@/store/dialogs-store";
 
 type Props = {
   orderDish: IOrderDish;
@@ -35,6 +36,7 @@ export default function AddedOrderDishRow({ orderDish, order }: Props) {
   const t = useTranslations();
   const handleError = useErrorHandler();
   const { toast } = useToast();
+  const toggleDialog = useDialogsStore((state) => state.toggle);
 
   const { remove } = useDishQuantity({
     dishId: orderDish.dishId,
@@ -95,7 +97,14 @@ export default function AddedOrderDishRow({ orderDish, order }: Props) {
                   <Button
                     variant="outline"
                     size="icon-sm"
-                    // onClick={handleForceReady}
+                    onClick={() => {
+                      toggleDialog(DialogType.OrderDishModifiers, true, {
+                        modifiers: orderDish.modifiers,
+                        orderDishId: orderDish.id,
+                        orderId: order.id,
+                        restaurantId: order?.restaurantId,
+                      });
+                    }}
                   >
                     <Settings2Icon className="h-4 w-4 text-purple-500" />
                   </Button>
