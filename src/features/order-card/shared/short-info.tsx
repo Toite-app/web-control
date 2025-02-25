@@ -6,7 +6,16 @@ import { SealPercent } from "@phosphor-icons/react/dist/ssr/SealPercent";
 import { IOrder } from "@/types/order.types";
 
 type Props = {
-  order: IOrder;
+  order: Partial<
+    Pick<
+      IOrder,
+      | "guestsAmount"
+      | "bonusUsed"
+      | "discountAmount"
+      | "surchargeAmount"
+      | "restaurantName"
+    >
+  >;
 };
 
 export default function OrderCardShortInfo(props: Props) {
@@ -34,13 +43,13 @@ export default function OrderCardShortInfo(props: Props) {
             <Person className="h-4 w-4" weight="fill" />
           </div>
         )}
-        {Number(discountAmount) > 0 && (
+        {discountAmount && Number(discountAmount) > 0 && (
           <SealPercent className="h-5 w-5 fill-green-700" weight="fill" />
         )}
-        {Number(surchargeAmount) > 0 && (
+        {surchargeAmount && Number(surchargeAmount) > 0 && (
           <Percent className="h-5 w-5 fill-green-700" weight="fill" />
         )}
-        {Number(bonusUsed) > 0 && (
+        {bonusUsed && Number(bonusUsed) > 0 && (
           <Coins className="h-5 w-5 fill-green-700" weight="fill" />
         )}
       </div>

@@ -2,7 +2,7 @@ import { IOrder } from "@/types/order.types";
 import { RussianRubleIcon, EuroIcon, DollarSignIcon } from "lucide-react";
 
 type Props = {
-  order: IOrder;
+  order: Pick<IOrder, "total" | "currency">;
 };
 
 export default function OrderCardPrice(props: Props) {

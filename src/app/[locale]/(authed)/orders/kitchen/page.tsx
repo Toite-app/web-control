@@ -20,8 +20,8 @@ export const generateMetadata = async (props: IntlPageParams) => {
   };
 };
 
-const DispatcherOrdersPage = () => {
+const KitchenOrdersPage = () => {
   return <Content />;
 };
 
-export default DispatcherOrdersPage;
+export default KitchenOrdersPage;

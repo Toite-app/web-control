@@ -2,7 +2,7 @@ import { IOrder } from "@/types/order.types";
 import { format } from "date-fns";
 
 type Props = {
-  order: IOrder;
+  order: Pick<IOrder, "createdAt">;
 };
 
 export default function OrderCardTime(props: Props) {

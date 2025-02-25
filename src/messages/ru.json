@@ -416,6 +416,7 @@
     "orders-edit": "Редактировать заказ",
     "orders-all": "Все заказы",
     "orders-dispatcher": "Диспетчер",
+    "orders-kitchen": "Кухня",
     "orders-hall": "Зал",
     "orders-banquet": "Банкет",
     "orders-takeaway": "С собой",
@@ -636,7 +637,11 @@
       "description": "Выберите модификаторы, которые нужно добавить к блюду",
       "submit": "Сохранить",
       "success": "Модификаторы обновлены",
-      "success-description": "Список модификаторов блюда успешно обновлен"
+      "success-description": "Список модификаторов блюда успешно обновлен",
+      "no-restaurant": "Пожалуйста, выберите ресторан для заказа"
     }
+  },
+  "KitchenerOrderCard": {
+    "show-full-list": "Показать все блюда"
   }
 }

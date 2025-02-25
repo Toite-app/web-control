@@ -61,6 +61,7 @@ export interface IOrderDish {
   status: OrderDishStatus;
   modifiers: IOrderDishModifier[];
   quantity: number;
+  quantityReturned: number;
   price: string;
   finalPrice: string;
   isRemoved: boolean;
@@ -74,6 +75,29 @@ export interface IDispatcherOrderDish
 
 export type IDispatcherOrder = Omit<IOrder, "orderDishes"> & {
   orderDishes: IDispatcherOrderDish[];
+};
+
+export interface IKitchenerOrderDish
+  extends Pick<
+    IOrderDish,
+    "id" | "name" | "status" | "quantity" | "quantityReturned" | "isAdditional"
+  > {}
+
+export type IKitchenerOrder = Pick<
+  IOrder,
+  | "id"
+  | "number"
+  | "tableNumber"
+  | "type"
+  | "from"
+  | "note"
+  | "status"
+  | "guestsAmount"
+  | "createdAt"
+  | "updatedAt"
+  | "delayedTo"
+> & {
+  orderDishes: IKitchenerOrderDish[];
 };
 
 export interface IOrderAvailableActions {

@@ -1,6 +1,6 @@
 "use client";
 import formatOrderNumber from "@/utils/format-order-number";
-import { IDispatcherOrder, IOrder } from "@/types/order.types";
+import { IOrder, IOrderDish } from "@/types/order.types";
 import { cn } from "@/lib/utils";
 import { DeviceMobile } from "@phosphor-icons/react/dist/ssr/DeviceMobile";
 import { Desktop } from "@phosphor-icons/react/dist/ssr/Desktop";
@@ -14,9 +14,15 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import OrderTypeIcon from "@/features/order-card/shared/type-icon";
+import { Person } from "@phosphor-icons/react/dist/ssr/Person";
 
 type Props = {
-  order: IDispatcherOrder;
+  order: Partial<
+    Pick<IOrder, "id" | "number" | "status" | "type" | "from"> & {
+      orderDishes: Partial<Pick<IOrderDish, "status" | "isRemoved">>[];
+    }
+  >;
+  renderGuestsAmount?: boolean;
 };
 
 export const orderStatusColors: Record<IOrder["status"], string> = {
@@ -30,9 +36,11 @@ export const orderStatusColors: Record<IOrder["status"], string> = {
 };
 
 export default function OrderCardHeader(props: Props) {
-  const { order } = props;
-  const { number, status, type, from, orderDishes } = order;
+  const { order, renderGuestsAmount = false } = props;
+  const { number, status, type, from, guestsAmount } = order;
   const t = useTranslations("OrderCard");
+
+  const orderDishes = order.orderDishes ?? [];
 
   const notStartedCnt = orderDishes.filter(
     (dish) => dish.status === "pending"
@@ -50,13 +58,23 @@ export default function OrderCardHeader(props: Props) {
     <div
       className={cn(
         "flex w-full flex-row items-center justify-between bg-stone-400 px-2 py-1",
-        orderStatusColors[status]
+        orderStatusColors[status ?? "pending"]
       )}
     >
-      <span className="text-lg font-bold text-white dark:text-stone-100">
-        {formatOrderNumber(number)}
-      </span>
+      {number && (
+        <span className="text-lg font-bold text-white dark:text-stone-100">
+          {formatOrderNumber(number)}
+        </span>
+      )}
       <div className="flex flex-row items-center gap-4">
+        {renderGuestsAmount && guestsAmount && (
+          <div className="flex max-h-[22px] flex-row items-center gap-2 rounded-xl bg-white px-3">
+            <div className="flex flex-row items-center gap-1 text-stone-500">
+              <span>{guestsAmount}</span>
+              <Person className="h-4 w-4" weight="fill" />
+            </div>
+          </div>
+        )}
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger>

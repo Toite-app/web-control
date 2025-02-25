@@ -37,6 +37,10 @@ export const menuItems: MenuItem[] = [
         href: "/orders/dispatcher",
       },
       {
+        labelId: "orders-kitchen",
+        href: "/orders/kitchen",
+      },
+      {
         labelId: "orders-hall",
         href: "/orders/hall",
       },

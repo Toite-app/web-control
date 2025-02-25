@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { IOrder } from "@/types/order.types";
 
 type Props = {
-  order: IOrder;
+  order: Pick<IOrder, "status">;
 };
 
 export default function OrderCardStatusText(props: Props) {
