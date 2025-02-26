@@ -89,6 +89,8 @@ export interface IKitchenerOrderDish
     | "quantityReturned"
     | "isAdditional"
     | "modifiers"
+    | "cookingAt"
+    | "readyAt"
   > {
   workshops: {
     id: string;

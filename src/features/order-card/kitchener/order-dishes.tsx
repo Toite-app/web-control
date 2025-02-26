@@ -15,8 +15,13 @@ type Props = {
   order: IKitchenerOrder;
 };
 
-function KitchenerOrderDish(props: { dish: IKitchenerOrderDish }) {
+function KitchenerOrderDish(props: {
+  dish: IKitchenerOrderDish;
+  order: IKitchenerOrder;
+}) {
   const { dish } = props;
+
+  const t = useTranslations();
 
   const canICookIt = dish.workshops.some((w) => w.isMyWorkshop === true);
 
@@ -31,8 +36,13 @@ function KitchenerOrderDish(props: { dish: IKitchenerOrderDish }) {
       )}
       key={dish.id}
     >
-      {(!canICookIt || dish.status === "ready") && (
-        <div className="flex flex-row items-center gap-1">
+      <div className="flex flex-row items-center gap-1">
+        {dish.isAdditional && (
+          <span className="text-xs text-primary">
+            {t("KitchenerOrderCard.additional")}
+          </span>
+        )}
+        {(!canICookIt || dish.status === "ready") && (
           <span className="text-xs text-muted-foreground">
             {dish.workshops.length === 0 && "-"}
             {dish.workshops
@@ -45,8 +55,8 @@ function KitchenerOrderDish(props: { dish: IKitchenerOrderDish }) {
               })
               .join(", ")}
           </span>
-        </div>
-      )}
+        )}
+      </div>
       <div className="flex flex-row items-center justify-between">
         <p className="px-1 text-2xl font-bold text-stone-700 dark:text-stone-200">
           <span
@@ -56,6 +66,18 @@ function KitchenerOrderDish(props: { dish: IKitchenerOrderDish }) {
             )}
           >{`x${dish.quantity} `}</span>
           {dish.name}
+          {/* <span className="text-sm font-normal text-muted-foreground">{` (${formatTimeDistance(
+            dish.cookingAt
+              ? new Date(dish.cookingAt)
+              : order.cookingAt
+                ? new Date(order.cookingAt)
+                : new Date(order.createdAt),
+            locale,
+            {
+              addSuffix: false,
+              now: dish.readyAt ? new Date(dish.readyAt) : now,
+            }
+          )})`}</span> */}
         </p>
         {dish.status === "cooking" && (
           <div
@@ -96,7 +118,7 @@ export default function KitchenerOrderDishes(props: Props) {
   return (
     <div className="flex flex-col gap-1">
       {shown.map((dish) => (
-        <KitchenerOrderDish key={dish.id} dish={dish} />
+        <KitchenerOrderDish key={dish.id} dish={dish} order={order} />
       ))}
       {hidden.length > 0 && (
         <Accordion type="single" collapsible>
@@ -109,7 +131,7 @@ export default function KitchenerOrderDishes(props: Props) {
             <AccordionContent>
               <div className="flex flex-col gap-1">
                 {hidden.map((dish) => (
-                  <KitchenerOrderDish key={dish.id} dish={dish} />
+                  <KitchenerOrderDish key={dish.id} dish={dish} order={order} />
                 ))}
               </div>
             </AccordionContent>
