@@ -643,6 +643,7 @@
   },
   "KitchenerOrderCard": {
     "show-full-list": "Показать все блюда",
-    "additional": "Дозаказ"
+    "additional": "Дозаказ",
+    "lateness": "Готовится дольше положенного"
   }
 }

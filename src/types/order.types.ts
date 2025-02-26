@@ -97,6 +97,8 @@ export interface IKitchenerOrderDish
     name: string;
     isMyWorkshop: boolean;
   }[];
+  cookingTimeInMin: number;
+  isReadyOnTime: boolean;
 }
 
 export type IKitchenerOrder = Pick<

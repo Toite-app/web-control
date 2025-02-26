@@ -9,7 +9,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useTranslations } from "next-intl";
-import { Settings2Icon } from "lucide-react";
+import { AlarmClockIcon, Settings2Icon } from "lucide-react";
 
 type Props = {
   order: IKitchenerOrder;
@@ -79,13 +79,31 @@ function KitchenerOrderDish(props: {
             }
           )})`}</span> */}
         </p>
-        {dish.status === "cooking" && (
-          <div
-            className={cn(
-              "mr-2 flex h-3 min-h-3 w-3 min-w-3 animate-pulse rounded-full bg-purple-500"
-            )}
-          />
-        )}
+
+        <div className="mr-2 flex flex-row items-center gap-2">
+          {dish.status === "cooking" && (
+            <>
+              {dish.isReadyOnTime === false && (
+                <AlarmClockIcon className="h-4 min-h-4 w-4 min-w-4 animate-ping text-red-500" />
+              )}
+              <div
+                className={cn(
+                  "flex h-3 min-h-3 w-3 min-w-3 animate-pulse rounded-full bg-purple-500"
+                )}
+              />
+            </>
+          )}
+          {dish.status === "ready" && (
+            <>
+              {dish.isReadyOnTime === false && (
+                <AlarmClockIcon className="h-4 min-h-4 w-4 min-w-4 text-red-500" />
+              )}
+              {dish.isReadyOnTime === true && (
+                <AlarmClockIcon className="h-4 min-h-4 w-4 min-w-4 text-green-500" />
+              )}
+            </>
+          )}
+        </div>
       </div>
       {dish.modifiers.length > 0 && (
         <div className="flex flex-row items-center gap-1">
