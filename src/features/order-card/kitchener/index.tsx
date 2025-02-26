@@ -2,11 +2,11 @@
 
 import { IKitchenerOrder } from "@/types/order.types";
 import OrderCardHeader from "@/features/order-card/shared/header";
-
-import OrderCardStatusText from "@/features/order-card/shared/status-text";
-import OrderCardTime from "@/features/order-card/shared/time";
 import { cn } from "@/lib/utils";
 import KitchenerOrderDishes from "@/features/order-card/kitchener/order-dishes";
+import { format } from "date-fns";
+import { useLocale, useNow } from "next-intl";
+import formatTimeDistance from "@/utils/format-time-distance";
 
 type KitchenerOrderCardProps = {
   className?: string;
@@ -17,6 +17,11 @@ export default function KitchenerOrderCard(props: KitchenerOrderCardProps) {
   const { order, className } = props;
   const { note } = order;
 
+  const locale = useLocale();
+  const now = useNow({
+    updateInterval: 60_000,
+  });
+
   return (
     <div
       className={cn(
@@ -25,19 +30,32 @@ export default function KitchenerOrderCard(props: KitchenerOrderCardProps) {
       )}
     >
       <OrderCardHeader order={order} renderGuestsAmount />
-      <div className="flex flex-col px-3 py-3">
+      <div className="flex flex-col px-3 pb-3 pt-1">
         {note && (
           <div className="flex py-1 text-base">
             <p className="text-indigo-500 dark:text-indigo-300">{note}</p>
           </div>
         )}
         <KitchenerOrderDishes order={order} />
-        <OrderCardStatusText order={order} />
-        <div className="flex flex-row items-center justify-between gap-2">
-          <div className="flex flex-col">
-            <OrderCardTime order={order} />
+        <div className="mt-2 flex flex-row items-center justify-between gap-2">
+          <div className="flex flex-row gap-1">
+            <p className="text-lg font-bold">
+              {format(
+                order.cookingAt ? new Date(order.cookingAt) : order.createdAt,
+                "dd.MM.yy HH:mm"
+              )}
+              <span className="ml-1 text-sm font-thin text-muted-foreground">
+                {`(${formatTimeDistance(
+                  order.cookingAt ? new Date(order.cookingAt) : order.createdAt,
+                  locale,
+                  {
+                    addSuffix: false,
+                    now,
+                  }
+                )})`}
+              </span>
+            </p>
           </div>
-          {/* <OrderCardPrice order={order} /> */}
         </div>
       </div>
     </div>

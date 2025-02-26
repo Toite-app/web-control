@@ -40,7 +40,7 @@ export interface IOrder {
   restaurantId: string | null;
   restaurantName: string | null;
   orderDishes: IOrderDish[];
-  cookingStartedAt?: Date;
+  cookingAt?: Date;
   readyAt?: Date;
   paidAt?: Date;
   completedAt?: Date;
@@ -68,6 +68,8 @@ export interface IOrderDish {
   isAdditional: boolean;
   createdAt: Date;
   updatedAt: Date;
+  cookingAt?: Date;
+  readyAt?: Date;
 }
 
 export interface IDispatcherOrderDish
@@ -108,6 +110,7 @@ export type IKitchenerOrder = Pick<
   | "createdAt"
   | "updatedAt"
   | "delayedTo"
+  | "cookingAt"
 > & {
   orderDishes: IKitchenerOrderDish[];
 };

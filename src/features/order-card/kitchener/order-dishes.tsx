@@ -60,7 +60,7 @@ function KitchenerOrderDish(props: { dish: IKitchenerOrderDish }) {
         {dish.status === "cooking" && (
           <div
             className={cn(
-              "mr-2 flex h-3 w-3 animate-pulse rounded-full bg-purple-500"
+              "mr-2 flex h-3 min-h-3 w-3 min-w-3 animate-pulse rounded-full bg-purple-500"
             )}
           />
         )}
