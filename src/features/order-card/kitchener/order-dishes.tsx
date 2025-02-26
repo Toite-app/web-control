@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/accordion";
 import { useTranslations } from "next-intl";
 import { AlarmClockIcon, Settings2Icon } from "lucide-react";
+import useDialogsStore, { DialogType } from "@/store/dialogs-store";
 
 type Props = {
   order: IKitchenerOrder;
@@ -19,9 +20,10 @@ function KitchenerOrderDish(props: {
   dish: IKitchenerOrderDish;
   order: IKitchenerOrder;
 }) {
-  const { dish } = props;
+  const { dish, order } = props;
 
   const t = useTranslations();
+  const toggleDialog = useDialogsStore((state) => state.toggle);
 
   const canICookIt = dish.workshops.some((w) => w.isMyWorkshop === true);
 
@@ -35,6 +37,20 @@ function KitchenerOrderDish(props: {
         (dish.status === "ready" || !canICookIt) && "opacity-70"
       )}
       key={dish.id}
+      onClick={() => {
+        if (dish.status === "ready" || !canICookIt) return;
+
+        toggleDialog(DialogType.MarkOrderDishAsReady, true, {
+          orderDish: {
+            id: dish.id,
+            modifiers: dish.modifiers,
+            name: dish.name,
+            orderId: order.id,
+            quantity: dish.quantity,
+            isAdditional: dish.isAdditional,
+          },
+        });
+      }}
     >
       <div className="flex flex-row items-center gap-1">
         {dish.isAdditional && (

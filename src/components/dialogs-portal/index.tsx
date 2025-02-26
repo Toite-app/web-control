@@ -48,6 +48,10 @@ const dialogComponents = {
     () => import("@/features/order-dishes/order-dish-modifiers-dialog/index"),
     { ssr: false }
   ),
+  [DialogType.MarkOrderDishAsReady]: dynamic(
+    () => import("@/features/order-dishes/order-dish-ready-dialog/index"),
+    { ssr: false }
+  ),
 };
 
 const DialogsPortal = () => {
