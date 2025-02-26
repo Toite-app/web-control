@@ -80,8 +80,20 @@ export type IDispatcherOrder = Omit<IOrder, "orderDishes"> & {
 export interface IKitchenerOrderDish
   extends Pick<
     IOrderDish,
-    "id" | "name" | "status" | "quantity" | "quantityReturned" | "isAdditional"
-  > {}
+    | "id"
+    | "name"
+    | "status"
+    | "quantity"
+    | "quantityReturned"
+    | "isAdditional"
+    | "modifiers"
+  > {
+  workshops: {
+    id: string;
+    name: string;
+    isMyWorkshop: boolean;
+  }[];
+}
 
 export type IKitchenerOrder = Pick<
   IOrder,

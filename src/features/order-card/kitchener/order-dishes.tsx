@@ -9,6 +9,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useTranslations } from "next-intl";
+import { Settings2Icon } from "lucide-react";
 
 type Props = {
   order: IKitchenerOrder;
@@ -17,16 +18,35 @@ type Props = {
 function KitchenerOrderDish(props: { dish: IKitchenerOrderDish }) {
   const { dish } = props;
 
+  const canICookIt = dish.workshops.some((w) => w.isMyWorkshop === true);
+
   return (
     <div
       className={cn(
         "flex flex-col rounded-md border border-dashed border-stone-400 px-1 py-1 transition-all",
         dish.status === "cooking" &&
+          canICookIt &&
           "cursor-pointer hover:border-solid hover:border-purple-500 hover:bg-purple-100 dark:hover:border-purple-400 dark:hover:bg-purple-900",
-        dish.status === "ready" && "opacity-70"
+        (dish.status === "ready" || !canICookIt) && "opacity-70"
       )}
       key={dish.id}
     >
+      {(!canICookIt || dish.status === "ready") && (
+        <div className="flex flex-row items-center gap-1">
+          <span className="text-xs text-muted-foreground">
+            {dish.workshops.length === 0 && "-"}
+            {dish.workshops
+              .map((w) => {
+                if (w.name.length > 10) {
+                  return w.name.slice(0, 10) + "...";
+                }
+
+                return w.name;
+              })
+              .join(", ")}
+          </span>
+        </div>
+      )}
       <div className="flex flex-row items-center justify-between">
         <p className="px-1 text-2xl font-bold text-stone-700 dark:text-stone-200">
           <span
@@ -45,6 +65,14 @@ function KitchenerOrderDish(props: { dish: IKitchenerOrderDish }) {
           />
         )}
       </div>
+      {dish.modifiers.length > 0 && (
+        <div className="flex flex-row items-center gap-1">
+          <Settings2Icon className="h-4 w-4 text-red-500" />
+          <span className="text-base font-semibold text-red-500">
+            {dish.modifiers.map((m) => m.name).join(", ")}
+          </span>
+        </div>
+      )}
     </div>
   );
 }
@@ -55,8 +83,15 @@ export default function KitchenerOrderDishes(props: Props) {
 
   const t = useTranslations();
 
-  const shown = orderDishes.filter((dish) => dish.status === "cooking");
-  const hidden = orderDishes.filter((dish) => dish.status !== "cooking");
+  const shown = orderDishes.filter(
+    (dish) =>
+      dish.status === "cooking" && dish.workshops.some((w) => w.isMyWorkshop)
+  );
+
+  const hidden = orderDishes.filter(
+    (dish) =>
+      dish.status !== "cooking" || dish.workshops.every((w) => !w.isMyWorkshop)
+  );
 
   return (
     <div className="flex flex-col gap-1">
