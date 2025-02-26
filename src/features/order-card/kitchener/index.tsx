@@ -4,7 +4,7 @@ import { IKitchenerOrder } from "@/types/order.types";
 import OrderCardHeader from "@/features/order-card/shared/header";
 import { cn } from "@/lib/utils";
 import KitchenerOrderDishes from "@/features/order-card/kitchener/order-dishes";
-import { format } from "date-fns";
+import { differenceInMinutes, format } from "date-fns";
 import { useLocale, useNow } from "next-intl";
 import formatTimeDistance from "@/utils/format-time-distance";
 
@@ -21,6 +21,17 @@ export default function KitchenerOrderCard(props: KitchenerOrderCardProps) {
   const now = useNow({
     updateInterval: 60_000,
   });
+
+  const maxCookingTime = Math.max(
+    ...order.orderDishes.map((d) => d.cookingTimeInMin)
+  );
+
+  const orderCookingTime = differenceInMinutes(
+    new Date(order.cookingAt ?? order.createdAt),
+    order.readyAt ? new Date(order.readyAt) : new Date()
+  );
+
+  const isReadyOnTime = orderCookingTime > maxCookingTime;
 
   return (
     <div
@@ -44,7 +55,12 @@ export default function KitchenerOrderCard(props: KitchenerOrderCardProps) {
                 order.cookingAt ? new Date(order.cookingAt) : order.createdAt,
                 "dd.MM.yy HH:mm"
               )}
-              <span className="ml-1 text-sm font-thin text-muted-foreground">
+              <span
+                className={cn(
+                  "ml-1 text-sm font-thin text-muted-foreground",
+                  !isReadyOnTime && "text-red-500"
+                )}
+              >
                 {`(${formatTimeDistance(
                   order.cookingAt ? new Date(order.cookingAt) : order.createdAt,
                   locale,

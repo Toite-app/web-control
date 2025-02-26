@@ -84,7 +84,7 @@ function KitchenerOrderDish(props: {
           {dish.status === "cooking" && (
             <>
               {dish.isReadyOnTime === false && (
-                <AlarmClockIcon className="h-4 min-h-4 w-4 min-w-4 animate-ping text-red-500" />
+                <AlarmClockIcon className="h-4 min-h-4 w-4 min-w-4 animate-ping text-red-500 dark:text-red-400" />
               )}
               <div
                 className={cn(

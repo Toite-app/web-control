@@ -115,6 +115,7 @@ export type IKitchenerOrder = Pick<
   | "updatedAt"
   | "delayedTo"
   | "cookingAt"
+  | "readyAt"
 > & {
   orderDishes: IKitchenerOrderDish[];
 };
