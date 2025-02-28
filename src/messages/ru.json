@@ -690,7 +690,18 @@
       "percent-description": "Процент скидки, который будет применяться к заказу",
       "daysOfWeek-description": "Дни недели, в которые будет действовать скидка",
       "orderTypes-description": "Типы заказов, к которым будет применяться скидка",
-      "orderFroms-description": "Источники заказов, к которым будет применяться скидка"
+      "orderFroms-description": "Источники заказов, к которым будет применяться скидка",
+      "behaviour": "Поведение",
+      "applyForFirstOrder": "Применять для первого заказа",
+      "applyForFirstOrder-description": "Скидка будет применяться только к первому заказу гостя",
+      "applyByPromocode": "Применять по промокоду",
+      "applyByPromocode-description": "Скидка будет применяться только при вводе промокода",
+      "applyByDefault": "Применять автоматически",
+      "applyByDefault-description": "Скидка будет применяться автоматически ко всем подходящим заказам",
+      "promocode": "Промокод",
+      "promocode-placeholder": "Введите промокод",
+      "promocode-description": "Промокод, по которому будет применяться скидка",
+      "submit": "Сохранить скидку"
     }
   }
 }

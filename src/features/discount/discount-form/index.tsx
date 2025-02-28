@@ -17,11 +17,10 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import DaysOfWeekSelect from "./components/DaysOfWeekSelect";
-import { DayOfWeek } from "@/types/general.types";
 import OrderRequirementsSelect from "./components/OrderRequirementsSelect";
-import { OrderFrom, OrderType } from "@/types/order.types";
 import { Separator } from "@/components/ui/separator";
 import { DatePicker } from "@/components/ui/date-picker";
+import { Button } from "@/components/ui/button";
 
 const formSchema = z.object({
   name: z.string().min(1),
@@ -45,6 +44,10 @@ const formSchema = z.object({
   orderFroms: z.array(z.enum(["app", "website", "internal"] as const)),
   activeFrom: z.date(),
   activeTo: z.date(),
+  applyForFirstOrder: z.boolean(),
+  applyByPromocode: z.boolean(),
+  applyByDefault: z.boolean(),
+  promocode: z.string().optional().nullable(),
 });
 
 export type DiscountFormValues = z.infer<typeof formSchema>;
@@ -67,19 +70,15 @@ export default function DiscountForm({
       description: "",
       percent: 0,
       isEnabled: true,
-      daysOfWeek: [
-        "monday",
-        "tuesday",
-        "wednesday",
-        "thursday",
-        "friday",
-        "saturday",
-        "sunday",
-      ],
-      orderTypes: ["delivery", "takeaway", "hall", "banquet"],
-      orderFroms: ["app", "website", "internal"],
+      daysOfWeek: [],
+      orderTypes: [],
+      orderFroms: [],
       activeFrom: new Date(),
       activeTo: new Date(),
+      applyForFirstOrder: false,
+      applyByPromocode: false,
+      applyByDefault: true,
+      promocode: null,
       ...initialValues,
     },
   });
@@ -87,6 +86,8 @@ export default function DiscountForm({
   const handleSubmit = async (data: DiscountFormValues) => {
     await onSubmit(data);
   };
+
+  const applyByPromocode = form.watch("applyByPromocode");
 
   return (
     <Form {...form}>
@@ -251,6 +252,116 @@ export default function DiscountForm({
           </div>
           <OrderRequirementsSelect form={form} />
         </div>
+
+        <div className="space-y-4">
+          <div className="flex flex-col gap-2">
+            <h3 className="text-lg font-bold">
+              {t("Discounts.form.behaviour")}
+            </h3>
+            <Separator />
+          </div>
+
+          <div className="space-y-4">
+            <FormField
+              control={form.control}
+              name="applyForFirstOrder"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                  <div className="space-y-0.5">
+                    <FormLabel className="text-base">
+                      {t("Discounts.form.applyForFirstOrder")}
+                    </FormLabel>
+                    <FormDescription>
+                      {t("Discounts.form.applyForFirstOrder-description")}
+                    </FormDescription>
+                  </div>
+                  <FormControl>
+                    <Switch
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="applyByPromocode"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                  <div className="space-y-0.5">
+                    <FormLabel className="text-base">
+                      {t("Discounts.form.applyByPromocode")}
+                    </FormLabel>
+                    <FormDescription>
+                      {t("Discounts.form.applyByPromocode-description")}
+                    </FormDescription>
+                  </div>
+                  <FormControl>
+                    <Switch
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+
+            {applyByPromocode && (
+              <FormField
+                control={form.control}
+                name="promocode"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t("Discounts.form.promocode")}</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder={t("Discounts.form.promocode-placeholder")}
+                        {...field}
+                        value={field.value ?? ""}
+                        error={!!form.formState.errors.promocode}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      {t("Discounts.form.promocode-description")}
+                    </FormDescription>
+                    <FormMessage>
+                      {form.formState.errors.promocode?.message}
+                    </FormMessage>
+                  </FormItem>
+                )}
+              />
+            )}
+
+            <FormField
+              control={form.control}
+              name="applyByDefault"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                  <div className="space-y-0.5">
+                    <FormLabel className="text-base">
+                      {t("Discounts.form.applyByDefault")}
+                    </FormLabel>
+                    <FormDescription>
+                      {t("Discounts.form.applyByDefault-description")}
+                    </FormDescription>
+                  </div>
+                  <FormControl>
+                    <Switch
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+          </div>
+        </div>
+
+        <Button type="submit" className="w-full">
+          {t("Discounts.form.submit")}
+        </Button>
       </form>
     </Form>
   );
