@@ -6,11 +6,13 @@ import { Calendar as CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
+import { ru, enUS, et } from "date-fns/locale";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { useLocale } from "next-intl";
 
 interface DatePickerProps {
   value?: Date;
@@ -19,6 +21,8 @@ interface DatePickerProps {
 }
 
 export function DatePicker({ value, onChange, placeholder }: DatePickerProps) {
+  const locale = useLocale();
+
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -30,7 +34,13 @@ export function DatePicker({ value, onChange, placeholder }: DatePickerProps) {
           )}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
-          {value ? format(value, "PPP") : <span>{placeholder}</span>}
+          {value ? (
+            format(value, "PPP", {
+              locale: locale === "ru" ? ru : locale === "et" ? et : enUS,
+            })
+          ) : (
+            <span>{placeholder}</span>
+          )}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" align="start">
