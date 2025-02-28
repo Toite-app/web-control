@@ -413,7 +413,9 @@
     "order": "Заказ",
     "orders": "Заказы",
     "orders-create": "Создать заказ",
+    "discounts-create": "Создать скидку",
     "orders-edit": "Редактировать заказ",
+    "discounts-edit": "Редактировать скидку",
     "orders-all": "Все заказы",
     "orders-dispatcher": "Диспетчер",
     "orders-kitchen": "Кухня",
@@ -498,6 +500,15 @@
     "friday": "Пятница",
     "saturday": "Суббота",
     "sunday": "Воскресенье"
+  },
+  "dayOfWeekShort": {
+    "monday": "Пн",
+    "tuesday": "Вт",
+    "wednesday": "Ср",
+    "thursday": "Чт",
+    "friday": "Пт",
+    "saturday": "Сб",
+    "sunday": "Вс"
   },
   "table": {
     "loading": "Загрузка...",
@@ -653,6 +664,33 @@
       "success": "Блюдо отмечено как готовое",
       "success-description": "Блюдо успешно отмечено как готовое",
       "submit": "Отметить как готовое"
+    }
+  },
+  "Discounts": {
+    "create-discount-description": "Создайте скидку для ваших ресторанов",
+    "form": {
+      "basic-info": "Основная информация",
+      "name": "Название",
+      "name-placeholder": "Введите название скидки",
+      "description": "Описание",
+      "description-placeholder": "Введите описание скидки",
+      "percent": "Процент скидки",
+      "percent-placeholder": "Введите процент скидки",
+      "isEnabled": "Активна",
+      "schedule": "Расписание",
+      "daysOfWeek": "Дни недели",
+      "orderRequirements": "Требования к заказам",
+      "orderTypes": "Типы заказов",
+      "orderFroms": "Источники заказов",
+      "activeFrom": "Активна с",
+      "activeTo": "Активна до",
+      "activeFrom-placeholder": "Выберите дату начала",
+      "activeTo-placeholder": "Выберите дату окончания",
+      "name-description": "Название скидки, которое будет отображаться в системе",
+      "percent-description": "Процент скидки, который будет применяться к заказу",
+      "daysOfWeek-description": "Дни недели, в которые будет действовать скидка",
+      "orderTypes-description": "Типы заказов, к которым будет применяться скидка",
+      "orderFroms-description": "Источники заказов, к которым будет применяться скидка"
     }
   }
 }
