@@ -2,23 +2,41 @@
 
 import { BadgePercentIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { Card } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 import DiscountForm, {
   DiscountFormValues,
 } from "@/features/discount/discount-form";
 import { useErrorHandler } from "@/hooks/useErrorHandler";
+import { UseFormReturn } from "react-hook-form";
+import { createDiscountMutation } from "@/api/fetch/discounts/createDiscount";
+import { useToast } from "@/hooks/use-toast";
 
 export default function DiscountsCreatePageContent() {
   const t = useTranslations();
+  const { toast } = useToast();
   const handleError = useErrorHandler();
 
-  const onSubmit = async (data: DiscountFormValues) => {
+  const onSubmit = async (
+    data: DiscountFormValues,
+    form: UseFormReturn<DiscountFormValues>
+  ) => {
     try {
-      // TODO: Implement discount creation
-      console.log(data);
+      console.log({ data });
+      const discount = await createDiscountMutation({
+        data: {
+          ...data,
+          startHour: null,
+          endHour: null,
+          promocode: data.promocode ?? null,
+        },
+      });
+
+      toast({
+        title: t("Discounts.create-discount-success"),
+        description: t("Discounts.create-discount-success-description"),
+        variant: "success",
+      });
     } catch (error) {
-      handleError({ error });
+      handleError({ error, form });
     }
   };
 
@@ -34,10 +52,8 @@ export default function DiscountsCreatePageContent() {
         </p>
       </header>
 
-      <div className="mt-8 flex max-w-xl flex-col gap-2">
-        <Card className="flex flex-col gap-3 p-4">
-          <DiscountForm onSubmit={onSubmit} />
-        </Card>
+      <div className="mt-8">
+        <DiscountForm onSubmit={onSubmit} />
       </div>
     </div>
   );
