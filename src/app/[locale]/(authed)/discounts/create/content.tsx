@@ -9,11 +9,13 @@ import { useErrorHandler } from "@/hooks/useErrorHandler";
 import { UseFormReturn } from "react-hook-form";
 import { createDiscountMutation } from "@/api/fetch/discounts/createDiscount";
 import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "@/navigation";
 
 export default function DiscountsCreatePageContent() {
   const t = useTranslations();
   const { toast } = useToast();
   const handleError = useErrorHandler();
+  const router = useRouter();
 
   const onSubmit = async (
     data: DiscountFormValues,
@@ -33,6 +35,11 @@ export default function DiscountsCreatePageContent() {
         title: t("Discounts.create-discount-success"),
         description: t("Discounts.create-discount-success-description"),
         variant: "success",
+      });
+
+      router.push({
+        pathname: "/discounts/[discountId]",
+        params: { discountId: discount.id },
       });
     } catch (error) {
       handleError({ error, form });

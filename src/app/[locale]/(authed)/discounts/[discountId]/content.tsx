@@ -1,12 +1,15 @@
 "use client";
 
+import { updateDiscountMutation } from "@/api/fetch/discounts/updateDiscount";
 import { useGetDiscount } from "@/api/fetch/discounts/useGetDiscount";
 import DiscountForm, {
   DiscountFormValues,
 } from "@/features/discount/discount-form";
+import { useToast } from "@/hooks/use-toast";
+import { useErrorHandler } from "@/hooks/useErrorHandler";
 import { BadgePercentIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { UseFormReturn } from "react-hook-form";
 
 export default function DiscountContent({
@@ -15,10 +18,15 @@ export default function DiscountContent({
   discountId: string;
 }) {
   const t = useTranslations();
+  const { toast } = useToast();
+  const handleError = useErrorHandler();
 
   const discount = useGetDiscount({
     urlValues: {
       discountId,
+    },
+    config: {
+      keepPreviousData: true,
     },
   });
 
@@ -31,12 +39,35 @@ export default function DiscountContent({
     } satisfies Partial<DiscountFormValues>;
   }, [discount.data]);
 
-  const onSubmit = async (
-    data: DiscountFormValues,
-    form: UseFormReturn<DiscountFormValues>
-  ) => {
-    console.log(data);
-  };
+  const onSubmit = useCallback(
+    async (
+      data: DiscountFormValues,
+      form: UseFormReturn<DiscountFormValues>
+    ) => {
+      try {
+        await updateDiscountMutation({
+          urlValues: {
+            discountId,
+          },
+          data: {
+            ...data,
+            startHour: null,
+            endHour: null,
+            promocode: data.promocode ?? null,
+          },
+        });
+
+        toast({
+          title: t("Discounts.update-discount-success"),
+          description: t("Discounts.update-discount-success-description"),
+          variant: "success",
+        });
+      } catch (error) {
+        handleError({ error, form });
+      }
+    },
+    [discountId, t, toast, handleError]
+  );
 
   return (
     <div className="mx-auto flex h-full w-full max-w-screen-xl flex-col gap-4 p-4 py-12">
