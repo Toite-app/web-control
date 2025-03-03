@@ -2,7 +2,7 @@ import { buildApiMutation } from "@/api/builder/mutation";
 import { ApiCacheTag } from "@/api/types";
 import { IDispatcherOrder, IOrder } from "@/types/order.types";
 
-export type ICreateOrder = Partial<
+export type IUpdateOrder = Partial<
   Pick<
     IOrder,
     | "type"
@@ -13,6 +13,7 @@ export type ICreateOrder = Partial<
     | "guestsAmount"
     | "restaurantId"
     | "delayedTo"
+    | "paymentMethodId"
   >
 >;
 
@@ -20,7 +21,7 @@ export const updateOrderMutation = buildApiMutation<
   { orderId: string },
   IDispatcherOrder,
   unknown,
-  ICreateOrder
+  IUpdateOrder
 >({
   url: "/orders/{orderId}",
   method: "PATCH",

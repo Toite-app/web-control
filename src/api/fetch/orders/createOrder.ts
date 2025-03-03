@@ -13,6 +13,7 @@ export type ICreateOrder = Pick<IOrder, "type"> &
       | "guestsAmount"
       | "restaurantId"
       | "delayedTo"
+      | "paymentMethodId"
     >
   >;
 

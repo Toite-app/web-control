@@ -118,6 +118,7 @@ export default function OrderPageContent({ orderId }: Props) {
                   guestsAmount: data?.guestsAmount ?? undefined,
                   restaurantId: data?.restaurantId ?? undefined,
                   tableNumber: data?.tableNumber ?? undefined,
+                  paymentMethodId: data?.paymentMethodId ?? undefined,
                 }}
                 onSubmit={onSubmit}
               />

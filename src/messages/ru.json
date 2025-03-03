@@ -336,6 +336,10 @@
       "delivering": "Заказ доставляется",
       "completed": "Заказ выполнен",
       "cancelled": "Заказ был отменен"
+    },
+    "form": {
+      "payment-method": "Способ оплаты",
+      "payment-method-placeholder": "Выберите способ оплаты"
     }
   },
   "Orders": {
@@ -370,7 +374,10 @@
       "note-placeholder": "Введите примечание к заказу",
       "submit": "Сохранить заказ",
       "create-success": "Заказ создан",
-      "create-success-description": "Заказ успешно создан"
+      "create-success-description": "Заказ успешно создан",
+      "payment-method": "Способ оплаты",
+      "payment-method-placeholder": "Выберите способ оплаты",
+      "no-payment-methods-warning": "В данном ресторане нет доступных способов оплаты. Обратитесь к администратору"
     },
     "types": {
       "delivery": "Доставка",

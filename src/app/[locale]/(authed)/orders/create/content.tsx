@@ -30,6 +30,7 @@ export default function OrdersCreatePageContent() {
             guestPhone: data.guestPhone,
             guestsAmount: data.guestsAmount,
             restaurantId: data.restaurantId,
+            paymentMethodId: data.paymentMethodId,
           },
         });
 

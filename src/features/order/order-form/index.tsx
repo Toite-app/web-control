@@ -19,6 +19,7 @@ import { PhoneInput } from "@/components/phone-input";
 import OrderTypeSelect from "./components/OrderTypeSelect";
 import RestaurantSelect from "./components/RestaurantSelect";
 import { useEffect } from "react";
+import PaymentMethodSelect from "./components/PaymentMethodSelect";
 
 const formSchema = z.object({
   type: z.enum(["delivery", "takeaway", "hall", "banquet"] as const),
@@ -28,6 +29,7 @@ const formSchema = z.object({
   guestPhone: z.string().optional(),
   guestsAmount: z.number().optional(),
   restaurantId: z.string().optional(),
+  paymentMethodId: z.string().optional(),
 });
 
 export type OrderFormValues = z.infer<typeof formSchema>;
@@ -53,6 +55,7 @@ export default function OrderForm({ initialValues, onSubmit }: OrderFormProps) {
       guestPhone: "",
       guestsAmount: 1,
       restaurantId: undefined,
+      paymentMethodId: undefined,
       ...initialValues,
     },
   });
@@ -153,6 +156,7 @@ export default function OrderForm({ initialValues, onSubmit }: OrderFormProps) {
               )}
 
               <RestaurantSelect form={form} />
+              <PaymentMethodSelect form={form} />
             </div>
 
             <div className="space-y-4">

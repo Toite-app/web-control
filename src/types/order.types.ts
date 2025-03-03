@@ -19,6 +19,7 @@ export interface IOrder {
   tableNumber: string;
   type: OrderType;
   status: OrderStatus;
+  paymentMethodId: string | null;
   currency: ICurrency;
   from: OrderFrom;
   note: string | null;
@@ -56,6 +57,7 @@ export interface IOrderDishModifier {
 export interface IOrderDish {
   id: string;
   orderId: string;
+
   name: string;
   dishId: string;
   status: OrderDishStatus;
