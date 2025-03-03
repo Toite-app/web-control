@@ -21,6 +21,7 @@ import { DatePicker } from "@/components/ui/date-picker";
 import { Button } from "@/components/ui/button";
 import RestaurantSelect from "./components/RestaurantSelect";
 import { Card } from "@/components/ui/card";
+import { useEffect } from "react";
 
 export interface DiscountFormValues {
   name: string;
@@ -92,6 +93,12 @@ export default function DiscountForm({
   const applyByPromocode = form.watch("applyByPromocode");
 
   const rootError = form.formState.errors.root?.message;
+
+  useEffect(() => {
+    if (initialValues) {
+      form.reset(initialValues);
+    }
+  }, [initialValues, form]);
 
   return (
     <div className="grid grid-cols-[1fr_400px] gap-8">

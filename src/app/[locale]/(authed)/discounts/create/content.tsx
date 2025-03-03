@@ -20,7 +20,6 @@ export default function DiscountsCreatePageContent() {
     form: UseFormReturn<DiscountFormValues>
   ) => {
     try {
-      console.log({ data });
       const discount = await createDiscountMutation({
         data: {
           ...data,

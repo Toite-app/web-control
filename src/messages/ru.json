@@ -432,7 +432,8 @@
     "guests": "Гости",
     "finances": "Финансы",
     "workshifts": "Смены",
-    "finances-report": "Отчет"
+    "finances-report": "Отчет",
+    "discount": "Скидка"
   },
   "fields": {
     "login": "Логин",
