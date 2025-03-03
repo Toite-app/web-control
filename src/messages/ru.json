@@ -667,6 +667,10 @@
     }
   },
   "Discounts": {
+    "page": {
+      "description": "Список всех скидок, которые действуют в ваших ресторанах",
+      "create": "Создать скидку"
+    },
     "create-discount-success": "Скидка создана",
     "create-discount-success-description": "Скидка успешно создана",
     "create-discount-description": "Создайте скидку для ваших ресторанов",
@@ -707,6 +711,10 @@
       "restaurants": "Рестораны",
       "restaurants-search": "Поиск ресторанов...",
       "restaurants-description": "Выберите рестораны, в которых будет действовать скидка"
+    },
+    "card": {
+      "expired": "Истек",
+      "activation-by-promocode": "Активация по промокоду"
     }
   }
 }
