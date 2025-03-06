@@ -12,6 +12,7 @@ import { RestaurantDishModifierDialogProps } from "@/features/restaurant/dish-mo
 import { OrderDishModifiersDialogProps } from "@/features/order-dishes/order-dish-modifiers-dialog";
 import { OrderDishReadyDialogProps } from "@/features/order-dishes/order-dish-ready-dialog";
 import { DishesMenuDialogProps } from "@/features/dishes/dishes-menu-dialog";
+import { DeleteDishesMenuDialogProps } from "@/features/dishes/dishes-menu-dialog/Delete";
 
 export enum DialogType {
   Restaurant = "restaurant",
@@ -27,6 +28,7 @@ export enum DialogType {
   OrderDishModifiers = "orderDishModifiers",
   MarkOrderDishAsReady = "markOrderDishAsReady",
   DishesMenu = "dishesMenu",
+  DishesMenuDelete = "dishesMenuDelete",
 }
 
 // Define data types for each dialog that needs data
@@ -44,6 +46,7 @@ export type DialogData = {
   [DialogType.OrderDishModifiers]?: OrderDishModifiersDialogProps["data"];
   [DialogType.MarkOrderDishAsReady]?: OrderDishReadyDialogProps["data"];
   [DialogType.DishesMenu]?: DishesMenuDialogProps["data"];
+  [DialogType.DishesMenuDelete]?: DeleteDishesMenuDialogProps["data"];
 };
 
 interface DialogsStore {

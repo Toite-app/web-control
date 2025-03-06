@@ -741,6 +741,12 @@
     "success-description": "Меню успешно создано",
     "update-success": "Меню обновлено",
     "update-success-description": "Меню успешно обновлено",
-    "restaurants-search": "Поиск ресторанов..."
+    "restaurants-search": "Поиск ресторанов...",
+    "delete-title": "Удалить меню",
+    "delete-description": "Вы уверены, что хотите удалить меню \"{name}\"? Это действие нельзя отменить.",
+    "delete-cancel": "Отмена",
+    "delete-confirm": "Удалить",
+    "delete-success": "Меню удалено",
+    "delete-success-description": "Меню успешно удалено"
   }
 }

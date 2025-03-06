@@ -56,6 +56,10 @@ const dialogComponents = {
     () => import("@/features/dishes/dishes-menu-dialog/index"),
     { ssr: false }
   ),
+  [DialogType.DishesMenuDelete]: dynamic(
+    () => import("@/features/dishes/dishes-menu-dialog/Delete"),
+    { ssr: false }
+  ),
 };
 
 const DialogsPortal = () => {

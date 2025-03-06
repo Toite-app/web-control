@@ -16,7 +16,7 @@ import useDialogsStore, { DialogType } from "@/store/dialogs-store";
 
 type Props = {
   value?: string | null;
-  onChange: (value: string) => void;
+  onChange: (value: string | null) => void;
   autoselectAvailable?: boolean;
 };
 
@@ -73,7 +73,10 @@ export default function DishesMenuSelect({
           <SelectGroup key={ownerName}>
             <SelectLabel>{ownerName}</SelectLabel>
             {menus.map((menu) => (
-              <div className="flex flex-row items-center gap-1" key={menu.id}>
+              <div
+                className="flex flex-row items-center gap-1 selection:bg-accent hover:bg-accent active:bg-accent"
+                key={menu.id}
+              >
                 <SelectItem
                   className="relative flex cursor-pointer"
                   key={menu.id}
@@ -107,7 +110,17 @@ export default function DishesMenuSelect({
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
-                      console.log("Delete menu:", menu.id);
+                      setOpen(false);
+
+                      setTimeout(() => {
+                        toggleDialog(DialogType.DishesMenuDelete, true, {
+                          dishesMenu: menu,
+                        });
+                      }, 0);
+
+                      if (value === menu.id) {
+                        onChange(null);
+                      }
                     }}
                     className="rounded-sm p-2 hover:bg-accent"
                   >
