@@ -747,6 +747,8 @@
     "delete-cancel": "Отмена",
     "delete-confirm": "Удалить",
     "delete-success": "Меню удалено",
-    "delete-success-description": "Меню успешно удалено"
+    "delete-success-description": "Меню успешно удалено",
+    "owner": "Владелец",
+    "owner-placeholder": "Выберите владельца"
   }
 }

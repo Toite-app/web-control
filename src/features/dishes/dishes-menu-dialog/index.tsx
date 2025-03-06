@@ -30,10 +30,22 @@ import { useState, useEffect } from "react";
 import { Search } from "lucide-react";
 import { IDishesMenu } from "@/types/dishes-menu.types";
 import { updateDishesMenuMutation } from "@/api/fetch/dishes-menus/updateDishesMenu";
+import { useGetWorkers } from "@/features/workers/api/useGetWorkers";
+import { buildFiltersParam } from "@/lib/filters";
+import { IWorker, WorkerRole } from "@/types/worker.types";
+import { useAuth } from "@/features/guards/api/useAuth";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const formSchema = z.object({
   name: z.string(),
   restaurantIds: z.array(z.string()),
+  ownerId: z.string().optional(),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -54,7 +66,28 @@ export default function DishesMenuDialog({
   const t = useTranslations();
   const { toast } = useToast();
   const handleError = useErrorHandler();
+
   const [search, setSearch] = useState("");
+
+  const user = useAuth();
+
+  const canAssignOwner =
+    user.data?.role &&
+    (user.data.role === WorkerRole.SYSTEM_ADMIN ||
+      user.data.role === WorkerRole.CHIEF_ADMIN);
+
+  const owners = useGetWorkers({
+    params: {
+      filters: buildFiltersParam<IWorker>([
+        {
+          field: "role",
+          condition: "equals",
+          value: "OWNER",
+        },
+      ]),
+    },
+    skip: !open && canAssignOwner,
+  });
 
   const isEdit = !!dishesMenu;
 
@@ -63,6 +96,7 @@ export default function DishesMenuDialog({
     defaultValues: {
       name: "",
       restaurantIds: [],
+      ownerId: undefined,
     },
   });
 
@@ -78,14 +112,20 @@ export default function DishesMenuDialog({
 
   const onSubmit = async (values: FormValues) => {
     try {
+      const submitData = {
+        name: values.name,
+        restaurantIds: values.restaurantIds,
+        ...(canAssignOwner && values.ownerId
+          ? { ownerId: values.ownerId }
+          : {}),
+      };
+
       if (isEdit) {
         await updateDishesMenuMutation({
           urlValues: {
             dishesMenuId: dishesMenu.id,
           },
-          data: {
-            ...values,
-          },
+          data: submitData,
         });
 
         toast({
@@ -95,9 +135,7 @@ export default function DishesMenuDialog({
         });
       } else {
         await createDishesMenuMutation({
-          data: {
-            ...values,
-          },
+          data: submitData,
         });
 
         toast({
@@ -136,6 +174,7 @@ export default function DishesMenuDialog({
         restaurantIds: dishesMenu.restaurants.map(
           (restaurant) => restaurant.id
         ),
+        ownerId: dishesMenu.ownerId,
       });
     }
   }, [open, dishesMenu, form]);
@@ -181,6 +220,41 @@ export default function DishesMenuDialog({
                 </FormItem>
               )}
             />
+
+            {canAssignOwner && (
+              <FormField
+                control={form.control}
+                name="ownerId"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t("DishesMenuDialog.owner")}</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      value={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue
+                            placeholder={t(
+                              "DishesMenuDialog.owner-placeholder"
+                            )}
+                          />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {owners.data?.data.map((owner) => (
+                          <SelectItem key={owner.id} value={owner.id}>
+                            {owner.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
 
             <FormItem>
               <FormLabel>{t("DishesMenuDialog.restaurants")}</FormLabel>
