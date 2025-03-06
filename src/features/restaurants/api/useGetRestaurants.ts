@@ -7,7 +7,11 @@ import {
 } from "@/api/types";
 import { IRestaurant } from "@/types/restaurant.types";
 
-export type GetRestaurantsParams = PaginationParams & SortingParams;
+export type GetRestaurantsParams = PaginationParams &
+  SortingParams & {
+    menuId?: string;
+    ownerId?: string;
+  };
 
 export const useGetRestaurants = buildApiHook<
   unknown,

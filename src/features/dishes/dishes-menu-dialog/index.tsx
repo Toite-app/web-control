@@ -100,10 +100,16 @@ export default function DishesMenuDialog({
     },
   });
 
+  const selectedOwnerId = form.watch("ownerId");
+
   const { data: restaurantsData } = useGetRestaurants({
     params: {
       size: 100,
+      ...(canAssignOwner && selectedOwnerId
+        ? { ownerId: selectedOwnerId }
+        : {}),
     },
+    skip: !open || (canAssignOwner && !selectedOwnerId),
   });
 
   const filteredRestaurants = restaurantsData?.data.filter((restaurant) =>
