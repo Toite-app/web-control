@@ -13,9 +13,12 @@ import { Link } from "@/navigation";
 import { Input } from "@/components/ui/input";
 import useDebouncedValue from "@/hooks/use-debounced-value";
 import { parseAsString, useQueryState } from "nuqs";
+import DishesMenuSelect from "@/features/dishes/menu-select";
+import { useState } from "react";
 
 export default function DishesPageContent() {
   const t = useTranslations();
+  const [menuId, setMenuId] = useState<string | null>(null);
   const [search, setSearch] = useQueryState(
     "search",
     parseAsString.withDefault("")
@@ -24,10 +27,12 @@ export default function DishesPageContent() {
 
   const dishes = useGetDishes({
     params: {
+      menuId: String(menuId),
       ...(debouncedSearch && debouncedSearch.length > 0
         ? { search: debouncedSearch }
         : {}),
     },
+    skip: !menuId,
   });
 
   const toggleDialog = useDialogsStore((state) => state.toggle);
@@ -68,7 +73,14 @@ export default function DishesPageContent() {
           </div>
         </header>
         <div className="flex flex-row gap-4">
-          <DishCategoriesList className="max-h-[80vh] min-h-[80vh] max-w-[300px]" />
+          <div className="flex max-h-[80vh] min-h-[80vh] w-full max-w-[300px] flex-col gap-2">
+            <DishesMenuSelect
+              value={menuId}
+              onChange={(value) => setMenuId(value)}
+              autoselectAvailable
+            />
+            <DishCategoriesList className="" />
+          </div>
           <ScrollArea className="max-h-[80vh] min-h-[80vh] flex-1 rounded-md">
             {dishes.data?.data.length === 0 ? (
               <div className="flex h-[80vh] w-full flex-col items-center justify-center gap-4 p-8">

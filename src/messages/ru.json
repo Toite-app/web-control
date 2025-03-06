@@ -165,7 +165,8 @@
       "save-success-description": "Прайс-лист успешно обновлен",
       "price-positive": "Цена должна быть положительным числом",
       "price-decimals": "Цена должна иметь не более 2 десятичных знаков"
-    }
+    },
+    "selectMenu": "Выберите меню"
   },
   "DishCategories": {
     "title": "Категории",
