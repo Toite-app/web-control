@@ -52,6 +52,10 @@ const dialogComponents = {
     () => import("@/features/order-dishes/order-dish-ready-dialog/index"),
     { ssr: false }
   ),
+  [DialogType.DishesMenu]: dynamic(
+    () => import("@/features/dishes/dishes-menu-dialog/index"),
+    { ssr: false }
+  ),
 };
 
 const DialogsPortal = () => {
