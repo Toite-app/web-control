@@ -94,9 +94,10 @@ export default function DishesMenuDialog({
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      restaurantIds: [],
-      ownerId: undefined,
+      name: dishesMenu?.name ?? "",
+      restaurantIds:
+        dishesMenu?.restaurants.map((restaurant) => restaurant.id) ?? [],
+      ownerId: dishesMenu?.ownerId ?? undefined,
     },
   });
 
@@ -180,7 +181,7 @@ export default function DishesMenuDialog({
         restaurantIds: dishesMenu.restaurants.map(
           (restaurant) => restaurant.id
         ),
-        ownerId: dishesMenu.ownerId,
+        ownerId: dishesMenu.ownerId ?? undefined,
       });
     }
   }, [open, dishesMenu, form]);
@@ -236,8 +237,7 @@ export default function DishesMenuDialog({
                     <FormLabel>{t("DishesMenuDialog.owner")}</FormLabel>
                     <Select
                       onValueChange={field.onChange}
-                      defaultValue={field.value}
-                      value={field.value}
+                      value={field.value ?? undefined}
                     >
                       <FormControl>
                         <SelectTrigger>
