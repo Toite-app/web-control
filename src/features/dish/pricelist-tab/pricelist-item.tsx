@@ -127,7 +127,7 @@ export function PricelistItem({ dish, item }: Props) {
                     }}
                     target="_blank"
                   >
-                    <Button variant="outline" size="icon">
+                    <Button variant="outline" size="icon" type="button">
                       <SettingsIcon className="h-4 w-4" />
                     </Button>
                   </Link>
