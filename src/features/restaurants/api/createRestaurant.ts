@@ -12,6 +12,7 @@ export type ICreateRestaurant = Pick<
   | "timezone"
   | "isEnabled"
   | "isClosedForever"
+  | "ownerId"
 >;
 
 export const createRestaurantMutation = buildApiMutation<

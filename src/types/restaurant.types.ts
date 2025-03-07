@@ -10,6 +10,7 @@ export interface IRestaurant {
   timezone: string;
   isEnabled: boolean;
   isClosedForever: boolean;
+  ownerId: string | null;
   createdAt: string;
   updatedAt: string;
 }

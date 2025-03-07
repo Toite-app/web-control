@@ -20,6 +20,10 @@ import {
 } from "../../api/createRestaurant";
 import { putRestaurantMutation } from "../../api/putRestaurant";
 import { useGetTimezones } from "@/api/fetch/useGetTimezones";
+import { useAuth } from "@/features/guards/api/useAuth";
+import { IWorker, WorkerRole } from "@/types/worker.types";
+import { useGetWorkers } from "@/features/workers/api/useGetWorkers";
+import { buildFiltersParam } from "@/lib/filters";
 
 export type RestaurantDialogProps = {
   data?: IRestaurant | null;
@@ -35,7 +39,29 @@ const RestaurantDialog: FC<RestaurantDialogProps> = (props) => {
   const handleError = useErrorHandler();
   const { toast } = useToast();
 
-  const timezones = useGetTimezones();
+  const user = useAuth();
+  const timezones = useGetTimezones({
+    skip: !open,
+  });
+
+  const canAssignOwner =
+    user.data?.role &&
+    (user.data.role === WorkerRole.SYSTEM_ADMIN ||
+      user.data.role === WorkerRole.CHIEF_ADMIN);
+
+  const owners = useGetWorkers({
+    params: {
+      size: 100,
+      filters: buildFiltersParam<IWorker>([
+        {
+          field: "role",
+          condition: "equals",
+          value: "OWNER",
+        },
+      ]),
+    },
+    skip: !open && canAssignOwner,
+  });
 
   const form = useForm<ICreateRestaurant>({
     defaultValues: {
@@ -46,6 +72,8 @@ const RestaurantDialog: FC<RestaurantDialogProps> = (props) => {
       latitude: restaurant?.latitude ?? 0,
       longitude: restaurant?.longitude ?? 0,
       isEnabled: restaurant?.isEnabled ?? true,
+      isClosedForever: restaurant?.isClosedForever ?? false,
+      ownerId: canAssignOwner ? restaurant?.ownerId ?? null : null,
     },
   });
 
@@ -89,9 +117,10 @@ const RestaurantDialog: FC<RestaurantDialogProps> = (props) => {
         timezone: restaurant?.timezone ?? "",
         isEnabled: restaurant?.isEnabled ?? true,
         isClosedForever: restaurant?.isClosedForever ?? false,
+        ownerId: canAssignOwner ? restaurant?.ownerId ?? null : null,
       });
     }
-  }, [open, restaurant, form]);
+  }, [open, restaurant, form, canAssignOwner]);
 
   return (
     <Dialog
@@ -170,6 +199,21 @@ const RestaurantDialog: FC<RestaurantDialogProps> = (props) => {
                   value: tzName,
                   intl: false,
                 })),
+              },
+            },
+            {
+              name: "ownerId",
+              label: "fields.owner",
+              hidden: !canAssignOwner,
+              data: {
+                type: "select",
+                withEmptyOption: true,
+                options:
+                  owners.data?.data.map((worker) => ({
+                    label: worker.name,
+                    value: worker.id,
+                    intl: false,
+                  })) ?? [],
               },
             },
             {

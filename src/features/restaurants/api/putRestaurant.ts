@@ -12,6 +12,7 @@ export type IPutRestaurant = Partial<
     | "longitude"
     | "isEnabled"
     | "isClosedForever"
+    | "ownerId"
   >
 >;
 
