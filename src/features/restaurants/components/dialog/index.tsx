@@ -194,6 +194,7 @@ const RestaurantDialog: FC<RestaurantDialogProps> = (props) => {
               required: true,
               data: {
                 type: "select",
+                placeholder: "Restaurants.dialog.form.timezone-placeholder",
                 options: (timezones.data?.timezones || []).map((tzName) => ({
                   label: tzName,
                   value: tzName,
@@ -207,6 +208,7 @@ const RestaurantDialog: FC<RestaurantDialogProps> = (props) => {
               hidden: !canAssignOwner,
               data: {
                 type: "select",
+                placeholder: "Restaurants.dialog.form.owner-placeholder",
                 withEmptyOption: true,
                 options:
                   owners.data?.data.map((worker) => ({

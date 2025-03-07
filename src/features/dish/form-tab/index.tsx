@@ -76,12 +76,14 @@ const DishFormTab: FC<DishFormTabProps> = (props) => {
       printLabelEveryItem: dish?.printLabelEveryItem ?? 1,
       isPublishedInApp: dish?.isPublishedInApp ?? false,
       isPublishedAtSite: dish?.isPublishedAtSite ?? false,
+      menuId: dish?.menuId ?? null,
     });
   }, [dish, form]);
 
   return (
     <div className="p-6">
       <DishForm
+        enableMenuSelect={false}
         form={form}
         onSubmit={onSubmit}
         submitText={isEdit ? "Dishes.form.save" : "Dishes.form.create"}

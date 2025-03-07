@@ -95,7 +95,9 @@
         "legalEntity-placeholder": "Введите юридическое лицо",
         "address-placeholder": "Введите адрес",
         "latitude-placeholder": "Введите широту",
-        "longitude-placeholder": "Введите долготу"
+        "longitude-placeholder": "Введите долготу",
+        "owner-placeholder": "Выберите владельца",
+        "timezone-placeholder": "Выберите часовой пояс"
       }
     },
     "tabs": {
@@ -141,7 +143,8 @@
         "cookingTimeInMin-placeholder": "Введите время приготовления в минутах",
         "amountPerItem-placeholder": "Введите количество в одной порции",
         "weight-placeholder": "Введите вес",
-        "printLabelEveryItem-placeholder": "Введите количество этикеток на порцию"
+        "printLabelEveryItem-placeholder": "Введите количество этикеток на порцию",
+        "menu-placeholder": "Выберите меню"
       }
     },
     "form": {
@@ -455,6 +458,7 @@
     "role": "Роль",
     "submit": "Войти",
     "owner": "Владелец",
+    "menu": "Меню",
     "createdAt": "Дата создания",
     "updatedAt": "Дата обновления",
     "onlineAt": "Статус",

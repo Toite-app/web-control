@@ -5,14 +5,20 @@ import { ICreateDish } from "@/api/fetch/dishes/createDish";
 import { WeightMeasure } from "@/types/dish.types";
 import { UseFormReturn } from "react-hook-form";
 import { FC } from "react";
+import { useGetDishesMenus } from "@/api/fetch/dishes-menus/useGetDishesMenus";
 
 export type DishFormProps = {
+  enableMenuSelect: boolean;
   form: UseFormReturn<ICreateDish>;
   onSubmit: (data: ICreateDish) => Promise<void>;
   submitText: string;
 };
 
-const DishForm: FC<DishFormProps> = ({ form, onSubmit, submitText }) => {
+const DishForm: FC<DishFormProps> = (props) => {
+  const { enableMenuSelect, form, onSubmit, submitText } = props;
+
+  const menus = useGetDishesMenus({});
+
   return (
     <Form<ICreateDish>
       form={form}
@@ -26,6 +32,22 @@ const DishForm: FC<DishFormProps> = ({ form, onSubmit, submitText }) => {
             type: "input",
             placeholder: "Dishes.dialog.form.name-placeholder",
           },
+        },
+        {
+          name: "menuId",
+          label: "fields.menu",
+          required: enableMenuSelect,
+          data: {
+            // TODO: Make group by owner
+            type: "select",
+            placeholder: "Dishes.dialog.form.menu-placeholder",
+            options: (menus.data ?? []).map((menu) => ({
+              label: menu.name,
+              value: menu.id,
+              intl: false,
+            })),
+          },
+          disabled: !enableMenuSelect,
         },
         {
           name: "note",

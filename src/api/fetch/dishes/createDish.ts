@@ -5,6 +5,7 @@ import { IDish } from "@/types/dish.types";
 export type ICreateDish = Pick<
   IDish,
   | "name"
+  | "menuId"
   | "note"
   | "cookingTimeInMin"
   | "amountPerItem"

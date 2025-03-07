@@ -18,15 +18,20 @@ import { putDishMutation } from "@/api/fetch/dishes/putDish";
 import DishForm from "../form";
 
 export type DishDialogProps = {
-  data?: IDish | null;
+  data?: {
+    menuId?: string | null;
+    dish?: IDish | null;
+  };
   open?: boolean;
   onClose?: () => void;
 };
 
 const DishDialog: FC<DishDialogProps> = (props) => {
-  const { data: dish, open, onClose } = props;
+  const { data, open, onClose } = props;
 
+  const { menuId, dish } = data ?? {};
   const isEdit = !!dish;
+
   const t = useTranslations();
   const handleError = useErrorHandler();
   const { toast } = useToast();
@@ -43,6 +48,7 @@ const DishDialog: FC<DishDialogProps> = (props) => {
       printLabelEveryItem: dish?.printLabelEveryItem ?? 1,
       isPublishedInApp: dish?.isPublishedInApp ?? false,
       isPublishedAtSite: dish?.isPublishedAtSite ?? false,
+      menuId: menuId ?? null,
     },
   });
 
@@ -50,17 +56,22 @@ const DishDialog: FC<DishDialogProps> = (props) => {
     try {
       if (!isEdit) {
         await createDishMutation({ data });
+
         toast({
           title: t("Dishes.dialog.create-success"),
           description: t("Dishes.dialog.create-success-description"),
           variant: "success",
         });
       } else {
+        const { menuId, ...updateData } = data;
+
+        menuId;
+
         await putDishMutation({
           urlValues: {
             dishId: dish.id,
           },
-          data,
+          data: updateData,
         });
         toast({
           title: t("Dishes.dialog.edit-success"),
@@ -88,9 +99,10 @@ const DishDialog: FC<DishDialogProps> = (props) => {
         printLabelEveryItem: dish?.printLabelEveryItem ?? 1,
         isPublishedInApp: dish?.isPublishedInApp ?? false,
         isPublishedAtSite: dish?.isPublishedAtSite ?? false,
+        menuId: menuId ?? dish?.menuId ?? null,
       });
     }
-  }, [open, dish, form]);
+  }, [open, dish, form, menuId]);
 
   return (
     <Dialog
@@ -108,6 +120,7 @@ const DishDialog: FC<DishDialogProps> = (props) => {
           </DialogTitle>
         </DialogHeader>
         <DishForm
+          enableMenuSelect={!menuId || !isEdit}
           form={form}
           onSubmit={onSubmit}
           submitText="Dishes.dialog.submit"

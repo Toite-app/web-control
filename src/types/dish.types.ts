@@ -13,6 +13,7 @@ export interface IDishImage extends IFile {
 
 export interface IDish {
   id: string;
+  menuId: string | null;
   name: string;
   note: string;
   cookingTimeInMin: number;
