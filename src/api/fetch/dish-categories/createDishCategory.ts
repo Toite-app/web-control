@@ -4,7 +4,7 @@ import { IDishCategory } from "@/types/dish-category.types";
 
 export type ICreateDishCategory = Pick<
   IDishCategory,
-  "name" | "showForWorkers" | "showForGuests" | "sortIndex"
+  "name" | "showForWorkers" | "showForGuests" | "sortIndex" | "menuId"
 >;
 
 export const createDishCategoryMutation = buildApiMutation<

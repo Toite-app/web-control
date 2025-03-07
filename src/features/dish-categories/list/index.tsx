@@ -27,6 +27,7 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import { putDishCategoryMutation } from "@/api/fetch/dish-categories/putDishCategory";
 import { SortOrder } from "@/components/data-table/hooks/useSorting";
+import { buildFiltersParam } from "@/lib/filters";
 
 interface SortableItemProps {
   category: IDishCategory;
@@ -65,7 +66,12 @@ function SortableItem({ category }: SortableItemProps) {
         <Button
           variant="outline"
           size="icon-sm"
-          onClick={() => toggleDialog("dishCategory", true, category)}
+          onClick={() =>
+            toggleDialog("dishCategory", true, {
+              menuId: category.menuId,
+              dishCategory: category,
+            })
+          }
           className="mr-2"
         >
           <PencilIcon className="h-4 w-4" />
@@ -77,10 +83,11 @@ function SortableItem({ category }: SortableItemProps) {
 
 type Props = {
   className?: string;
+  menuId?: string | null;
 };
 
 export default function DishCategoriesList(props: Props) {
-  const { className } = props;
+  const { className, menuId } = props;
   const t = useTranslations();
   const toggleDialog = useDialogsStore((state) => state.toggle);
 
@@ -89,6 +96,15 @@ export default function DishCategoriesList(props: Props) {
       size: 100,
       sortBy: "sortIndex",
       sortOrder: SortOrder.ASC,
+      ...(menuId && {
+        filters: buildFiltersParam([
+          {
+            field: "menuId",
+            condition: "equals",
+            value: menuId ?? "",
+          },
+        ]),
+      }),
     },
     config: {
       keepPreviousData: true,
@@ -131,15 +147,19 @@ export default function DishCategoriesList(props: Props) {
         <div className="flex flex-row items-center gap-2">
           <p className="text-lg font-bold">{t("DishCategories.title")}</p>
         </div>
-        <Button
-          size="icon-sm"
-          variant="default"
-          onClick={() => {
-            toggleDialog("dishCategory", true);
-          }}
-        >
-          <PlusIcon className="h-5 w-5" />
-        </Button>
+        {menuId && (
+          <Button
+            size="icon-sm"
+            variant="default"
+            onClick={() => {
+              toggleDialog("dishCategory", true, {
+                menuId,
+              });
+            }}
+          >
+            <PlusIcon className="h-5 w-5" />
+          </Button>
+        )}
       </div>
       <Separator />
       <ScrollArea className="flex-1 p-0">

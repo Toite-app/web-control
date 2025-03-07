@@ -20,13 +20,17 @@ import {
 import { putDishCategoryMutation } from "@/api/fetch/dish-categories/putDishCategory";
 
 export type DishCategoryDialogProps = {
-  data?: IDishCategory;
+  data?: {
+    menuId: string;
+    dishCategory?: IDishCategory;
+  };
   open?: boolean;
   onClose?: () => void;
 };
 
 const DishCategoryDialog: FC<DishCategoryDialogProps> = (props) => {
-  const { data: dishCategory, open, onClose } = props;
+  const { data, open, onClose } = props;
+  const { menuId, dishCategory } = data ?? {};
 
   const isEdit = !!dishCategory;
 
@@ -36,6 +40,7 @@ const DishCategoryDialog: FC<DishCategoryDialogProps> = (props) => {
 
   const form = useForm<ICreateDishCategory>({
     defaultValues: {
+      menuId,
       name: dishCategory?.name ?? "",
       showForWorkers: dishCategory?.showForWorkers ?? false,
       showForGuests: dishCategory?.showForGuests ?? false,
@@ -46,6 +51,7 @@ const DishCategoryDialog: FC<DishCategoryDialogProps> = (props) => {
     try {
       if (!isEdit) {
         await createDishCategoryMutation({ data });
+
         toast({
           title: t("DishCategories.dialog.create-success"),
           description: t("DishCategories.dialog.create-success-description"),
@@ -74,12 +80,13 @@ const DishCategoryDialog: FC<DishCategoryDialogProps> = (props) => {
   useEffect(() => {
     if (open) {
       form.reset({
+        menuId,
         name: dishCategory?.name ?? "",
         showForWorkers: dishCategory?.showForWorkers ?? false,
         showForGuests: dishCategory?.showForGuests ?? false,
       });
     }
-  }, [open, dishCategory, form]);
+  }, [open, dishCategory, form, menuId]);
 
   return (
     <Dialog

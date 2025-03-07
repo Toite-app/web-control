@@ -79,7 +79,7 @@ export default function DishesPageContent() {
               onChange={(value) => setMenuId(value)}
               autoselectAvailable
             />
-            <DishCategoriesList className="" />
+            <DishCategoriesList className="" menuId={menuId} />
           </div>
           <ScrollArea className="max-h-[80vh] min-h-[80vh] flex-1 rounded-md">
             {dishes.data?.data.length === 0 ? (

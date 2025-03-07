@@ -5,7 +5,6 @@ import { IRestaurant } from "@/types/restaurant.types";
 import { IWorker } from "@/types/worker.types";
 import { create } from "zustand";
 import { IGuest } from "@/types/guest.types";
-import { IDishCategory } from "@/types/dish-category.types";
 import { IDish } from "@/types/dish.types";
 import { RestaurantPaymentMethodDialogProps } from "@/features/restaurant/payment-method-dialog";
 import { RestaurantDishModifierDialogProps } from "@/features/restaurant/dish-modifier-dialog";
@@ -13,6 +12,7 @@ import { OrderDishModifiersDialogProps } from "@/features/order-dishes/order-dis
 import { OrderDishReadyDialogProps } from "@/features/order-dishes/order-dish-ready-dialog";
 import { DishesMenuDialogProps } from "@/features/dishes/dishes-menu-dialog";
 import { DeleteDishesMenuDialogProps } from "@/features/dishes/dishes-menu-dialog/Delete";
+import { DishCategoryDialogProps } from "@/features/dish-categories/dialog";
 
 export enum DialogType {
   Restaurant = "restaurant",
@@ -39,7 +39,7 @@ export type DialogData = {
   [DialogType.RestaurantWorkshop]?: RestaurantWorkshopDialogProps["data"];
   [DialogType.RestaurantWorkshopWorkers]?: WorkshopWorkersDialogProps["data"];
   [DialogType.Guest]?: IGuest;
-  [DialogType.DishCategory]?: IDishCategory;
+  [DialogType.DishCategory]?: DishCategoryDialogProps["data"];
   [DialogType.Dish]?: IDish;
   [DialogType.RestaurantPaymentMethod]?: RestaurantPaymentMethodDialogProps["data"];
   [DialogType.RestaurantDishModifier]?: RestaurantDishModifierDialogProps["data"];
