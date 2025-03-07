@@ -64,7 +64,9 @@ export default function DishesPageContent() {
               className="flex flex-row items-center gap-2"
               variant="default"
               onClick={() => {
-                toggleDialog("dish", true);
+                toggleDialog("dish", true, {
+                  menuId,
+                });
               }}
             >
               <PlusIcon className="h-5 w-5" />
