@@ -253,6 +253,11 @@ export function PricelistItem({ dish, item }: Props) {
             )}
           </div>
         </div>
+        {form.formState.errors.root && (
+          <p className="text-sm text-destructive">
+            {form.formState.errors.root.message}
+          </p>
+        )}
         {isDirty && (
           <div className="flex justify-end">
             <Button type="submit" size="sm">
