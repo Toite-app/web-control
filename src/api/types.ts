@@ -2,6 +2,7 @@ import { SortOrder } from "@/components/data-table/hooks/useSorting";
 
 export enum ApiCacheTag {
   WORKERS = "WORKERS",
+  ORDER_DISHES = "ORDER_DISHES",
   GUESTS = "GUESTS",
   RESTAURANTS = "RESTAURANTS",
   RESTAURANT_PAYMENT_METHODS = "RESTAURANT_PAYMENT_METHODS",
@@ -27,14 +28,30 @@ export type PaginationMeta = {
   total: number;
 };
 
+export type CursorPaginationMeta = {
+  cursorId: string | null;
+  limit: number;
+  total: number;
+};
+
 export type PaginatedResponse<T> = {
   data: T[];
   meta: PaginationMeta;
 };
 
+export type CursorPaginatedResponse<T> = {
+  data: T[];
+  meta: CursorPaginationMeta;
+};
+
 export type PaginationParams = Partial<{
   page: number;
   size: number;
+}>;
+
+export type CursorPaginationParams = Partial<{
+  cursorId: string | null;
+  limit: number;
 }>;
 
 export type SortingParams = Partial<{

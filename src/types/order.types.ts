@@ -1,3 +1,4 @@
+import { IDish } from "@/types/dish.types";
 import { ICurrency } from "@/types/general.types";
 
 export type OrderType = "delivery" | "takeaway" | "hall" | "banquet";
@@ -57,7 +58,8 @@ export interface IOrderDishModifier {
 export interface IOrderDish {
   id: string;
   orderId: string;
-
+  discountPercent: number;
+  surchargePercent: number;
   name: string;
   dishId: string;
   status: OrderDishStatus;
@@ -127,3 +129,24 @@ export interface IOrderAvailableActions {
   canCalculate: boolean;
   canSendToKitchen: boolean;
 }
+
+export type IOrderMenuDish = Pick<
+  IDish,
+  "id" | "name" | "cookingTimeInMin" | "amountPerItem" | "images"
+> & {
+  isInStopList: boolean;
+  orderDish:
+    | (Pick<
+        IOrderDish,
+        | "id"
+        | "quantity"
+        | "price"
+        | "finalPrice"
+        | "discountPercent"
+        | "surchargePercent"
+        | "modifiers"
+      > & {
+        currency: ICurrency;
+      })
+    | null;
+};
