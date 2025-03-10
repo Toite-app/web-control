@@ -2,7 +2,7 @@ import { SortOrder } from "@/components/data-table/hooks/useSorting";
 
 export enum ApiCacheTag {
   WORKERS = "WORKERS",
-  ORDER_DISHES = "ORDER_DISHES",
+  ORDER_MENU_DISHES = "ORDER_MENU_DISHES",
   GUESTS = "GUESTS",
   RESTAURANTS = "RESTAURANTS",
   RESTAURANT_PAYMENT_METHODS = "RESTAURANT_PAYMENT_METHODS",

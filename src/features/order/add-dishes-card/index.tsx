@@ -1,7 +1,6 @@
 "use client";
 
 import { useGetDishCategories } from "@/api/fetch/dish-categories/useGetDishCategories";
-import { GetDishesParams, useGetDishes } from "@/api/fetch/dishes/useGetDishes";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -28,6 +27,10 @@ import { useMemo, useState } from "react";
 import OrderDishCard from "./components/DishCard";
 import { IOrder } from "@/types/order.types";
 import { cn } from "@/lib/utils";
+import {
+  GetOrderMenuDishesParams,
+  useGetOrderMenuDishes,
+} from "@/api/fetch/orders/menu/useGetOrderMenuDishes";
 
 type Props = {
   order?: IOrder | null;
@@ -53,23 +56,24 @@ export default function AddOrderDishesCard(props: Props) {
     },
   });
 
-  const dishesParams = useMemo<GetDishesParams>(() => {
+  const dishesParams = useMemo<GetOrderMenuDishesParams>(() => {
     return {
       ...(debouncedSearchQuery && { search: debouncedSearchQuery }),
       ...(selectedCategory !== "none" && {
-        filters: buildFiltersParam([
-          {
-            field: "categoryId",
-            condition: "equals",
-            value: selectedCategory,
-          },
-        ]),
+        categoryId: selectedCategory,
       }),
     };
   }, [debouncedSearchQuery, selectedCategory]);
 
-  const dishes = useGetDishes({
+  const dishes = useGetOrderMenuDishes({
     params: dishesParams,
+    urlValues: {
+      orderId: String(order?.id),
+    },
+    config: {
+      keepPreviousData: true,
+    },
+    skip: !order?.id,
   });
 
   // When search input has text, reset and disable category select

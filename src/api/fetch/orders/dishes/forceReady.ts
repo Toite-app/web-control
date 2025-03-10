@@ -11,6 +11,7 @@ export const forceReadyOrderDishMutation = buildApiMutation<
   method: "POST",
   tags: [
     ApiCacheTag.ORDERS,
+    ApiCacheTag.ORDER_MENU_DISHES,
     ApiCacheTag.DISPATCHER_ORDERS,
     ApiCacheTag.DISPATCHER_DELAYED_ORDERS,
     ApiCacheTag.DISPATCHER_ATTENTION_ORDERS,

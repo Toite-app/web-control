@@ -5,15 +5,14 @@ import { Input } from "@/components/ui/input";
 import DishLib from "@/lib/dish";
 import ImageLib from "@/lib/image";
 import { cn } from "@/lib/utils";
-import { IDish } from "@/types/dish.types";
-import { IOrder } from "@/types/order.types";
+import { IOrder, IOrderMenuDish } from "@/types/order.types";
 import { Minus, Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 import useDishQuantity from "@/features/order/hooks/use-dish-quantity";
 
 type Props = {
-  dish: IDish;
+  dish: IOrderMenuDish;
   order?: IOrder | null;
 };
 

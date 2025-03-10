@@ -6,15 +6,18 @@ import {
 } from "@/api/types";
 import { IOrderMenuDish } from "@/types/order.types";
 
-export type GetDishesParams = CursorPaginationParams & unknown;
+export type GetOrderMenuDishesParams = CursorPaginationParams & {
+  search?: string;
+  categoryId?: string;
+};
 
 export const useGetOrderMenuDishes = buildApiHook<
   { orderId: string },
   CursorPaginatedResponse<IOrderMenuDish>,
-  GetDishesParams,
+  GetOrderMenuDishesParams,
   unknown
 >({
   url: "/orders/{orderId}/menu/dishes",
   method: "GET",
-  tags: [ApiCacheTag.ORDER_DISHES],
+  tags: [ApiCacheTag.ORDER_MENU_DISHES],
 });
