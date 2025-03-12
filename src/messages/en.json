@@ -23,7 +23,8 @@
         "role-placeholder": "Select employee role",
         "name-placeholder": "Enter employee name",
         "login-placeholder": "Enter employee login",
-        "restaurant-placeholder": "Select restaurant"
+        "restaurant-placeholder": "Select restaurant",
+        "restaurants-placeholder": "Select restaurants"
       }
     },
     "table": {
@@ -68,6 +69,13 @@
       "create-success-description": "Department successfully created",
       "edit-success": "Department successfully updated",
       "edit-success-description": "Department successfully updated"
+    },
+    "workers-dialog": {
+      "title": "Select employees",
+      "description": "Select the employees who will be assigned to this workshop",
+      "submit": "Save",
+      "success": "Staff successfully assigned",
+      "success-description": "The list of shop employees has been successfully updated"
     }
   },
   "Restaurants": {
@@ -88,14 +96,18 @@
         "legalEntity-placeholder": "Enter legal entity",
         "address-placeholder": "Enter address",
         "latitude-placeholder": "Enter latitude",
-        "longitude-placeholder": "Enter longitude"
+        "longitude-placeholder": "Enter longitude",
+        "owner-placeholder": "Select the owner",
+        "timezone-placeholder": "Select the time zone"
       }
     },
     "tabs": {
       "working-hours": "Working Hours",
       "departments": "Departments",
       "staff": "Staff",
-      "statistics": "Statistics"
+      "statistics": "Statistics",
+      "payment-methods": "Methods of payment",
+      "dish-modifiers": "Meal modifiers"
     },
     "columns": {
       "dayOfWeek": "Day of Week",
@@ -118,7 +130,9 @@
     "no": "No",
     "enabled": "Enabled",
     "disabled": "Disabled",
-    "blocked": "Blocked"
+    "blocked": "Blocked",
+    "delete": "Delete",
+    "upload": "Download"
   },
   "navbar": {
     "dashboard": "Dashboard",
@@ -138,7 +152,14 @@
     "guests": "Guests",
     "finances": "Finances",
     "workshifts": "Shifts",
-    "finances-report": "Report"
+    "finances-report": "Report",
+    "order": "Ordering",
+    "orders-create": "Create an order",
+    "discounts-create": "Create a discount",
+    "orders-edit": "Edit order",
+    "discounts-edit": "Edit discount",
+    "orders-kitchen": "Kitchen",
+    "discount": "Discount"
   },
   "fields": {
     "login": "Login",
@@ -163,7 +184,27 @@
     "empty": "Not selected",
     "bonusBalance": "Bonus Balance",
     "lastVisit": "Last Visit",
-    "phone": "Phone"
+    "phone": "Phone",
+    "owner": "Owner",
+    "menu": "Menu",
+    "timezone": "Time zone",
+    "showForWorkers": "Show employees",
+    "showForGuests": "Showing guests",
+    "sortIndex": "Sorting index",
+    "note": "Note",
+    "cookingTimeInMin": "Cooking time (min)",
+    "amountPerItem": "Quantity per serving",
+    "weight": "Weight",
+    "weightMeasureEnum": {
+      "grams": "Grams",
+      "milliliters": "Milliliters"
+    },
+    "weightMeasure": "Unit of measurement",
+    "isLabelPrintingEnabled": "Label printing",
+    "printLabelEveryItem": "Labels per serving",
+    "isPublishedInApp": "Published in the appendix",
+    "isPublishedAtSite": "Published on",
+    "restaurants": "Restaurants"
   },
   "errors": {
     "unknown": "Unknown error",
@@ -177,7 +218,8 @@
     "WAITER": "Waiter",
     "CASHIER": "Cashier",
     "DISPATCHER": "Dispatcher",
-    "COURIER": "Courier"
+    "COURIER": "Courier",
+    "OWNER": "Owner"
   },
   "dayOfWeek": {
     "monday": "Monday",
@@ -210,7 +252,8 @@
       "add": "Add filter",
       "submit": "Apply",
       "clear": "Clear filters"
-    }
+    },
+    "loading": "Loading..."
   },
   "apiErrors": {
     "default": {
@@ -235,7 +278,8 @@
           "minLength": "Minimum length is 4 characters"
         }
       }
-    }
+    },
+    "unknown": "An unknown error occurred"
   },
   "time-select": {
     "hour": "Hour",
@@ -271,6 +315,473 @@
         "edit": "Edit",
         "edit-history": "Edit History",
         "delete": "Delete"
+      }
+    }
+  },
+  "Dishes": {
+    "page": {
+      "description": "Manage meal data in the system",
+      "create": "Create",
+      "search": "Dish Finder...",
+      "no-results": "Dishes not found",
+      "try-different-search": "Try changing the search parameters"
+    },
+    "tabs": {
+      "dishForm": "These dishes",
+      "pricelist": "price list",
+      "images": "Images"
+    },
+    "dialog": {
+      "create-title": "Create a dish",
+      "edit-title": "Edit the dish",
+      "create-success": "The dish has been successfully created",
+      "create-success-description": "The dish has been successfully created",
+      "edit-success": "The dish has been successfully updated",
+      "edit-success-description": "The dish has been successfully updated",
+      "submit": "Save",
+      "form": {
+        "name-placeholder": "Enter the name of the dish",
+        "note-placeholder": "Enter a note",
+        "cookingTimeInMin-placeholder": "Enter the cooking time in minutes",
+        "amountPerItem-placeholder": "Enter the quantity in one serving",
+        "weight-placeholder": "Enter the weight",
+        "printLabelEveryItem-placeholder": "Enter the number of labels per serving",
+        "menu-placeholder": "Select menu"
+      }
+    },
+    "form": {
+      "save": "Save",
+      "create": "Create",
+      "create-success": "The dish has been successfully created",
+      "create-success-description": "The dish has been successfully created",
+      "edit-success": "The dish has been successfully updated",
+      "edit-success-description": "The dish has been successfully updated"
+    },
+    "pricelist": {
+      "noData": "No data on restaurant prices",
+      "price": "Price",
+      "currency": "Currency",
+      "workshops": "Workshops",
+      "stoplist": "On the stop list.",
+      "create-workshop": "Set up shop",
+      "settings": "Restaurant settings",
+      "save": "Save",
+      "save-success": "Price list updated",
+      "save-success-description": "Price list successfully updated",
+      "price-positive": "The price must be a positive number",
+      "price-decimals": "The price must have no more than 2 decimal places"
+    },
+    "selectMenu": "Select menu",
+    "createMenu": "Create a menu"
+  },
+  "DishCategories": {
+    "title": "Categories",
+    "dialog": {
+      "create-title": "Create a category",
+      "edit-title": "Edit category",
+      "create-success": "Category created",
+      "create-success-description": "The meal category has been successfully created",
+      "edit-success": "Category updated",
+      "edit-success-description": "The food category has been successfully updated",
+      "form": {
+        "name-placeholder": "Enter the name of the category",
+        "sortIndex-placeholder": "Enter the sorting index"
+      },
+      "submit": "Save"
+    }
+  },
+  "Images": {
+    "no-images": "No images",
+    "image-alt": "Brief description of the image",
+    "upload": "Download",
+    "uploading": "Loading...",
+    "main-image": "Main image",
+    "upload-success": "The image has been successfully uploaded",
+    "upload-success-description": "The image has been successfully uploaded",
+    "delete-success": "Image deleted",
+    "delete-success-description": "The image has been successfully deleted",
+    "deleting": "Deletion...",
+    "alt-update-success": "Description updated",
+    "alt-update-success-description": "The image description has been successfully updated"
+  },
+  "OrderCard": {
+    "statuses": {
+      "general": {
+        "pending": "The order has been created",
+        "cooking": "In the kitchen",
+        "ready": "Cooked",
+        "delivering": "Deliverable",
+        "paid": "Paid",
+        "completed": "Completed",
+        "cancelled": "Canceled"
+      },
+      "dishes-ready": "The dishes are prepared",
+      "attach-restaurant": "Designate a restaurant",
+      "send-to-kitchen": "Send it to the kitchen",
+      "delayed-to": "Postponed to"
+    },
+    "dishes-status": "Dishes: cooked / in progress / not started",
+    "from": {
+      "app": "Ordering from the app",
+      "website": "Ordering from the website"
+    },
+    "type": {
+      "hall": "Ordering in the hall",
+      "delivery": "Delivery order",
+      "takeaway": "Takeaway order",
+      "banquet": "Banquet"
+    }
+  },
+  "AddedOrderDishRow": {
+    "force-ready-success": "The dish is forcibly cooked",
+    "force-ready-success-description": "The dish is forcibly cooked"
+  },
+  "AddedDishesList": {
+    "list": "List of dishes",
+    "orderContent": "Order contents",
+    "noAddedDishes": "There are no added dishes",
+    "dishName": "Title",
+    "additional-cooking": "Ordering",
+    "status": "Status",
+    "quantity": "Quantity",
+    "price": "Price",
+    "statuses": {
+      "pending": "Added",
+      "cooking": "In the kitchen",
+      "ready": "Cooked",
+      "completed": "Completed"
+    },
+    "searchPlaceholder": "Dish Finder...",
+    "sort": {
+      "asc": "In ascending order",
+      "desc": "In descending order"
+    },
+    "removeDish": "Remove the dish",
+    "forceCooking": "Force cook",
+    "noDishes": "There are no dishes",
+    "pleaseAddDishes": "Please add dishes to your order",
+    "noFilteredDishes": "Dishes not found",
+    "tryDifferentSearch": "Try changing the search parameters",
+    "edit-modifiers": "Change modifiers",
+    "return-dish": "Return of a dish",
+    "have-returnments": "There are returns",
+    "returnment": "Refund"
+  },
+  "OrderActions": {
+    "send-to-kitchen-success": "Dishes have been sent to the kitchen",
+    "send-to-kitchen-success-description": "Dishes have been successfully sent to the kitchen"
+  },
+  "Order": {
+    "order-status": "Order status",
+    "info": "Information",
+    "current": "Current",
+    "summary": "Summary",
+    "actions": "Actions",
+    "action-variants": {
+      "send-to-kitchen": "Send it to the kitchen",
+      "print-pre-check": "Print out the pre-check",
+      "calculate-order": "Calculate order"
+    },
+    "summary-card": {
+      "order-type": "Order type",
+      "order-from": "Formalized",
+      "order-from-values": {
+        "internal": "In the system",
+        "app": "In the appendix",
+        "website": "On the site"
+      },
+      "order-type-values": {
+        "hall": "Hall",
+        "delivery": "Delivery",
+        "takeaway": "With myself",
+        "banquet": "Banquet"
+      },
+      "order-restaurant": "Restaurant",
+      "prices": {
+        "subtotal": "Order amount",
+        "total": "Amount due",
+        "surchargeAmount": "Markup",
+        "discountAmount": "Discount",
+        "bonusUsed": "Payment by bonuses"
+      }
+    },
+    "stepper": {
+      "pending": "The order has been created and is awaiting processing",
+      "cooking": "The order is prepared in the kitchen",
+      "ready": "All the dishes are cooked",
+      "paid": "Order paid",
+      "delivering": "The order is delivered",
+      "completed": "Order fulfilled",
+      "cancelled": "The order was canceled"
+    },
+    "form": {
+      "payment-method": "Method of payment",
+      "payment-method-placeholder": "Choose a payment method"
+    }
+  },
+  "Orders": {
+    "create-order": "Create an order",
+    "attention-required": "Requires attention",
+    "delayed-orders": "Pending orders",
+    "create-order-description": "Specify the basic information to create a new order",
+    "edit-order-description": "You can now change the content of the order",
+    "form": {
+      "general-info": "Basic information",
+      "type-label": "Order type",
+      "type-placeholder": "Select order type",
+      "required-section": "Required fields",
+      "optional-section": "Additional fields",
+      "table-number": "Table number",
+      "guest-name": "Guest Name",
+      "guest-phone": "Guest phone number",
+      "guests-amount": "Number of guests",
+      "note": "Note",
+      "restaurant": "Restaurant",
+      "restaurant-placeholder": "Choose a restaurant",
+      "errors": {
+        "guests-amount-required": "Specify the number of guests",
+        "guest-phone-required": "Provide a phone number",
+        "restaurant-required": "Choose a restaurant",
+        "table-number-required": "Specify table number"
+      },
+      "guests-amount-placeholder": "Enter the number of guests",
+      "table-number-placeholder": "Enter table number",
+      "guest-phone-placeholder": "Enter the phone number",
+      "guest-name-placeholder": "Enter the guest's name",
+      "note-placeholder": "Enter an order note",
+      "submit": "Save order",
+      "create-success": "The order has been created",
+      "create-success-description": "The order has been successfully created",
+      "payment-method": "Method of payment",
+      "payment-method-placeholder": "Choose a payment method",
+      "no-payment-methods-warning": "There are no payment methods available at this restaurant. Please contact the receptionist"
+    },
+    "types": {
+      "delivery": "Delivery",
+      "takeaway": "With myself",
+      "hall": "Hall",
+      "banquet": "Banquet"
+    },
+    "search-placeholder": "Search Orders...",
+    "add-dishes": {
+      "title": "Add to order",
+      "category-placeholder": "Select a category",
+      "search-placeholder": "Dish Finder...",
+      "none-category": "All categories",
+      "quantity": "Quantity",
+      "quantity-placeholder": "0",
+      "add-button": "Add",
+      "no-restaurant-warning": "Designate a restaurant to add dishes",
+      "no-restaurant-warning-description": "Select a restaurant in the basic ordering information"
+    }
+  },
+  "dayOfWeekShort": {
+    "monday": "Mon",
+    "tuesday": "W",
+    "wednesday": "Cf",
+    "thursday": "Chth",
+    "friday": "Pt.",
+    "saturday": "Sat",
+    "sunday": "All"
+  },
+  "dish-card": {
+    "pieces": "piece",
+    "minutes": "min",
+    "grams": "г",
+    "milliliters": "ml"
+  },
+  "phone-input": {
+    "search-country": "Country Search...",
+    "no-country": "Country not found"
+  },
+  "PaymentMethods": {
+    "columns": {
+      "name": "Title",
+      "type": "Type",
+      "secretId": "Secret ID"
+    },
+    "dialog": {
+      "create-title": "Create a payment method",
+      "edit-title": "Edit payment method",
+      "create-success": "Payment method created",
+      "create-success-description": "Payment method has been successfully created",
+      "edit-success": "Payment method updated",
+      "edit-success-description": "Payment method has been successfully updated",
+      "form": {
+        "name": "Title",
+        "name-placeholder": "Enter the name of the payment method",
+        "type": "Type",
+        "type-placeholder": "Select the type of payment method",
+        "icon": "Icon",
+        "icon-placeholder": "Select the payment method icon",
+        "secretId": "Secret ID",
+        "secretId-placeholder": "Enter the secret ID",
+        "secretKey": "The secret key",
+        "secretKey-placeholder": "Enter the secret key",
+        "secretKey-description": "Secret key for payment method"
+      }
+    },
+    "types": {
+      "CUSTOM": "Own",
+      "YOO_KASSA": "YouKassa"
+    },
+    "icons": {
+      "CARD": "Map",
+      "CASH": "Cash",
+      "BANK_CARD": "Bank card",
+      "YOO_KASSA": "YouKassa"
+    }
+  },
+  "RestaurantPaymentMethods": {
+    "dialog": {
+      "create-title": "Create a payment method",
+      "edit-title": "Edit payment method"
+    }
+  },
+  "DishModifiers": {
+    "columns": {
+      "name": "Title"
+    },
+    "dialog": {
+      "create-title": "Create a modifier",
+      "edit-title": "Edit modifier",
+      "create-success": "Modifier created",
+      "create-success-description": "The modifier was successfully created",
+      "edit-success": "Modifier updated",
+      "edit-success-description": "The modifier has been successfully updated",
+      "form": {
+        "name": "Title",
+        "name-placeholder": "Enter the name of the modifier"
+      }
+    }
+  },
+  "RestaurantDishModifiers": {
+    "dialog": {
+      "create-title": "Create a modifier",
+      "edit-title": "Edit modifier"
+    }
+  },
+  "OrderDishModifiers": {
+    "dialog": {
+      "title": "Change modifiers",
+      "description": "Select the modifiers you want to add to the dish",
+      "submit": "Save",
+      "success": "Modifiers updated",
+      "success-description": "The list of dish modifiers has been successfully updated",
+      "no-restaurant": "Please select a restaurant to order from"
+    }
+  },
+  "KitchenerOrderCard": {
+    "show-full-list": "Show all dishes",
+    "additional": "Ordering",
+    "lateness": "Takes longer to cook"
+  },
+  "OrderDishReadyDialog": {
+    "dialog": {
+      "title": "The dish is ready",
+      "description": "Are you sure you want to mark the dish as finished?",
+      "success": "The dish is marked as finished",
+      "success-description": "The dish has been successfully marked as finished",
+      "submit": "Mark it as done"
+    }
+  },
+  "Discounts": {
+    "page": {
+      "description": "A list of all the discounts available at your restaurants",
+      "create": "Create a discount"
+    },
+    "create-discount-success": "The discount has been created",
+    "create-discount-success-description": "The discount has been successfully created",
+    "update-discount-success": "The discount has been updated",
+    "update-discount-success-description": "Discount has been successfully updated",
+    "create-discount-description": "Create a discount for your restaurants",
+    "form": {
+      "basic-info": "Basic information",
+      "name": "Title",
+      "name-placeholder": "Enter the name of the discount",
+      "description": "Description",
+      "description-placeholder": "Enter a description of the discount",
+      "percent": "Discount percentage",
+      "percent-placeholder": "Enter the discount percentage",
+      "isEnabled": "Active",
+      "schedule": "Schedule",
+      "daysOfWeek": "Days of the week",
+      "orderRequirements": "Requirements for orders",
+      "orderTypes": "Types of orders",
+      "orderFroms": "Sources of orders",
+      "activeFrom": "Active with",
+      "activeTo": "Active until",
+      "activeFrom-placeholder": "Select the start date",
+      "activeTo-placeholder": "Select the end date",
+      "name-description": "The name of the discount that will be displayed in the system",
+      "percent-description": "The discount percentage that will be applied to the order",
+      "daysOfWeek-description": "Days of the week on which the discount will be valid",
+      "orderTypes-description": "Types of orders to which the discount will be applied",
+      "orderFroms-description": "Sources of orders to which the discount will be applied",
+      "behaviour": "Behavior",
+      "applyForFirstOrder": "Apply for the first order",
+      "applyForFirstOrder-description": "Discount will be applied to the guest's first order only",
+      "applyByPromocode": "Apply by promo code",
+      "applyByPromocode-description": "The discount will only be applied when you enter the promo code",
+      "applyByDefault": "Apply automatically",
+      "applyByDefault-description": "The discount will be applied automatically to all eligible orders",
+      "promocode": "Promo code",
+      "promocode-placeholder": "Enter promo code",
+      "promocode-description": "Promo code, by which the discount will be applied",
+      "submit": "Save the discount",
+      "restaurants": "Restaurants",
+      "restaurants-search": "Restaurant Finder...",
+      "restaurants-description": "Select the restaurants where the discount will apply"
+    },
+    "card": {
+      "expired": "Expired",
+      "activation-by-promocode": "Activation by promo code"
+    }
+  },
+  "DishesMenuDialog": {
+    "create-title": "Create a menu",
+    "edit-title": "Edit menu",
+    "name": "Title",
+    "name-placeholder": "Enter a menu name",
+    "restaurants": "Restaurants",
+    "submit": "Create",
+    "update": "Save",
+    "success": "Menu created",
+    "success-description": "The menu has been successfully created",
+    "update-success": "Menu updated",
+    "update-success-description": "Menu successfully updated",
+    "restaurants-search": "Restaurant Finder...",
+    "delete-title": "Delete menu",
+    "delete-description": "Are you sure you want to delete the \"{name}\" menu? This action cannot be undone.",
+    "delete-cancel": "Cancellation",
+    "delete-confirm": "Delete",
+    "delete-success": "Menu deleted",
+    "delete-success-description": "The menu has been successfully deleted",
+    "owner": "Owner",
+    "owner-placeholder": "Select the owner"
+  },
+  "OrderDishReturnmentDialog": {
+    "dialog": {
+      "title": "Return of a dish",
+      "description": "Indicate the reason for returning the dish",
+      "success": "The dish has been returned",
+      "success-description": "The dish has been successfully returned",
+      "submit": "Return the dish",
+      "reason": {
+        "label": "Reason for return",
+        "placeholder": "Select the reason for the return",
+        "custom-placeholder": "Describe the reason for the return",
+        "options": {
+          "kitchener-error": "Chef's mistake",
+          "waiter-error": "Waiter's mistake",
+          "long-waiting": "Long wait",
+          "other": "Other"
+        }
+      },
+      "quantity": {
+        "label": "Quantity to be returned",
+        "placeholder": "Enter the quantity",
+        "description": "Maximum quantity to be returned: {max}"
       }
     }
   }
