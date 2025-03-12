@@ -294,7 +294,9 @@
     "noFilteredDishes": "Блюда не найдены",
     "tryDifferentSearch": "Попробуйте изменить параметры поиска",
     "edit-modifiers": "Изменить модификаторы",
-    "return-dish": "Возврат блюда"
+    "return-dish": "Возврат блюда",
+    "have-returnments": "Есть возвраты",
+    "returnment": "Возврат"
   },
   "OrderActions": {
     "send-to-kitchen-success": "Блюда отправлены на кухню",

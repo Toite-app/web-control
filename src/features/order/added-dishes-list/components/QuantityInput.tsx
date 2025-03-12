@@ -33,8 +33,13 @@ export default function OrderDishQuantityInput({ orderDish }: Props) {
 
   if (orderDish.status !== "pending") {
     return (
-      <div className="flex w-full flex-row items-center justify-center gap-1">
+      <div className="flex w-full flex-col items-center justify-center gap-1">
         <p>{orderDish.quantity}</p>
+        {orderDish.quantityReturned > 0 && (
+          <p className="text-xs text-red-500">
+            {t("AddedDishesList.returnment")}: {orderDish.quantityReturned}
+          </p>
+        )}
       </div>
     );
   }
