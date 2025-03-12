@@ -293,7 +293,8 @@
     "pleaseAddDishes": "Пожалуйста, добавьте блюда в заказ",
     "noFilteredDishes": "Блюда не найдены",
     "tryDifferentSearch": "Попробуйте изменить параметры поиска",
-    "edit-modifiers": "Изменить модификаторы"
+    "edit-modifiers": "Изменить модификаторы",
+    "return-dish": "Возврат блюда"
   },
   "OrderActions": {
     "send-to-kitchen-success": "Блюда отправлены на кухню",
@@ -755,5 +756,30 @@
     "delete-success-description": "Меню успешно удалено",
     "owner": "Владелец",
     "owner-placeholder": "Выберите владельца"
+  },
+  "OrderDishReturnmentDialog": {
+    "dialog": {
+      "title": "Возврат блюда",
+      "description": "Укажите причину возврата блюда",
+      "success": "Блюдо возвращено",
+      "success-description": "Блюдо успешно возвращено",
+      "submit": "Вернуть блюдо",
+      "reason": {
+        "label": "Причина возврата",
+        "placeholder": "Выберите причину возврата",
+        "custom-placeholder": "Опишите причину возврата",
+        "options": {
+          "kitchener-error": "Ошибка повара",
+          "waiter-error": "Ошибка официанта",
+          "long-waiting": "Долгое ожидание",
+          "other": "Другое"
+        }
+      },
+      "quantity": {
+        "label": "Количество для возврата",
+        "placeholder": "Введите количество",
+        "description": "Максимальное количество для возврата: {max}"
+      }
+    }
   }
 }

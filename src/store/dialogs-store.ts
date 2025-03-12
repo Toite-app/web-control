@@ -13,6 +13,7 @@ import { DishesMenuDialogProps } from "@/features/dishes/dishes-menu-dialog";
 import { DeleteDishesMenuDialogProps } from "@/features/dishes/dishes-menu-dialog/Delete";
 import { DishCategoryDialogProps } from "@/features/dish-categories/dialog";
 import { DishDialogProps } from "@/features/dishes/dialog";
+import { OrderDishReturnmentDialogProps } from "@/features/order-dishes/order-dish-returnment-dialog";
 
 export enum DialogType {
   Restaurant = "restaurant",
@@ -26,6 +27,7 @@ export enum DialogType {
   Dish = "dish",
   RestaurantDishModifier = "restaurantDishModifier",
   OrderDishModifiers = "orderDishModifiers",
+  OrderDishReturnment = "orderDishReturnment",
   MarkOrderDishAsReady = "markOrderDishAsReady",
   DishesMenu = "dishesMenu",
   DishesMenuDelete = "dishesMenuDelete",
@@ -47,6 +49,7 @@ export type DialogData = {
   [DialogType.MarkOrderDishAsReady]?: OrderDishReadyDialogProps["data"];
   [DialogType.DishesMenu]?: DishesMenuDialogProps["data"];
   [DialogType.DishesMenuDelete]?: DeleteDishesMenuDialogProps["data"];
+  [DialogType.OrderDishReturnment]?: OrderDishReturnmentDialogProps["data"];
 };
 
 interface DialogsStore {

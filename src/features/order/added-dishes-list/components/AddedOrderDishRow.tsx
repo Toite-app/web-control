@@ -11,6 +11,7 @@ import {
   XIcon,
   CheckIcon,
   Settings2Icon,
+  Undo2Icon,
 } from "lucide-react";
 import OrderDishQuantityInput from "./QuantityInput";
 import {
@@ -89,8 +90,7 @@ export default function AddedOrderDishRow({ orderDish, order }: Props) {
               </div>
             ) : null}
           </div>
-          {(orderDish.status === "pending" ||
-            orderDish.status === "cooking") && (
+          {orderDish.status === "pending" && (
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -174,6 +174,29 @@ export default function AddedOrderDishRow({ orderDish, order }: Props) {
             </Tooltip>
           </TooltipProvider>
         )}
+        {(orderDish.status === "ready" || orderDish.status === "completed") &&
+          orderDish.quantity > 0 && (
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant="outline"
+                    size="icon-sm"
+                    onClick={() => {
+                      toggleDialog(DialogType.OrderDishReturnment, true, {
+                        orderDish,
+                      });
+                    }}
+                  >
+                    <Undo2Icon className="h-4 w-4 text-red-500" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>{t("AddedDishesList.return-dish")}</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          )}
       </TableCell>
     </TableRow>
   );

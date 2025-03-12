@@ -60,6 +60,10 @@ const dialogComponents = {
     () => import("@/features/dishes/dishes-menu-dialog/Delete"),
     { ssr: false }
   ),
+  [DialogType.OrderDishReturnment]: dynamic(
+    () => import("@/features/order-dishes/order-dish-returnment-dialog/index"),
+    { ssr: false }
+  ),
 };
 
 const DialogsPortal = () => {
