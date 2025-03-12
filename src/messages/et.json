@@ -23,7 +23,8 @@
         "role-placeholder": "Valige töötaja roll",
         "name-placeholder": "Sisestage töötaja nimi",
         "login-placeholder": "Sisestage töötaja kasutajanimi",
-        "restaurant-placeholder": "Valige restoran"
+        "restaurant-placeholder": "Valige restoran",
+        "restaurants-placeholder": "Valitud restoranid"
       }
     },
     "table": {
@@ -68,6 +69,13 @@
       "create-success-description": "Osakond edukalt loodud",
       "edit-success": "Osakond edukalt uuendatud",
       "edit-success-description": "Osakond edukalt uuendatud"
+    },
+    "workers-dialog": {
+      "title": "Valige töötajad",
+      "description": "Valige töötajad, kes osalevad selles töötoas.",
+      "submit": "Salvesta",
+      "success": "Edukalt määratud töötajad",
+      "success-description": "Töökoja töötajate nimekiri on edukalt uuendatud"
     }
   },
   "Restaurants": {
@@ -88,14 +96,18 @@
         "legalEntity-placeholder": "Sisestage juriidiline isik",
         "address-placeholder": "Sisestage aadress",
         "latitude-placeholder": "Sisestage laiuskraad",
-        "longitude-placeholder": "Sisestage pikkuskraad"
+        "longitude-placeholder": "Sisestage pikkuskraad",
+        "owner-placeholder": "Valige omanik",
+        "timezone-placeholder": "Valige ajavöönd"
       }
     },
     "tabs": {
       "working-hours": "Lahtiolekuajad",
       "departments": "Osakonnad",
       "staff": "Personal",
-      "statistics": "Statistika"
+      "statistics": "Statistika",
+      "payment-methods": "Makseviisid",
+      "dish-modifiers": "Toitude modifitseerijad"
     },
     "columns": {
       "dayOfWeek": "Nädalapäev",
@@ -118,7 +130,9 @@
     "no": "Ei",
     "enabled": "Aktiivne",
     "disabled": "Mitteaktiivne",
-    "blocked": "Blokeeritud"
+    "blocked": "Blokeeritud",
+    "delete": "Kustuta",
+    "upload": "Lae alla"
   },
   "navbar": {
     "dashboard": "Pealeht",
@@ -138,7 +152,14 @@
     "guests": "Külalised",
     "finances": "Finants",
     "workshifts": "Vahetused",
-    "finances-report": "Aruanne"
+    "finances-report": "Aruanne",
+    "order": "Tellimine",
+    "orders-create": "Tellimuse loomine",
+    "discounts-create": "Luua allahindlus",
+    "orders-edit": "Korralduse muutmine",
+    "discounts-edit": "Redigeeri allahindlust",
+    "orders-kitchen": "Köök",
+    "discount": "Allahindlus"
   },
   "fields": {
     "login": "Kasutajanimi",
@@ -163,7 +184,27 @@
     "empty": "Pole valitud",
     "bonusBalance": "Boonuse saldo",
     "lastVisit": "Viimane külastus",
-    "phone": "Telefon"
+    "phone": "Telefon",
+    "owner": "Omanik",
+    "menu": "Menüü",
+    "timezone": "Ajavöönd",
+    "showForWorkers": "Näita töötajaid",
+    "showForGuests": "Külaliste näitamine",
+    "sortIndex": "Sorteerimisindeks",
+    "note": "Märkus",
+    "cookingTimeInMin": "Küpsetusaeg (min)",
+    "amountPerItem": "Kogus portsjoni kohta",
+    "weight": "Kaal",
+    "weightMeasureEnum": {
+      "grams": "Grammid",
+      "milliliters": "Milliliitrit"
+    },
+    "weightMeasure": "Mõõtühik",
+    "isLabelPrintingEnabled": "Etikettide trükkimine",
+    "printLabelEveryItem": "Etiketid portsjoni kohta",
+    "isPublishedInApp": "Avaldatud rakenduses",
+    "isPublishedAtSite": "Avaldatud veebilehel",
+    "restaurants": "Restoranid"
   },
   "errors": {
     "unknown": "Tundmatu viga",
@@ -177,7 +218,8 @@
     "WAITER": "Teenindaja",
     "CASHIER": "Kassapidaja",
     "DISPATCHER": "Dispetšer",
-    "COURIER": "Kuller"
+    "COURIER": "Kuller",
+    "OWNER": "Omanik"
   },
   "dayOfWeek": {
     "monday": "Esmaspäev",
@@ -210,7 +252,8 @@
       "add": "Lisa filter",
       "submit": "Rakenda",
       "clear": "Tühjenda filtrid"
-    }
+    },
+    "loading": "Laadimine..."
   },
   "apiErrors": {
     "default": {
@@ -235,7 +278,8 @@
           "minLength": "Minimaalne pikkus on 4 tähemärki"
         }
       }
-    }
+    },
+    "unknown": "Tekkis tundmatu viga"
   },
   "time-select": {
     "hour": "Tund",
@@ -271,6 +315,473 @@
         "edit": "Muuda",
         "edit-history": "Muutmise ajalugu",
         "delete": "Kustuta"
+      }
+    }
+  },
+  "Dishes": {
+    "page": {
+      "description": "Toitude andmete haldamine süsteemis",
+      "create": "Loo",
+      "search": "Dish Finder...",
+      "no-results": "Nõusid ei leitud",
+      "try-different-search": "Proovige muuta oma otsinguparameetreid"
+    },
+    "tabs": {
+      "dishForm": "Need toidud",
+      "pricelist": "Hinnakiri",
+      "images": "Pildid"
+    },
+    "dialog": {
+      "create-title": "Loo roog",
+      "edit-title": "Redigeeri roogi",
+      "create-success": "Nõu on edukalt loodud",
+      "create-success-description": "Nõu on edukalt loodud",
+      "edit-success": "Nõu on edukalt uuendatud",
+      "edit-success-description": "Nõu on edukalt uuendatud",
+      "submit": "Salvesta",
+      "form": {
+        "name-placeholder": "Sisestage roa nimi",
+        "note-placeholder": "Sisestage märkus",
+        "cookingTimeInMin-placeholder": "Sisestage küpsetusaeg minutites",
+        "amountPerItem-placeholder": "Sisestage kogus ühes portsjonis",
+        "weight-placeholder": "Sisestage kaal",
+        "printLabelEveryItem-placeholder": "Sisestage etikettide arv portsjoni kohta",
+        "menu-placeholder": "Valige menüü"
+      }
+    },
+    "form": {
+      "save": "Salvesta",
+      "create": "Loo",
+      "create-success": "Nõu on edukalt loodud",
+      "create-success-description": "Nõu on edukalt loodud",
+      "edit-success": "Nõu on edukalt uuendatud",
+      "edit-success-description": "Nõu on edukalt uuendatud"
+    },
+    "pricelist": {
+      "noData": "Andmed restoranide hindade kohta puuduvad",
+      "price": "Hind",
+      "currency": "Valuuta",
+      "workshops": "Töötoad",
+      "stoplist": "Peatusnimekirjas",
+      "create-workshop": "Poodi üles seada",
+      "settings": "Restorani seaded",
+      "save": "Salvesta",
+      "save-success": "Hinnakiri uuendatud",
+      "save-success-description": "Hinnakiri edukalt uuendatud",
+      "price-positive": "Hind peab olema positiivne arv",
+      "price-decimals": "Hinnal ei tohi olla rohkem kui 2 komakohta."
+    },
+    "selectMenu": "Valige menüü",
+    "createMenu": "Loo menüü"
+  },
+  "DishCategories": {
+    "title": "Kategooriad",
+    "dialog": {
+      "create-title": "Loo kategooria",
+      "edit-title": "Muuda kategooriat",
+      "create-success": "Loodud kategooria",
+      "create-success-description": "Toiduainete kategooria on edukalt loodud",
+      "edit-success": "Uuendatud kategooria",
+      "edit-success-description": "Toidugrupp on edukalt uuendatud",
+      "form": {
+        "name-placeholder": "Sisestage kategooria nimi",
+        "sortIndex-placeholder": "Sisestage sorteerimisindeks"
+      },
+      "submit": "Salvesta"
+    }
+  },
+  "Images": {
+    "no-images": "Pildid puuduvad",
+    "image-alt": "Pildi lühikirjeldus",
+    "upload": "Lae alla",
+    "uploading": "Laadimine...",
+    "main-image": "Peamine pilt",
+    "upload-success": "Pilt on edukalt üles laaditud",
+    "upload-success-description": "Pilt on edukalt üles laaditud",
+    "delete-success": "Pilt kustutatud",
+    "delete-success-description": "Pilt on edukalt kustutatud",
+    "deleting": "Kustutamine...",
+    "alt-update-success": "Kirjeldus ajakohastatud",
+    "alt-update-success-description": "Pildi kirjeldus on edukalt uuendatud"
+  },
+  "OrderCard": {
+    "statuses": {
+      "general": {
+        "pending": "Tellimus on loodud",
+        "cooking": "Köögis",
+        "ready": "Keedetud",
+        "delivering": "Saavutatav",
+        "paid": "Tasuline",
+        "completed": "Lõpetatud",
+        "cancelled": "Tühistatud"
+      },
+      "dishes-ready": "Toidud on keedetud",
+      "attach-restaurant": "Määrata restoran",
+      "send-to-kitchen": "Saada see kööki",
+      "delayed-to": "Edasi lükatud kuni"
+    },
+    "dishes-status": "Toidud: valmis / pooleli / ei ole alustatud",
+    "from": {
+      "app": "Tellimine rakendusest",
+      "website": "Tellimine veebilehelt"
+    },
+    "type": {
+      "hall": "Tellimine saalis",
+      "delivery": "Tarnekorraldus",
+      "takeaway": "Tellimuse võtmine kaasa",
+      "banquet": "Bankett"
+    }
+  },
+  "AddedOrderDishRow": {
+    "force-ready-success": "Nõu on sunniviisiliselt keedetud",
+    "force-ready-success-description": "Nõu on sunniviisiliselt keedetud"
+  },
+  "AddedDishesList": {
+    "list": "Toitude loetelu",
+    "orderContent": "Tellige sisu",
+    "noAddedDishes": "Ei ole lisatud roogasid",
+    "dishName": "Pealkiri",
+    "additional-cooking": "Tellimine",
+    "status": "Staatus",
+    "quantity": "Kogus",
+    "price": "Hind",
+    "statuses": {
+      "pending": "Lisatud",
+      "cooking": "Köögis",
+      "ready": "Keedetud",
+      "completed": "Lõpetatud"
+    },
+    "searchPlaceholder": "Dish Finder...",
+    "sort": {
+      "asc": "Suurenevas järjekorras",
+      "desc": "Alanduvas järjekorras"
+    },
+    "removeDish": "Eemaldage taldrik",
+    "forceCooking": "Sundkorras toiduvalmistamiseks",
+    "noDishes": "Nõusid ei ole",
+    "pleaseAddDishes": "Palun lisage oma tellimusele roogasid",
+    "noFilteredDishes": "Nõusid ei leitud",
+    "tryDifferentSearch": "Proovige muuta oma otsinguparameetreid",
+    "edit-modifiers": "Muuda modifikaatoreid",
+    "return-dish": "Nõu tagastamine",
+    "have-returnments": "Toetused on olemas",
+    "returnment": "Tagasimakse"
+  },
+  "OrderActions": {
+    "send-to-kitchen-success": "Nõud on saadetud kööki",
+    "send-to-kitchen-success-description": "Nõud on edukalt saadetud kööki"
+  },
+  "Order": {
+    "order-status": "Tellimuse staatus",
+    "info": "Teave",
+    "current": "Praegune",
+    "summary": "Kokkuvõte",
+    "actions": "Meetmed",
+    "action-variants": {
+      "send-to-kitchen": "Saada see kööki",
+      "print-pre-check": "Prindi välja eelkontroll",
+      "calculate-order": "Arvuta tellimus"
+    },
+    "summary-card": {
+      "order-type": "Tellimuse tüüp",
+      "order-from": "Formaalne",
+      "order-from-values": {
+        "internal": "Süsteemis",
+        "app": "Lisas",
+        "website": "Kohapeal"
+      },
+      "order-type-values": {
+        "hall": "Saal",
+        "delivery": "Kohaletoimetamine",
+        "takeaway": "Minuga.",
+        "banquet": "Bankett"
+      },
+      "order-restaurant": "Restoran",
+      "prices": {
+        "subtotal": "Tellimuse summa",
+        "total": "Maksmisele kuuluv summa",
+        "surchargeAmount": "Märgistus",
+        "discountAmount": "Allahindlus",
+        "bonusUsed": "Maksmine koos boonustega"
+      }
+    },
+    "stepper": {
+      "pending": "Tellimus on loodud ja ootab töötlemist.",
+      "cooking": "Tellimus valmistatakse ette köögis",
+      "ready": "Kõik toidud on keedetud",
+      "paid": "Tellimus makstud",
+      "delivering": "Tellimus toimetatakse kohale",
+      "completed": "Tellimus täidetud",
+      "cancelled": "Tellimus tühistati"
+    },
+    "form": {
+      "payment-method": "Makseviis",
+      "payment-method-placeholder": "Valige makseviis"
+    }
+  },
+  "Orders": {
+    "create-order": "Tellimuse loomine",
+    "attention-required": "Nõuab tähelepanu",
+    "delayed-orders": "Olemasolevad tellimused",
+    "create-order-description": "Määrake uue tellimuse loomiseks vajalikud põhiandmed.",
+    "edit-order-description": "Nüüd saate muuta tellimuse sisu",
+    "form": {
+      "general-info": "Põhiteave",
+      "type-label": "Tellimuse tüüp",
+      "type-placeholder": "Valige tellimuse tüüp",
+      "required-section": "Kohustuslikud väljad",
+      "optional-section": "Täiendavad väljad",
+      "table-number": "Tabeli number",
+      "guest-name": "Külalise nimi",
+      "guest-phone": "Külalise telefoninumber",
+      "guests-amount": "Külaliste arv",
+      "note": "Märkus",
+      "restaurant": "Restoran",
+      "restaurant-placeholder": "Valige restoran",
+      "errors": {
+        "guests-amount-required": "Määrake külaliste arv",
+        "guest-phone-required": "Sisestage oma telefoninumber",
+        "restaurant-required": "Valige restoran",
+        "table-number-required": "Määrake tabeli number"
+      },
+      "guests-amount-placeholder": "Sisestage külaliste arv",
+      "table-number-placeholder": "Sisestage tabeli number",
+      "guest-phone-placeholder": "Sisestage telefoninumber",
+      "guest-name-placeholder": "Sisestage külalise nimi",
+      "note-placeholder": "Sisestage märkus oma tellimusele",
+      "submit": "Salvesta tellimus",
+      "create-success": "Tellimus on loodud",
+      "create-success-description": "Tellimus on edukalt loodud",
+      "payment-method": "Makseviis",
+      "payment-method-placeholder": "Valige makseviis",
+      "no-payment-methods-warning": "Selles restoranis puuduvad makseviisid. Palun võtke ühendust vastuvõtuametnikuga"
+    },
+    "types": {
+      "delivery": "Kohaletoimetamine",
+      "takeaway": "Minuga.",
+      "hall": "Saal",
+      "banquet": "Bankett"
+    },
+    "search-placeholder": "Order Finder...",
+    "add-dishes": {
+      "title": "Lisada tellimusse",
+      "category-placeholder": "Valige kategooria",
+      "search-placeholder": "Dish Finder...",
+      "none-category": "Kõik kategooriad",
+      "quantity": "Kogus",
+      "quantity-placeholder": "0",
+      "add-button": "Lisa.",
+      "no-restaurant-warning": "Määrake restoran, et lisada roogasid",
+      "no-restaurant-warning-description": "Valige restoran põhitellimusteabes"
+    }
+  },
+  "dayOfWeekShort": {
+    "monday": "Mon",
+    "tuesday": "W",
+    "wednesday": "Vrd",
+    "thursday": "Chth",
+    "friday": "Pt",
+    "saturday": "Sat",
+    "sunday": "Kõik"
+  },
+  "dish-card": {
+    "pieces": "tükk",
+    "minutes": "min",
+    "grams": "г",
+    "milliliters": "ml"
+  },
+  "phone-input": {
+    "search-country": "Riigi otsing...",
+    "no-country": "Riiki ei leitud"
+  },
+  "PaymentMethods": {
+    "columns": {
+      "name": "Pealkiri",
+      "type": "Tüüp",
+      "secretId": "Salajane ID"
+    },
+    "dialog": {
+      "create-title": "Loo makseviis",
+      "edit-title": "Muuda makseviisi",
+      "create-success": "Loodud makseviis",
+      "create-success-description": "Makseviis on edukalt loodud",
+      "edit-success": "Makseviisi ajakohastatud",
+      "edit-success-description": "Makseviis on edukalt uuendatud",
+      "form": {
+        "name": "Pealkiri",
+        "name-placeholder": "Sisestage makseviisi nimi",
+        "type": "Tüüp",
+        "type-placeholder": "Valige makseviisi tüüp",
+        "icon": "Ikoon",
+        "icon-placeholder": "Valige makseviisi ikoon",
+        "secretId": "Salajane ID",
+        "secretId-placeholder": "Sisestage salajane ID",
+        "secretKey": "Salajane võti",
+        "secretKey-placeholder": "Sisestage salajane võti",
+        "secretKey-description": "Makseviisi salajane võti"
+      }
+    },
+    "types": {
+      "CUSTOM": "Oma",
+      "YOO_KASSA": "YouKassa"
+    },
+    "icons": {
+      "CARD": "Kaart",
+      "CASH": "Sularaha",
+      "BANK_CARD": "Pangakaart",
+      "YOO_KASSA": "YouKassa"
+    }
+  },
+  "RestaurantPaymentMethods": {
+    "dialog": {
+      "create-title": "Loo makseviis",
+      "edit-title": "Muuda makseviisi"
+    }
+  },
+  "DishModifiers": {
+    "columns": {
+      "name": "Pealkiri"
+    },
+    "dialog": {
+      "create-title": "Loo modifikaator",
+      "edit-title": "Muudeta modifikaatorit",
+      "create-success": "Loodud modifikaator",
+      "create-success-description": "Modifikaator loodi edukalt",
+      "edit-success": "Modifikaator ajakohastatud",
+      "edit-success-description": "Modifikaator on edukalt uuendatud",
+      "form": {
+        "name": "Pealkiri",
+        "name-placeholder": "Sisestage modifitseerija nimi"
+      }
+    }
+  },
+  "RestaurantDishModifiers": {
+    "dialog": {
+      "create-title": "Loo modifikaator",
+      "edit-title": "Muudeta modifikaatorit"
+    }
+  },
+  "OrderDishModifiers": {
+    "dialog": {
+      "title": "Muuda modifikaatoreid",
+      "description": "Valige modifikaatorid, mida soovite toidule lisada.",
+      "submit": "Salvesta",
+      "success": "Uuendatud modifikaatorid",
+      "success-description": "Список модификаторов блюда успешно обновлен",
+      "no-restaurant": "Пожалуйста, выберите ресторан для заказа"
+    }
+  },
+  "KitchenerOrderCard": {
+    "show-full-list": "Näita kõiki roogasid",
+    "additional": "Tellimine",
+    "lateness": "Keetmine võtab kauem aega"
+  },
+  "OrderDishReadyDialog": {
+    "dialog": {
+      "title": "Nõu on valmis",
+      "description": "Kas olete kindel, et soovite tassi valmis märkida?",
+      "success": "Nõu on märgitud kui valmis",
+      "success-description": "Nõu on edukalt märgistatud kui valmis",
+      "submit": "Märgista täielikuks"
+    }
+  },
+  "Discounts": {
+    "page": {
+      "description": "Loetelu kõigist teie restoranides pakutavatest soodustustest",
+      "create": "Luua allahindlus"
+    },
+    "create-discount-success": "Allahindlus on loodud",
+    "create-discount-success-description": "Allahindlus on edukalt loodud",
+    "update-discount-success": "Allahindlus on uuendatud",
+    "update-discount-success-description": "Allahindlus on edukalt uuendatud",
+    "create-discount-description": "Looge oma restoranide jaoks allahindlus",
+    "form": {
+      "basic-info": "Põhiteave",
+      "name": "Pealkiri",
+      "name-placeholder": "Sisestage allahindluse nimi",
+      "description": "Kirjeldus",
+      "description-placeholder": "Sisestage allahindluse kirjeldus",
+      "percent": "Allahindluse protsent",
+      "percent-placeholder": "Sisestage allahindlusprotsent",
+      "isEnabled": "Aktiivne",
+      "schedule": "Sõiduplaan",
+      "daysOfWeek": "Nädala päevad",
+      "orderRequirements": "Tellimuse nõuded",
+      "orderTypes": "Tellimuste liigid",
+      "orderFroms": "Tellimuste allikad",
+      "activeFrom": "Aktiivne koos",
+      "activeTo": "Aktiivne kuni",
+      "activeFrom-placeholder": "Valige alguskuupäev",
+      "activeTo-placeholder": "Valige lõppkuupäev",
+      "name-description": "Süsteemis kuvatava allahindluse nimi",
+      "percent-description": "Tellimuse suhtes kohaldatav allahindlusprotsent",
+      "daysOfWeek-description": "Nädala päevad, mil allahindlus kehtib.",
+      "orderTypes-description": "Tellimuste tüübid, mille suhtes kohaldatakse allahindlust",
+      "orderFroms-description": "Tellimuste allikad, mille suhtes kohaldatakse allahindlust",
+      "behaviour": "Käitumine",
+      "applyForFirstOrder": "Esimeseks tellimuseks taotleda",
+      "applyForFirstOrder-description": "Soodustust kohaldatakse ainult külalise esimesele tellimusele.",
+      "applyByPromocode": "Rakendage sooduskoodiga",
+      "applyByPromocode-description": "Soodustust kohaldatakse ainult siis, kui sisestate sooduskoodi",
+      "applyByDefault": "Rakendage automaatselt",
+      "applyByDefault-description": "Soodustust kohaldatakse automaatselt kõigile tingimustele vastavatele tellimustele.",
+      "promocode": "Kampaaniakood",
+      "promocode-placeholder": "Sisestage sooduskood",
+      "promocode-description": "sooduskood, mille alusel kohaldatakse allahindlust",
+      "submit": "Salvesta allahindlus",
+      "restaurants": "Restoranid",
+      "restaurants-search": "Restoranide leidmine...",
+      "restaurants-description": "Valige restoranid, kus soodustust kohaldatakse"
+    },
+    "card": {
+      "expired": "Aegunud",
+      "activation-by-promocode": "Aktiveerimine sooduskoodiga"
+    }
+  },
+  "DishesMenuDialog": {
+    "create-title": "Loo menüü",
+    "edit-title": "Menüü muutmine",
+    "name": "Pealkiri",
+    "name-placeholder": "Sisestage menüü nimi",
+    "restaurants": "Restoranid",
+    "submit": "Loo",
+    "update": "Salvesta",
+    "success": "Menüü on loodud",
+    "success-description": "Menüü on edukalt loodud",
+    "update-success": "Menüü on uuendatud",
+    "update-success-description": "Menüü on edukalt uuendatud",
+    "restaurants-search": "Restoranide leidmine...",
+    "delete-title": "Menüü kustutamine",
+    "delete-description": "Kas olete kindel, et soovite menüü \"{nimi}\" kustutada? Seda toimingut ei saa tühistada.",
+    "delete-cancel": "Tühistamine",
+    "delete-confirm": "Kustuta",
+    "delete-success": "Menüü kustutatud",
+    "delete-success-description": "Menüü on edukalt kustutatud",
+    "owner": "Omanik",
+    "owner-placeholder": "Valige omanik"
+  },
+  "OrderDishReturnmentDialog": {
+    "dialog": {
+      "title": "Nõu tagastamine",
+      "description": "Märkige nõude tagastamise põhjus",
+      "success": "Nõu on tagastatud",
+      "success-description": "Nõu on edukalt tagastatud",
+      "submit": "Tagastage taldrik",
+      "reason": {
+        "label": "Tagastamise põhjus",
+        "placeholder": "Valige tagastamise põhjus",
+        "custom-placeholder": "Kirjeldage tagasisaatmise põhjust",
+        "options": {
+          "kitchener-error": "Kokkade viga",
+          "waiter-error": "Kelneri viga",
+          "long-waiting": "Pikk ooteaeg",
+          "other": "Muud"
+        }
+      },
+      "quantity": {
+        "label": "Tagastatav kogus",
+        "placeholder": "Sisestage kogus",
+        "description": "Maksimaalne tagastatav kogus: {max}"
       }
     }
   }
