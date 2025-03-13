@@ -7,7 +7,10 @@ import {
 } from "@/api/types";
 import { IWorkshift } from "@/types/workshift.types";
 
-export type GetWorkshiftsParams = PaginationParams & SortingParams;
+export type GetWorkshiftsParams = PaginationParams &
+  SortingParams & {
+    restaurantId?: string;
+  };
 
 export const useGetWorkshifts = buildApiHook<
   string,
