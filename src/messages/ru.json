@@ -421,7 +421,8 @@
     "disabled": "Не активен",
     "blocked": "Заблокирован",
     "delete": "Удалить",
-    "upload": "Загрузить"
+    "upload": "Загрузить",
+    "cancel": "Отмена"
   },
   "navbar": {
     "dashboard": "Главная",
@@ -817,7 +818,12 @@
         "restaurant-placeholder": "Выберите ресторан",
         "restaurant-label": "Ресторан",
         "restaurant-description": "Выберите ресторан, в котором хотите открыть смену"
-      }
+      },
+      "close-title": "Закрыть смену",
+      "close-description": "Вы уверены, что хотите закрыть смену в ресторане \"{restaurantName}\", открытую {openedAt}?",
+      "close-submit": "Закрыть смену",
+      "close-success": "Смена закрыта",
+      "close-success-description": "Смена успешно закрыта"
     }
   }
 }

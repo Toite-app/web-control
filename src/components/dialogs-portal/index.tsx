@@ -68,6 +68,10 @@ const dialogComponents = {
     () => import("@/features/workshifts/open-workshift-dialog/index"),
     { ssr: false }
   ),
+  [DialogType.CloseWorkshift]: dynamic(
+    () => import("@/features/workshifts/close-workshift-dialog/index"),
+    { ssr: false }
+  ),
 };
 
 const DialogsPortal = () => {

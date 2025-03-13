@@ -7,12 +7,14 @@ import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
 import { ru, enUS, et } from "date-fns/locale";
 import { Button } from "@/components/ui/button";
-import { EyeIcon } from "lucide-react";
+import { EyeIcon, XCircleIcon } from "lucide-react";
 import { Link } from "@/navigation";
+import useDialogsStore, { DialogType } from "@/store/dialogs-store";
 
 export default function useWorkshiftsTableColumns() {
   const locale = useLocale();
   const t = useTranslations();
+  const toggleDialog = useDialogsStore((state) => state.toggle);
 
   return useMemo<ColumnDef<IWorkshift>[]>(
     () => [
@@ -116,11 +118,24 @@ export default function useWorkshiftsTableColumns() {
                   <span>{t("workshifts.show")}</span>
                 </Button>
               </Link>
+              {row.original.status === "OPENED" && (
+                <Button
+                  size="icon-sm"
+                  variant="destructive"
+                  onClick={() =>
+                    toggleDialog(DialogType.CloseWorkshift, true, {
+                      workshift: row.original,
+                    })
+                  }
+                >
+                  <XCircleIcon className="h-4 w-4" />
+                </Button>
+              )}
             </div>
           );
         },
       },
     ],
-    [t, locale]
+    [t, locale, toggleDialog]
   );
 }
