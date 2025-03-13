@@ -431,6 +431,7 @@
     "discounts-create": "Создать скидку",
     "orders-edit": "Редактировать заказ",
     "discounts-edit": "Редактировать скидку",
+    "dishes-edit": "Редактировать блюдо",
     "orders-all": "Все заказы",
     "orders-dispatcher": "Диспетчер",
     "orders-kitchen": "Кухня",
@@ -783,5 +784,24 @@
         "description": "Максимальное количество для возврата: {max}"
       }
     }
+  },
+  "workshifts": {
+    "create": "Создать смену",
+    "description": "Список всех смен, которые есть в ваших ресторанах",
+    "columns": {
+      "restaurant": "Ресторан",
+      "status": "Статус",
+      "openedAt": "Открыта",
+      "closedAt": "Закрыта",
+      "createdAt": "Создана"
+    },
+    "status-enum": {
+      "PLANNED": "Планируется",
+      "OPENED": "Открыта",
+      "CLOSED": "Закрыта"
+    },
+    "open": "Открыть",
+    "close": "Закрыть",
+    "show": "Показать"
   }
 }

@@ -9,6 +9,15 @@ import DishFormTab from "@/features/dish/form-tab";
 import { Card } from "@/components/ui/card";
 import DishImagesTab from "@/features/dish/images-tab";
 import DishPricelistTab from "@/features/dish/pricelist-tab";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+
 type TabValue = "dishForm" | "pricelist" | "images";
 
 type Props = {
@@ -40,23 +49,37 @@ export default function DishPageContent({ dishId }: Props) {
   return (
     <div>
       <div className="mx-auto flex h-full w-full max-w-screen-xl flex-col gap-4 p-4 py-12">
-        <header className="flex flex-row items-center justify-between">
-          <div className="flex flex-col gap-1">
-            <div className="flex flex-row items-center gap-4">
-              <h1 className=" text-4xl font-bold">{dish.data?.name}</h1>
-              {/* <Badge className="rounded-lg" variant="default">
+        <div className="flex flex-col gap-2">
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/dishes">
+                  {t("navbar.dishes")}
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>{t("navbar.dishes-edit")}</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+          <header className="flex flex-row items-center justify-between">
+            <div className="flex flex-col gap-1">
+              <div className="flex flex-row items-center gap-4">
+                <h1 className=" text-4xl font-bold">{dish.data?.name}</h1>
+                {/* <Badge className="rounded-lg" variant="default">
                 {workers.data?.meta.total || "-"}
               </Badge> */}
+              </div>
+              {/* <p className="text-stone-500">{t("Workers.page.description")}</p> */}
             </div>
-            {/* <p className="text-stone-500">{t("Workers.page.description")}</p> */}
-          </div>
-          <div className="flex flex-row items-center gap-4">
-            {/* <Input
+            <div className="flex flex-row items-center gap-4">
+              {/* <Input
               className="w-64 "
               placeholder={t("searchbar")}
               type="search"
             /> */}
-            {/* <Button
+              {/* <Button
               className="flex flex-row items-center gap-2"
               variant="default"
               onClick={() => {
@@ -66,8 +89,9 @@ export default function DishPageContent({ dishId }: Props) {
               <PlusIcon className="h-5 w-5" />
               <span className="text-[16px]">{t("Workers.page.create")}</span>
             </Button> */}
-          </div>
-        </header>
+            </div>
+          </header>
+        </div>
         <Separator />
         <Tabs
           value={activeTab}

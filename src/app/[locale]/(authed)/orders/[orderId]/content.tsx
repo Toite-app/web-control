@@ -12,9 +12,17 @@ import OrderInfoCard from "@/features/order/order-info-card";
 import OrderSummaryCard from "@/features/order/order-summary-card";
 import { useErrorHandler } from "@/hooks/useErrorHandler";
 import formatOrderNumber from "@/utils/format-order-number";
-import { ChevronLeft, MenuIcon, ShoppingBagIcon } from "lucide-react";
+import { MenuIcon, ShoppingBagIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { UseFormReturn } from "react-hook-form";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 type Props = {
   orderId: string;
@@ -55,26 +63,39 @@ export default function OrderPageContent({ orderId }: Props) {
 
   return (
     <div className="mx-auto flex h-full w-full max-w-screen-xl flex-col gap-4 p-4 py-12">
-      <div className="flex flex-row items-center justify-between">
-        <div className="flex flex-row items-center gap-4">
+      <div className="flex flex-col gap-2">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">{t("navbar.orders")}</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>{t("navbar.orders-edit")}</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+        <div className="flex flex-row items-center justify-between">
+          <div className="flex flex-row items-center gap-4">
+            {/* <Button variant="outline" size="icon">
+              <ChevronLeft className="h-4 w-4" />
+            </Button> */}
+            <header className="flex flex-col">
+              <div className="flex flex-row items-center gap-2">
+                <ShoppingBagIcon className="h-6 w-6" />
+                <h1 className="text-4xl font-bold">{`${t(
+                  "navbar.order"
+                )} ${formatOrderNumber(data?.number ?? "")}`}</h1>
+              </div>
+              <p className="text-stone-500">
+                {t("Orders.edit-order-description")}
+              </p>
+            </header>
+          </div>
           <Button variant="outline" size="icon">
-            <ChevronLeft className="h-4 w-4" />
+            <MenuIcon className="h-4 w-4" />
           </Button>
-          <header className="flex flex-col">
-            <div className="flex flex-row items-center gap-2">
-              <ShoppingBagIcon className="h-6 w-6" />
-              <h1 className="text-4xl font-bold">{`${t(
-                "navbar.order"
-              )} ${formatOrderNumber(data?.number ?? "")}`}</h1>
-            </div>
-            <p className="text-stone-500">
-              {t("Orders.edit-order-description")}
-            </p>
-          </header>
         </div>
-        <Button variant="outline" size="icon">
-          <MenuIcon className="h-4 w-4" />
-        </Button>
       </div>
 
       <div className="mt-4 grid grid-cols-1 gap-2 lg:grid-cols-[minmax(630px,1fr)_minmax(0,400px)]">
