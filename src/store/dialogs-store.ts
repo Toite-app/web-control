@@ -31,6 +31,7 @@ export enum DialogType {
   MarkOrderDishAsReady = "markOrderDishAsReady",
   DishesMenu = "dishesMenu",
   DishesMenuDelete = "dishesMenuDelete",
+  CreateWorkshift = "createWorkshift",
 }
 
 // Define data types for each dialog that needs data
@@ -50,6 +51,7 @@ export type DialogData = {
   [DialogType.DishesMenu]?: DishesMenuDialogProps["data"];
   [DialogType.DishesMenuDelete]?: DeleteDishesMenuDialogProps["data"];
   [DialogType.OrderDishReturnment]?: OrderDishReturnmentDialogProps["data"];
+  [DialogType.CreateWorkshift]?: unknown;
 };
 
 interface DialogsStore {

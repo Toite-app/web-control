@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useGetRestaurants } from "@/features/restaurants/api/useGetRestaurants";
 import useWorkshiftsTableColumns from "@/features/workshifts/data-table/hooks/useColumns";
-import useDialogsStore from "@/store/dialogs-store";
+import useDialogsStore, { DialogType } from "@/store/dialogs-store";
 import { PlusIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { parseAsString, useQueryState } from "nuqs";
@@ -63,9 +63,9 @@ export default function WorkshiftsContent() {
             <div className="flex flex-col gap-1">
               <div className="flex flex-row items-center gap-4">
                 <h1 className="text-4xl font-bold">{t("navbar.workshifts")}</h1>
-                {workshifts.data?.meta.total && (
+                {workshifts.data?.meta.total !== undefined && (
                   <Badge className="rounded-lg" variant="default">
-                    {workshifts.data?.meta.total || "-"}
+                    {workshifts.data?.meta.total || "0"}
                   </Badge>
                 )}
               </div>
@@ -76,7 +76,7 @@ export default function WorkshiftsContent() {
                 className="flex flex-row items-center gap-2"
                 variant="default"
                 onClick={() => {
-                  // toggleDialog("restaurant", true);
+                  toggleDialog(DialogType.CreateWorkshift, true);
                 }}
               >
                 <PlusIcon className="h-5 w-5" />

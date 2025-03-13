@@ -34,7 +34,7 @@ export default function useWorkshiftsTableColumns() {
                 row.original.status === WorkshiftStatus.PLANNED
                   ? "outline"
                   : row.original.status === WorkshiftStatus.OPENED
-                    ? "success"
+                    ? "default"
                     : "destructive"
               }
             >

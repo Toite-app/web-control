@@ -806,6 +806,18 @@
     "restaurant-selector": {
       "placeholder": "Выберите ресторан",
       "all": "Все рестораны"
+    },
+    "dialog": {
+      "create-title": "Открыть смену",
+      "description": "Выберите ресторан, в котором хотите открыть смену",
+      "submit": "Открыть смену",
+      "create-success": "Смена открыта",
+      "create-success-description": "Смена успешно открыта",
+      "form": {
+        "restaurant-placeholder": "Выберите ресторан",
+        "restaurant-label": "Ресторан",
+        "restaurant-description": "Выберите ресторан, в котором хотите открыть смену"
+      }
     }
   }
 }

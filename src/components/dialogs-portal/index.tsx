@@ -64,6 +64,10 @@ const dialogComponents = {
     () => import("@/features/order-dishes/order-dish-returnment-dialog/index"),
     { ssr: false }
   ),
+  [DialogType.CreateWorkshift]: dynamic(
+    () => import("@/features/workshifts/open-workshift-dialog/index"),
+    { ssr: false }
+  ),
 };
 
 const DialogsPortal = () => {
