@@ -72,6 +72,11 @@ const dialogComponents = {
     () => import("@/features/workshifts/close-workshift-dialog/index"),
     { ssr: false }
   ),
+  [DialogType.WorkshiftPaymentCategory]: dynamic(
+    () =>
+      import("@/features/restaurant/workshift-payment-category-dialog/index"),
+    { ssr: false }
+  ),
 };
 
 const DialogsPortal = () => {

@@ -15,6 +15,7 @@ import { DishCategoryDialogProps } from "@/features/dish-categories/dialog";
 import { DishDialogProps } from "@/features/dishes/dialog";
 import { OrderDishReturnmentDialogProps } from "@/features/order-dishes/order-dish-returnment-dialog";
 import { CloseWorkshiftDialogProps } from "@/features/workshifts/close-workshift-dialog";
+import { WorkshiftPaymentCategoryDialogProps } from "@/features/restaurant/workshift-payment-category-dialog";
 
 export enum DialogType {
   Restaurant = "restaurant",
@@ -34,6 +35,7 @@ export enum DialogType {
   DishesMenuDelete = "dishesMenuDelete",
   CreateWorkshift = "createWorkshift",
   CloseWorkshift = "closeWorkshift",
+  WorkshiftPaymentCategory = "workshiftPaymentCategory",
 }
 
 // Define data types for each dialog that needs data
@@ -55,6 +57,7 @@ export type DialogData = {
   [DialogType.OrderDishReturnment]?: OrderDishReturnmentDialogProps["data"];
   [DialogType.CreateWorkshift]?: unknown;
   [DialogType.CloseWorkshift]?: CloseWorkshiftDialogProps["data"];
+  [DialogType.WorkshiftPaymentCategory]?: WorkshiftPaymentCategoryDialogProps["data"];
 };
 
 interface DialogsStore {

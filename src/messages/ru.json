@@ -106,7 +106,8 @@
       "staff": "Персонал",
       "statistics": "Статистика",
       "payment-methods": "Способы оплаты",
-      "dish-modifiers": "Модификаторы блюд"
+      "dish-modifiers": "Модификаторы блюд",
+      "references-book": "Справочник"
     },
     "columns": {
       "dayOfWeek": "День недели",
@@ -824,6 +825,26 @@
       "close-submit": "Закрыть смену",
       "close-success": "Смена закрыта",
       "close-success-description": "Смена успешно закрыта"
+    }
+  },
+  "PaymentCategories": {
+    "types": {
+      "INCOME": "Доходы",
+      "EXPENSE": "Расходы",
+      "CASHLESS": "Безналичные"
+    },
+    "no-categories": "Нет категорий",
+    "add-category": "Добавить категорию",
+    "add-subcategory": "Добавить подкатегорию",
+    "dialog": {
+      "create-title": "Создать категорию",
+      "create-success": "Категория создана",
+      "create-success-description": "Категория успешно создана",
+      "submit": "Сохранить",
+      "form": {
+        "name-placeholder": "Введите название категории",
+        "description-placeholder": "Введите описание категории"
+      }
     }
   }
 }

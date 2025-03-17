@@ -35,3 +35,25 @@ export interface IRestaurantWorkshop {
   createdAt: Date; // Timestamp when workshop was created
   updatedAt: Date; // Timestamp when workshop was updated
 }
+
+export enum WorkshiftPaymentCategoryType {
+  INCOME = "INCOME",
+  EXPENSE = "EXPENSE",
+  CASHLESS = "CASHLESS",
+}
+
+export interface IWorkshiftPaymentCategory {
+  id: string;
+  parentId: string | null;
+  restaurantId: string;
+  type: WorkshiftPaymentCategoryType;
+  name: string;
+  description: string;
+  sortIndex: number;
+  isActive: boolean;
+  isRemoved: boolean;
+  childrens: IWorkshiftPaymentCategory[];
+  createdAt: Date;
+  updatedAt: Date;
+  removedAt: Date | null;
+}

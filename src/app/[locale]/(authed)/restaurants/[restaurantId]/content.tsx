@@ -13,6 +13,7 @@ import RestaurantWorkshopsTab from "@/features/restaurant/workshops-tab";
 import RestaurantWorkersTab from "@/features/restaurant/workers-tab";
 import RestaurantPaymentMethodsTab from "@/features/restaurant/payment-methods-tab";
 import RestaurantDishModifiersTab from "@/features/restaurant/dish-modifiers-tab";
+import RestaurantReferencesBookTab from "@/features/restaurant/references-book-tab";
 
 type Props = {
   restaurantId: string;
@@ -24,7 +25,8 @@ type TabValue =
   | "workers"
   | "statistics"
   | "payment-methods"
-  | "dish-modifiers";
+  | "dish-modifiers"
+  | "references-book";
 
 export const RestaurantPageContent = (props: Props) => {
   const { restaurantId } = props;
@@ -42,6 +44,7 @@ export const RestaurantPageContent = (props: Props) => {
         "statistics",
         "payment-methods",
         "dish-modifiers",
+        "references-book",
       ];
       return validTabs.includes(value as TabValue)
         ? (value as TabValue)
@@ -97,6 +100,9 @@ export const RestaurantPageContent = (props: Props) => {
                 </TabsTrigger>
                 <TabsTrigger value="workshops">
                   {t("Restaurants.tabs.departments")}
+                </TabsTrigger>
+                <TabsTrigger value="references-book">
+                  {t("Restaurants.tabs.references-book")}
                 </TabsTrigger>
                 <TabsTrigger value="workers">
                   {t("Restaurants.tabs.staff")}
@@ -178,6 +184,9 @@ export const RestaurantPageContent = (props: Props) => {
             </TabsContent>
             <TabsContent value="workshops">
               <RestaurantWorkshopsTab restaurant={data} />
+            </TabsContent>
+            <TabsContent value="references-book">
+              <RestaurantReferencesBookTab restaurant={data} />
             </TabsContent>
             <TabsContent value="workers">
               <RestaurantWorkersTab restaurant={data} />
