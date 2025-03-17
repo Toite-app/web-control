@@ -10,14 +10,19 @@ import { Form } from "@/components/form";
 import { useForm } from "react-hook-form";
 import { useToast } from "@/hooks/use-toast";
 import { useErrorHandler } from "@/hooks/useErrorHandler";
-import { WorkshiftPaymentCategoryType } from "@/types/restaurant.types";
+import {
+  IWorkshiftPaymentCategory,
+  WorkshiftPaymentCategoryType,
+} from "@/types/restaurant.types";
 import { createRestaurantWorkshiftPaymentCategoryMutation } from "@/api/fetch/restaurants/workshift-payment-categories/createPaymentCategory";
+import { updateRestaurantWorkshiftPaymentCategoryMutation } from "@/api/fetch/restaurants/workshift-payment-categories/updatePaymentCategory";
 
 export type WorkshiftPaymentCategoryDialogProps = {
   data: {
     restaurantId: string;
     parentId?: string;
     type: WorkshiftPaymentCategoryType;
+    category?: IWorkshiftPaymentCategory;
   };
   open?: boolean;
   onClose?: () => void;
@@ -26,13 +31,16 @@ export type WorkshiftPaymentCategoryDialogProps = {
 type FormValues = {
   name: string;
   description: string;
+  isActive: boolean;
 };
 
 const WorkshiftPaymentCategoryDialog = (
   props: WorkshiftPaymentCategoryDialogProps
 ) => {
   const { data, open, onClose } = props;
-  const { restaurantId, parentId, type } = data;
+  const { restaurantId, parentId, type, category } = data;
+
+  const isEdit = !!category;
 
   const t = useTranslations();
   const { toast } = useToast();
@@ -42,25 +50,49 @@ const WorkshiftPaymentCategoryDialog = (
     defaultValues: {
       name: "",
       description: "",
+      isActive: true,
     },
   });
 
   const onSubmit = async (values: FormValues) => {
     try {
-      await createRestaurantWorkshiftPaymentCategoryMutation({
-        urlValues: {
-          restaurantId,
-        },
-        data: {
-          ...values,
-          parentId,
-          type,
-        },
-      });
+      if (!isEdit) {
+        await createRestaurantWorkshiftPaymentCategoryMutation({
+          urlValues: {
+            restaurantId,
+          },
+          data: {
+            name: values.name,
+            description: values.description,
+            parentId,
+            type,
+          },
+        });
+      } else {
+        await updateRestaurantWorkshiftPaymentCategoryMutation({
+          urlValues: {
+            restaurantId,
+            categoryId: category.id,
+          },
+          data: {
+            name: values.name,
+            description: values.description,
+            isActive: values.isActive,
+          },
+        });
+      }
 
       toast({
-        title: t("PaymentCategories.dialog.create-success"),
-        description: t("PaymentCategories.dialog.create-success-description"),
+        title: t(
+          isEdit
+            ? "PaymentCategories.dialog.edit-success"
+            : "PaymentCategories.dialog.create-success"
+        ),
+        description: t(
+          isEdit
+            ? "PaymentCategories.dialog.edit-success-description"
+            : "PaymentCategories.dialog.create-success-description"
+        ),
         variant: "success",
       });
 
@@ -73,11 +105,12 @@ const WorkshiftPaymentCategoryDialog = (
   useEffect(() => {
     if (open) {
       form.reset({
-        name: "",
-        description: "",
+        name: category?.name ?? "",
+        description: category?.description ?? "",
+        isActive: category?.isActive ?? true,
       });
     }
-  }, [open, form]);
+  }, [open, category, form]);
 
   return (
     <Dialog
@@ -89,7 +122,11 @@ const WorkshiftPaymentCategoryDialog = (
       <DialogContent className="sm:max-w-[400px]">
         <DialogHeader>
           <DialogTitle>
-            {t("PaymentCategories.dialog.create-title")}
+            {t(
+              isEdit
+                ? "PaymentCategories.dialog.edit-title"
+                : "PaymentCategories.dialog.create-title"
+            )}
           </DialogTitle>
         </DialogHeader>
         <Form<FormValues>
@@ -112,6 +149,14 @@ const WorkshiftPaymentCategoryDialog = (
                 type: "textarea",
                 placeholder:
                   "PaymentCategories.dialog.form.description-placeholder",
+              },
+            },
+            {
+              name: "isActive",
+              label: "fields.isEnabled",
+              hidden: !isEdit,
+              data: {
+                type: "switch",
               },
             },
           ]}

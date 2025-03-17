@@ -1,18 +1,10 @@
 import { useGetRestaurantWorkshiftPaymentCategories } from "@/api/fetch/restaurants/workshift-payment-categories/useGetRestaurantWorkshiftPaymentCategories";
 import {
   IRestaurant,
-  IWorkshiftPaymentCategory,
   WorkshiftPaymentCategoryType,
 } from "@/types/restaurant.types";
 import { useTranslations } from "next-intl";
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import {
-  ChevronRight,
   Wallet,
   ArrowDownCircle,
   ArrowUpCircle,
@@ -28,12 +20,33 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { Skeleton } from "@/components/ui/skeleton";
 import useDialogsStore from "@/store/dialogs-store";
 import RestaurantReferenceCategory from "./components/Category";
 
 type Props = {
   restaurant?: IRestaurant;
 };
+
+const LoadingCard = () => (
+  <Card>
+    <CardHeader className="flex flex-row items-center justify-between px-4 py-3">
+      <CardTitle className="flex items-center gap-2">
+        <Skeleton className="h-5 w-5 rounded-full" />
+        <Skeleton className="h-6 w-32" />
+      </CardTitle>
+      <Skeleton className="h-8 w-8 rounded-md" />
+    </CardHeader>
+    <Separator />
+    <CardContent className="px-2 py-4">
+      <div className="flex flex-col gap-3">
+        <Skeleton className="h-8 w-full" />
+        <Skeleton className="h-8 w-full" />
+        <Skeleton className="h-8 w-full" />
+      </div>
+    </CardContent>
+  </Card>
+);
 
 const RestaurantReferencesBookTab = ({ restaurant }: Props) => {
   const t = useTranslations();
@@ -42,6 +55,7 @@ const RestaurantReferencesBookTab = ({ restaurant }: Props) => {
       urlValues: {
         restaurantId: String(restaurant?.id),
       },
+      config: { keepPreviousData: true },
       skip: !restaurant?.id,
     });
   const toggleDialog = useDialogsStore((state) => state.toggle);
@@ -72,6 +86,16 @@ const RestaurantReferencesBookTab = ({ restaurant }: Props) => {
       <CreditCard className="h-5 w-5 text-blue-500" />
     ),
   };
+
+  if (isLoading) {
+    return (
+      <div className="grid gap-6 md:grid-cols-3">
+        <LoadingCard />
+        <LoadingCard />
+        <LoadingCard />
+      </div>
+    );
+  }
 
   return (
     <div className="grid gap-6 md:grid-cols-3">

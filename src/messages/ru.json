@@ -836,10 +836,14 @@
     "no-categories": "Нет категорий",
     "add-category": "Добавить категорию",
     "add-subcategory": "Добавить подкатегорию",
+    "edit-category": "Редактировать категорию",
     "dialog": {
       "create-title": "Создать категорию",
+      "edit-title": "Редактировать категорию",
       "create-success": "Категория создана",
       "create-success-description": "Категория успешно создана",
+      "edit-success": "Категория обновлена",
+      "edit-success-description": "Категория успешно обновлена",
       "submit": "Сохранить",
       "form": {
         "name-placeholder": "Введите название категории",
