@@ -8,12 +8,11 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 # Copy necessary files
-COPY src/prisma ./src/prisma
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
 COPY .eslintrc.json .prettierignore* prettierrc.json* ./
 COPY next-env.d.ts ./
 COPY tsconfig.json tailwind.config.ts postcss.config.js ./
-COPY next.config.js ./
+COPY next.config.mjs ./
 
 RUN \
   if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
@@ -22,7 +21,7 @@ RUN \
   else echo "Lockfile not found." && exit 1; \
   fi
 
-FROM base as deps-production
+FROM base AS deps-production
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
@@ -38,6 +37,7 @@ COPY --from=deps /app/node_modules ./node_modules
 # Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line in case you want to disable telemetry during the build.
 ENV NEXT_TELEMETRY_DISABLED 1
+ENV NEXT_PUBLIC_API_URL=http://localhost:6701
 
 # Copy the source code into the image
 COPY . .

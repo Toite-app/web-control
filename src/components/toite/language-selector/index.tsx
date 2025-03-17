@@ -18,7 +18,7 @@ const LanguageSelector: FC = () => {
 
   const handleChange = useCallback(
     (locale: string) => {
-      router.replace(pathname, {
+      router.replace(pathname as any, {
         locale,
       });
     },

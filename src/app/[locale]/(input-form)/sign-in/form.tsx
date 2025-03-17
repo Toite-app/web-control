@@ -7,9 +7,10 @@ import {
   SignInPayload,
   signInMutation,
 } from "@/features/guards/api/mutate/signIn";
-import Form, { FormInstance } from "@/components/form";
+import Form from "@/components/form";
 import { useForm } from "react-hook-form";
 import { useErrorHandler } from "@/hooks/useErrorHandler";
+import { FormInstance } from "@/components/form/types";
 
 export const SignInForm: FC = () => {
   const { status, mutate } = useSession();

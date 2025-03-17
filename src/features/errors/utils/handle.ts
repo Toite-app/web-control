@@ -7,7 +7,7 @@ export type ApiError = {
 export const handleApiError = (err: unknown) => {
   console.error(err);
   if (isAxiosError(err)) {
-    const errCode = err.response?.data?.errorCode;
+    // const errCode = err.response?.data?.errorCode;
 
     return {};
   }

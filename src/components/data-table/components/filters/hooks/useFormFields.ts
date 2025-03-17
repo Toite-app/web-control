@@ -1,7 +1,7 @@
-import { FormField } from "@/components/form";
 import { useMemo } from "react";
 import { FilterCondition } from "../index.types";
 import { DataTableFiltersProps } from "..";
+import { FormField } from "@/components/form/types";
 
 export type FilterValues<F extends string = string> = {
   field: F;

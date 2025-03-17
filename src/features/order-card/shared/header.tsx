@@ -18,7 +18,10 @@ import { Person } from "@phosphor-icons/react/dist/ssr/Person";
 
 type Props = {
   order: Partial<
-    Pick<IOrder, "id" | "number" | "status" | "type" | "from"> & {
+    Pick<
+      IOrder,
+      "id" | "number" | "status" | "type" | "from" | "guestsAmount"
+    > & {
       orderDishes: Partial<Pick<IOrderDish, "status" | "isRemoved">>[];
     }
   >;
