@@ -77,6 +77,11 @@ const dialogComponents = {
       import("@/features/restaurant/workshift-payment-category-dialog/index"),
     { ssr: false }
   ),
+  [DialogType.deleteWorkshiftPaymentCategory]: dynamic(
+    () =>
+      import("@/features/restaurant/workshift-payment-category-dialog/Delete"),
+    { ssr: false }
+  ),
 };
 
 const DialogsPortal = () => {

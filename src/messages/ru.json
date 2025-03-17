@@ -837,6 +837,7 @@
     "add-category": "Добавить категорию",
     "add-subcategory": "Добавить подкатегорию",
     "edit-category": "Редактировать категорию",
+    "delete-category": "Удалить категорию",
     "dialog": {
       "create-title": "Создать категорию",
       "edit-title": "Редактировать категорию",
@@ -848,7 +849,15 @@
       "form": {
         "name-placeholder": "Введите название категории",
         "description-placeholder": "Введите описание категории"
-      }
+      },
+      "delete-title": "Удаление категории",
+      "delete-description": "Вы уверены, что хотите удалить категорию \"{name}\"? Это действие нельзя отменить.",
+      "delete-success": "Категория удалена",
+      "delete-success-description": "Категория успешно удалена"
     }
+  },
+  "common": {
+    "delete": "Удалить",
+    "cancel": "Отмена"
   }
 }

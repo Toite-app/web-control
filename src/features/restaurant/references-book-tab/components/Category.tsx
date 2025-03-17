@@ -11,7 +11,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { ChevronRight, PlusIcon, PencilIcon } from "lucide-react";
+import { ChevronRight, PlusIcon, PencilIcon, Trash2Icon } from "lucide-react";
 import { IWorkshiftPaymentCategory } from "@/types/restaurant.types";
 import { useTranslations } from "next-intl";
 import useDialogsStore from "@/store/dialogs-store";
@@ -56,6 +56,13 @@ const RestaurantReferenceCategory = ({
     });
   };
 
+  const handleDelete = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    toggleDialog("deleteWorkshiftPaymentCategory", true, {
+      category,
+    });
+  };
+
   const renderActions = () => (
     <div className="flex items-center gap-1">
       <TooltipProvider>
@@ -69,6 +76,20 @@ const RestaurantReferenceCategory = ({
           </TooltipTrigger>
           <TooltipContent>
             <p>{t("PaymentCategories.edit-category")}</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button variant="ghost" size="icon-sm" onClick={handleDelete}>
+              <Trash2Icon
+                className={cn("h-4 w-4", isInactive && "text-muted-foreground")}
+              />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>{t("PaymentCategories.delete-category")}</p>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
