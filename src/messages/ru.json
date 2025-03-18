@@ -451,7 +451,8 @@
     "finances": "Финансы",
     "workshifts": "Смены",
     "finances-report": "Отчет",
-    "discount": "Скидка"
+    "discount": "Скидка",
+    "workshift": "Смена"
   },
   "fields": {
     "login": "Логин",
@@ -802,6 +803,9 @@
       "OPENED": "Открыта",
       "CLOSED": "Закрыта"
     },
+    "opened-at": "Открыта {openedAt}",
+    "closed-at": "Закрыта {closedAt}",
+    "close-workshift": "Закрыть смену",
     "open": "Открыть",
     "close": "Закрыть",
     "show": "Показать",
