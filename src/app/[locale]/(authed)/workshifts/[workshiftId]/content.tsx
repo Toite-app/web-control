@@ -3,6 +3,7 @@
 import { useGetWorkshift } from "@/api/fetch/workshifts/useGetWorkshift";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import WorkshiftNavigation from "@/features/workshift/navigation";
 import useDialogsStore, { DialogType } from "@/store/dialogs-store";
 import format from "@/utils/date-fns";
 import { XCircleIcon } from "lucide-react";
@@ -83,6 +84,7 @@ export default function WorkshiftPageContent(props: Props) {
             </div>
           </div>
         </header>
+        <WorkshiftNavigation workshiftId={workshiftId} />
       </div>
     </>
   );

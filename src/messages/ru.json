@@ -805,6 +805,8 @@
     },
     "opened-at": "Открыта {openedAt}",
     "closed-at": "Закрыта {closedAt}",
+    "prev": "Предыдущая смена",
+    "next": "Следующая смена",
     "close-workshift": "Закрыть смену",
     "open": "Открыть",
     "close": "Закрыть",
