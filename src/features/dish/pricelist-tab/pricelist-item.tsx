@@ -86,7 +86,11 @@ export function PricelistItem({ dish, item }: Props) {
 
       form.reset(data);
     } catch (error) {
-      handleError({ error, form });
+      handleError({
+        error,
+        form,
+        handleFieldsAsRootErrors: ["price", "currency"],
+      });
     }
   };
 
@@ -156,7 +160,13 @@ export function PricelistItem({ dish, item }: Props) {
                   },
                 })}
                 className="w-full"
+                error={!!form.formState.errors.price}
               />
+              {form.formState.errors.price && (
+                <p className="mt-1 text-sm text-destructive">
+                  {form.formState.errors.price.message}
+                </p>
+              )}
             </div>
             <div className="w-32">
               <Label>{t("Dishes.pricelist.currency")}</Label>
@@ -168,7 +178,7 @@ export function PricelistItem({ dish, item }: Props) {
                   })
                 }
               >
-                <SelectTrigger>
+                <SelectTrigger error={!!form.formState.errors.currency}>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -179,21 +189,36 @@ export function PricelistItem({ dish, item }: Props) {
                   ))}
                 </SelectContent>
               </Select>
+              {form.formState.errors.currency && (
+                <p className="mt-1 text-sm text-destructive">
+                  {form.formState.errors.currency.message}
+                </p>
+              )}
             </div>
           </div>
-          <div className="mt-2 flex items-center gap-2">
-            <Checkbox
-              id={`stoplist-${item.restaurantId}`}
-              checked={form.watch("isInStoplist")}
-              onCheckedChange={(checked) =>
-                form.setValue("isInStoplist", checked as boolean, {
-                  shouldDirty: true,
-                })
-              }
-            />
-            <Label htmlFor={`stoplist-${item.restaurantId}`}>
-              {t("Dishes.pricelist.stoplist")}
-            </Label>
+          <div className="mt-2 flex flex-col gap-2">
+            <div className="flex items-center gap-2">
+              <Checkbox
+                id={`stoplist-${item.restaurantId}`}
+                checked={form.watch("isInStoplist")}
+                onCheckedChange={(checked) =>
+                  form.setValue("isInStoplist", checked as boolean, {
+                    shouldDirty: true,
+                  })
+                }
+                className={cn(
+                  form.formState.errors.isInStoplist && "border-destructive"
+                )}
+              />
+              <Label htmlFor={`stoplist-${item.restaurantId}`}>
+                {t("Dishes.pricelist.stoplist")}
+              </Label>
+            </div>
+            {form.formState.errors.isInStoplist && (
+              <p className="text-sm text-destructive">
+                {form.formState.errors.isInStoplist.message}
+              </p>
+            )}
           </div>
         </div>
         <Separator />

@@ -13,7 +13,7 @@ export interface IWorkshift {
   id: string;
   status: WorkshiftStatus;
   restaurantId: string;
-  restaurant: Pick<IRestaurant, "id" | "name">;
+  restaurant: Pick<IRestaurant, "id" | "name" | "currency">;
   openedByWorkerId: string | null;
   openedByWorker: TWorkshiftWorker | null;
   closedByWorkerId: string | null;

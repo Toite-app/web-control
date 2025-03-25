@@ -53,6 +53,8 @@ const WorkerDialog: FC<WorkerDialogProps> = (props) => {
     },
   });
 
+  const role = form.watch("role");
+
   const onSubmit = async (values: FormValues) => {
     const data: ICreateWorker = {
       ...values,
@@ -169,6 +171,10 @@ const WorkerDialog: FC<WorkerDialogProps> = (props) => {
               name: "restaurants",
               label: "fields.restaurants",
               required: false,
+              hidden:
+                role === "SYSTEM_ADMIN" ||
+                role === "CHIEF_ADMIN" ||
+                role === "OWNER",
               data: {
                 type: "multiple-select",
                 placeholder: "Workers.dialog.form.restaurants-placeholder",

@@ -3,6 +3,11 @@
     "title": "Вход",
     "description": "Вход в систему"
   },
+  "currency": {
+    "RUB": "Рубль",
+    "EUR": "Евро",
+    "USD": "Доллар"
+  },
   "Workers": {
     "page": {
       "description": "Управляйте данными о сотрудниках в системе",
@@ -97,7 +102,8 @@
         "latitude-placeholder": "Введите широту",
         "longitude-placeholder": "Введите долготу",
         "owner-placeholder": "Выберите владельца",
-        "timezone-placeholder": "Выберите часовой пояс"
+        "timezone-placeholder": "Выберите часовой пояс",
+        "currency-placeholder": "Выберите валюту"
       }
     },
     "tabs": {
@@ -466,6 +472,7 @@
     "submit": "Войти",
     "owner": "Владелец",
     "menu": "Меню",
+    "currency": "Валюта",
     "createdAt": "Дата создания",
     "updatedAt": "Дата обновления",
     "onlineAt": "Статус",
@@ -861,6 +868,24 @@
       "delete-success": "Категория удалена",
       "delete-success-description": "Категория успешно удалена"
     }
+  },
+  "workshift-payments": {
+    "income-and-cashless": {
+      "title": "Доходы и безналичные"
+    },
+    "expenses": {
+      "title": "Расходы"
+    },
+    "create-new-payment": "Создать платеж",
+    "payment-amount": "Сумма",
+    "payment-amount-placeholder": "Введите сумму",
+    "payment-category": "Назначение",
+    "payment-category-placeholder": "Выберите назначение",
+    "comment": "Комментарий",
+    "comment-placeholder": "Опционально",
+    "other-options": "Другие опции",
+    "create-success": "Платеж создан",
+    "create-success-description": "Платеж успешно создан"
   },
   "common": {
     "delete": "Удалить",

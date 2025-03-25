@@ -71,6 +71,7 @@ const RestaurantDialog: FC<RestaurantDialogProps> = (props) => {
       timezone: restaurant?.timezone ?? "",
       latitude: restaurant?.latitude ?? 0,
       longitude: restaurant?.longitude ?? 0,
+      currency: restaurant?.currency,
       isEnabled: restaurant?.isEnabled ?? true,
       isClosedForever: restaurant?.isClosedForever ?? false,
       ownerId: canAssignOwner ? restaurant?.ownerId ?? null : null,
@@ -115,6 +116,7 @@ const RestaurantDialog: FC<RestaurantDialogProps> = (props) => {
         latitude: restaurant?.latitude ?? 0,
         longitude: restaurant?.longitude ?? 0,
         timezone: restaurant?.timezone ?? "",
+        currency: restaurant?.currency,
         isEnabled: restaurant?.isEnabled ?? true,
         isClosedForever: restaurant?.isClosedForever ?? false,
         ownerId: canAssignOwner ? restaurant?.ownerId ?? null : null,
@@ -168,6 +170,21 @@ const RestaurantDialog: FC<RestaurantDialogProps> = (props) => {
               data: {
                 type: "address-suggestion",
                 placeholder: "Restaurants.dialog.form.address-placeholder",
+              },
+            },
+            {
+              name: "currency",
+              label: "fields.currency",
+              required: true,
+              disabled: isEdit,
+              data: {
+                type: "select",
+                placeholder: "Restaurants.dialog.form.currency-placeholder",
+                options: ["EUR", "USD", "RUB"].map((currency) => ({
+                  label: `currency.${currency}`,
+                  value: currency,
+                  intl: true,
+                })),
               },
             },
             {

@@ -1,11 +1,12 @@
 import { buildApiHook } from "@/api/builder/hook";
 import { ApiCacheTag } from "@/api/types";
+import { WorkshiftPaymentCategoryType } from "@/types/restaurant.types";
 import { IWorkshiftPayment } from "@/types/workshift-payment.types";
 
 export const useGetWorkshiftPayments = buildApiHook<
   { workshiftId: string },
   IWorkshiftPayment[],
-  unknown,
+  { types?: `${WorkshiftPaymentCategoryType}`[] },
   unknown
 >({
   url: "/workshifts/{workshiftId}/payments",

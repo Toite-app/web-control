@@ -4,6 +4,7 @@ import { useGetWorkshift } from "@/api/fetch/workshifts/useGetWorkshift";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import WorkshiftNavigation from "@/features/workshift/navigation";
+import WorkshiftPayments from "@/features/workshift/payments";
 import useDialogsStore, { DialogType } from "@/store/dialogs-store";
 import format from "@/utils/date-fns";
 import { XCircleIcon } from "lucide-react";
@@ -25,6 +26,8 @@ export default function WorkshiftPageContent(props: Props) {
       workshiftId,
     },
   });
+
+  const restaurantId = workshift.data?.restaurantId;
 
   return (
     <>
@@ -85,6 +88,18 @@ export default function WorkshiftPageContent(props: Props) {
           </div>
         </header>
         <WorkshiftNavigation workshiftId={workshiftId} />
+        <div className="flex flex-row gap-4">
+          <WorkshiftPayments
+            workshiftId={workshiftId}
+            restaurantId={restaurantId}
+            type="INCOME_AND_CASHLESS"
+          />
+          <WorkshiftPayments
+            workshiftId={workshiftId}
+            restaurantId={restaurantId}
+            type="EXPENSES"
+          />
+        </div>
       </div>
     </>
   );

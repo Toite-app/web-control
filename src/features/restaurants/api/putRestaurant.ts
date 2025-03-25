@@ -13,6 +13,7 @@ export type IPutRestaurant = Partial<
     | "isEnabled"
     | "isClosedForever"
     | "ownerId"
+    | "currency"
   >
 >;
 
@@ -23,6 +24,6 @@ export const putRestaurantMutation = buildApiMutation<
   IPutRestaurant
 >({
   url: "/restaurants/{id}",
-  method: "PUT",
+  method: "PATCH",
   tags: [ApiCacheTag.RESTAURANTS],
 });

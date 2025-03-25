@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { _buildUrl } from "./_url";
+import qs from "qs";
 
 export type PDefault = Record<string, string | number> | unknown;
 export type DDefault = Record<string, unknown> | any | unknown;
@@ -52,5 +53,7 @@ export const _requestEndpoint = async <
     },
     url,
     params,
+    paramsSerializer: (params) =>
+      qs.stringify(params, { arrayFormat: "comma" }),
   });
 };

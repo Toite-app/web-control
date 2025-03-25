@@ -17,5 +17,5 @@ export const createWorkerMutation = buildApiMutation<
 >({
   url: "/workers",
   method: "POST",
-  tags: [ApiCacheTag.WORKERS],
+  tags: [ApiCacheTag.WORKERS, ApiCacheTag.RESTAURANTS],
 });

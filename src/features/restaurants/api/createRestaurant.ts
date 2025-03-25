@@ -10,6 +10,7 @@ export type ICreateRestaurant = Pick<
   | "latitude"
   | "longitude"
   | "timezone"
+  | "currency"
   | "isEnabled"
   | "isClosedForever"
   | "ownerId"

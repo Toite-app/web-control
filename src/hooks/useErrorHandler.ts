@@ -21,16 +21,22 @@ export type ApiError = {
 export type ErrorHandlerOptions = {
   error: unknown;
   form?: FormInstance<any>;
+  handleFieldsAsRootErrors?: string[];
 };
 
 export const useErrorHandler = () => {
   const { toast } = useToast();
 
   const handleValidationErrors = useCallback(
-    (error: ApiError, form: FormInstance<any>) => {
+    (
+      error: ApiError,
+      form: FormInstance<any>,
+      handleFieldsAsRootErrors?: string[]
+    ) => {
       if (!error.validationErrors) return;
 
       const unhandledErrors: string[] = [];
+      const handleAsRootNamesSet = new Set(handleFieldsAsRootErrors);
 
       error.validationErrors.forEach((validationError) => {
         const fieldName = validationError.property;
@@ -38,10 +44,18 @@ export const useErrorHandler = () => {
 
         // Check if form has field with this name
         if (form.getFieldState(fieldName)) {
-          form.setError(fieldName, {
-            type: "server",
-            message: errorMessages?.[0] ?? error.message,
-          });
+          if (handleAsRootNamesSet.has(fieldName)) {
+            form.setError(fieldName, {
+              type: "server",
+              message: "",
+            });
+            unhandledErrors.push(...errorMessages);
+          } else {
+            form.setError(fieldName, {
+              type: "server",
+              message: errorMessages?.[0] ?? error.message,
+            });
+          }
         } else {
           // Collect errors for fields that don't exist in the form
           unhandledErrors.push(...errorMessages);
@@ -61,7 +75,7 @@ export const useErrorHandler = () => {
 
   const handleError = useCallback(
     (options: ErrorHandlerOptions) => {
-      const { error, form } = options;
+      const { error, form, handleFieldsAsRootErrors } = options;
 
       if (isAxiosError(error) && error.response?.data) {
         const apiError = error.response.data as ApiError;
@@ -73,7 +87,7 @@ export const useErrorHandler = () => {
           apiError.validationErrors &&
           apiError.validationErrors.length > 0
         ) {
-          handleValidationErrors(apiError, form);
+          handleValidationErrors(apiError, form, handleFieldsAsRootErrors);
         } else if (form) {
           form.setError("root", {
             type: "server",

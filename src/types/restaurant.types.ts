@@ -1,4 +1,4 @@
-import { DayOfWeek } from "@/types/general.types";
+import { DayOfWeek, ICurrency } from "@/types/general.types";
 
 export interface IRestaurant {
   id: string;
@@ -9,6 +9,7 @@ export interface IRestaurant {
   longitude: number;
   timezone: string;
   isEnabled: boolean;
+  currency: ICurrency;
   isClosedForever: boolean;
   ownerId: string | null;
   createdAt: string;

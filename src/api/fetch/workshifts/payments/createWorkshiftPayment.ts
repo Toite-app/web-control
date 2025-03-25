@@ -1,11 +1,9 @@
 import { buildApiMutation } from "@/api/builder/mutation";
 import { ApiCacheTag } from "@/api/types";
-import { ICurrency } from "@/types/general.types";
 
 export type ICreateWorkshiftPayment = {
   categoryId: string;
   amount: string;
-  currency: ICurrency;
   note: string | null;
 };
 
