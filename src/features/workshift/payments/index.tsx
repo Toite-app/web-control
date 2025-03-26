@@ -1,18 +1,12 @@
 "use client";
 import { useGetWorkshiftPayments } from "@/api/fetch/workshifts/payments/useGetWorkshiftPayments";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import CreateWorkshiftPayment from "@/features/workshift/payments/components/CreatePayment";
 import PaymentListItem from "@/features/workshift/payments/components/PaymentListItem";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
+import { BanknoteIcon } from "lucide-react";
 
 export type WorkshiftPaymentsProps = {
   className?: string;
@@ -58,9 +52,22 @@ export default function WorkshiftPayments(props: WorkshiftPaymentsProps) {
           type={type}
         />
         <div className="flex flex-col gap-2">
-          {payments.data?.map((payment, index) => (
-            <PaymentListItem key={payment.id} payment={payment} index={index} />
-          ))}
+          {payments.data?.length ? (
+            payments.data.map((payment, index) => (
+              <PaymentListItem
+                key={payment.id}
+                payment={payment}
+                index={index}
+              />
+            ))
+          ) : (
+            <div className="flex flex-col items-center justify-center gap-2 py-8 text-muted-foreground">
+              <BanknoteIcon className="h-12 w-12" />
+              <p className="text-lg font-medium">
+                {t("workshift-payments.no-payments")}
+              </p>
+            </div>
+          )}
         </div>
       </CardContent>
     </Card>

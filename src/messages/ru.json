@@ -894,7 +894,9 @@
       "success": "Платеж удален",
       "success-description": "Платеж успешно удален",
       "cancel": "Отмена"
-    }
+    },
+    "no-payments": "Нет платежей",
+    "no-payments-description": "В данной смене пока нет платежей"
   },
   "common": {
     "delete": "Удалить",
