@@ -23,7 +23,7 @@ import { buildFiltersParam } from "@/lib/filters";
 import { IDishCategory } from "@/types/dish-category.types";
 import { AlertCircle, Search, PlusIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import OrderDishCard from "./components/DishCard";
 import { IOrder } from "@/types/order.types";
 import { cn } from "@/lib/utils";
@@ -39,6 +39,11 @@ type Props = {
 export default function AddOrderDishesCard(props: Props) {
   const { order } = props;
   const t = useTranslations();
+
+  const accordionSetted = useRef(false);
+  const [accordionValue, setAccordionValue] = useState<string | undefined>(
+    undefined
+  );
   const [selectedCategory, setSelectedCategory] = useState<string>("none");
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -87,9 +92,24 @@ export default function AddOrderDishesCard(props: Props) {
 
   const isRestaurantAssigned = order?.restaurantId != null;
 
+  useEffect(() => {
+    if (!order || accordionSetted.current) return;
+
+    if (order.status === "pending") {
+      setAccordionValue("dishes");
+    }
+
+    accordionSetted.current = true;
+  }, [order]);
+
   return (
     <Card className="flex w-full flex-col gap-2 p-4 py-0">
-      <Accordion type="single" collapsible defaultValue="dishes">
+      <Accordion
+        type="single"
+        collapsible
+        value={accordionValue}
+        onValueChange={setAccordionValue}
+      >
         <AccordionItem className="border-b-0" value="dishes">
           <AccordionTrigger className="border-b-0">
             <div className="flex flex-row items-center gap-2">
