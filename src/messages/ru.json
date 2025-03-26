@@ -885,7 +885,16 @@
     "comment-placeholder": "Опционально",
     "other-options": "Другие опции",
     "create-success": "Платеж создан",
-    "create-success-description": "Платеж успешно создан"
+    "create-success-description": "Платеж успешно создан",
+    "delete-payment": "Удалить платеж",
+    "remove-dialog": {
+      "title": "Удаление платежа",
+      "description": "Вы уверены, что хотите удалить платеж на сумму {amount} {currency} ({categoryName})?",
+      "submit": "Удалить",
+      "success": "Платеж удален",
+      "success-description": "Платеж успешно удален",
+      "cancel": "Отмена"
+    }
   },
   "common": {
     "delete": "Удалить",

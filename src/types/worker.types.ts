@@ -18,7 +18,7 @@ export interface IWorker {
     restaurantId: string;
     restaurantName: string;
   }[];
-  role: WorkerRole;
+  role: `${WorkerRole}`;
   isBlocked: boolean;
   hiredAt: string | null;
   firedAt: string | null;

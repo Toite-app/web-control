@@ -108,7 +108,7 @@ export default function CreateWorkshiftPayment(props: Props) {
         <div className="relative flex flex-row items-center gap-2">
           <Input
             type="number"
-            step={currency === "RUB" ? 1 : 0.1}
+            step={0.01}
             placeholder={t("workshift-payments.payment-amount-placeholder")}
             {...register("amount")}
             className="[appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"

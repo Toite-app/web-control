@@ -82,6 +82,10 @@ const dialogComponents = {
       import("@/features/restaurant/workshift-payment-category-dialog/Delete"),
     { ssr: false }
   ),
+  [DialogType.WorkshiftPaymentRemove]: dynamic(
+    () => import("@/features/workshift/payment-remove-dialog/index"),
+    { ssr: false }
+  ),
 };
 
 const DialogsPortal = () => {

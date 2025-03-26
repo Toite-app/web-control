@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import CreateWorkshiftPayment from "@/features/workshift/payments/components/CreatePayment";
+import PaymentListItem from "@/features/workshift/payments/components/PaymentListItem";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 
@@ -56,6 +57,11 @@ export default function WorkshiftPayments(props: WorkshiftPaymentsProps) {
           restaurantId={restaurantId}
           type={type}
         />
+        <div className="flex flex-col gap-2">
+          {payments.data?.map((payment, index) => (
+            <PaymentListItem key={payment.id} payment={payment} index={index} />
+          ))}
+        </div>
       </CardContent>
     </Card>
   );

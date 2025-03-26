@@ -17,6 +17,7 @@ import { OrderDishReturnmentDialogProps } from "@/features/order-dishes/order-di
 import { CloseWorkshiftDialogProps } from "@/features/workshifts/close-workshift-dialog";
 import { WorkshiftPaymentCategoryDialogProps } from "@/features/restaurant/workshift-payment-category-dialog";
 import { DeleteWorkshiftPaymentCategoryDialogProps } from "@/features/restaurant/workshift-payment-category-dialog/Delete";
+import { IWorkshiftPayment } from "@/types/workshift-payment.types";
 
 export enum DialogType {
   Restaurant = "restaurant",
@@ -38,6 +39,7 @@ export enum DialogType {
   CloseWorkshift = "closeWorkshift",
   WorkshiftPaymentCategory = "workshiftPaymentCategory",
   deleteWorkshiftPaymentCategory = "deleteWorkshiftPaymentCategory",
+  WorkshiftPaymentRemove = "workshiftPaymentRemove",
 }
 
 // Define data types for each dialog that needs data
@@ -61,6 +63,10 @@ export type DialogData = {
   [DialogType.CloseWorkshift]?: CloseWorkshiftDialogProps["data"];
   [DialogType.WorkshiftPaymentCategory]?: WorkshiftPaymentCategoryDialogProps["data"];
   [DialogType.deleteWorkshiftPaymentCategory]?: DeleteWorkshiftPaymentCategoryDialogProps["data"];
+  [DialogType.WorkshiftPaymentRemove]?: {
+    workshiftId: string;
+    payment: IWorkshiftPayment;
+  };
 };
 
 interface DialogsStore {
