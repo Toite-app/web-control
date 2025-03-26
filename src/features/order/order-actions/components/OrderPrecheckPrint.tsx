@@ -6,6 +6,7 @@ import TOITE_CONFIG from "@config";
 import { QRCodeCanvas } from "qrcode.react";
 import { useLocale, useTranslations } from "next-intl";
 import { forwardRef, useEffect, useMemo } from "react";
+import formatPrice from "@/utils/format-price";
 
 type Props = {
   precheck: IOrderPrecheck;
@@ -110,20 +111,18 @@ const OrderPrecheckPrint = forwardRef<HTMLDivElement, Props>(
               <p className="flex w-full min-w-[175px] max-w-[175px] text-2xl font-semibold">
                 {name}
               </p>
-              <p className="flex w-full max-w-[100px] text-2xl">
+              <p className="flex w-full text-2xl">
                 {t("precheck.quantity", { quantity })}
               </p>
-              <p className="flex flex-row items-end">
-                <p className="text-2xl">
-                  {(Number(finalPrice) * quantity).toFixed(2)}
-                  <span>
-                    <CurrencyIcon
-                      className="ml-1 inline-block h-5 w-5"
-                      currency={precheck.currency}
-                    />
-                  </span>
-                </p>
-              </p>
+              <div className="flex flex-row items-center whitespace-nowrap">
+                <span className="text-2xl">
+                  {formatPrice(Number(finalPrice) * quantity)}
+                </span>
+                <CurrencyIcon
+                  className="ml-1 inline-flex h-5 w-5"
+                  currency={precheck.currency}
+                />
+              </div>
             </div>
           ))}
           <Separator />
@@ -132,7 +131,7 @@ const OrderPrecheckPrint = forwardRef<HTMLDivElement, Props>(
               <p className="text-2xl">
                 {t("precheck.summary")}:{"  "}
                 <span className="font-bold">
-                  {prices.finalPrice.toFixed(2)}
+                  {formatPrice(prices.finalPrice)}
                 </span>
               </p>
               <CurrencyIcon
@@ -147,7 +146,7 @@ const OrderPrecheckPrint = forwardRef<HTMLDivElement, Props>(
                   <span>{`${discountPercent.toFixed(0)}%`}</span>
                 </p>
                 <div className="flex flex-row items-center text-xl">
-                  {`(-${prices.discountAmount.toFixed(2)}`}
+                  {`(-${formatPrice(prices.discountAmount)}`}
                   <CurrencyIcon
                     className="inline-block h-5 w-5"
                     currency={precheck.currency}
@@ -163,7 +162,7 @@ const OrderPrecheckPrint = forwardRef<HTMLDivElement, Props>(
                   <span>{`${surchargePercent.toFixed(0)}%`}</span>
                 </p>
                 <div className="flex flex-row items-center text-xl">
-                  {`(+${prices.surchargeAmount.toFixed(2)}`}
+                  {`(+${formatPrice(prices.surchargeAmount)}`}
                   <CurrencyIcon
                     className="inline-block h-5 w-5"
                     currency={precheck.currency}
@@ -176,7 +175,7 @@ const OrderPrecheckPrint = forwardRef<HTMLDivElement, Props>(
               <p className="text-2xl">
                 {t("precheck.for-payment")}:{"  "}
                 <span className="font-bold">
-                  {prices.finalPrice.toFixed(2)}
+                  {formatPrice(prices.finalPrice)}
                 </span>
               </p>
               <CurrencyIcon

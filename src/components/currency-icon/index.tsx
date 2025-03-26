@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 
 type Props = {
   className?: string;
-  currency: `${ICurrency}`;
+  currency: `${ICurrency}` | string;
 };
 
 export default function CurrencyIcon({ currency, className }: Props) {

@@ -4,15 +4,7 @@ import { TableCell, TableRow } from "@/components/ui/table";
 import { IOrder, IOrderDish } from "@/types/order.types";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
-import {
-  RussianRubleIcon,
-  EuroIcon,
-  DollarSignIcon,
-  XIcon,
-  CheckIcon,
-  Settings2Icon,
-  Undo2Icon,
-} from "lucide-react";
+import { XIcon, CheckIcon, Settings2Icon, Undo2Icon } from "lucide-react";
 import OrderDishQuantityInput from "./QuantityInput";
 import {
   Tooltip,
@@ -26,6 +18,8 @@ import { useErrorHandler } from "@/hooks/useErrorHandler";
 import { forceReadyOrderDishMutation } from "@/api/fetch/orders/dishes/forceReady";
 import { useToast } from "@/hooks/use-toast";
 import useDialogsStore, { DialogType } from "@/store/dialogs-store";
+import CurrencyIcon from "@/components/currency-icon";
+import formatPrice from "@/utils/format-price";
 
 type Props = {
   orderDish: IOrderDish;
@@ -135,10 +129,11 @@ export default function AddedOrderDishRow({ orderDish, order }: Props) {
       </TableCell>
       <TableCell>
         <div className="flex flex-row items-center gap-1">
-          {Number(orderDish.finalPrice) * orderDish.quantity}
-          {currency === "RUB" && <RussianRubleIcon className="h-4 w-4" />}
-          {currency === "EUR" && <EuroIcon className="h-4 w-4" />}
-          {currency === "USD" && <DollarSignIcon className="h-4 w-4" />}
+          {formatPrice(Number(orderDish.finalPrice) * orderDish.quantity, {
+            groupNumbers: true,
+            alwaysShowDecimals: true,
+          })}
+          <CurrencyIcon className="h-4 w-4" currency={currency} />
         </div>
       </TableCell>
       <TableCell>

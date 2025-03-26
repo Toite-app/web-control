@@ -1,10 +1,8 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { DollarSignIcon, TrashIcon } from "lucide-react";
+import { TrashIcon } from "lucide-react";
 import { IWorkshiftPayment } from "@/types/workshift-payment.types";
-import { EuroIcon } from "lucide-react";
-import { RussianRubleIcon } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import format from "@/utils/date-fns";
 import { Separator } from "@/components/ui/separator";
@@ -17,6 +15,8 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import useDialogsStore, { DialogType } from "@/store/dialogs-store";
+import CurrencyIcon from "@/components/currency-icon";
+import formatPrice from "@/utils/format-price";
 
 type Props = {
   payment: IWorkshiftPayment;
@@ -77,16 +77,10 @@ export default function PaymentListItem(props: Props) {
           )}
         >
           <p className="break-all">
-            {amount}
+            {formatPrice(amount, { groupNumbers: true })}
 
             <span className="inline-flex">
-              {currency === "RUB" && (
-                <RussianRubleIcon className={cn(iconClassName)} />
-              )}
-              {currency === "EUR" && <EuroIcon className={cn(iconClassName)} />}
-              {currency === "USD" && (
-                <DollarSignIcon className={cn(iconClassName)} />
-              )}
+              <CurrencyIcon className={iconClassName} currency={currency} />
             </span>
           </p>
         </div>

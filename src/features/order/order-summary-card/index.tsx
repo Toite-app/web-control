@@ -6,9 +6,11 @@ import { IOrder } from "@/types/order.types";
 import { DeviceMobile } from "@phosphor-icons/react/dist/ssr/DeviceMobile";
 import { Desktop } from "@phosphor-icons/react/dist/ssr/Desktop";
 import { useTranslations } from "next-intl";
-import { RussianRubleIcon, EuroIcon, DollarSignIcon } from "lucide-react";
+
 import { OrderUtils } from "@/utils/order";
 import { cn } from "@/lib/utils";
+import formatPrice from "@/utils/format-price";
+import CurrencyIcon from "@/components/currency-icon";
 type Props = {
   order?: IOrder | null;
 };
@@ -26,16 +28,13 @@ const PriceElement = ({
 }) => {
   return (
     <div className={cn("flex flex-row items-center gap-1", className)}>
-      <p>{value}</p>
-      {currency === "RUB" && (
-        <RussianRubleIcon className={cn("h-4 w-4", iconClassName)} />
-      )}
-      {currency === "EUR" && (
-        <EuroIcon className={cn("h-4 w-4", iconClassName)} />
-      )}
-      {currency === "USD" && (
-        <DollarSignIcon className={cn("h-4 w-4", iconClassName)} />
-      )}
+      <p>
+        {formatPrice(value, { alwaysShowDecimals: true, groupNumbers: true })}
+      </p>
+      <CurrencyIcon
+        className={cn("h-4 w-4", iconClassName)}
+        currency={currency}
+      />
     </div>
   );
 };
