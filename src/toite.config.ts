@@ -13,7 +13,9 @@ export type TailwindColorSet = Record<TailwindColorRange, string>;
 
 export type ToiteConfig = {
   appName: string;
+  appDomain: string;
   logo: {
+    app: string;
     svg: string;
   };
   theme: {
@@ -28,7 +30,9 @@ export type ToiteConfig = {
 
 export const TOITE_CONFIG: ToiteConfig = {
   appName: "ToitFood",
+  appDomain: "toite.ee",
   logo: {
+    app: "/app/logo.png",
     svg: "/toite.svg",
   },
   theme: {

@@ -902,5 +902,32 @@
   "common": {
     "delete": "Удалить",
     "cancel": "Отмена"
+  },
+  "precheck": {
+    "order-number": "Заказ №{orderNumber}",
+    "order-type": {
+      "delivery": "Доставка",
+      "takeaway": "С собой",
+      "hall": "Зал",
+      "banquet": "Банкет"
+    },
+    "worker-role": {
+      "SYSTEM_ADMIN": "Сис. админ",
+      "CHIEF_ADMIN": "Глав. админ",
+      "ADMIN": "Админ",
+      "OWNER": "Владелец",
+      "KITCHENER": "Повар",
+      "WAITER": "Официант",
+      "CASHIER": "Кассир",
+      "DISPATCHER": "Диспетчер",
+      "COURIER": "Курьер"
+    },
+    "printed-by": "Оф. {workerName} ({workerRole})",
+    "quantity": "{quantity}шт.",
+    "surcharge": "Наценка",
+    "discount": "Скидка",
+    "summary": "Итого",
+    "for-payment": "К оплате",
+    "outro": "Спасибо, ждем Вас снова!"
   }
 }

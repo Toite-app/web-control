@@ -65,7 +65,7 @@ export default function PaymentListItem(props: Props) {
       <div
         className={cn(
           "flex flex-row items-center gap-2",
-          (isRemoved || removedAt) && "bg-red-200"
+          (isRemoved || removedAt) && "bg-red-200 dark:bg-red-950"
         )}
       >
         <div
