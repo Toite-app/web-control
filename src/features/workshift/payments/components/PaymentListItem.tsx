@@ -35,6 +35,7 @@ export default function PaymentListItem(props: Props) {
     note,
     worker,
     removedAt,
+    removedByWorker,
     isRemoved,
     createdAt,
   } = payment;
@@ -61,7 +62,12 @@ export default function PaymentListItem(props: Props) {
   return (
     <>
       {index !== undefined && <Separator />}
-      <div className="flex flex-row items-center gap-2">
+      <div
+        className={cn(
+          "flex flex-row items-center gap-2",
+          (isRemoved || removedAt) && "bg-red-200"
+        )}
+      >
         <div
           className={cn(
             "flex min-w-20 max-w-20 flex-row items-center text-lg font-bold",
@@ -95,6 +101,14 @@ export default function PaymentListItem(props: Props) {
           <p className="text-sm uppercase tracking-wide text-stone-500">{`${
             worker.name
           }, ${format(new Date(createdAt), "dd.MM.yyyy HH:mm", locale)}`}</p>
+          {removedAt && removedByWorker && (
+            <p className="text-sm font-bold uppercase tracking-wide text-red-500">
+              {t("removed-at", {
+                date: format(new Date(removedAt), "dd.MM.yyyy HH:mm", locale),
+                worker: removedByWorker.name,
+              })}
+            </p>
+          )}
         </div>
         <div className="flex flex-row items-center gap-2">
           {canRemove && (

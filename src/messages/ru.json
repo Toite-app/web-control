@@ -895,6 +895,7 @@
       "success-description": "Платеж успешно удален",
       "cancel": "Отмена"
     },
+    "removed-at": "Удалено {date} {worker}",
     "no-payments": "Нет платежей",
     "no-payments-description": "В данной смене пока нет платежей"
   },
