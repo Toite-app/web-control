@@ -11,23 +11,28 @@ type Props = {
 export default function OrderSocket({ orderId }: Props) {
   useSubscription(
     {
-      type: "ORDER",
+      id: "",
+      type: "ORDERS_UPDATE",
       data: {
-        orderId,
+        orderIds: [orderId],
       },
     },
     (data) => {
       if (data.type !== "ORDER") return;
 
-      mutate((key) => {
-        if (typeof key !== "object" || !Array.isArray(key)) return false;
+      mutate(
+        (key) => {
+          if (typeof key !== "object" || !Array.isArray(key)) return false;
 
-        const keys = key as string[];
+          const keys = key as string[];
 
-        console.log(keys);
-
-        return keys.includes(`${ApiCacheTag.ORDERS}:${data.order.id}`);
-      }, data.order);
+          return keys.includes(`${ApiCacheTag.ORDERS}:${data.orderId}`);
+        },
+        undefined,
+        {
+          revalidate: true,
+        }
+      );
     }
   );
 

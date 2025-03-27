@@ -10,7 +10,7 @@ import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 export default function useSubscription(
-  subscription: Omit<ClientSubscription, "id">,
+  subscription: ClientSubscription,
   onUpdate?: (data: SocketEventData) => void
 ) {
   const socket = useSocketStore((state) => state.socket);
@@ -22,10 +22,10 @@ export default function useSubscription(
     const id = uuidv4();
 
     socket.emit(GatewayIncomingMessage.SUBSCRIPTION, {
-      id,
       ...subscription,
+      id,
       action: "subscribe",
-    } satisfies IncomingSubscription);
+    } as IncomingSubscription);
 
     const listener = (data: SocketEventData) => {
       if (id !== data.id) return;
@@ -43,10 +43,10 @@ export default function useSubscription(
       }
 
       socket.emit(GatewayIncomingMessage.SUBSCRIPTION, {
-        id,
         ...subscription,
+        id,
         action: "unsubscribe",
-      } satisfies IncomingSubscription);
+      } as IncomingSubscription);
     };
   }, [socket, status, subscription, onUpdate]);
 }
