@@ -392,7 +392,8 @@
       "create-success-description": "Заказ успешно создан",
       "payment-method": "Способ оплаты",
       "payment-method-placeholder": "Выберите способ оплаты",
-      "no-payment-methods-warning": "В данном ресторане нет доступных способов оплаты. Обратитесь к администратору"
+      "no-payment-methods-warning": "В данном ресторане нет доступных способов оплаты. Обратитесь к администратору",
+      "history": "История изменений"
     },
     "types": {
       "delivery": "Доставка",
@@ -929,5 +930,12 @@
     "summary": "Итого",
     "for-payment": "К оплате",
     "outro": "Спасибо, ждем Вас снова!"
+  },
+  "order-history": {
+    "type": {
+      "precheck": "Распечатан пречек"
+    },
+    "system": "Система",
+    "see-precheck": "Посмотреть пречек"
   }
 }

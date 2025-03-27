@@ -23,6 +23,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import OrderHistory from "@/features/order/order-history";
 
 type Props = {
   orderId: string;
@@ -123,6 +124,13 @@ export default function OrderPageContent({ orderId }: Props) {
               <h2 className="text-xl font-semibold">{t("Order.actions")}</h2>
               <OrderActions order={data} />
             </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
+            <h2 className="text-3xl font-semibold">
+              {t("Orders.form.history")}
+            </h2>
+            <OrderHistory orderId={orderId} />
           </div>
 
           <div className="flex flex-col gap-3">
