@@ -15,5 +15,6 @@ export const sendToKitchenMutation = buildApiMutation<
     ApiCacheTag.DISPATCHER_DELAYED_ORDERS,
     ApiCacheTag.ORDERS,
     ApiCacheTag.ORDER_AVAILABLE_ACTIONS,
+    ApiCacheTag.ORDER_HISTORY,
   ],
 });

@@ -22,6 +22,7 @@ export enum ApiCacheTag {
   DISCOUNTS = "DISCOUNTS",
   WORKSHIFTS = "WORKSHIFTS",
   WORKSHIFT_PAYMENTS = "WORKSHIFT_PAYMENTS",
+  ORDER_HISTORY = "ORDER_HISTORY",
 }
 
 export type PaginationMeta = {

@@ -26,3 +26,16 @@ export interface IOrderPrecheck {
   worker: Pick<IWorker, "name" | "role">;
   order: Pick<IOrder, "number">;
 }
+
+export enum OrderHistoryType {
+  PRECHECK = "precheck",
+}
+
+export interface IOrderHistory {
+  id: string;
+  workerId: string | null;
+  worker: Pick<IWorker, "id" | "name" | "role"> | null;
+  type: `${OrderHistoryType}`;
+  createdAt: string;
+  precheck: IOrderPrecheck | null;
+}
