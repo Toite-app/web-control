@@ -15,8 +15,7 @@ import { useGetDispatcherDelayedOrders } from "@/api/fetch/dispatcher/useGetDisp
 import { Link } from "@/navigation";
 import { useGetDispatcherOrders } from "@/api/fetch/dispatcher/useGetDispatcherOrders";
 import { Input } from "@/components/ui/input";
-import { useMemo, useState } from "react";
-import { DispatcherSpecificOrdersSocket } from "@/app/[locale]/(authed)/orders/dispatcher/socket";
+import { useState } from "react";
 
 export default function OrdersPageContent() {
   const t = useTranslations();
@@ -53,29 +52,8 @@ export default function OrdersPageContent() {
     },
   });
 
-  const orderIds = useMemo(() => {
-    const orderIdsSet = new Set<string>();
-
-    if (orders.data?.data) {
-      orders.data.data.forEach((order) => orderIdsSet.add(order.id));
-    }
-
-    if (attentionOrders.data?.data) {
-      attentionOrders.data.data.forEach((order) => orderIdsSet.add(order.id));
-    }
-
-    if (delayedOrders.data?.data) {
-      delayedOrders.data.data.forEach((order) => orderIdsSet.add(order.id));
-    }
-
-    return Array.from(orderIdsSet);
-  }, [orders, attentionOrders, delayedOrders]);
-
   return (
     <>
-      {orderIds && orderIds.length > 0 && (
-        <DispatcherSpecificOrdersSocket orderIds={orderIds} />
-      )}
       <div className="flex w-full flex-col gap-2 p-4">
         <div className="flex flex-row items-center justify-between gap-4">
           <Tabs value={type} onValueChange={setType}>

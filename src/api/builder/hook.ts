@@ -91,7 +91,7 @@ export const buildApiHook = <
         return result?.data as R;
       },
       {
-        revalidateOnFocus: false,
+        revalidateOnFocus: true,
         revalidateIfStale: false,
         ..._b_config,
         ...swrConfig,
