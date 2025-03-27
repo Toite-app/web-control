@@ -4,6 +4,7 @@ import TOITE_CONFIG from "@config";
 
 import { getTranslations } from "next-intl/server";
 import Content from "./content";
+import KitchenOrdersSocket from "./socket";
 
 export const generateMetadata = async (props: IntlPageParams) => {
   const {
@@ -21,7 +22,12 @@ export const generateMetadata = async (props: IntlPageParams) => {
 };
 
 const KitchenOrdersPage = () => {
-  return <Content />;
+  return (
+    <>
+      <Content />
+      <KitchenOrdersSocket />
+    </>
+  );
 };
 
 export default KitchenOrdersPage;

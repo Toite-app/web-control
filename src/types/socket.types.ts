@@ -64,9 +64,14 @@ export type SocketOrderUpdateEvent = {
   orderId: string;
 };
 
-export type SocketEventData = SocketOrderUpdateEvent;
+export type SocketNewOrderEvent = {
+  id: string;
+  type: "NEW_ORDER";
+};
+
+export type SocketEventData = SocketOrderUpdateEvent | SocketNewOrderEvent;
 
 export interface SocketEvent {
   type: `${SocketEventType}`;
-  data: SocketEventData;
+  data: SocketEventData | SocketNewOrderEvent;
 }

@@ -4,6 +4,7 @@ import TOITE_CONFIG from "@config";
 
 import { getTranslations } from "next-intl/server";
 import Content from "./content";
+import DispatcherOrdersSocket from "@/app/[locale]/(authed)/orders/dispatcher/socket";
 
 export const generateMetadata = async (props: IntlPageParams) => {
   const {
@@ -21,7 +22,12 @@ export const generateMetadata = async (props: IntlPageParams) => {
 };
 
 const DispatcherOrdersPage = () => {
-  return <Content />;
+  return (
+    <>
+      <Content />;
+      <DispatcherOrdersSocket />
+    </>
+  );
 };
 
 export default DispatcherOrdersPage;

@@ -10,14 +10,14 @@ import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 export default function useSubscription(
-  subscription: ClientSubscription,
+  subscription?: ClientSubscription,
   onUpdate?: (data: SocketEventData) => void
 ) {
   const socket = useSocketStore((state) => state.socket);
   const status = useSocketStore((state) => state.status);
 
   useEffect(() => {
-    if (!socket || status !== "connected") return;
+    if (!socket || status !== "connected" || !subscription) return;
 
     const id = uuidv4();
 
