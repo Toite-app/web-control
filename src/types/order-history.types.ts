@@ -28,7 +28,10 @@ export interface IOrderPrecheck {
 }
 
 export enum OrderHistoryType {
+  CREATED = "created",
   PRECHECK = "precheck",
+  SENT_TO_KITCHEN = "sent_to_kitchen",
+  DISHES_READY = "dishes_ready",
 }
 
 export interface IOrderHistory {

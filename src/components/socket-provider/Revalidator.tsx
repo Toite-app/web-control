@@ -17,27 +17,40 @@ export default function SocketRevalidator() {
     if (!socket || status !== "connected") return;
 
     socket.on(
-      SocketEventType.REVALIDATE_ORDER,
+      SocketEventType.REVALIDATE_ORDER_PAGE,
       (event: SocketRevalidateOrderEvent) => {
+        const { orderId } = event;
+
         mutate(
-          (key) => {
-            if (typeof key !== "object" || !Array.isArray(key)) return false;
+          (keys) => {
+            if (typeof keys !== "object" || !Array.isArray(keys)) return false;
 
-            const keys = key as string[];
-
-            if (keys.includes(`${ApiCacheTag.ORDERS}:${event.orderId}`)) {
-              return true;
-            }
-
-            return false;
+            return keys.includes(`${ApiCacheTag.ORDERS}:${orderId}`);
           },
           undefined,
-          {
-            revalidate: true,
-          }
+          { revalidate: true }
         );
       }
     );
+
+    socket.on(SocketEventType.REVALIDATE_DISPATCHER_ORDERS_PAGE, () => {
+      mutate((keys) => {
+        if (typeof keys !== "object" || !Array.isArray(keys)) return false;
+
+        return (
+          keys.includes(`${ApiCacheTag.DISPATCHER_ORDERS}`) ||
+          keys.includes(`${ApiCacheTag.DISPATCHER_ATTENTION_ORDERS}`)
+        );
+      });
+    });
+
+    socket.on(SocketEventType.REVALIDATE_KITCHENER_ORDERS_PAGE, () => {
+      mutate((keys) => {
+        if (typeof keys !== "object" || !Array.isArray(keys)) return false;
+
+        return keys.includes(`${ApiCacheTag.KITCHENER_ORDERS}`);
+      });
+    });
   }, [socket, status]);
 
   return null;

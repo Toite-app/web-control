@@ -5,7 +5,11 @@ import KitchenerOrderCard from "@/features/order-card/kitchener";
 import Masonry from "react-masonry-css";
 
 export default function KitchenOrdersPageContent() {
-  const orders = useGetKitchenerOrders();
+  const orders = useGetKitchenerOrders({
+    config: {
+      keepPreviousData: true,
+    },
+  });
 
   const breakpointColumns = {
     default: 4,
