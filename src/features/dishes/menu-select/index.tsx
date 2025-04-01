@@ -15,10 +15,11 @@ import { useEffect, useMemo, useState } from "react";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import useDialogsStore, { DialogType } from "@/store/dialogs-store";
+import { IDishesMenu } from "@/types/dishes-menu.types";
 
 type Props = {
   value?: string | null;
-  onChange: (value: string | null) => void;
+  onChange: (value: IDishesMenu | null) => void;
   autoselectAvailable?: boolean;
   excludedIds?: string[];
 };
@@ -63,13 +64,15 @@ export default function DishesMenuSelect({
     if (value) return;
     if (!autoselectAvailable || dishesMenus.length === 0) return;
 
-    onChange(dishesMenus[0].id);
+    onChange(dishesMenus[0]);
   }, [autoselectAvailable, dishesMenus, onChange, value]);
 
   return (
     <Select
       value={value || ""}
-      onValueChange={onChange}
+      onValueChange={(value) =>
+        onChange(dishesMenus.find((menu) => menu.id === value) || null)
+      }
       disabled={isLoading}
       open={open}
       onOpenChange={setOpen}

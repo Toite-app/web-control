@@ -3,10 +3,11 @@
 import { Button } from "@/components/ui/button";
 import { DiscountFormValues } from "@/features/discount/discount-form";
 import DishesMenuSelect from "@/features/dishes/menu-select";
+import { IDishesMenu } from "@/types/dishes-menu.types";
 import { PlusIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { Control, useFieldArray } from "react-hook-form";
+import { Control, useFieldArray, useWatch } from "react-hook-form";
 
 type Props = {
   control: Control<DiscountFormValues>;
@@ -17,37 +18,39 @@ export default function AppendMenuSelect(props: Props) {
 
   const t = useTranslations();
 
-  const [selectedMenuId, setSelectedMenuId] = useState<string | undefined>(
+  const [selectedMenu, setSelectedMenu] = useState<IDishesMenu | undefined>(
     undefined
   );
 
-  const { fields, append } = useFieldArray({
+  const fields = useWatch({ control, name: "menus" });
+  const { append } = useFieldArray({
     control,
     name: "menus",
   });
 
-  const excludedIds = fields.map((field) => field.menuId);
+  const excludedIds = (fields || []).map((field) => field.menu.id);
 
   return (
     <div className="flex flex-row items-center gap-4">
       <DishesMenuSelect
-        onChange={(menuId) => setSelectedMenuId(menuId || undefined)}
-        value={selectedMenuId}
+        onChange={(menu) => setSelectedMenu(menu || undefined)}
+        value={selectedMenu?.id}
         excludedIds={excludedIds}
       />
       <Button
         type="button"
         className="flex flex-row items-center gap-2"
-        disabled={!selectedMenuId}
+        disabled={!selectedMenu}
         onClick={() => {
-          if (!selectedMenuId) return;
+          if (!selectedMenu) return;
 
           append({
-            menuId: selectedMenuId,
-            selectedCategories: [],
+            menu: selectedMenu,
+            selectedCategoryIds: [],
+            selectedRestaurantIds: [],
           });
 
-          setSelectedMenuId(undefined);
+          setSelectedMenu(undefined);
         }}
       >
         <PlusIcon className="h-4 w-4" />

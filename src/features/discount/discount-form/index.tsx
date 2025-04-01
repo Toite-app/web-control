@@ -20,10 +20,17 @@ import OrderRequirementsSelect from "./components/OrderRequirementsSelect";
 import { Separator } from "@/components/ui/separator";
 import { DatePicker } from "@/components/ui/date-picker";
 import { Button } from "@/components/ui/button";
-import RestaurantSelect from "./components/RestaurantSelect";
 import { Card } from "@/components/ui/card";
 import { useEffect } from "react";
 import AppendMenuSelect from "@/features/discount/discount-form/components/AppendMenuSelect";
+import SelectedMenus from "@/features/discount/discount-form/components/SelectedMenus";
+import { IDishesMenu } from "@/types/dishes-menu.types";
+
+export interface DiscountFormMenu {
+  menu: IDishesMenu;
+  selectedRestaurantIds: string[];
+  selectedCategoryIds: string[];
+}
 
 export interface DiscountFormValues {
   name: string;
@@ -50,11 +57,7 @@ export interface DiscountFormValues {
   applyByPromocode: boolean;
   applyByDefault: boolean;
   promocode: string | null;
-  restaurantIds: string[];
-  menus: {
-    menuId: string;
-    selectedCategories: string[];
-  }[];
+  menus: DiscountFormMenu[];
 }
 
 interface DiscountFormProps {
@@ -89,7 +92,6 @@ export default function DiscountForm({
       startTime: null,
       endTime: null,
       promocode: null,
-      restaurantIds: [],
       ...initialValues,
     },
   });
@@ -113,11 +115,11 @@ export default function DiscountForm({
   }, [initialValues, form]);
 
   return (
-    <div className="grid grid-cols-[1fr_400px] gap-8">
+    <div className="flex max-w-screen-md flex-col gap-4">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleSubmit, handleError)}
-          className="space-y-8"
+          className="space-y-4"
         >
           <Card className="flex flex-col gap-4 p-4">
             <div className="flex flex-col gap-2">
@@ -131,6 +133,7 @@ export default function DiscountForm({
               </div>
               <Separator />
               <AppendMenuSelect control={form.control} />
+              <SelectedMenus control={form.control} />
             </div>
           </Card>
           <Card className="flex flex-col gap-4 p-4">
@@ -501,12 +504,6 @@ export default function DiscountForm({
           </Card>
         </form>
       </Form>
-
-      <div className="relative">
-        <Card className="sticky top-6">
-          <RestaurantSelect form={form} className="h-[600px]" />
-        </Card>
-      </div>
     </div>
   );
 }

@@ -78,7 +78,7 @@ export default function DishesPageContent() {
           <div className="flex max-h-[80vh] min-h-[80vh] w-full max-w-[300px] flex-col gap-2">
             <DishesMenuSelect
               value={menuId}
-              onChange={(value) => setMenuId(value)}
+              onChange={(value) => setMenuId(value?.id || null)}
               autoselectAvailable
             />
             <DishCategoriesList className="" menuId={menuId} />

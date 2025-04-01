@@ -752,7 +752,14 @@
       "restaurants-description": "Выберите рестораны, в которых будет действовать скидка",
       "menus-and-categories": "Меню и категории",
       "menus-and-categories-description": "Выберите меню и категории, к которым будет применяться скидка",
-      "append-menu": "Добавить меню"
+      "append-menu": "Добавить меню",
+      "categories": "Категории",
+      "remove-menu-tooltip": "Удалить меню",
+      "remove-menu-confirm-title": "Удалить меню?",
+      "remove-menu-confirm-description": "Вы уверены, что хотите удалить меню \"{menuName}\" из скидки? Выбранные рестораны и категории для этого меню также будут удалены.",
+      "remove-menu-confirm-button": "Удалить",
+      "no-restaurants": "В этом меню нет ресторанов",
+      "no-categories": "В этом меню нет категорий"
     },
     "card": {
       "expired": "Истек",
