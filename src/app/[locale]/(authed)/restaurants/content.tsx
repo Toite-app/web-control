@@ -10,6 +10,9 @@ import { useSorting } from "@/components/data-table/hooks/useSorting";
 import { usePagination } from "@/components/data-table/hooks/usePagination";
 import { useGetColumns } from "@/features/restaurants/components/data-table/hooks/useGetColumns";
 import useDialogsStore from "@/store/dialogs-store";
+import { Input } from "@/components/ui/input";
+import { useDebounce } from "@/components/ui/multiple-select";
+import { useState } from "react";
 
 export const RestaurantsPageContent = () => {
   const t = useTranslations();
@@ -24,6 +27,9 @@ export const RestaurantsPageContent = () => {
 
   const sorting = useSorting();
   const pagination = usePagination();
+  const [search, setSearch] = useState("");
+  const debouncedSearch = useDebounce(search, 500);
+
   const restaurants = useGetRestaurants({
     params: {
       page: pagination.state.pageIndex + 1,
@@ -34,6 +40,14 @@ export const RestaurantsPageContent = () => {
             sortOrder: sorting.sortOrder,
           }
         : {}),
+      ...(debouncedSearch.trim().length > 0
+        ? {
+            search: debouncedSearch.trim(),
+          }
+        : {}),
+    },
+    config: {
+      keepPreviousData: true,
     },
   });
 
@@ -53,11 +67,13 @@ export const RestaurantsPageContent = () => {
             </p>
           </div>
           <div className="flex flex-row items-center gap-4">
-            {/* <Input
-        className="w-64 "
-        placeholder={t("searchbar")}
-        type="search"
-      /> */}
+            <Input
+              className="w-64 "
+              placeholder={t("Restaurants.page.search-placeholder")}
+              type="search"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
             <Button
               className="flex flex-row items-center gap-2"
               variant="default"

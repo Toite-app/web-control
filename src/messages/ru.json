@@ -85,7 +85,8 @@
   "Restaurants": {
     "page": {
       "description": "Управляйте данными о ресторанах в системе",
-      "create": "Создать"
+      "create": "Создать",
+      "search-placeholder": "Поиск ресторанов..."
     },
     "dialog": {
       "create-title": "Создать ресторан",

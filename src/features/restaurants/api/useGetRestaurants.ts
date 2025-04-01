@@ -11,6 +11,7 @@ export type GetRestaurantsParams = PaginationParams &
   SortingParams & {
     menuId?: string;
     ownerId?: string;
+    search?: string;
   };
 
 export const useGetRestaurants = buildApiHook<
