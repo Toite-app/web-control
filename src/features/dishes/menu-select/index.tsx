@@ -1,3 +1,5 @@
+"use client";
+
 import { useGetDishesMenus } from "@/api/fetch/dishes-menus/useGetDishesMenus";
 import {
   Select,
@@ -9,7 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import useDialogsStore, { DialogType } from "@/store/dialogs-store";
@@ -18,31 +20,44 @@ type Props = {
   value?: string | null;
   onChange: (value: string | null) => void;
   autoselectAvailable?: boolean;
+  excludedIds?: string[];
 };
 
 export default function DishesMenuSelect({
   value,
   onChange,
   autoselectAvailable,
+  excludedIds,
 }: Props) {
   const [open, setOpen] = useState(false);
 
   const t = useTranslations();
   const toggleDialog = useDialogsStore((state) => state.toggle);
-  const { data: dishesMenus = [], isLoading } = useGetDishesMenus();
+
+  const { data: dishesMenus = [], isLoading } = useGetDishesMenus({
+    config: {
+      keepPreviousData: true,
+    },
+  });
 
   // Group menus by owner
-  const groupedMenus = dishesMenus.reduce(
-    (acc, menu) => {
-      const ownerName = menu.owner.name;
-      if (!acc[ownerName]) {
-        acc[ownerName] = [];
-      }
-      acc[ownerName].push(menu);
-      return acc;
-    },
-    {} as Record<string, typeof dishesMenus>
-  );
+  const groupedMenus = useMemo(() => {
+    return Object.entries(
+      dishesMenus.reduce(
+        (acc, menu) => {
+          if (excludedIds?.includes(menu.id)) return acc;
+
+          const ownerName = menu.owner.name;
+          if (!acc[ownerName]) {
+            acc[ownerName] = [];
+          }
+          acc[ownerName].push(menu);
+          return acc;
+        },
+        {} as Record<string, typeof dishesMenus>
+      )
+    ).filter(([, menus]) => menus.length > 0);
+  }, [dishesMenus, excludedIds]);
 
   useEffect(() => {
     if (value) return;
@@ -53,25 +68,21 @@ export default function DishesMenuSelect({
 
   return (
     <Select
-      value={value ?? undefined}
+      value={value || ""}
       onValueChange={onChange}
       disabled={isLoading}
       open={open}
       onOpenChange={setOpen}
     >
       <SelectTrigger className="w-full">
-        <SelectValue>
-          {value
-            ? groupedMenus[Object.keys(groupedMenus)[0]]?.find(
-                (m) => m.id === value
-              )?.name
-            : t("Dishes.selectMenu")}
-        </SelectValue>
+        <SelectValue placeholder={t("Dishes.selectMenu")} />
       </SelectTrigger>
       <SelectContent>
-        {Object.entries(groupedMenus).map(([ownerName, menus]) => (
+        {groupedMenus.map(([ownerName, menus]) => (
           <SelectGroup key={ownerName}>
-            <SelectLabel>{ownerName}</SelectLabel>
+            <SelectLabel>
+              <span>{ownerName}</span>
+            </SelectLabel>
             {menus.map((menu) => (
               <div
                 className="flex flex-row items-center gap-1 selection:bg-accent hover:bg-accent active:bg-accent"
@@ -82,24 +93,20 @@ export default function DishesMenuSelect({
                   key={menu.id}
                   value={menu.id}
                 >
-                  <div className="flex w-full items-center justify-between">
-                    <span>{menu.name}</span>
-                  </div>
+                  <span>{menu.name}</span>
+                  {/* <div className="flex w-full items-center justify-between">
+                  </div> */}
                 </SelectItem>
                 <div className="ml-auto flex items-center gap-1">
                   <button
                     type="button"
                     onClick={(e) => {
-                      console.log("Edit menu:", menu.id);
                       e.preventDefault();
                       e.stopPropagation();
+                      toggleDialog(DialogType.DishesMenu, true, {
+                        dishesMenu: menu,
+                      });
                       setOpen(false);
-
-                      setTimeout(() => {
-                        toggleDialog(DialogType.DishesMenu, true, {
-                          dishesMenu: menu,
-                        });
-                      }, 0);
                     }}
                     className="rounded-sm p-2 hover:bg-accent "
                   >
@@ -110,17 +117,15 @@ export default function DishesMenuSelect({
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
-                      setOpen(false);
-
-                      setTimeout(() => {
-                        toggleDialog(DialogType.DishesMenuDelete, true, {
-                          dishesMenu: menu,
-                        });
-                      }, 0);
 
                       if (value === menu.id) {
                         onChange(null);
                       }
+
+                      toggleDialog(DialogType.DishesMenuDelete, true, {
+                        dishesMenu: menu,
+                      });
+                      setOpen(false);
                     }}
                     className="rounded-sm p-2 hover:bg-accent"
                   >
@@ -136,11 +141,8 @@ export default function DishesMenuSelect({
           type="button"
           onClick={(e) => {
             e.preventDefault();
+            toggleDialog(DialogType.DishesMenu, true, {});
             setOpen(false);
-
-            setTimeout(() => {
-              toggleDialog(DialogType.DishesMenu, true, {});
-            }, 0);
           }}
           className="flex w-full items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none hover:bg-accent hover:text-accent-foreground"
         >

@@ -10,7 +10,9 @@ import { IDishCategory } from "@/types/dish-category.types";
 
 export type GetDishCategoriesParams = PaginationParams &
   SortingParams &
-  FilterParams;
+  FilterParams & {
+    menuId?: string;
+  };
 
 export const useGetDishCategories = buildApiHook<
   string,

@@ -44,6 +44,10 @@ export default function DiscountContent({
       restaurantIds: (discount.data?.restaurants ?? []).map((restaurant) =>
         String(restaurant.restaurantId)
       ),
+      applyStartAndEndTime:
+        discount.data?.startTime !== null && discount.data?.endTime !== null,
+      startTime: discount.data?.startTime ?? null,
+      endTime: discount.data?.endTime ?? null,
     } satisfies Partial<DiscountFormValues>;
   }, [discount.data]);
 
@@ -53,15 +57,23 @@ export default function DiscountContent({
       form: UseFormReturn<DiscountFormValues>
     ) => {
       try {
+        const {
+          applyStartAndEndTime,
+          startTime,
+          endTime,
+          promocode,
+          ...values
+        } = data;
+
         await updateDiscountMutation({
           urlValues: {
             discountId,
           },
           data: {
-            ...data,
-            startHour: null,
-            endHour: null,
-            promocode: data.promocode ?? null,
+            ...values,
+            startTime: applyStartAndEndTime ? startTime : null,
+            endTime: applyStartAndEndTime ? endTime : null,
+            promocode: promocode ?? null,
           },
         });
 

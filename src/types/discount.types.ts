@@ -19,8 +19,8 @@ export interface IDiscount {
   applyByPromocode: boolean;
   applyByDefault: boolean;
   isEnabled: boolean;
-  startHour: number | null;
-  endHour: number | null;
+  startTime: string | null;
+  endTime: string | null;
   activeFrom: Date;
   activeTo: Date;
   restaurants: IDiscountRestaurant[];

@@ -86,6 +86,7 @@ export default function DishesMenuDialog({
         },
       ]),
     },
+    config: { keepPreviousData: true },
     skip: !open && canAssignOwner,
   });
 
@@ -175,13 +176,13 @@ export default function DishesMenuDialog({
   };
 
   useEffect(() => {
-    if (open && dishesMenu) {
+    if (open) {
       form.reset({
-        name: dishesMenu.name,
-        restaurantIds: dishesMenu.restaurants.map(
+        name: dishesMenu?.name ?? "",
+        restaurantIds: (dishesMenu?.restaurants || []).map(
           (restaurant) => restaurant.id
         ),
-        ownerId: dishesMenu.ownerId ?? undefined,
+        ownerId: dishesMenu?.ownerId ?? undefined,
       });
     }
   }, [open, dishesMenu, form]);

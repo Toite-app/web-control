@@ -741,10 +741,18 @@
       "promocode": "Промокод",
       "promocode-placeholder": "Введите промокод",
       "promocode-description": "Промокод, по которому будет применяться скидка",
+      "applyStartAndEndTime": "Применять время действия",
+      "applyStartAndEndTime-description": "Установить время начала и окончания действия скидки",
+      "startTime": "Время начала",
+      "endTime": "Время окончания",
+      "time-format-description": "Введите время в формате ЧЧ:ММ",
       "submit": "Сохранить скидку",
       "restaurants": "Рестораны",
       "restaurants-search": "Поиск ресторанов...",
-      "restaurants-description": "Выберите рестораны, в которых будет действовать скидка"
+      "restaurants-description": "Выберите рестораны, в которых будет действовать скидка",
+      "menus-and-categories": "Меню и категории",
+      "menus-and-categories-description": "Выберите меню и категории, к которым будет применяться скидка",
+      "append-menu": "Добавить меню"
     },
     "card": {
       "expired": "Истек",

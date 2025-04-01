@@ -33,8 +33,8 @@ export default function DiscountsCreatePageContent() {
       const discount = await createDiscountMutation({
         data: {
           ...data,
-          startHour: null,
-          endHour: null,
+          startTime: data.applyStartAndEndTime ? data.startTime : null,
+          endTime: data.applyStartAndEndTime ? data.endTime : null,
           promocode: data.promocode ?? null,
         },
       });

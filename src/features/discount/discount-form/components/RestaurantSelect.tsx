@@ -9,6 +9,7 @@ import { UseFormReturn } from "react-hook-form";
 import { DiscountFormValues } from "..";
 import { cn } from "@/lib/utils";
 import { useGetRestaurants } from "@/features/restaurants/api/useGetRestaurants";
+import useDebouncedValue from "@/hooks/use-debounced-value";
 
 interface RestaurantSelectProps {
   className?: string;
@@ -21,9 +22,16 @@ export default function RestaurantSelect({
 }: RestaurantSelectProps) {
   const t = useTranslations();
   const [search, setSearch] = useState("");
+  const debouncedSearch = useDebouncedValue(search, 500);
 
   const restaurants = useGetRestaurants({
     params: {
+      ...(debouncedSearch.trim().length > 0
+        ? {
+            search: debouncedSearch.trim(),
+          }
+        : {}),
+      size: 100,
       // search,
       // isEnabled: true,
     },

@@ -14,6 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
+import { Checkbox } from "@/components/ui/checkbox";
 import DaysOfWeekSelect from "./components/DaysOfWeekSelect";
 import OrderRequirementsSelect from "./components/OrderRequirementsSelect";
 import { Separator } from "@/components/ui/separator";
@@ -22,6 +23,7 @@ import { Button } from "@/components/ui/button";
 import RestaurantSelect from "./components/RestaurantSelect";
 import { Card } from "@/components/ui/card";
 import { useEffect } from "react";
+import AppendMenuSelect from "@/features/discount/discount-form/components/AppendMenuSelect";
 
 export interface DiscountFormValues {
   name: string;
@@ -41,11 +43,18 @@ export interface DiscountFormValues {
   orderFroms: ("app" | "website" | "internal")[];
   activeFrom: Date;
   activeTo: Date;
+  applyStartAndEndTime: boolean;
+  startTime: string | null;
+  endTime: string | null;
   applyForFirstOrder: boolean;
   applyByPromocode: boolean;
   applyByDefault: boolean;
   promocode: string | null;
   restaurantIds: string[];
+  menus: {
+    menuId: string;
+    selectedCategories: string[];
+  }[];
 }
 
 interface DiscountFormProps {
@@ -76,6 +85,9 @@ export default function DiscountForm({
       applyForFirstOrder: false,
       applyByPromocode: false,
       applyByDefault: true,
+      applyStartAndEndTime: false,
+      startTime: null,
+      endTime: null,
       promocode: null,
       restaurantIds: [],
       ...initialValues,
@@ -102,12 +114,26 @@ export default function DiscountForm({
 
   return (
     <div className="grid grid-cols-[1fr_400px] gap-8">
-      <Card className="flex flex-col gap-4 p-4">
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(handleSubmit, handleError)}
-            className="space-y-8"
-          >
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(handleSubmit, handleError)}
+          className="space-y-8"
+        >
+          <Card className="flex flex-col gap-4 p-4">
+            <div className="flex flex-col gap-2">
+              <div className="flex flex-col">
+                <h2 className="text-xl font-bold">
+                  {t("Discounts.form.menus-and-categories")}
+                </h2>
+                <p className="text-sm text-stone-500">
+                  {t("Discounts.form.menus-and-categories-description")}
+                </p>
+              </div>
+              <Separator />
+              <AppendMenuSelect control={form.control} />
+            </div>
+          </Card>
+          <Card className="flex flex-col gap-4 p-4">
             <div className="space-y-4">
               <div className="flex flex-col gap-2">
                 <h2 className="text-xl font-bold">
@@ -265,6 +291,83 @@ export default function DiscountForm({
               </div>
 
               <DaysOfWeekSelect form={form} />
+
+              <FormField
+                control={form.control}
+                name="applyStartAndEndTime"
+                render={({ field }) => (
+                  <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value ?? false}
+                        onCheckedChange={(value) => {
+                          field.onChange(value);
+
+                          // TODO: Make this better (don't reset value each time)
+                          if (value) {
+                            form.setValue("startTime", "00:00");
+                            form.setValue("endTime", "23:59");
+                          }
+                        }}
+                      />
+                    </FormControl>
+                    <div className="space-y-1 leading-none">
+                      <FormLabel>
+                        {t("Discounts.form.applyStartAndEndTime")}
+                      </FormLabel>
+                      <FormDescription>
+                        {t("Discounts.form.applyStartAndEndTime-description")}
+                      </FormDescription>
+                    </div>
+                  </FormItem>
+                )}
+              />
+
+              {form.watch("applyStartAndEndTime") && (
+                <div className="flex flex-row items-center gap-4">
+                  <FormField
+                    control={form.control}
+                    name="startTime"
+                    render={({ field }) => (
+                      <FormItem className="flex-1">
+                        <FormLabel>{t("Discounts.form.startTime")}</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="time"
+                            {...field}
+                            value={field.value || "00:00"}
+                            error={!!form.formState.errors.startTime}
+                          />
+                        </FormControl>
+                        <FormMessage>
+                          {form.formState.errors.startTime?.message}
+                        </FormMessage>
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="endTime"
+                    render={({ field }) => (
+                      <FormItem className="flex-1">
+                        <FormLabel>{t("Discounts.form.endTime")}</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="time"
+                            {...field}
+                            value={field.value || "00:00"}
+                            error={!!form.formState.errors.endTime}
+                          />
+                        </FormControl>
+                        <FormMessage>
+                          {form.formState.errors.endTime?.message}
+                        </FormMessage>
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              )}
             </div>
 
             <div className="space-y-4">
@@ -395,9 +498,9 @@ export default function DiscountForm({
                 {t("Discounts.form.submit")}
               </Button>
             </div>
-          </form>
-        </Form>
-      </Card>
+          </Card>
+        </form>
+      </Form>
 
       <div className="relative">
         <Card className="sticky top-6">

@@ -12,7 +12,7 @@ import { useGetColumns } from "@/features/restaurants/components/data-table/hook
 import useDialogsStore from "@/store/dialogs-store";
 import { Input } from "@/components/ui/input";
 import { useDebounce } from "@/components/ui/multiple-select";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const RestaurantsPageContent = () => {
   const t = useTranslations();
@@ -27,6 +27,7 @@ export const RestaurantsPageContent = () => {
 
   const sorting = useSorting();
   const pagination = usePagination();
+  const searchPaginationReseted = useRef<string | null>(null);
   const [search, setSearch] = useState("");
   const debouncedSearch = useDebounce(search, 500);
 
@@ -50,6 +51,23 @@ export const RestaurantsPageContent = () => {
       keepPreviousData: true,
     },
   });
+
+  useEffect(() => {
+    const search = debouncedSearch.trim();
+
+    if (
+      search.length > 0 &&
+      pagination.state.pageIndex > 0 &&
+      searchPaginationReseted.current !== search
+    ) {
+      pagination.onChange({
+        pageIndex: 0,
+        pageSize: pagination.state.pageSize,
+      });
+
+      searchPaginationReseted.current = search;
+    }
+  }, [debouncedSearch, pagination]);
 
   return (
     <>
