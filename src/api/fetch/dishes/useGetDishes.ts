@@ -13,6 +13,7 @@ export type GetDishesParams = PaginationParams &
   FilterParams & {
     search?: string;
     menuId?: string;
+    categoryId?: string;
   };
 
 export const useGetDishes = buildApiHook<

@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-import { PencilIcon, PlusIcon } from "lucide-react";
+import { PencilIcon, PlusIcon, GripVertical } from "lucide-react";
 import { IDishCategory } from "@/types/dish-category.types";
 import useDialogsStore from "@/store/dialogs-store";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -31,9 +31,11 @@ import { buildFiltersParam } from "@/lib/filters";
 
 interface SortableItemProps {
   category: IDishCategory;
+  onClick: (category: IDishCategory) => void;
+  isSelected: boolean;
 }
 
-function SortableItem({ category }: SortableItemProps) {
+function SortableItem({ category, onClick, isSelected }: SortableItemProps) {
   const toggleDialog = useDialogsStore((state) => state.toggle);
 
   const {
@@ -55,11 +57,28 @@ function SortableItem({ category }: SortableItemProps) {
       ref={setNodeRef}
       style={style}
       className={cn(
-        "group flex w-full items-center justify-between gap-2 rounded-md pl-2 hover:bg-accent hover:text-accent-foreground",
-        isDragging && "opacity-50"
+        "group flex w-full items-center justify-between gap-2 rounded-md hover:bg-accent hover:text-accent-foreground",
+        isDragging && "opacity-50",
+        isSelected &&
+          "bg-primary fill-primary-foreground text-primary-foreground hover:bg-primary hover:text-primary-foreground"
       )}
     >
-      <div className="flex-1 py-2" {...attributes} {...listeners}>
+      <div
+        className="cursor-grab px-2 active:cursor-grabbing"
+        {...attributes}
+        {...listeners}
+      >
+        <GripVertical
+          className={cn(
+            "h-4 w-4 text-muted-foreground",
+            isSelected && "text-primary-foreground"
+          )}
+        />
+      </div>
+      <div
+        className="flex-1 cursor-pointer py-2"
+        onClick={() => onClick(category)}
+      >
         {category.name}
       </div>
       <div className="opacity-0 transition-opacity group-hover:opacity-100">
@@ -74,7 +93,7 @@ function SortableItem({ category }: SortableItemProps) {
           }
           className="mr-2"
         >
-          <PencilIcon className="h-4 w-4" />
+          <PencilIcon className="h-4 w-4 text-muted-foreground" />
         </Button>
       </div>
     </div>
@@ -84,10 +103,12 @@ function SortableItem({ category }: SortableItemProps) {
 type Props = {
   className?: string;
   menuId?: string | null;
+  selectedCategoryId?: string | null;
+  onSelect?: (category: IDishCategory) => void;
 };
 
 export default function DishCategoriesList(props: Props) {
-  const { className, menuId } = props;
+  const { className, menuId, selectedCategoryId, onSelect } = props;
   const t = useTranslations();
   const toggleDialog = useDialogsStore((state) => state.toggle);
 
@@ -187,7 +208,12 @@ export default function DishCategoriesList(props: Props) {
             >
               <div className="flex flex-col gap-1 py-1">
                 {data.data.map((category) => (
-                  <SortableItem key={category.id} category={category} />
+                  <SortableItem
+                    key={category.id}
+                    category={category}
+                    onClick={() => onSelect?.(category)}
+                    isSelected={selectedCategoryId === category.id}
+                  />
                 ))}
               </div>
             </SortableContext>

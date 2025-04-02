@@ -19,6 +19,9 @@ import { useState } from "react";
 export default function DishesPageContent() {
   const t = useTranslations();
   const [menuId, setMenuId] = useState<string | null>(null);
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(
+    null
+  );
   const [search, setSearch] = useQueryState(
     "search",
     parseAsString.withDefault("")
@@ -31,6 +34,7 @@ export default function DishesPageContent() {
       ...(debouncedSearch && debouncedSearch.length > 0
         ? { search: debouncedSearch }
         : {}),
+      ...(selectedCategoryId && { categoryId: selectedCategoryId }),
     },
     skip: !menuId,
   });
@@ -78,10 +82,26 @@ export default function DishesPageContent() {
           <div className="flex max-h-[80vh] min-h-[80vh] w-full max-w-[300px] flex-col gap-2">
             <DishesMenuSelect
               value={menuId}
-              onChange={(value) => setMenuId(value?.id || null)}
+              onChange={(value) => {
+                setSearch("");
+                setMenuId(value?.id || null);
+                setSelectedCategoryId(null);
+              }}
               autoselectAvailable
             />
-            <DishCategoriesList className="" menuId={menuId} />
+            <DishCategoriesList
+              className=""
+              menuId={menuId}
+              selectedCategoryId={selectedCategoryId}
+              onSelect={(category) => {
+                if (category.id !== selectedCategoryId) {
+                  setSelectedCategoryId(category.id);
+                  setSearch("");
+                } else {
+                  setSelectedCategoryId(null);
+                }
+              }}
+            />
           </div>
           <ScrollArea className="max-h-[80vh] min-h-[80vh] flex-1 rounded-md">
             {dishes.data?.data.length === 0 ? (
