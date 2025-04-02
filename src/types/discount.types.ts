@@ -1,9 +1,17 @@
+import { IDishesMenu } from "@/types/dishes-menu.types";
 import { DayOfWeek } from "@/types/general.types";
 import { OrderFrom, OrderType } from "@/types/order.types";
 
 export interface IDiscountRestaurant {
   restaurantId: string;
   restaurantName: string;
+}
+
+export interface IDiscountConnection {
+  dishesMenuId: string;
+  dishesMenu: IDishesMenu;
+  restaurantIds: string[];
+  dishCategoryIds: string[];
 }
 
 export interface IDiscount {
@@ -24,6 +32,7 @@ export interface IDiscount {
   activeFrom: Date;
   activeTo: Date;
   restaurants: IDiscountRestaurant[];
+  connections?: IDiscountConnection[];
   createdAt: Date;
   updatedAt: Date;
 }

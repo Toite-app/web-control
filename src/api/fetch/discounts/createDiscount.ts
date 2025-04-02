@@ -6,7 +6,11 @@ export type ICreateDiscount = Omit<
   IDiscount,
   "id" | "createdAt" | "updatedAt" | "restaurants"
 > & {
-  restaurantIds: string[];
+  menus: {
+    dishesMenuId: string;
+    restaurantIds: string[];
+    categoryIds: string[];
+  }[];
 };
 
 export const createDiscountMutation = buildApiMutation<

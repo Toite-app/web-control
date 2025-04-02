@@ -33,6 +33,11 @@ export default function DiscountsCreatePageContent() {
       const discount = await createDiscountMutation({
         data: {
           ...data,
+          menus: data.menus.map((menu) => ({
+            dishesMenuId: menu.menu.id,
+            restaurantIds: menu.selectedRestaurantIds,
+            categoryIds: menu.selectedCategoryIds,
+          })),
           startTime: data.applyStartAndEndTime ? data.startTime : null,
           endTime: data.applyStartAndEndTime ? data.endTime : null,
           promocode: data.promocode ?? null,

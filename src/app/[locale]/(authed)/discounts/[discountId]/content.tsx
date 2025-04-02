@@ -41,9 +41,12 @@ export default function DiscountContent({
   const initialValues = useMemo(() => {
     return {
       ...discount.data,
-      restaurantIds: (discount.data?.restaurants ?? []).map((restaurant) =>
-        String(restaurant.restaurantId)
-      ),
+      menus:
+        discount.data?.connections?.map((connection) => ({
+          menu: connection.dishesMenu,
+          selectedRestaurantIds: connection.restaurantIds,
+          selectedCategoryIds: connection.dishCategoryIds,
+        })) ?? [],
       applyStartAndEndTime:
         discount.data?.startTime !== null && discount.data?.endTime !== null,
       startTime: discount.data?.startTime ?? null,
@@ -62,6 +65,7 @@ export default function DiscountContent({
           startTime,
           endTime,
           promocode,
+          menus,
           ...values
         } = data;
 
@@ -71,6 +75,11 @@ export default function DiscountContent({
           },
           data: {
             ...values,
+            menus: menus.map((menu) => ({
+              dishesMenuId: menu.menu.id,
+              restaurantIds: menu.selectedRestaurantIds,
+              categoryIds: menu.selectedCategoryIds,
+            })),
             startTime: applyStartAndEndTime ? startTime : null,
             endTime: applyStartAndEndTime ? endTime : null,
             promocode: promocode ?? null,
