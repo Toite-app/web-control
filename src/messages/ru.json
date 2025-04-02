@@ -152,7 +152,8 @@
         "amountPerItem-placeholder": "Введите количество в одной порции",
         "weight-placeholder": "Введите вес",
         "printLabelEveryItem-placeholder": "Введите количество этикеток на порцию",
-        "menu-placeholder": "Выберите меню"
+        "menu-placeholder": "Выберите меню",
+        "categories-placeholder": "Выберите категории"
       }
     },
     "form": {
@@ -506,7 +507,8 @@
     "printLabelEveryItem": "Этикеток на порцию",
     "isPublishedInApp": "Опубликовано в приложении",
     "isPublishedAtSite": "Опубликовано на сайте",
-    "restaurants": "Рестораны"
+    "restaurants": "Рестораны",
+    "categories": "Категории"
   },
   "errors": {
     "unknown": "Неизвестная ошибка",

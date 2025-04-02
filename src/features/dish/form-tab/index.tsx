@@ -8,7 +8,7 @@ import { useErrorHandler } from "@/hooks/useErrorHandler";
 import { useForm } from "react-hook-form";
 import { ICreateDish, createDishMutation } from "@/api/fetch/dishes/createDish";
 import { putDishMutation } from "@/api/fetch/dishes/putDish";
-import DishForm from "../../dishes/form";
+import DishForm, { DishFormValues } from "../../dishes/form";
 
 export type DishFormTabProps = {
   data?: IDish | null;
@@ -22,7 +22,7 @@ const DishFormTab: FC<DishFormTabProps> = (props) => {
   const handleError = useErrorHandler();
   const { toast } = useToast();
 
-  const form = useForm<ICreateDish>({
+  const form = useForm<DishFormValues>({
     defaultValues: {
       name: dish?.name ?? "",
       note: dish?.note ?? "",
@@ -34,6 +34,12 @@ const DishFormTab: FC<DishFormTabProps> = (props) => {
       printLabelEveryItem: dish?.printLabelEveryItem ?? 1,
       isPublishedInApp: dish?.isPublishedInApp ?? false,
       isPublishedAtSite: dish?.isPublishedAtSite ?? false,
+      menuId: dish?.menuId ?? null,
+      categories: dish?.categories.map((category) => ({
+        label: category.name,
+        value: category.id,
+        intl: false,
+      })),
     },
   });
 
@@ -77,6 +83,11 @@ const DishFormTab: FC<DishFormTabProps> = (props) => {
       isPublishedInApp: dish?.isPublishedInApp ?? false,
       isPublishedAtSite: dish?.isPublishedAtSite ?? false,
       menuId: dish?.menuId ?? null,
+      categories: dish?.categories.map((category) => ({
+        label: category.name,
+        value: category.id,
+        intl: false,
+      })),
     });
   }, [dish, form]);
 

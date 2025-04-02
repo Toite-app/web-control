@@ -15,7 +15,9 @@ export type ICreateDish = Pick<
   | "printLabelEveryItem"
   | "isPublishedInApp"
   | "isPublishedAtSite"
->;
+> & {
+  categoryIds: string[];
+};
 
 export const createDishMutation = buildApiMutation<
   unknown,

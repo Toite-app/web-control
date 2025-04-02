@@ -16,7 +16,9 @@ export type IPutDish = Partial<
     | "isPublishedInApp"
     | "isPublishedAtSite"
   >
->;
+> & {
+  categoryIds: string[];
+};
 
 export const putDishMutation = buildApiMutation<
   { dishId: string },

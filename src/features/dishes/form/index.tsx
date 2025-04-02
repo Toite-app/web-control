@@ -3,15 +3,23 @@
 import { Form } from "@/components/form";
 import { ICreateDish } from "@/api/fetch/dishes/createDish";
 import { WeightMeasure } from "@/types/dish.types";
-import { UseFormReturn } from "react-hook-form";
+import { UseFormReturn, useWatch } from "react-hook-form";
 import { FC } from "react";
 import { useGetDishesMenus } from "@/api/fetch/dishes-menus/useGetDishesMenus";
+import { MultipleSelectOption } from "@/components/ui/multiple-select";
+import { useGetDishCategories } from "@/api/fetch/dish-categories/useGetDishCategories";
+import { buildFiltersParam } from "@/lib/filters";
 
 export type DishFormProps = {
   enableMenuSelect: boolean;
-  form: UseFormReturn<ICreateDish>;
+  form: UseFormReturn<DishFormValues>;
   onSubmit: (data: ICreateDish) => Promise<void>;
   submitText: string;
+};
+
+// Update the ICreateDish type to handle categories as MultipleSelectOption[]
+export type DishFormValues = Omit<ICreateDish, "categoryIds"> & {
+  categories: MultipleSelectOption[];
 };
 
 const DishForm: FC<DishFormProps> = (props) => {
@@ -19,8 +27,40 @@ const DishForm: FC<DishFormProps> = (props) => {
 
   const menus = useGetDishesMenus({});
 
+  const menuId = useWatch({
+    control: form.control,
+    name: "menuId",
+  });
+
+  const categories = useGetDishCategories({
+    params: {
+      filters: buildFiltersParam([
+        {
+          field: "menuId",
+          condition: "equals",
+          value: String(menuId),
+        },
+      ]),
+    },
+    config: {
+      keepPreviousData: true,
+    },
+    skip: !menuId,
+  });
+
+  const handleSubmit = async (values: DishFormValues) => {
+    const { categories, ...rest } = values;
+
+    const data: ICreateDish = {
+      ...rest,
+      categoryIds: categories.map((category) => category.value),
+    };
+
+    await onSubmit(data);
+  };
+
   return (
-    <Form<ICreateDish>
+    <Form<DishFormValues>
       form={form}
       intlFields
       fields={[
@@ -48,6 +88,20 @@ const DishForm: FC<DishFormProps> = (props) => {
             })),
           },
           disabled: !enableMenuSelect,
+        },
+        {
+          name: "categories",
+          label: "fields.categories",
+          required: true,
+          data: {
+            type: "multiple-select",
+            placeholder: "Dishes.dialog.form.categories-placeholder",
+            options: (categories.data?.data ?? []).map((category) => ({
+              label: category.name,
+              value: category.id,
+              intl: false,
+            })),
+          },
         },
         {
           name: "note",
@@ -134,7 +188,7 @@ const DishForm: FC<DishFormProps> = (props) => {
           },
         },
       ]}
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit}
       submitButton={{
         text: submitText,
       }}

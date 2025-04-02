@@ -25,6 +25,10 @@ export interface IDish {
   isPublishedInApp: boolean;
   isPublishedAtSite: boolean;
   images: IDishImage[];
+  categories: {
+    id: string;
+    name: string;
+  }[];
   createdAt: Date;
   updatedAt: Date;
 }
