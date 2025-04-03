@@ -23,9 +23,8 @@ export interface IDiscount {
   orderTypes: OrderType[];
   daysOfWeek: DayOfWeek[];
   promocode: string | null;
-  applyForFirstOrder: boolean;
-  applyByPromocode: boolean;
-  applyByDefault: boolean;
+  applyOnlyAtFirstOrder: boolean;
+  applyOnlyByPromocode: boolean;
   isEnabled: boolean;
   startTime: string | null;
   endTime: string | null;

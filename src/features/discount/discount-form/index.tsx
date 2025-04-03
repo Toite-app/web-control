@@ -53,9 +53,8 @@ export interface DiscountFormValues {
   applyStartAndEndTime: boolean;
   startTime: string | null;
   endTime: string | null;
-  applyForFirstOrder: boolean;
-  applyByPromocode: boolean;
-  applyByDefault: boolean;
+  applyOnlyAtFirstOrder: boolean;
+  applyOnlyByPromocode: boolean;
   promocode: string | null;
   menus: DiscountFormMenu[];
 }
@@ -85,9 +84,8 @@ export default function DiscountForm({
       orderFroms: [],
       activeFrom: new Date(),
       activeTo: new Date(),
-      applyForFirstOrder: false,
-      applyByPromocode: false,
-      applyByDefault: true,
+      applyOnlyAtFirstOrder: false,
+      applyOnlyByPromocode: false,
       applyStartAndEndTime: false,
       startTime: null,
       endTime: null,
@@ -104,7 +102,7 @@ export default function DiscountForm({
     await onSubmit(form.getValues(), form);
   };
 
-  const applyByPromocode = form.watch("applyByPromocode");
+  const applyOnlyByPromocode = form.watch("applyOnlyByPromocode");
 
   const rootError = form.formState.errors.root?.message;
 
@@ -394,7 +392,7 @@ export default function DiscountForm({
               <div className="space-y-4">
                 <FormField
                   control={form.control}
-                  name="applyForFirstOrder"
+                  name="applyOnlyAtFirstOrder"
                   render={({ field }) => (
                     <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
                       <div className="space-y-0.5">
@@ -417,7 +415,7 @@ export default function DiscountForm({
 
                 <FormField
                   control={form.control}
-                  name="applyByPromocode"
+                  name="applyOnlyByPromocode"
                   render={({ field }) => (
                     <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
                       <div className="space-y-0.5">
@@ -438,7 +436,7 @@ export default function DiscountForm({
                   )}
                 />
 
-                {applyByPromocode && (
+                {applyOnlyByPromocode && (
                   <FormField
                     control={form.control}
                     name="promocode"
@@ -465,29 +463,6 @@ export default function DiscountForm({
                     )}
                   />
                 )}
-
-                <FormField
-                  control={form.control}
-                  name="applyByDefault"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
-                      <div className="space-y-0.5">
-                        <FormLabel className="text-base">
-                          {t("Discounts.form.applyByDefault")}
-                        </FormLabel>
-                        <FormDescription>
-                          {t("Discounts.form.applyByDefault-description")}
-                        </FormDescription>
-                      </div>
-                      <FormControl>
-                        <Switch
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
               </div>
             </div>
 
