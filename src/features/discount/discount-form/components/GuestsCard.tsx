@@ -49,8 +49,6 @@ export default function DiscountGuestsCard() {
     return guests.filter((guest) => guest.phone.includes(phone));
   }, [guests, phone]);
 
-  console.log(phone);
-
   const handleAddGuest = async () => {
     if (existGuest) return;
 

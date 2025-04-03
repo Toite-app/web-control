@@ -7,6 +7,7 @@ import { QRCodeCanvas } from "qrcode.react";
 import { useLocale, useTranslations } from "next-intl";
 import { forwardRef, useEffect, useMemo } from "react";
 import formatPrice from "@/utils/format-price";
+import { cn } from "@/lib/utils";
 
 type Props = {
   precheck: IOrderPrecheck;
@@ -106,33 +107,54 @@ const OrderPrecheckPrint = forwardRef<HTMLDivElement, Props>(
         </div>
         <Separator />
         <div className="flex flex-col gap-3">
-          {precheck.positions.map(({ id, name, quantity, finalPrice }) => (
-            <div className="flex w-full flex-row items-center" key={id}>
-              <p className="flex w-full min-w-[175px] max-w-[175px] text-2xl font-semibold">
-                {name}
-              </p>
-              <p className="flex w-full text-2xl">
-                {t("precheck.quantity", { quantity })}
-              </p>
-              <div className="flex flex-row items-center whitespace-nowrap">
-                <span className="text-2xl">
-                  {formatPrice(Number(finalPrice) * quantity)}
-                </span>
-                <CurrencyIcon
-                  className="ml-1 inline-flex h-5 w-5"
-                  currency={precheck.currency}
-                />
+          {precheck.positions.map(
+            ({ id, name, quantity, price, finalPrice }) => (
+              <div className="flex w-full flex-row items-center" key={id}>
+                <p className="flex w-full min-w-[175px] max-w-[175px] text-2xl font-semibold">
+                  {name}
+                </p>
+                <p className="flex w-full text-2xl">
+                  {t("precheck.quantity", { quantity })}
+                </p>
+                <div className="flex flex-col items-end">
+                  <div className="flex flex-row items-center whitespace-nowrap">
+                    <span
+                      className={cn(
+                        "text-2xl",
+                        price !== finalPrice && "text-base line-through"
+                      )}
+                    >
+                      {formatPrice(Number(price) * quantity)}
+                    </span>
+                    <CurrencyIcon
+                      className={cn(
+                        "ml-1 inline-flex h-5 w-5",
+                        price !== finalPrice && "h-3 w-3"
+                      )}
+                      currency={precheck.currency}
+                    />
+                  </div>
+                  {price !== finalPrice && (
+                    <div className="flex flex-row items-center whitespace-nowrap">
+                      <span className={cn("text-2xl")}>
+                        {formatPrice(Number(finalPrice) * quantity)}
+                      </span>
+                      <CurrencyIcon
+                        className="ml-1 inline-flex h-5 w-5"
+                        currency={precheck.currency}
+                      />
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            )
+          )}
           <Separator />
           <div className="flex flex-col gap-2">
             <div className="flex flex-row items-center">
               <p className="text-2xl">
                 {t("precheck.summary")}:{"  "}
-                <span className="font-bold">
-                  {formatPrice(prices.finalPrice)}
-                </span>
+                <span className="font-bold">{formatPrice(prices.price)}</span>
               </p>
               <CurrencyIcon
                 className="inline-block h-6 w-6"
