@@ -128,12 +128,42 @@ export default function AddedOrderDishRow({ orderDish, order }: Props) {
         <OrderDishQuantityInput orderDish={orderDish} />
       </TableCell>
       <TableCell>
-        <div className="flex flex-row items-center gap-1">
-          {formatPrice(Number(orderDish.finalPrice) * orderDish.quantity, {
-            groupNumbers: true,
-            alwaysShowDecimals: true,
-          })}
-          <CurrencyIcon className="h-4 w-4" currency={currency} />
+        <div className="flex flex-col">
+          <div className="flex flex-row items-center gap-1">
+            <span
+              className={cn(
+                orderDish.price !== orderDish.finalPrice && "line-through"
+              )}
+            >
+              {formatPrice(Number(orderDish.price) * orderDish.quantity, {
+                groupNumbers: true,
+                alwaysShowDecimals: true,
+              })}
+            </span>
+            {orderDish.price === orderDish.finalPrice && (
+              <CurrencyIcon
+                className={cn(
+                  "h-4 w-4",
+                  orderDish.price !== orderDish.finalPrice && "h-3 w-3"
+                )}
+                currency={currency}
+              />
+            )}
+          </div>
+          {orderDish.price !== orderDish.finalPrice && (
+            <div className="flex flex-row items-center gap-1">
+              <span>
+                {formatPrice(
+                  Number(orderDish.finalPrice) * orderDish.quantity,
+                  {
+                    groupNumbers: true,
+                    alwaysShowDecimals: true,
+                  }
+                )}
+              </span>
+              <CurrencyIcon className={cn("h-4 w-4")} currency={currency} />
+            </div>
+          )}
         </div>
       </TableCell>
       <TableCell>

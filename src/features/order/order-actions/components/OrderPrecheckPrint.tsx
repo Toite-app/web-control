@@ -126,13 +126,12 @@ const OrderPrecheckPrint = forwardRef<HTMLDivElement, Props>(
                     >
                       {formatPrice(Number(price) * quantity)}
                     </span>
-                    <CurrencyIcon
-                      className={cn(
-                        "ml-1 inline-flex h-5 w-5",
-                        price !== finalPrice && "h-3 w-3"
-                      )}
-                      currency={precheck.currency}
-                    />
+                    {price === finalPrice && (
+                      <CurrencyIcon
+                        className={cn("ml-1 inline-flex h-5 w-5")}
+                        currency={precheck.currency}
+                      />
+                    )}
                   </div>
                   {price !== finalPrice && (
                     <div className="flex flex-row items-center whitespace-nowrap">
