@@ -43,6 +43,14 @@ export default function DiscountGuestsCard() {
     return guests.find((guest) => guest.phone === phone);
   }, [guests, phone]);
 
+  const tableGuests = useMemo(() => {
+    if (phone.length === 0) return guests;
+
+    return guests.filter((guest) => guest.phone.includes(phone));
+  }, [guests, phone]);
+
+  console.log(phone);
+
   const handleAddGuest = async () => {
     if (existGuest) return;
 
@@ -123,8 +131,8 @@ export default function DiscountGuestsCard() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {guests.length > 0 ? (
-                      guests.map((guest) => (
+                    {tableGuests.length > 0 ? (
+                      tableGuests.map((guest) => (
                         <TableRow key={guest.id}>
                           <TableCell className="font-medium">
                             {guest.name}
@@ -163,7 +171,9 @@ export default function DiscountGuestsCard() {
                           colSpan={3}
                           className="py-4 text-center text-muted-foreground"
                         >
-                          {t("table.no-rows")}
+                          {phone.length > 0
+                            ? t("Discounts.form.not-finded")
+                            : t("table.no-rows")}
                         </TableCell>
                       </TableRow>
                     )}
