@@ -1,6 +1,5 @@
 "use client";
 
-import { useGetDishCategories } from "@/api/fetch/dish-categories/useGetDishCategories";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -19,8 +18,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import useDebouncedValue from "@/hooks/use-debounced-value";
-import { buildFiltersParam } from "@/lib/filters";
-import { IDishCategory } from "@/types/dish-category.types";
 import { AlertCircle, Search, PlusIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -31,6 +28,7 @@ import {
   GetOrderMenuDishesParams,
   useGetOrderMenuDishes,
 } from "@/api/fetch/orders/menu/useGetOrderMenuDishes";
+import { useGetOrderMenuDishCategories } from "@/api/fetch/orders/menu/useGetOrderMenuDishCategories";
 
 type Props = {
   order?: IOrder | null;
@@ -44,31 +42,26 @@ export default function AddOrderDishesCard(props: Props) {
   const [accordionValue, setAccordionValue] = useState<string | undefined>(
     undefined
   );
-  const [selectedCategory, setSelectedCategory] = useState<string>("none");
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string>("none");
   const [searchQuery, setSearchQuery] = useState("");
 
   const debouncedSearchQuery = useDebouncedValue(searchQuery, 500);
 
-  const categories = useGetDishCategories({
-    params: {
-      filters: buildFiltersParam<IDishCategory>([
-        {
-          field: "showForWorkers",
-          condition: "equals",
-          value: "true",
-        },
-      ]),
+  const categories = useGetOrderMenuDishCategories({
+    urlValues: {
+      orderId: String(order?.id),
     },
+    skip: !order?.id,
   });
 
   const dishesParams = useMemo<GetOrderMenuDishesParams>(() => {
     return {
       ...(debouncedSearchQuery && { search: debouncedSearchQuery }),
-      ...(selectedCategory !== "none" && {
-        categoryId: selectedCategory,
+      ...(selectedCategoryId !== "none" && {
+        categoryId: selectedCategoryId,
       }),
     };
-  }, [debouncedSearchQuery, selectedCategory]);
+  }, [debouncedSearchQuery, selectedCategoryId]);
 
   const dishes = useGetOrderMenuDishes({
     params: dishesParams,
@@ -85,8 +78,8 @@ export default function AddOrderDishesCard(props: Props) {
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchQuery(value);
-    if (value && selectedCategory !== "none") {
-      setSelectedCategory("none");
+    if (value && selectedCategoryId !== "none") {
+      setSelectedCategoryId("none");
     }
   };
 
@@ -135,8 +128,8 @@ export default function AddOrderDishesCard(props: Props) {
 
               <div className="flex flex-col gap-2">
                 <Select
-                  value={selectedCategory}
-                  onValueChange={setSelectedCategory}
+                  value={selectedCategoryId}
+                  onValueChange={setSelectedCategoryId}
                   disabled={searchQuery.length > 0}
                 >
                   <SelectTrigger>
@@ -148,7 +141,7 @@ export default function AddOrderDishesCard(props: Props) {
                     <SelectItem value="none">
                       {t("Orders.add-dishes.none-category")}
                     </SelectItem>
-                    {(categories.data?.data ?? [])
+                    {(categories?.data ?? [])
                       .sort((a, b) => a.sortIndex - b.sortIndex)
                       .map((category) => (
                         <SelectItem key={category.id} value={category.id}>
