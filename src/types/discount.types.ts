@@ -14,6 +14,13 @@ export interface IDiscountConnection {
   dishCategoryIds: string[];
 }
 
+export interface IDiscountGuest {
+  id: string;
+  name: string;
+  phone: string;
+  createdAt: Date;
+}
+
 export interface IDiscount {
   id: string;
   name: string;
@@ -31,6 +38,7 @@ export interface IDiscount {
   activeFrom: Date;
   activeTo: Date;
   restaurants: IDiscountRestaurant[];
+  guests: IDiscountGuest[];
   connections?: IDiscountConnection[];
   createdAt: Date;
   updatedAt: Date;

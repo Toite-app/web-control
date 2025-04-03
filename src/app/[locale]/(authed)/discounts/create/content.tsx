@@ -33,6 +33,7 @@ export default function DiscountsCreatePageContent() {
       const discount = await createDiscountMutation({
         data: {
           ...data,
+          guestIds: data.guests.map((guest) => guest.id),
           menus: data.menus.map((menu) => ({
             dishesMenuId: menu.menu.id,
             restaurantIds: menu.selectedRestaurantIds,

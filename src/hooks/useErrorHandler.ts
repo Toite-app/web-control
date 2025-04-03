@@ -105,6 +105,18 @@ export const useErrorHandler = () => {
             type: "server",
             message: apiError.message,
           });
+        } else if (
+          apiError.validationErrors &&
+          apiError.validationErrors.length > 0
+        ) {
+          const messages = apiError.validationErrors
+            .map((error) => Object.values(error.constraints))
+            .join(". ");
+
+          toast({
+            variant: "destructive",
+            description: messages,
+          });
         } else {
           toast({
             variant: "destructive",

@@ -31,11 +31,19 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import DiscountGuestsCard from "@/features/discount/discount-form/components/GuestsCard";
 
 export interface DiscountFormMenu {
   menu: IDishesMenu;
   selectedRestaurantIds: string[];
   selectedCategoryIds: string[];
+}
+
+export interface DiscountFormGuest {
+  id: string;
+  name: string;
+  phone: string;
+  createdAt: Date;
 }
 
 export interface DiscountFormValues {
@@ -63,6 +71,7 @@ export interface DiscountFormValues {
   applyOnlyByPromocode: boolean;
   promocode: string | null;
   menus: DiscountFormMenu[];
+  guests: DiscountFormGuest[];
 }
 
 interface DiscountFormProps {
@@ -96,6 +105,8 @@ export default function DiscountForm({
       startTime: null,
       endTime: null,
       promocode: null,
+      guests: [],
+      menus: [],
       ...initialValues,
     },
   });
@@ -148,6 +159,7 @@ export default function DiscountForm({
               </AccordionItem>
             </Accordion>
           </Card>
+          <DiscountGuestsCard />
           <Card className="flex flex-col gap-4 p-4">
             <div className="space-y-4">
               <div className="flex flex-col gap-2">

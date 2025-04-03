@@ -51,6 +51,7 @@ export default function DiscountContent({
         discount.data?.startTime !== null && discount.data?.endTime !== null,
       startTime: discount.data?.startTime ?? null,
       endTime: discount.data?.endTime ?? null,
+      guests: discount.data?.guests ?? [],
     } satisfies Partial<DiscountFormValues>;
   }, [discount.data]);
 
@@ -66,6 +67,7 @@ export default function DiscountContent({
           endTime,
           promocode,
           menus,
+          guests,
           ...values
         } = data;
 
@@ -75,6 +77,7 @@ export default function DiscountContent({
           },
           data: {
             ...values,
+            guestIds: guests.map((guest) => guest.id),
             menus: menus.map((menu) => ({
               dishesMenuId: menu.menu.id,
               restaurantIds: menu.selectedRestaurantIds,

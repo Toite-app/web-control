@@ -11,6 +11,7 @@ export type ICreateDiscount = Omit<
     restaurantIds: string[];
     categoryIds: string[];
   }[];
+  guestIds: string[];
 };
 
 export const createDiscountMutation = buildApiMutation<
