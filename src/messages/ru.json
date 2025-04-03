@@ -362,6 +362,7 @@
   "Orders": {
     "create-order": "Создать заказ",
     "attention-required": "Требует внимания",
+    "no-restaurants-found": "Рестораны не найдены",
     "delayed-orders": "Отложенные заказы",
     "create-order-description": "Укажите основную информацию для создания нового заказа",
     "edit-order-description": "Теперь вы можете изменить содержание заказа",
