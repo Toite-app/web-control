@@ -25,6 +25,12 @@ import { useEffect } from "react";
 import AppendMenuSelect from "@/features/discount/discount-form/components/AppendMenuSelect";
 import SelectedMenus from "@/features/discount/discount-form/components/SelectedMenus";
 import { IDishesMenu } from "@/types/dishes-menu.types";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 export interface DiscountFormMenu {
   menu: IDishesMenu;
@@ -119,20 +125,28 @@ export default function DiscountForm({
           onSubmit={form.handleSubmit(handleSubmit, handleError)}
           className="space-y-4"
         >
-          <Card className="flex flex-col gap-4 p-4">
-            <div className="flex flex-col gap-2">
-              <div className="flex flex-col">
-                <h2 className="text-xl font-bold">
-                  {t("Discounts.form.menus-and-categories")}
-                </h2>
-                <p className="text-sm text-stone-500">
-                  {t("Discounts.form.menus-and-categories-description")}
-                </p>
-              </div>
-              <Separator />
-              <AppendMenuSelect control={form.control} />
-              <SelectedMenus control={form.control} />
-            </div>
+          <Card className="flex flex-col gap-4 p-4 py-0">
+            <Accordion type="single" collapsible defaultValue="menus">
+              <AccordionItem className="border-b-0" value="menus">
+                <AccordionTrigger className="border-b-0">
+                  <div className="flex flex-col items-start">
+                    <h2 className="text-xl font-bold">
+                      {t("Discounts.form.menus-and-categories")}
+                    </h2>
+                    <p className="text-sm text-stone-500">
+                      {t("Discounts.form.menus-and-categories-description")}
+                    </p>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="p-0">
+                  <div className="flex flex-col gap-4">
+                    <Separator />
+                    <AppendMenuSelect control={form.control} />
+                    <SelectedMenus control={form.control} />
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </Card>
           <Card className="flex flex-col gap-4 p-4">
             <div className="space-y-4">
