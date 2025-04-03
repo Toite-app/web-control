@@ -26,7 +26,13 @@ export default function RestaurantSelect({ form }: RestaurantSelectProps) {
   const t = useTranslations();
 
   const { data: restaurantsData, isLoading: isLoadingRestaurants } =
-    useGetRestaurants();
+    useGetRestaurants({
+      params: {
+        isEnabled: true,
+        isClosedForever: false,
+        size: 100,
+      },
+    });
 
   const restaurants = restaurantsData?.data ?? [];
 

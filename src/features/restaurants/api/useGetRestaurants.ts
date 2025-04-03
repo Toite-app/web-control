@@ -12,6 +12,8 @@ export type GetRestaurantsParams = PaginationParams &
     menuId?: string;
     ownerId?: string;
     search?: string;
+    isEnabled?: boolean;
+    isClosedForever?: boolean;
   };
 
 export const useGetRestaurants = buildApiHook<
