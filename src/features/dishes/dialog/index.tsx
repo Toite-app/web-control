@@ -15,7 +15,7 @@ import { useErrorHandler } from "@/hooks/useErrorHandler";
 import { useForm } from "react-hook-form";
 import { ICreateDish, createDishMutation } from "@/api/fetch/dishes/createDish";
 import { putDishMutation } from "@/api/fetch/dishes/putDish";
-import DishForm from "../form";
+import DishForm, { DishFormValues } from "../form";
 
 export type DishDialogProps = {
   data?: {
@@ -36,7 +36,7 @@ const DishDialog: FC<DishDialogProps> = (props) => {
   const handleError = useErrorHandler();
   const { toast } = useToast();
 
-  const form = useForm<ICreateDish>({
+  const form = useForm<DishFormValues>({
     defaultValues: {
       name: dish?.name ?? "",
       note: dish?.note ?? "",
@@ -49,6 +49,7 @@ const DishDialog: FC<DishDialogProps> = (props) => {
       isPublishedInApp: dish?.isPublishedInApp ?? false,
       isPublishedAtSite: dish?.isPublishedAtSite ?? false,
       menuId: menuId ?? null,
+      categories: [],
     },
   });
 
@@ -100,6 +101,10 @@ const DishDialog: FC<DishDialogProps> = (props) => {
         isPublishedInApp: dish?.isPublishedInApp ?? false,
         isPublishedAtSite: dish?.isPublishedAtSite ?? false,
         menuId: menuId ?? dish?.menuId ?? null,
+        categories: (dish?.categories ?? []).map((c) => ({
+          label: c.name,
+          value: c.id,
+        })),
       });
     }
   }, [open, dish, form, menuId]);
