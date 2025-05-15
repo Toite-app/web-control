@@ -38,6 +38,7 @@ COPY --from=deps /app/node_modules ./node_modules
 # Uncomment the following line in case you want to disable telemetry during the build.
 ENV NEXT_TELEMETRY_DISABLED 1
 ENV NEXT_PUBLIC_API_URL=http://localhost:6701
+ENV NEXT_PUBLIC_SOCKET_URL=/api
 
 # Copy the source code into the image
 COPY . .

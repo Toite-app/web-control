@@ -1,4 +1,4 @@
-import { Socket, io } from "socket.io-client";
+import { ManagerOptions, Socket, SocketOptions, io } from "socket.io-client";
 import { create } from "zustand";
 
 export interface SocketStore {
@@ -13,17 +13,19 @@ export const socketStore = create<SocketStore>((set, get) => ({
   connect: () => {
     if (get().socket) return;
 
-    const socket = io(
-      process.env.NEXT_PUBLIC_SOCKET_URL ?? "http://localhost:6701",
-      {
-        transports: ["websocket", "polling"],
-        autoConnect: true,
-        withCredentials: true,
-        reconnection: true,
-        reconnectionAttempts: Infinity,
-        reconnectionDelay: 1_000,
-      }
-    );
+    const opts: Partial<ManagerOptions & SocketOptions> = {
+      transports: ["websocket", "polling"],
+      autoConnect: true,
+      withCredentials: true,
+      reconnection: true,
+      reconnectionAttempts: Infinity,
+      reconnectionDelay: 1_000,
+    };
+
+    const socket =
+      process.env.NODE_ENV === "production"
+        ? io(opts)
+        : io("http://localhost:6701", opts);
 
     socket.on("connect", () => {
       set({
